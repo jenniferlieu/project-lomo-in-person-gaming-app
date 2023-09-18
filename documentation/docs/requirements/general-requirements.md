@@ -3,4 +3,4 @@ sidebar_position: 3
 ---
 
 # General Requirements
-Android, IOS, Web Browser
+Must work for Android, IOS, and Web Browsers
