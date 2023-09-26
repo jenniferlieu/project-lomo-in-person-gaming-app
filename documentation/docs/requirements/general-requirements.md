@@ -3,4 +3,9 @@ sidebar_position: 3
 ---
 
 # General Requirements
-Must work for Android, IOS, and Web Browsers
+- Background/understanding of web app development
+- React
+- API usage (Maps, Game List)
+- Laptop/Desktop Computers
+- Docker
+- Git and Github
