@@ -3,13 +3,13 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const MapContainer = () => {
   const mapStyles = {
-    height: '400px',
+    height: '100vh',
     width: '100%',
   };
 
   const defaultCenter = {
-    lat: 40.7128, // Your default latitude
-    lng: -74.0060, // Your default longitude
+    lat: 39.9812, // Your default latitude
+    lng: -75.1554, // Your default longitude
   };
 
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
