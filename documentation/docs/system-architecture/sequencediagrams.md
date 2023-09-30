@@ -13,8 +13,8 @@ title: Beacon Creation
 sequenceDiagram
    # initialize actors and participants
    actor user as User
-   participant homePage as Home Page
-   participant beaconCreationPage as Beacon Creation Page
+   participant homePage as HomePage
+   participant createBeaconPage as CreateBeaconPage
    participant apiMiddleware as API Middleware
    participant database as Database
    
@@ -24,17 +24,17 @@ sequenceDiagram
 
    # display to beacon creation page
    activate homePage
-   homePage->>beaconCreationPage: Switch display to "Create a beacon" page
+   homePage->>createBeaconPage: Switch display to "Create a beacon" page
    deactivate homePage
    
-   activate beaconCreationPage
-   beaconCreationPage-->>user: Display beacon creation form to the user
+   activate createBeaconPage
+   createBeaconPage-->>user: Display beacon creation form to the user
    
    # user fills out the form and submits it
-   user->>beaconCreationPage: User fills out the form and submits it
+   user->>createBeaconPage: User fills out the form and submits it
 
    # POST new beacon to middleware
-   beaconCreationPage->>apiMiddleware: POST ('api/beacon')
+   createBeaconPage->>apiMiddleware: POST ('api/beacon')
    activate apiMiddleware
    
    # insert new beacon into database
@@ -45,11 +45,11 @@ sequenceDiagram
    database-->>apiMiddleware: Return success
    deactivate database
 
-   apiMiddleware-->>beaconCreationPage: Return success
+   apiMiddleware-->>createBeaconPage: Return success
    deactivate apiMiddleware
 
-   beaconCreationPage-->>user: Display success
-   deactivate beaconCreationPage
+   createBeaconPage-->>user: Display success
+   deactivate createBeaconPage
 
    # end
    deactivate user

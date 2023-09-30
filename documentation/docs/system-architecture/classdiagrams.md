@@ -32,10 +32,10 @@ classDiagram
     App *-- HomePage
     App *-- BeaconPage
     App *-- CreateBeaconPage
-    App *-- UserProfilePage
     App *-- AccountPage
-    App *-- FriendsPage
     App *-- ReportPage
+    App *-- UserProfilePage
+    App *-- FriendsPage
 
     class SignupPage{
         + signup()
@@ -79,12 +79,16 @@ classDiagram
         + fetchData()
     }
 
-    class UserProfilePage{
+    class AccountPage{
+        + logout()
         + fetchData()
     }
 
-    class AccountPage{
-        + logout()
+    class ReportPage{
+        + fetchData()
+    } 
+
+    class UserProfilePage{
         + fetchData()
     }
 
@@ -92,10 +96,6 @@ classDiagram
     class FriendsPage{
         + fetchData()
     }
-
-    class ReportPage{
-        + fetchData()
-    } 
 ```
 #### Figure 1.1. React frontend class diagram
 
@@ -139,7 +139,7 @@ classDiagram
 ```
 #### Figure 1.2. Close up of the HomePage component and associates
 
-After the user logs in, the [App](#app) will automatically display the home page. It's the default page that the user will see. It is broken up into 3 components: [header](#), [main](#), [footer](#). 
+After the user logs in, the [App](#app) will automatically display the home page. It's the default page that the user will see. It is broken up into 3 components: [header](#header), [main](#main), [footer](#footer). 
 
 #### Header
 The header component contains the user icon and the friends icon. The user icon is fetched from the server. Both of the icons are clickable. The user icon navigates to the [UserProfilePage](#userprofilepage) and the friends icon navigates to the [FriendsPage](#friendspage).
@@ -148,6 +148,8 @@ The header component contains the user icon and the friends icon. The user icon 
 The main component displays an interactive map along with icon circles of beacons on the map. The map is created by the [MapContainer](#mapcontainer) component and the beacon circles are created by the [BeaconCircle](#beaconcircle) component.
 
 Each circle is clickable and will [popup of a beacon](#beaconpopup) will appear displaying important information such as the name of the beacon, the user hosting it, the date, time, and location, and a description. Beacon data is fetched from the server.
+
+It also has a "create beacon" button that will navigate the user to the [CreateBeaconPage](#createbeaconpage).
 
 #### Footer
 The footer component contains an option to view all of the beacons as a list. The list view can be pulled up or clicked on to slide up and is created by the [ListViewController](#listviewcontainer).
@@ -189,11 +191,14 @@ It displays all the comments about the beacon from users. It also has an input b
 ### CreateBeaconPage
 It displays a form for users to fill out to create a new beacon such as a title, description, data, time, location, number of players needed, game, beacon picture. Each field has hints for the user on how to fill out each field. If a beacon has been successfully submitted, then the user will see a success. Otherwise, they will see an error.
 
-### UserProfilePage
-Each user has a user profile. It displays information about the user that allows other users to get an idea of who they are and how many meetups have they attended or hosted. Users can edit their own profiles by clicking the user icon in the [HomePage](#2-homepage). It has also a button that navigates to the [AccountPage](#6-accountpage) and a "report user" button that navigates the user to the [ReportPage](#8-reportpage).
-
 ### AccountPage
 This page can be reached from the [UserProfilePage](#5-userprofilepage). It displays the user's account information such as their name, username, email, and password. It also has a button to report users. When the report button is clicked, it will take them to the [ReportPage](#7-reportpage).
+
+### ReportPage
+This page can be reached from a [user's profile page](#5-userprofilepage). It displays a form for the user to fill out and report other users for harrassment, inappropriate beacons, and unsafe beacons. The report will be sent to and stored by the database.
+
+### UserProfilePage
+Each user has a user profile. It displays information about the user that allows other users to get an idea of who they are and how many meetups have they attended or hosted. Users can edit their own profiles by clicking the user icon in the [HomePage](#2-homepage). It has also a button that navigates to the [AccountPage](#6-accountpage) and a "report user" button that navigates the user to the [ReportPage](#8-reportpage).
 
 ### FriendsPage
 ```mermaid
@@ -208,9 +213,6 @@ This page can display 2 different list of friends: a list of all friends, and a 
 
 #### FriendsList
 It displays a list of friends based on which filter is passed into the component.
-
-### ReportPage
-This page can be reached from a [user's profile page](#5-userprofilepage). It displays a form for the user to fill out and report other users for harrassment, inappropriate beacons, and unsafe beacons. The report will be sent to and stored by the database.
 
 ## Backend Class Diagram
 ```mermaid
