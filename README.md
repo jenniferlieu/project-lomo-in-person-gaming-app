@@ -12,6 +12,8 @@
 - [LOMO](#lomo)
   - [Contributing](#contributing)
     - [Setup instructions](#setup-instructions)
+    - [Stop running the app](#stop-running-the-app)
+    - [Getting started](#getting-started)
   - [Keywords](#keywords)
   - [Project Abstract](#project-abstract)
   - [High Level Requirement](#high-level-requirement)
@@ -113,13 +115,17 @@ Instructions on how to setup this project for development on your local machine.
       ```
     3. Go to http://localhost:3000 to view the frontend web app
 
-To stop running the app:
+### Stop running the app
 1. Stop docker
     ```bash
     sail down # using sail
     docker compose down # or using docker
     ```
 2. Stop the react server: enter `Ctrl+C` into the terminal running the react server.
+
+### Getting started
+
+Checkout this repo's Wiki tab on how to start working on the frontend and the backend.
 
 ## Keywords
 
