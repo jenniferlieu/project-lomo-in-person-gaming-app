@@ -34,7 +34,7 @@ sequenceDiagram
    user->>createBeaconPage: User fills out the form and submits it
 
    # POST new beacon to middleware
-   createBeaconPage->>apiMiddleware: POST ('api/beacon')
+   createBeaconPage->>apiMiddleware: POST beacon
    activate apiMiddleware
    
    # insert new beacon into database
