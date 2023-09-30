@@ -1,10 +1,15 @@
 ---
 sidebar_position: 1
+description: All app mockups from initial to current.
 ---
 
 # Design Mockups
 
 ![Image mockup of home page, friends page, alternate list view](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/assets/44854928/e04277b1-2799-41e4-b6f9-1bb9b4c9ee34)
+
+The app is a mobile-first app meaning, the app's user interface and user experience is designed from the ground up as a mobile app first and then eventually scaled up for larger screens with the mobile designs as the base.
+
+The mockups show the home page with the default map view, the list view, beacon popups, the friends list, and an alternate list view.
 
 The homepage can be divided into 3 sections: header, map, and footer.
 

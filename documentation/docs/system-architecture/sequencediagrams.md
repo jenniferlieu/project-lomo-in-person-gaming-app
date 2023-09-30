@@ -1,6 +1,9 @@
 ---
 sidebar_position: 3
+description: Sequence diagrams for all use cases.
 ---
+
+# Sequence Diagrams
 
 ## Use Case 3: User Creates a Beacon
 ```mermaid
