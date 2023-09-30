@@ -5,8 +5,6 @@ description: Frontend and backend
 
 # Class Diagrams
 
-## CHANGE CONFIG TITLE BEFORE COMITTING
-
 ## App Mockup
 ![Image of the initial mockup](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/assets/44854928/e04277b1-2799-41e4-b6f9-1bb9b4c9ee34)
 #### Figure 0. Images of initial app mockup
@@ -81,6 +79,7 @@ classDiagram
     }
 
     class UserProfilePage{
+        + editProfile()
         + fetch('api/user')
     }
 
@@ -197,6 +196,7 @@ It displays a form for users to fill out to create a new beacon such as a title,
 ```mermaid
 classDiagram
     class UserProfilePage{
+        + editProfile()
         + fetch('api/user')
     }
 ```
@@ -323,3 +323,49 @@ classDiagram
     }
 ```
 #### Figure 2. Laravel backend class diagram
+
+### api
+```mermaid
+classDiagram
+    class api {
+        - GET('api/user'): JSON
+        - POST('api/user')
+        - PUT('api/user')
+        - DELETE('api/user')
+        - GET('api/all_friends'): JSON
+        - GET('api/recent_friends'): JSON
+        - PUT('api/add_friend')
+        - PUT('api/remove_friend')
+
+        - GET('api/beacon'): JSON
+        - POST('api/beacon')
+        - PUT('api/beacon')
+        - DELETE('api/beacon')
+        - GET('api/all_beacons'): JSON
+        - GET('api/nearby_beacons'): JSON
+        - GET('api/recommended_beacons'): JSON
+
+        - GET('api/comment'): JSON
+        - POST('api/comment')
+        - PUT('api/comment')
+        - DELETE('api/comment')
+
+        - POST('api/report')
+    }
+```
+#### Figure 2.1. Close up of the api class
+This is the `backend/routes/api.php` file. It contains HTTP requests to handle all of the api requests made to and from the frontend. It also uses [DatabaseSeeder](#databaseseeder) to send and get data to and from the database.
+
+### DatabaseSeeder
+
+
+### database
+
+
+### UserFactory
+
+### BeaconFactory
+
+### CommentFactory
+
+### ReportFactory
