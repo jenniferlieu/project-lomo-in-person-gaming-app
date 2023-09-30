@@ -31,29 +31,95 @@ For tips on how to get started with either the frontend or the backend in the co
 
 ### Setup instructions
 
-1. **Install these onto your machine:**
-   - Docker Desktop
-   - npm
+Instructions on how to setup this project for development on your local machine.
+
+**For frontend development, make sure you're in the `frontend/` folder**.
+
+**For backend development, make sure you're in the `backend/` folder**.
+
+1. **Install** 
+   1. Docker Desktop 4+
+   2. npm 8+
+   3. git 2+
 2. **Git clone this repo**
-3. **Install frontend dependencies:**
-   1. `cd frontend`
-   2. `npm install`
+3. **Setup frontend**
+   1. Go to the `frontend` folder
+      ```bash
+      cd frontend
+      ```
+   2. Install node dependencies 
+      ```bash
+      npm install
+      ```
+4. **Setup backend**
+   1. Go to the `backend` folder
+      ```bash
+      cd backend
+      ```
+   2. Install backend dependencies
+      1. Start the Docker Desktop application (Docker Desktop must be running the background to run any docker commands)
+      2. Install composer dependencies
+          ```bash
+         # multiline
+          docker run --rm \
+            -u "$(id -u):$(id -g)" \
+            -v "$(pwd):/var/www/html" \
+            -w /var/www/html \
+            laravelsail/php82-composer:latest \
+            composer install --ignore-platform-reqs
+         
+         # single line for powershell (may/may not work on windows)
+          docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/var/www/html" -w /var/www/html laravelsail/php82-composer:latest composer install --ignore-platform-reqs
+          ```
+      3. (Optional) Setup an alias for the `sail` command
+          ```bash
+          # you can either run this command from the laravel documentation website
+          alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
-    This will install all the dependencies listed in the `frontend/package.json` file. You need to install dependencies the first time. Then after that, whenever the `frontend/package.json` file gets updated with new dependencies.
-4. **Start backend dependencies:**
-   - Open Docker Desktop
+          # or you can add this to your ~/.bashrc or ~/.zshrc config files
+          alias sail='vendor/bin/sail'
 
-    Docker Desktop **must** be running in the background in order to actually run any docker commands.
+          # or don't setup an alias and use this:
+          vendor/bin/sail 
+
+          # or don't use sail at all and use the docker commands
+          # <container-name> should be backend-laravel.test-1
+          docker exec -it <container-name> <command>
+          docker exec -it <container-name> php artisan
+
+          # or don't use sail or the docker commands and use the docker container's command line instead
+          docker exec -it sh # first run this to get inside the docker container's command line
+          php artisan <command> # then run commands as if you it's your local machine
+          ```
 5. **Run app**
-   1. Open Docker Desktop
-   2. Start laravel server by starting the docker container `cd backend && sail up -d`
-      - Alternatively, you can use the docker command `docker compose up -d`
-   3. Start ReactJS `cd frontend && npm start`
-   4. Go to http://localhost:3000 to view the user interface (React frontend)
-6. **To stop the running app:**
-   - Shutdown the larvel server by stopping the docker container: `cd backend && sail down`
-     - Alternatively, you can use the docker command `docker compose down`
-   - Shutdown ReactJS: `Ctrl+C` in the shell running ReactJS
+   1. Start the backend server
+      1. Open the Docker Desktop application (Docker Desktop must be running the background to run any docker commands)
+      2. Start the docker container
+          ```bash
+          cd backend
+          
+          # you can use sail
+          sail up -d
+
+          # or use docker commands
+          docker compose up -d
+
+          # -d means to start the container in detached mode so that it's running in the background and doesn't show real time logs in your terminal
+          ```
+   2. Start frontend server
+      ```bash
+      cd frontend
+      npm start
+      ```
+    3. Go to http://localhost:3000 to view the frontend web app
+
+To stop running the app:
+1. Stop docker
+    ```bash
+    sail down # using sail
+    docker compose down # or using docker
+    ```
+2. Stop the react server: enter `Ctrl+C` into the terminal running the react server.
 
 ## Keywords
 
