@@ -4,8 +4,10 @@ sidebar_position: 3
 
 ## Use Case 3: User Creates a Beacon
 ```mermaid
+---
+title: Beacon Creation
+---
 sequenceDiagram
-title Beacon Creation
    # initialize actors and participants
    actor user as User
    participant homePage as Home Page
