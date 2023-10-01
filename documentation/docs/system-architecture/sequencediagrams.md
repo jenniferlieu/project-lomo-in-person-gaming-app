@@ -147,6 +147,188 @@ sequenceDiagram
    deactivate user
 ```
 
+## Use Case 4: User Joins a Beacon
+```mermaid
+sequenceDiagram
+  actor user as User
+  participant homePage as HomePage
+  participant apiMiddleware as API Middleware
+  participant database as Database
+  participant beaconDetailsPage as BeaconDetailsPage
+  participant beaconForm as BeaconForm
+  activate user
+
+  user->>homePage: Opens the menu for beacons
+  activate homePage
+  user->>homePage: Sorts or filters beacons
+
+  homePage->>apiMiddleware: Requests beacon list
+
+  apiMiddleware->>database: Retrieves beacon data
+  apiMiddleware-->>homePage: Sends beacon data
+
+  homePage->>user: Displays beacon list
+
+  user->>homePage: (Possibly) Notified for a preferred beacon
+  user->>homePage: Taps on a displayed beacon
+
+  homePage->>apiMiddleware: Requests beacon details
+  apiMiddleware->>database: Retrieves beacon details
+  apiMiddleware-->>homePage: Sends beacon details
+  homePage->>beaconDetailsPage: Displays beacon details
+
+  user->>beaconDetailsPage: (Optionally) Comments on the beacon
+  user->>beaconDetailsPage: Taps "Apply"
+  
+  beaconDetailsPage->>beaconForm: Navigates to Beacon Application
+  beaconForm->>apiMiddleware: Submits beacon application
+  apiMiddleware->>database: Creates new beacon and user association
+  database-->>apiMiddleware: Acknowledges beacon creation and user association
+  beaconForm->>user: Displays success message
+  user->>beaconForm: User is now part of the beacon
+  ```
+
+
+## Use Case 7: User Blocks Another User
+```mermaid
+---
+title: Blocking user
+---
+sequenceDiagram
+   # initialize actors and participants
+   actor user as User
+   participant homePage as HomePage
+   participant otherUserPage as otherUserPage
+   participant apiMiddleware as API Middleware
+   participant database as Database
+   
+   # search for user
+   activate user
+   activate homePage
+   user->>homePage: User searches for other user
+
+   # api call for user
+   activate apiMiddleware
+   homePage->>apiMiddleware: Search input is put into an API call
+
+   activate database
+   apiMiddleware->>database: API queries the database
+
+   # database response
+   database->>homePage: database returns results to homePage
+   homePage-->>user: HomePage displays results to user
+   deactivate database
+   deactivate apiMiddleware
+
+   # select user
+   activate otherUserPage
+   homePage->>otherUserPage: User selects other user
+   deactivate homePage
+
+   activate apiMiddleware
+   otherUserPage->>apiMiddleware: User clicks "Block" button
+   
+   activate database
+   apiMiddleware->>database: Insert blocked user
+
+   databse->>otherUserPage: Returns success
+   database-->>user: Displays success
+   deactivate apiMiddleware
+   deactivate database
+
+   # end
+   deactivate user
+```
+
+## Use Case 8: User friends Another User
+```mermaid
+---
+title: Adding user as friend
+---
+sequenceDiagram
+   # initialize actors and participants
+   actor user as User
+   participant homePage as HomePage
+   participant otherUserPage as otherUserPage
+   participant apiMiddleware as API Middleware
+   participant database as Database
+   
+   # search for user
+   activate user
+   activate homePage
+   user->>homePage: User searches for other user
+
+   # api call for user
+   activate apiMiddleware
+   homePage->>apiMiddleware: Search input is put into an API call
+
+   activate database
+   apiMiddleware->>database: API queries the database
+
+   # database response
+   database->>homePage: database returns results to homePage
+   homePage-->>user: HomePage displays results to user
+   deactivate database
+   deactivate apiMiddleware
+
+   # select user
+   activate otherUserPage
+   homePage->>otherUserPage: User selects other user
+   deactivate homePage
+
+   activate apiMiddleware
+   otherUserPage->>apiMiddleware: User clicks "Add friend" button
+   
+   activate database
+   apiMiddleware->>database: Insert user into friends list
+
+   databse->>otherUserPage: Returns success
+   database-->>user: Displays other user friends list 
+   deactivate apiMiddleware
+   deactivate database
+
+   # end
+   deactivate user
+```
+
+
+## Use Case 9: User Comments on a Beacon
+```mermaid
+sequenceDiagram
+  actor user as User
+  participant profilePage as ProfilePage
+  participant editProfilePage as EditProfilePage
+  participant apiMiddleware as API Middleware
+  participant database as Database
+
+  activate user
+  user->>profilePage: Taps the "profile" button on the top left corner
+
+  activate profilePage
+  profilePage-->>user: Displays user stats and preferences
+
+  user->>profilePage: Taps the "edit" button in the top right corner
+  profilePage->>editProfilePage: Opens the edit profile page
+
+  user->>editProfilePage: Adds or removes preferences or tags
+
+  user->>editProfilePage: Presses "save" to confirm changes
+
+  editProfilePage->>apiMiddleware: Sends updated user data
+  activate apiMiddleware
+  apiMiddleware->>database: Updates user preferences and tags
+  database-->>apiMiddleware: Acknowledges data update
+  apiMiddleware-->>editProfilePage: Confirms data update
+  deactivate apiMiddleware
+
+  editProfilePage-->>user: Closes edit profile page
+  profilePage->>user: Displays updated user stats and preferences
+
+  deactivate user
+  deactivate profilePage
+```
+
+
 **As a user, it's important to create a beacon so that I can find other users that meet the requirements of the beacon.**
 
 1. The user taps the “create beacon” button
