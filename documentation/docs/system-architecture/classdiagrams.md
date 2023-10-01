@@ -220,79 +220,56 @@ It displays a list of friends based on which filter is passed into the component
 title: Laravel backend class diagram
 ---
 classDiagram
-    api *-- DatabaseSeeder
+    api *-- UserController
+    api *-- BeaconController
+    api *-- ReportController
 
-    DatabaseSeeder *-- database
-    DatabaseSeeder *-- UserFactory
-    DatabaseSeeder *-- BeaconFactory
-    DatabaseSeeder *-- CommentFactory
-    DatabaseSeeder *-- ReportFactory
-    
     class api {
-        - GET('api/user'): JSON
-        - POST('api/user')
-        - PUT('api/user')
-        - DELETE('api/user')
-        - GET('api/all_friends'): JSON
-        - GET('api/recent_friends'): JSON
-        - PUT('api/add_friend')
-        - PUT('api/remove_friend')
-
-        - GET('api/beacon'): JSON
-        - POST('api/beacon')
-        - PUT('api/beacon')
-        - DELETE('api/beacon')
-        - GET('api/all_beacons'): JSON
-        - GET('api/nearby_beacons'): JSON
-        - GET('api/recommended_beacons'): JSON
-
-        - GET('api/comment'): JSON
-        - POST('api/comment')
-        - PUT('api/comment')
-        - DELETE('api/comment')
-
-        - POST('api/report')
+        - Route::resource('/user', [UserController::class])
+        - Route::resource('/beacon', [BeaconController::class])
+        - Route::resource('/report', [ReportController::class])
     }
 
-    class database{
-        + array connections
-    }
+    UserController *-- UserResource
+    UserResource *-- User
+    class UserController{
+        + store(): array
+        + index(): array
+        + show(): array
+        + update(): array
+        + destory(): array
 
-    class UserFactory{
-        + defintions(): array 
-        + unverified(): array
-        + getUser(): array
-        + insertUser(): array
-        + updateUser(): array
-        + deleteUser(): array
         + getAllFriends(): array
         + getRecentFriends(): array
         + addFriend(): array
         + removeFriend(): array
     }
 
-    class BeaconFactory{
-        + defintions(): array 
-        + getBeacon(): array
-        + insertBeacon(): array
-        + updateBeacon(): array
-        + deleteBeacon(): array
-        + getAllBeacons(): array
+    class UserResource {
+        + toArray(request): JSON
+    }
+
+    class User {
+        
+    }
+
+    class BeaconController{
+        + store(): array
+        + index(): array
+        + show(): array
+        + update(): array
+        + destory(): array
+
         + getRecommendedBeacons(): array
         + getNearbyBeacons(): array
     }
 
-    class CommentFactory{
-        + defintions(): array
-        + getComments(): array
-        + insertComment(): array
-        + updateComment(): array
-        + deleteComment(): array
-    }
-
-    class ReportFactory{
-        + defintions(): array
-        + insertReport(): array
+    class ReportController{
+        + store(): array
+        + index(): array
+        + show(): array
+        + update(): array
+        + destory(): array
     }
 ```
 #### Figure 2. Laravel backend class diagram
