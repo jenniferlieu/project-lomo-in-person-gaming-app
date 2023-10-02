@@ -34,6 +34,13 @@ description: Sequence diagrams for all use cases.
     deactivate AccountCreationPage
     Database->>User: Account Created
 ```
+**As a user, it is important to create an account so my preferences and data carry over each time I use it.**
+1. The user opens the Lomo App and chooses “Create Account”
+2. The user enters their Email and password of choice
+3. The user confirms the password and presses “Sign up”
+4. The user establishes their username and profile details(optional at start)
+
+
 ## Use Case 2: User Logs In
 ```mermaid
    sequenceDiagram
@@ -96,6 +103,12 @@ description: Sequence diagrams for all use cases.
     
    
 ```
+**As a user, it is important to be able to log in so I can keep utilize my account after one use or on other devices.**
+1. The user will open the app.
+2. The user will select "Log In"
+3. The user will enter their username and password
+4. If wrong, the user will not be allowed to continue
+5. If correct, the user will sign in on the app with their credentials.
 
 ## Use Case 3: User Creates a Beacon
 ```mermaid
