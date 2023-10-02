@@ -80,10 +80,6 @@ classDiagram
         + fetchData()
     }
 
-    class ManageWaitlistPage{
-        + fetchData()
-    }
-
     class AccountPage{
         + logout()
         + fetchData()
