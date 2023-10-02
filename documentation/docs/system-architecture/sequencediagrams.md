@@ -207,6 +207,16 @@ sequenceDiagram
   beaconForm->>user: Displays success message
   user->>beaconForm: User is now part of the beacon
   ```
+  **As a user, it's important to join a beacon so that I can find other users to enjoy the events of the beacon with.**
+
+1. The user opens the menu for beacons by tapping the button or dragging the column upward
+2. The user sorts or filters beacons by Recommended, Nearby, etc.
+3. The user is (possibly) notified for a beacon they have set a preference for
+4. The user taps on a displayed beacon that describes the details of the event and the host
+5. The user (optionally) comments on the beacon to communicate with the host and coordinate the event
+6. The user taps “Apply” and is taken to a “Beacon Application”
+7. When filled out, the beacon is joined
+
 ## USE CASE 5: User Fills Out a Beacon Application 
  ```mermaid
     sequenceDiagram
@@ -285,7 +295,7 @@ sequenceDiagram
 
 
  ```
- **As a user, I want to be able to apply a beacon.**
+ **As a user, I want to be able to apply a beacon so that the proper info is entered and I can arrive at the beacon properly.**
  
  1. The user fills out the application with an ETA, any controllers they can supply, and (automatically) their profile.
  2. The user (if enabled) notifies their friends that they have joined a beacon
@@ -412,6 +422,10 @@ sequenceDiagram
    # end
    deactivate user
 ```
+**As a user, I want to be able to block a user so I don't have to interact with them.**
+1. The user navigates to either a Beacon or the Friends menu (Recent Players)
+2. The user presses the "block" button and confirms
+3. The user will no longer see beacons made by that user
 
 ## Use Case 8: User friends Another User
 ```mermaid
@@ -465,7 +479,7 @@ sequenceDiagram
 ```
 
 
-## Use Case 9: User Comments on a Beacon
+## Use Case 9: User Updates their Profile
 ```mermaid
 sequenceDiagram
   actor user as User
@@ -500,7 +514,11 @@ sequenceDiagram
   deactivate user
   deactivate profilePage
 ```
-
+**As a user, I want to be able to update my profile so I can properly communicate my current interests with other users.**
+1. The user will tap the “profile” button on the top left corner
+2. This will open a display that shows stats on the person, including preferences on games and tags of different descriptors
+3. The user taps the “edit button” in the top right of the display, allowing them to add or remove preferences or tags.
+4. The user presses “save” to confirm the changes.
 
 ## Use Case 10: User Updates Beacon 
 ```mermaid
