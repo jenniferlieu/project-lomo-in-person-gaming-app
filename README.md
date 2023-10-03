@@ -9,6 +9,123 @@
 
 </div>
 
+- [LOMO](#lomo)
+  - [Contributing](#contributing)
+    - [Setup instructions](#setup-instructions)
+    - [Stop running the app](#stop-running-the-app)
+    - [Getting started](#getting-started)
+  - [Keywords](#keywords)
+  - [Project Abstract](#project-abstract)
+  - [High Level Requirement](#high-level-requirement)
+  - [Conceptual Design](#conceptual-design)
+  - [Background](#background)
+  - [Required Resources](#required-resources)
+  - [Collaborators](#collaborators)
+
+
+## Contributing
+
+Hi, Team!
+
+LOMO uses ReactJS for the frontend, Laravel Sail (Laravel in a docker container) as the backend server, and MongoDB as the database.
+
+For tips on how to get started with either the frontend or the backend in the context of LOMO, then check out this repo's Wiki tab.
+
+### Setup instructions
+
+Instructions on how to setup this project for development on your local machine.
+
+**For frontend development, make sure you're in the `frontend/` folder**.
+
+**For backend development, make sure you're in the `backend/` folder**.
+
+1. **Install** 
+   1. Docker Desktop 4+
+   2. npm 8+
+   3. git 2+
+2. **Git clone this repo**
+3. **Setup frontend**
+   1. Go to the `frontend` folder
+      ```bash
+      cd frontend
+      ```
+   2. Install node dependencies 
+      ```bash
+      npm install
+      ```
+4. **Setup backend**
+   1. Go to the `backend` folder
+      ```bash
+      cd backend
+      ```
+   2. Install backend dependencies
+      1. Start the Docker Desktop application (Docker Desktop must be running the background to run any docker commands)
+      2. Install composer dependencies
+          ```bash
+         # multiline
+          docker run --rm \
+            -u "$(id -u):$(id -g)" \
+            -v "$(pwd):/var/www/html" \
+            -w /var/www/html \
+            laravelsail/php82-composer:latest \
+            composer install --ignore-platform-reqs
+         
+         # single line for powershell (may/may not work on windows)
+          docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/var/www/html" -w /var/www/html laravelsail/php82-composer:latest composer install --ignore-platform-reqs
+          ```
+      3. (Optional) Setup an alias for the `sail` command
+          ```bash
+          # you can either run this command from the laravel documentation website
+          alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+
+          # or you can add this to your ~/.bashrc or ~/.zshrc config files
+          alias sail='vendor/bin/sail'
+
+          # or don't setup an alias and use this:
+          vendor/bin/sail 
+
+          # or don't use sail at all and use the docker commands
+          # <container-name> should be backend-laravel.test-1
+          docker exec -it <container-name> <command>
+          docker exec -it <container-name> php artisan
+
+          # or don't use sail or the docker commands and use the docker container's command line instead
+          docker exec -it sh # first run this to get inside the docker container's command line
+          php artisan <command> # then run commands as if you it's your local machine
+          ```
+5. **Run app**
+   1. Start the backend server
+      1. Open the Docker Desktop application (Docker Desktop must be running the background to run any docker commands)
+      2. Start the docker container
+          ```bash
+          cd backend
+          
+          # you can use sail
+          sail up -d
+
+          # or use docker commands
+          docker compose up -d
+
+          # -d means to start the container in detached mode so that it's running in the background and doesn't show real time logs in your terminal
+          ```
+   2. Start frontend server
+      ```bash
+      cd frontend
+      npm start
+      ```
+    3. Go to http://localhost:3000 to view the frontend web app
+
+### Stop running the app
+1. Stop docker
+    ```bash
+    sail down # using sail
+    docker compose down # or using docker
+    ```
+2. Stop the react server: enter `Ctrl+C` into the terminal running the react server.
+
+### Getting started
+
+Checkout this repo's Wiki tab on how to start working on the frontend and the backend.
 
 ## Keywords
 
