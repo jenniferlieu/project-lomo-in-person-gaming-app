@@ -45,7 +45,7 @@ const MapContainer = () => {
         center={defaultCenter}
       >
         <Marker position={defaultCenter} />
-        {loaded && <Circle {...circle} onClick={changeColor} />}  
+        {loaded && <Circle {...circle} onClick={changeColor} />} 
       </GoogleMap>
     </LoadScript>
   );
