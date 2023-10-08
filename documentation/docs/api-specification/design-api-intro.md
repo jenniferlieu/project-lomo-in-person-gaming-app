@@ -39,7 +39,7 @@ Design Document - Part II API
   "game": {
     "game_title": "",
     "game_image": ""
-  }
+  },
   "date": "",
   "time": "",
   "location":  {
