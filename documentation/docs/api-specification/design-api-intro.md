@@ -10,6 +10,7 @@ Design Document - Part II API
 
 ## Users Class
 ### This will include a method to POST a user, a method to get all users, and a method to get a specific user by user_id
+```js
 "Users": { // Class for the users
   "user_id": int, // Unique identifier
   "email": "", // Registration
@@ -27,9 +28,10 @@ Design Document - Part II API
   },
   "friends": [{user_id}, {}]
 }
-
+```
 ## Beacon Class
 ### This will include a POST, a GET by beacon_id, and a GET by location (i.e. distance from a spot)
+```js
 "Beacons": {
   "beacon_id": int, // Unique identifier
   "host_id": "", // user_id of the User
@@ -55,3 +57,4 @@ Design Document - Part II API
     "timestamp: "" // Timestamp
   }
 }
+```
