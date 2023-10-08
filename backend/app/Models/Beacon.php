@@ -15,7 +15,16 @@ class Beacon extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'host_id',
         'title',
-        'description'
+        'image',
+        'game',
+        'description',
+        'date_time',
+        'location',
+        'num_players_needed',
+        'waitlist',
+        'players_attended',
+        'comments'
     ];
 }
