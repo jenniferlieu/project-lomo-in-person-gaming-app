@@ -17,14 +17,33 @@ class Beacon extends Model
     protected $fillable = [
         'host_id',
         'title',
-        'image',
         'game',
+        'game.game_title',
+        'game.game_image',
         'description',
-        'date_time',
+        'date',
+        'time',
         'location',
-        'num_players_needed',
-        'waitlist',
-        'players_attended',
-        'comments'
+        'location.description',
+        'location.latitude',
+        'location.longitude',
+        'players_needed'
+    ];
+
+    /**
+     * The attributes that are protected against mass assignment using the create and update methods.
+     * They can be individually assigned outside those methods.
+     *
+     * @var array<int, string>
+     */
+    protected $guarded = [
+        'players_attending',
+        'players_attending.*.user_id',
+        'comments',
+        'comments.*.comment_id',
+        'comments.*.beacon_id',
+        'comments.*.user_id',
+        'comments.*.body',
+        'comments.*.timestamp'
     ];
 }

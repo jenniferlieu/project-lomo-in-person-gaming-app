@@ -8,7 +8,7 @@ use App\Models\Beacon;
 class BeaconController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Beacon.
      */
     public function index()
     {
@@ -16,51 +16,26 @@ class BeaconController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Beacon in storage.
      */
     public function store(Request $request)
     {
         // Validate the request data
-        $data = $request->validate([
+        // If validation fails, Laravel will automatically return the errors as JSON with a 422 Unprocessable Entity status code
+        $request->validate([
             'host_id' => 'required',
             'title' => 'required|string|max:255',
-            'image' => 'nullable',
-            'game' => 'nullable',
-            'description' => 'nullable',
-            'date_time' => 'nullable',
-            'location' => 'nullable',
-            'num_players_needed' => 'nullable',
-            'waitlist' => 'nullable',
-            'players_attended' => 'nullable',
-            'comments' => 'nullable',
         ]);
 
-        // TODO: uncomment when database is setup
-//        // sets the Beacon object with information received from request.
-//        $beacon = new Beacon;
-//        $beacon->host_id = $request->host_id;
-//        $beacon->title = $request->title;
-//        $beacon->image = $request->image;
-//        $beacon->game = $request->game;
-//        $beacon->description = $request->description;
-//        $beacon->date_time = $request->date_time;
-//        $beacon->location = $request->location;
-//        $beacon->num_players_needed = $request->num_players_needed;
-//        $beacon->waitlist = $request->waitlist;
-//        $beacon->players_attended = $request->players_attended;
-//        $beacon->comments = $request->comments;
-//
-//        // save to database
-//        $beacon->save()
+        // Insert new beacon into the database
+        // code here
 
-        return response()->json([
-//            'data' => $beacon,
-            'data' => $data
-        ], 201);
+        // Returns data on the new beacon created and a success status code
+        return response()->json(['data' => $request->all()], 201); // 201 Request fulfilled and new resource created
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Beacon.
      */
     public function show(string $id)
     {
@@ -68,7 +43,7 @@ class BeaconController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified Beacon in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -76,7 +51,7 @@ class BeaconController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified Beacon from storage.
      */
     public function destroy(string $id)
     {
