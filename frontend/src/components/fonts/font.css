@@ -1,5 +1,5 @@
 @font-face {
     font-family: 'InkBleed';
-    src: local('Inkbleed-Regular'),
-        url(./Inkbleed-Regular.ttf) format('ttf');
+    src: local(InkbleedRegular),
+        url('./fonts/Inkbleed-Regular.ttf') format('truetype');
 }
