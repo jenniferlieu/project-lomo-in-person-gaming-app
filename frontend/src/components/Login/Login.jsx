@@ -8,6 +8,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
+        console.log(pass);
     }
 
     return (

@@ -19,8 +19,8 @@ body {
 
 h1 {
     color: var(--color-option-1);
-    font-size: 3rem;
-    margin-top: 40%;
+    font-size: 2rem;
+    margin-top: 36%;
     z-index: 1;
 }
 
@@ -43,7 +43,7 @@ input {
     border-radius: 1rem 1rem 0rem 0rem;
     position: fixed;
     bottom: 0%;
-    left: 1%;
+    right: 1%;
 }
 
 p {
@@ -66,15 +66,15 @@ p {
 @media screen and (min-width: 480px) {
     h1{
         position: fixed;
-        right: 3rem;
+        right: 2.5rem;
         margin-top: 1.5rem;
         color: var(--color-option-3);
-        font-size: 5.5rem;
+        font-size: 5.3rem;
     }
     
     .login-wrapper {
-        width: 35%;
-        left: 65%;
+        width: 32rem;
+        right: 0rem;
         top: 0;
         position: fixed;
         height: 100%;
