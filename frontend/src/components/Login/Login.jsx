@@ -13,8 +13,9 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <h1><strong>Welcome<br/>Back!</strong></h1>
+            <h1 className="mob-head"><strong>Welcome Back!</strong></h1>
             <div className="login-wrapper" >
+                <h1 className="des-head"><strong>Welcome<br />Back!</strong></h1>
                 <form onSubmit={handleSubmit}>
                     <label>
                         <p>Email:</p>

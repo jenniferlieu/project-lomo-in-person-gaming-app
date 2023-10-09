@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 * {
     box-sizing: border-box;
     --color-option-1: #ffffff;
@@ -13,15 +14,21 @@
 
 body {
     background-color: black;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
     font-size: 1.3rem;
 }
 
-h1 {
+
+.mob-head {
+    display: block;
     color: var(--color-option-1);
-    font-size: 2rem;
-    margin-top: 36%;
+    font-size: 3.5rem;
+    margin-top: 40%;
     z-index: 1;
+}
+
+.des-head{
+    display: none;
 }
 
 form {
@@ -64,10 +71,14 @@ p {
 
 
 @media screen and (min-width: 480px) {
-    h1{
-        position: fixed;
-        right: 2.5rem;
-        margin-top: 1.5rem;
+
+    .mob-head {
+        display: none;
+    }
+
+    .des-head{
+        display:block;
+        margin: 3rem auto 0 auto;
         color: var(--color-option-3);
         font-size: 5.3rem;
     }
@@ -83,6 +94,6 @@ p {
 
     form {
         width: 90%;
-        margin: 50% auto 0 auto;
+        margin: 3rem auto 0 auto;
     }
   }
