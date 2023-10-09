@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import MapContainer from './MapContainer.js';
 import Login from './components/Login/Login.jsx';
+import Signup from './components/signup/signup.jsx';
 
 
 
@@ -30,7 +31,7 @@ function App() {
       </h1> */}
       {/* <MapContainer/> */}
 
-      <Login />
+      <Signup />
     </div>
   );
 }
