@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'InkBleed';
+    src: local(Inkbleed-Regular),
+        url('./fonts/Inkbleed-Regular.ttf') format('truetype');
+}
+
 * {
     box-sizing: border-box;
     --color-option-1: #ffffff;
@@ -13,7 +19,7 @@
 
 body {
     background-color: black;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: InkbleedRegular;
     font-size: 1.3rem;
 }
 
