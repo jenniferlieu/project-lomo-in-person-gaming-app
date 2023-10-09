@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { GoogleMap, LoadScript, Marker, Circle } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Circle } from '@react-google-maps/api';
 
 const MapContainer = () => {
   const mapStyles = {
-    height: '25vh',
-    width: '25%',
+    height: '35vh',
+    width: '50%',
   };
 
   const defaultCenter = {
@@ -13,7 +13,6 @@ const MapContainer = () => {
   };
 
   const [circleColor, setCircleColor] = useState('#FF0000'); 
-  const [loaded, setLoaded] = useState(false);
 
   const circle = {
     center: defaultCenter,
@@ -34,20 +33,19 @@ const MapContainer = () => {
   };
 
   return (
-    <LoadScript
-      googleMapsApiKey={apiKey}
-      libraries={['places']}       
-      onLoad={() => setLoaded(true)}
-    >
-      <GoogleMap
-        mapContainerStyle={mapStyles}
-        zoom={10}
-        center={defaultCenter}
+    <div className='flex justify-center'>
+      <LoadScript
+        googleMapsApiKey={apiKey}
       >
-        <Marker position={defaultCenter} />
-        {loaded && <Circle {...circle} onClick={changeColor} />} 
-      </GoogleMap>
-    </LoadScript>
+        <GoogleMap
+          mapContainerStyle={mapStyles}
+          zoom={10}
+          center={defaultCenter}
+        >
+        {<Circle {...circle} onClick={changeColor} />} 
+        </GoogleMap>
+      </LoadScript>
+    </div>
   );
 };
 
