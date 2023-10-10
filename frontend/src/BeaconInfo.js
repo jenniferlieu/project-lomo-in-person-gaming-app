@@ -6,12 +6,12 @@ const BeaconInfo = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic
             <div className='ml-2 mt-2 text-left'>
                 <div className="flex items-baseline mb-2">
                     <img src={userPic} alt="Game Pic" className="top-0 right-0 h-16 w-16 mr-4" />
-                    <h1 className="text-2xl font-bold">{username}</h1>
+                    <h1 className="text-3xl font-bold">{username}</h1>
                 </div>
                 <div className='ml-4'>
-                    <h2 className="text-xl mb-2">{gameTitle}</h2>
-                    <p className="mb-2">{startTime} - {endTime}</p>
-                    <p className="mb-2">Misc Info: <span className="font-light">{miscInfo}</span></p>
+                    <h2 className="text-2xl mb-2">{gameTitle}</h2>
+                    <p className="text-lg mb-2">{startTime} - {endTime}</p>
+                    <p className="mb-2 text-lg">Misc Info: <span className="font-light">{miscInfo}</span></p>
                 </div>
             </div>
             <img src={gamePic} alt="Game Pic" className="top-0 right-0 h-32 w-32 rounded-full" />

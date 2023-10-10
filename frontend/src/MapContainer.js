@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { GoogleMap, LoadScript, Circle } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Circle, OverlayView } from '@react-google-maps/api';
+import BeaconInfo from './BeaconInfo';
 
 const MapContainer = () => {
   const mapStyles = {
-    height: '35vh',
-    width: '50%',
+    height: '70vh',
+    width: '60%',
   };
 
   const defaultCenter = {
@@ -13,6 +14,7 @@ const MapContainer = () => {
   };
 
   const [circleColor, setCircleColor] = useState('#FF0000'); 
+  const [showBeaconInfo, setShowBeaconInfo] = useState(false);
 
   const circle = {
     center: defaultCenter,
@@ -32,8 +34,18 @@ const MapContainer = () => {
     setCircleColor(newColor);
   };
 
+  const dispalyBeacon = () => {
+    setShowBeaconInfo(!showBeaconInfo);
+    console.log('showBeaconInfo:', showBeaconInfo);
+  }
+
+  const getPixelPositionOffset = (width, height) => ({
+    x: -(width / 2),
+    y: -(height / 2),
+  });
+
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center items-center h-screen'>
       <LoadScript
         googleMapsApiKey={apiKey}
       >
@@ -42,7 +54,18 @@ const MapContainer = () => {
           zoom={10}
           center={defaultCenter}
         >
-        {<Circle {...circle} onClick={changeColor} />} 
+          {showBeaconInfo && (
+            <OverlayView
+              position={defaultCenter}
+              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+              getPixelPositionOffset={getPixelPositionOffset}
+            >
+              <div style={{ width: '400px', height: '200px' }}>
+              <BeaconInfo username='amofro' timeframe='noon til night' gameTitle='smashy bros' miscInfo='Ayyyyy fuggedaboutit' gamePic={'images/catWut.png'} startTime={"1:00 PM"} endTime={"4:30 PM"}/>
+              </div>
+            </OverlayView>
+          )}
+          <Circle {...circle} onClick={dispalyBeacon} />
         </GoogleMap>
       </LoadScript>
     </div>
