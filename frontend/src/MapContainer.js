@@ -18,6 +18,18 @@ const MapContainer = () => {
 
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
 
+  const beaconInfo = {
+    miscInfo: "fahgettaboudit",
+    username: "amofro",
+    gamePic: "images/catScream.jpg",
+    userPic: "images/catMonster.jpg"
+  }
+
+  const beaconCenter = {
+    lat: 40,
+    lng: -75
+  }
+
   return (
     <div className='flex justify-center items-center h-screen'>
       <LoadScript googleMapsApiKey={apiKey}>
@@ -29,7 +41,8 @@ const MapContainer = () => {
             mapRef.current = map;
           }}
         >
-          <Beacon mapRef={mapRef} setMapCenter={setMapCenter} />
+          <Beacon mapRef={mapRef} setMapCenter={setMapCenter} circleLat={40} circleLng={-75}/>
+          <Beacon mapRef={mapRef} setMapCenter={setMapCenter} beaconInfo={beaconInfo} />
         </GoogleMap>
       </LoadScript>
     </div>

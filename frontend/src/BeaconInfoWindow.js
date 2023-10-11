@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BeaconInfo = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic }) => {
+const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic }) => {
     return (
         <div className="bg-white rounded-lg w-full max-w-md mx-auto shadow-lg my-5 p-2 px-2 flex justify-between">
             <div className='ml-2 mt-2 text-left'>
@@ -19,14 +19,14 @@ const BeaconInfo = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic
     )
 };
 
-BeaconInfo.defaultProps = {
+BeaconInfoWindow.defaultProps = {
     username: "username",
     startTime: "start",
     endTime: "end",
     gameTitle: "game title",
     miscInfo: "misc info",
     gamePic: "images/catCry.jpg",
-    userPic: "images/catCry.jpg"
+    userPic: "images/catWut.png"
 };
 
-export default BeaconInfo;
+export default BeaconInfoWindow;
