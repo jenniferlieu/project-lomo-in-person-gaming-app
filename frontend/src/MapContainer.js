@@ -60,8 +60,8 @@ const MapContainer = () => {
               mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
               getPixelPositionOffset={getPixelPositionOffset}
             >
-              <div style={{ width: '400px', height: '200px' }}>
-              <BeaconInfo username='amofro' timeframe='noon til night' gameTitle='smashy bros' miscInfo='Ayyyyy fuggedaboutit' gamePic={'images/catWut.png'} startTime={"1:00 PM"} endTime={"4:30 PM"}/>
+              <div className='w-96 h-48'>
+                <BeaconInfo username='amofro' timeframe='noon til night' gameTitle='smashy bros' miscInfo='Ayyyyy fuggedaboutit' gamePic={'images/catWut.png'} startTime={"1:00 PM"} endTime={"4:30 PM"}/>
               </div>
             </OverlayView>
           )}
