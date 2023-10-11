@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSpring, animated } from '@react-spring/web';
 import './signup.css';
 
 const Signup = () => {
@@ -19,6 +18,27 @@ const Signup = () => {
         }
     }
 
+    const AnimatedButton = ({ p }) => {
+        const [shake, setShake] = useState(false);
+        
+        const animate = () => {
+            // Button begins to shake
+            setShake(true);            
+        }
+        
+        return(
+            <button type="submit" onClick = {animate} className = {shake ? `shake` : null}>{ p }</button>
+        );
+        
+    }
+
+    const IsValidPassword = (pass1, pass2) => {
+        if (!(pass1 === pass2)) {
+            console.log('Password did not match');
+        }
+    }
+
+    //need to add a 'username' field
     return (
         <div className="signup-container">
             <h1 className="mob-head"><strong>Never miss out again!</strong></h1>
@@ -38,7 +58,7 @@ const Signup = () => {
                     </label>
                     <input value={pass2} onChange={(e) => setPass2(e.target.value)} type="password" id="password2" name="password2" />
                     <div className="submit-button">
-                        <button type="submit">Join</button>
+                        <AnimatedButton p="Sign up"/>
                     </div>
                 </form>
             </div>
