@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { GoogleMap, LoadScript, Circle, OverlayView } from '@react-google-maps/api';
+import React, { useState, useRef } from 'react';
+import { GoogleMap, LoadScript, Circle } from '@react-google-maps/api';
 import BeaconInfo from './BeaconInfo';
 
 const MapContainer = () => {
   const mapStyles = {
-    height: '70vh',
-    width: '60%',
+    height: '100vh',
+    width: '100%',
   };
 
   const defaultCenter = {
@@ -13,14 +13,18 @@ const MapContainer = () => {
     lng: -75.1554, // default longitude
   };
 
-  const [circleColor, setCircleColor] = useState('#FF0000'); 
   const [showBeaconInfo, setShowBeaconInfo] = useState(false);
+  const [mapCenter, setMapCenter] = useState(defaultCenter);
+  const mapRef = useRef(null);
 
   const circle = {
-    center: defaultCenter,
+    center: {
+      lat: 40,
+      lng: -75
+    },
     radius: 2000, // Radius in meters 
     options: {
-      fillColor: circleColor, 
+      fillColor: '#FF0000', 
       strokeColor: '#0000FF', 
       strokeOpacity: 0.8, 
       strokeWeight: 2, 
@@ -29,43 +33,44 @@ const MapContainer = () => {
 
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
 
-  const changeColor = () => { 
-    const newColor = circleColor === '#FF0000' ? '#00FF00' : '#FF0000';
-    setCircleColor(newColor);
-  };
-
-  const dispalyBeacon = () => {
+  /*
+    TODO:
+    The circle could be in the center of the map and have the beaconInfo displayed overtop of the circle
+    In this case, there is no way to unfreeze everything
+    2 fixes to add:
+      1) make it so that if you click on another beacon, that information will be displayed instead
+      2) add a button to hide the beacon and go back to the map
+    Discuss with team
+*/
+  const toggleDispalyBeacon = () => {
+    setMapCenter(mapRef.current.getCenter());
     setShowBeaconInfo(!showBeaconInfo);
-    console.log('showBeaconInfo:', showBeaconInfo);
   }
 
-  const getPixelPositionOffset = (width, height) => ({
-    x: -(width / 2),
-    y: -(height / 2),
-  });
+  const mapOptions = {
+    gestureHandling: showBeaconInfo ? 'none' : 'cooperative'
+  }
 
   return (
     <div className='flex justify-center items-center h-screen'>
-      <LoadScript
-        googleMapsApiKey={apiKey}
-      >
+      <LoadScript googleMapsApiKey={apiKey}>
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={10}
-          center={defaultCenter}
+          center={mapCenter}
+          options={mapOptions}
+          onLoad={(map) => {
+            mapRef.current = map;
+          }}
         >
           {showBeaconInfo && (
-            <OverlayView
-              position={defaultCenter}
-              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-              getPixelPositionOffset={getPixelPositionOffset}
-            >
-              <div className='w-96 h-48'>
-                <BeaconInfo username='amofro' timeframe='noon til night' gameTitle='smashy bros' miscInfo='Ayyyyy fuggedaboutit' gamePic={'images/catWut.png'} startTime={"1:00 PM"} endTime={"4:30 PM"}/>
+            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <div className="w-96 h-48">
+                <BeaconInfo />
               </div>
-            </OverlayView>
+            </div>
           )}
-          <Circle {...circle} onClick={dispalyBeacon} />
+          <Circle {...circle} onClick={toggleDispalyBeacon} />
         </GoogleMap>
       </LoadScript>
     </div>
