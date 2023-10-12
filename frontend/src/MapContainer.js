@@ -2,10 +2,6 @@ import React, { useRef, useState } from 'react';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import Beacon from './Beacon';
 
-/*
-TODO: Add a list of beacons to add to the map and add them as individual components
-TODO: Make it so the beacons replace one another and unfreeze the map appropriately
-*/
 const MapContainer = ({ beaconList }) => {
   const mapStyles = {
     height: '100vh',
