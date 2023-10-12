@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Circle } from '@react-google-maps/api';
 import BeaconInfo from './BeaconInfoWindow';
 import BeaconInfoWindow from './BeaconInfoWindow';
 
-const Beacon = ({ mapRef, beaconInfo, circleLat, circleLng, setMapCenter }) => {
+const Beacon = ({ id, activeBeacon, onBeaconClick, mapRef, beaconInfo, circleLat, circleLng, setMapCenter }) => {
   const circle = {
     center: {
         lat: circleLat,
@@ -18,16 +18,8 @@ const Beacon = ({ mapRef, beaconInfo, circleLat, circleLng, setMapCenter }) => {
     },
   };
 
-  const [showBeaconInfo, setShowBeaconInfo] = useState(false);
-
   const toggleDisplayBeacon = () => {
-    setShowBeaconInfo(!showBeaconInfo);
-    if (!showBeaconInfo) {
-      setMapCenter(mapRef.current.getCenter());
-      mapRef.current.setOptions({ gestureHandling: 'none' });
-    } else {
-      mapRef.current.setOptions({ gestureHandling: 'cooperative' });
-    }
+    onBeaconClick(id);
   }
   
   /*
@@ -37,7 +29,7 @@ const Beacon = ({ mapRef, beaconInfo, circleLat, circleLng, setMapCenter }) => {
   return (
     <>
       <Circle {...circle} onClick={toggleDisplayBeacon} />
-      {showBeaconInfo && (
+      {activeBeacon === id && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="w-96 h-48">
             <BeaconInfo {...beaconInfo} />
