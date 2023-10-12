@@ -47,16 +47,11 @@ const MapContainer = ({ beaconList }) => {
               id={index}
               activeBeacon={activeBeacon}
               onBeaconClick={handleBeaconClick}
-              mapRef={mapRef}
-              setMapCenter={setMapCenter}
               circleLat={beacon.circleLat}
               circleLng={beacon.circleLng}
               beaconInfo={beacon.beaconInfo}
             />
           ))}
-          {/* <Beacon id={1} activeBeacon={activeBeacon} onBeaconClick={handleBeaconClick} mapRef={mapRef} setMapCenter={setMapCenter} circleLat={40} circleLng={-75}/>
-          <Beacon id={2} activeBeacon={activeBeacon} onBeaconClick={handleBeaconClick} mapRef={mapRef} setMapCenter={setMapCenter} beaconInfo={beaconInfo1} />
-          <Beacon id={3} activeBeacon={activeBeacon} onBeaconClick={handleBeaconClick} mapRef={mapRef} setMapCenter={setMapCenter} circleLat={40.05} circleLng={-75.1} beaconInfo={beaconInfo2}/> */}
         </GoogleMap>
       </LoadScript>
     </div>

@@ -1,7 +1,5 @@
 import logo from "./logo.svg";
 import "./App.css";
-import MapContainer from "./MapContainer";
-import BeaconInfoWindow from "./BeaconInfoWindow";
 import HomePage from "./HomePage";
 
 function App() {

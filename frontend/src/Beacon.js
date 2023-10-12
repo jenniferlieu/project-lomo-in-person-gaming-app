@@ -3,7 +3,7 @@ import { Circle } from '@react-google-maps/api';
 import BeaconInfo from './BeaconInfoWindow';
 import BeaconInfoWindow from './BeaconInfoWindow';
 
-const Beacon = ({ id, activeBeacon, onBeaconClick, mapRef, beaconInfo, circleLat, circleLng, setMapCenter }) => {
+const Beacon = ({ id, activeBeacon, onBeaconClick, beaconInfo, circleLat, circleLng }) => {
   const circle = {
     center: {
         lat: circleLat,
