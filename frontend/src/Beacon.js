@@ -1,6 +1,5 @@
 import React from 'react';
 import { Circle } from '@react-google-maps/api';
-import BeaconInfo from './BeaconInfoWindow';
 import BeaconInfoWindow from './BeaconInfoWindow';
 
 const Beacon = ({ id, activeBeacon, onBeaconClick, beaconInfo, circleLat, circleLng }) => {
@@ -21,10 +20,6 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beaconInfo, circleLat, circle
   const toggleDisplayBeacon = () => {
     onBeaconClick(id);
   }
-  
-  /*
-  TODO: Add failsafe unfreeze via an 'X' button
-  */
 
   return (
     <>
@@ -32,7 +27,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beaconInfo, circleLat, circle
       {activeBeacon === id && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="w-96 h-48">
-            <BeaconInfo {...beaconInfo} />
+            <BeaconInfoWindow {...beaconInfo} onClose={toggleDisplayBeacon} />
           </div>
         </div>
       )}
