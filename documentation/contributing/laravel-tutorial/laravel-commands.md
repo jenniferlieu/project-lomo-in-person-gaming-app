@@ -10,6 +10,11 @@ This guide will use the `sail` command. For docker commands, check out the [Dock
 sail artisan test
 ```
 
+## View a list of API routes
+```bash
+sail artisan route:list
+```
+
 ## Generate files
 
 We don't actually need to manually create any files in Laravel. We can use the `sail artisan` commands to scaffold files for us in.
