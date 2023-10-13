@@ -9,12 +9,16 @@ Check out the [Setup Instructions](/contributing/setup-instructions) section on 
 
 Below are links to project boards, resources, official documentation, and tutorials.
 
-If needed, there are basic beginner starter guides for [React](/contributing/react-tutorial/frontend-overview), [Laravel](/contributing/laravel-tutorial/backend-overview), [Docker](/contributing/docker-commands), and [Docusaurus (the official tutorial)](/contributing/docusaurus-tutorial/intro). They're meant to help people start coding as quickly as possible. For the complete guide, refer to the official documentations listed below.
+If needed, there are basic beginner starter guides for [React](/contributing/react-tutorial/frontend-overview), [Laravel](/contributing/laravel-tutorial/backend-overview), [Docker](/contributing/docker-commands), and [Docusaurus (the official tutorial)](/contributing/docusaurus-tutorial/intro). They're meant to help people start coding as quickly as possible. For the complete guides, refer to the official documentations listed below.
 
 ## Project Board and Resources
 - [Jira board](https://temple-cis-projects-in-cs.atlassian.net/jira/software/c/projects/LM/boards/53)
 - [Miro board](https://miro.com/app/board/uXjVMg75Ffs=/) - team document drafts and ideas
 - Env variables in Discord
+- [Laravel commands](/contributing/laravel-tutorial/laravel-commands) - run tests, generate files
+- [Make API calls from React](/contributing/react-tutorial/state-and-api-calls#performing-side-effects-api-calls)
+- [List of HTTP status codes](/contributing/laravel-tutorial/http-status-codes)
+- [List of MongoDB datatype conversions to PHP](/contributing/laravel-tutorial/mongodb-datatype-conversion)
 - [System Architecture](/docs/category/system-architecture) - tentative app mockups, class diagrams, and database fields and tables
 - [Capstone site](https://capstone.ianapplebaum.com/) - syllabus, schedule, etc
 - [Study Buddy's docusaurus](https://capstone-projects-2023-spring.github.io/project-virtual-pet/docs/intro) - referenced as the gold standard for a documentation site

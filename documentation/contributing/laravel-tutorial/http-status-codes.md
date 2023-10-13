@@ -1,7 +1,7 @@
 ---
 sidebar_position: 6
 ---
-# Extra: HTTP status codes
+# Resource: HTTP status codes
 
 Here's a list of relevant HTTP status codes that we might use:
 

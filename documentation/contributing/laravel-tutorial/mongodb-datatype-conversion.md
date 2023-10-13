@@ -1,7 +1,7 @@
 ---
 sidebar_position: 7
 ---
-# Extra: MongoDB datatype conversion to PHP
+# Resource: MongoDB datatype conversion to PHP
 Please refer to the database diagram for database tables and fields.
 
 - **String**: Converted to PHP string.
