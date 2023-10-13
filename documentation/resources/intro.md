@@ -9,19 +9,24 @@ Check out the [Setup Instructions](https://capstone-projects-2023-fall.github.io
 
 Below are links to project boards, resources, official documentation, and tutorials.
 
-## Project Board and Resources
+## Project Boards and Resources
 - [Jira board](https://temple-cis-projects-in-cs.atlassian.net/jira/software/c/projects/LM/boards/53)
 - [Miro board](https://miro.com/app/board/uXjVMg75Ffs=/) - team document drafts and ideas
 - Secret keys for .env variables in Discord
 - [Capstone site](https://capstone.ianapplebaum.com/) - syllabus, schedule, etc
 - [Study Buddy's docusaurus](https://capstone-projects-2023-spring.github.io/project-virtual-pet/docs/intro) - referenced as the gold standard for a documentation site
-- **Quick start guides:**
+- [List of HTTP status codes](https://benjamincrozat.com/laravel-restful-api-best-practices#use-the-correct-http-code-for-responses)
+
+## Quick start guides
+- React and Tailwind
   - [React quick start guide](https://www.codementor.io/reactjs/tutorial/the-reactjs-quick-start-guide)
   - [Quick start Tailwind guide](https://www.codeinwp.com/blog/tailwind-css-tutorial/)
   - [How to make API calls from React (sidebar)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/state-and-api-calls#performing-side-effects-api-calls)
+- Laravel and Docker
   - [Laravel quick start guide - 7 Laravel RESTful APIs best practices for 2023](https://benjamincrozat.com/laravel-restful-api-best-practices) - recommended by professor, and it's amazing. Includes API's, Models, Controllers, authentication, file generating commands.
   - [Laravel Sail docs: Executing Laravel commands in the docker container](https://laravel.com/docs/10.x/sail#executing-sail-commands)
   - [Quick start docker guide (sidebar)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/quick-start-docker)
+- Docusuarus
   - [Official quick start docusaurus guide](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/quick-start-docusaurus)
 
 ## Official Documentations and Other Tutorials
@@ -43,7 +48,7 @@ Below are links to project boards, resources, official documentation, and tutori
 
 ### Laravel 10
 - [Laravel quick start guide - 7 Laravel RESTful APIs best practices for 2023](https://benjamincrozat.com/laravel-restful-api-best-practices) - recommended by professor, and it's amazing. Includes API's, Models, Controllers, authentication, file generating commands.
-- [List of HTTP status codes](https://www.restapitutorial.com/httpstatuscodes.html)
+- [List of HTTP status codes](https://benjamincrozat.com/laravel-restful-api-best-practices#use-the-correct-http-code-for-responses)
 - [Laravel official documentation](https://laravel.com/docs/10.x/readme)
 - [Laravel Routing doc](https://laravel.com/docs/10.x/routing)
 - [Laravel Controller doc](https://laravel.com/docs/10.x/controllers)

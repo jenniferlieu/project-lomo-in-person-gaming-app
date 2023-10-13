@@ -39,6 +39,9 @@ sequenceDiagram
 ```
 
 ### WebSockets
+
+When a new beacon or a new comment is created, that data will be added into the database and then RETURN to the frontend THROUGH the WebSocket.
+
 ```mermaid
 sequenceDiagram
   participant Frontend
@@ -46,6 +49,7 @@ sequenceDiagram
   participant Controller
   participant Model
   participant Database
+  participant Event
   participant Event Listener
 
   Frontend->>API Middleware: Sends a POST request with token
@@ -65,11 +69,14 @@ sequenceDiagram
   Database-->>Controller: Returns successfully created
   deactivate Database
   
-  Controller->>Event Listener: Calls Event->broadcastWith() function
+  Controller->>Event: Calls Event->broadcastWith() function
   deactivate Controller
+  activate Event
+  Event->>Event Listener: Automatically calls handle() function
+  deactivate Event
   activate Event Listener
-
   Event Listener->>Frontend: Sends newly created beacon data through WebSocket
+  deactivate Event Listener
 
   Frontend->>Frontend: Displays newly create beacon in real time
 ```
