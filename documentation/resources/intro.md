@@ -23,7 +23,7 @@ Below are links to project boards, resources, official documentation, and tutori
   - [Quick start Tailwind guide](https://www.codeinwp.com/blog/tailwind-css-tutorial/)
   - [How to make API calls from React (sidebar)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/state-and-api-calls#performing-side-effects-api-calls)
 - Laravel and Docker
-  - [Laravel quick start guide - 7 Laravel RESTful APIs best practices for 2023](https://benjamincrozat.com/laravel-restful-api-best-practices) - recommended by professor, and it's amazing. Includes API's, Models, Controllers, authentication, file generating commands.
+  - [Laravel quick start guide - 7 Laravel RESTful APIs best practices for 2023](https://benjamincrozat.com/laravel-restful-api-best-practices) - recommended by professor, and it's amazing. Includes API's, Models, Controllers, file generating commands.
   - [Laravel Sail docs: Executing Laravel commands in the docker container](https://laravel.com/docs/10.x/sail#executing-sail-commands)
   - [Quick start docker guide (sidebar)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/quick-start-docker)
 - Docusuarus
@@ -47,7 +47,7 @@ Below are links to project boards, resources, official documentation, and tutori
 - [Quick start docker guide (sidebar)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/quick-start-docker)
 
 ### Laravel 10
-- [Laravel quick start guide - 7 Laravel RESTful APIs best practices for 2023](https://benjamincrozat.com/laravel-restful-api-best-practices) - recommended by professor, and it's amazing. Includes API's, Models, Controllers, authentication, file generating commands.
+- [Laravel quick start guide - 7 Laravel RESTful APIs best practices for 2023](https://benjamincrozat.com/laravel-restful-api-best-practices) - recommended by professor, and it's amazing. Includes API's, Models, Controllers, file generating commands.
 - [List of HTTP status codes](https://benjamincrozat.com/laravel-restful-api-best-practices#use-the-correct-http-code-for-responses)
 - [Laravel official documentation](https://laravel.com/docs/10.x/readme)
 - [Laravel Routing doc](https://laravel.com/docs/10.x/routing)
