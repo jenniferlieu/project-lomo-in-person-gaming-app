@@ -20,15 +20,16 @@ const main_template_jira_scripts = () => {
 }
 
 // You can change the title here. The default is the name of the repository.
-const title = ''+process.env.PROJECT_NAME.replaceAll('-',' ').split(' ').map((word) => {
-  return word[0].toUpperCase() + word.substring(1);
-}).join(' ');
+// const title = ''+process.env.PROJECT_NAME.replaceAll('-',' ').split(' ').map((word) => {
+//   return word[0].toUpperCase() + word.substring(1);
+// }).join(' ');
+const title = 'LOMO In Person Gaming App';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   /*TODO: Change to your project's title and tagline*/
   title: title,
-  tagline: 'Owls are cool',
+  tagline: 'Create beacons, answer the call, meetup in person to play games!',
   /*Unless you move this website to a seperate repo don't change url and baseurl.*/
   url: 'https://'+process.env.ORG_NAME+'.github.io/',
   baseUrl: '/'+process.env.PROJECT_NAME+'/',
@@ -119,10 +120,10 @@ const config = {
             position: 'left',
             label: 'Documentation',
           },{
-            to: '/tutorial/Intro',
-            label: 'Docusaurus Tutorial',
+            to: '/contributing/intro',
+            label: 'Contributing',
             position: 'left',
-            activeBaseRegex: `/tutorial/`,
+            activeBaseRegex: `/contributing/`,
           },
           {
             href: 'https://github.com/'+process.env.ORG_NAME+'/'+process.env.PROJECT_NAME,
@@ -199,9 +200,9 @@ const config = {
     [
       '@docusaurus/plugin-content-docs',
       {
-        id: 'tutorial',
-        path: 'tutorial',
-        routeBasePath: 'tutorial',
+        id: 'contributing',
+        path: 'contributing',
+        routeBasePath: 'contributing',
         sidebarPath: require.resolve('./sidebars.js'),
         // ... other options
       },

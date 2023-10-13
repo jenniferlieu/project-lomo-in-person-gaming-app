@@ -18,8 +18,8 @@ function HomepageHeader() {
             {/* TODO: Change me to your project's tutorial*/ }
           <Link
             className="button button--secondary button--lg"
-            to="/tutorial/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            to="/contributing/intro">
+            Contributing: Setup and Resources
           </Link>
         </div>
       </div>
@@ -32,8 +32,8 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-        title={`Hello from ${siteConfig.title}`}
-        description="Description will go into a meta tag in <head />">
+        title={`${siteConfig.title}`}
+        description="LOMO, an in person gaming app fostering in person meetups to play games.">
         <HomepageHeader/>
         <main>
             <MDXContent>
