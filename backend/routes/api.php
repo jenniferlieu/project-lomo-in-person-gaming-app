@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\BeaconController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,12 @@ Route::resource('posts', Controller::class)->only([
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// create a public user route to test database for login and signup
+// delete after authentication has been setup
+Route::resource('users', UserController::class, [
+    'except' => ['edit', 'create']
+]);
 
 Route::resource('beacons', BeaconController::class, [
     'except' => ['edit', 'create']
