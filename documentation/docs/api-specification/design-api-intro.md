@@ -5,37 +5,56 @@ description: What should be in this section.
 
 Design Document - Part II API
 =============================
+# JSON Overview
+# This will likely be changed as we hammer out the details / decide how we want to do this
 
-**Purpose**
-
-This Design Document gives the complete design of the software implementation. This information should be in structured comments (e.g. Javadoc) in the source files. We encourage the use of a documentation generation tool to generate a draft of your API that you can augment to include the following details.
-
-**Requirements**
-
-In addition to the general documentation requirements the Design Document - Part II API will contain:
-
-General review of the software architecture for each module specified in Design Document - Part I Architecture. Please include your class diagram as an important reference.
-
-**For each class define the data fields, methods.**
-
-The purpose of the class.
-
-The purpose of each data field.
-
-The purpose of each method
-
-Pre-conditions if any.
-
-Post-conditions if any.
-
-Parameters and data types
-
-Return value and output variables
-
-Exceptions thrown\* (PLEASE see note below for details).
-
-An example of an auto-generated and then augmented API specification is here ([Fiscal Design Document 2\_API.docx](https://templeu.instructure.com/courses/106563/files/16928898?wrap=1 "Fiscal Design Document 2_API.docx") )
-
-This group developed their API documentation by hand ([Design Document Part 2 API-1\_MovieMatch.docx](https://templeu.instructure.com/courses/106563/files/16928899?wrap=1 "Design Document Part 2 API-1_MovieMatch.docx") )
-
-\*At the top level, or where appropriate, all exceptions should be caught and an error message that is meaningful to the user generated. It is not OK to say ("xxxx has encountered a problem and will now close (OK?)". Error messages and recovery procedures should be documented in the User’s Manual.
+## Users Class
+### This will include a method to POST a user, a method to get all users, and a method to get a specific user by user_id
+```js
+"Users": { // Class for the users
+  "user_id": int, // Unique identifier
+  "email": "", // Registration
+  "username": "", // Public identifier
+  "password": "", // 3 guesses
+  "first_name": "", // Registration (do we need this?)
+  "last_name": "", // Registration (do we need this?)
+  "profile": { // public information, filters, accountability
+    "about me": "",
+    "profile_pic": ""
+    "beacons_hosted": [{beacon_id}],
+    "beacons_attended": [{beacon_id}],
+    "preferred_games":"",
+    "preference_tags":"",
+  },
+  "friends": [{user_id}, {}]
+}
+```
+## Beacon Class
+### This will include a POST, a GET by beacon_id, and a GET by location (i.e. distance from a spot)
+```js
+"Beacons": {
+  "beacon_id": int, // Unique identifier
+  "host_id": "", // user_id of the User
+  "title": "", // What is going to happen at the event (doubles practice, mario wonder, pokemans vgc, etc.)
+  "game": {
+    "game_title": "",
+    "game_image": ""
+  },
+  "date": "",
+  "time": "",
+  "location":  {
+    "description": "", // Address / Name of place
+    "latitude": float, // For the map
+    "longitude": float // For the map
+   },
+  "players_needed": int, // Amount of players wanted
+  "players_attending": [{user_id}], // List of players attended
+  "comments": { // A place of intelligent discussion and detailed politics
+    "comment_id": int, // Unique identifier
+    "beacon_id": int, // What beacon its connected to
+    "user_id" :int, // user_id of the commenter
+    "body": "", // The comment
+    "timestamp: "" // Timestamp
+  }
+}
+```
