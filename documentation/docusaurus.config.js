@@ -29,7 +29,7 @@ const title = 'LOMO In Person Gaming App';
 const config = {
   /*TODO: Change to your project's title and tagline*/
   title: title,
-  tagline: 'Create beacons, answer the call, meetup in person to play games!',
+  tagline: '',
   /*Unless you move this website to a seperate repo don't change url and baseurl.*/
   url: 'https://'+process.env.ORG_NAME+'.github.io/',
   baseUrl: '/'+process.env.PROJECT_NAME+'/',
