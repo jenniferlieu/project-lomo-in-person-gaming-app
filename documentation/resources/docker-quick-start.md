@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
 ---
-# Quick Start Docker
+# Docker Quick Start
 
 ## Docker concepts
 - A docker container is kind of a virtual machine except it only runs a lightweight command line version of Linux and uses the host computer's resources to function. It's supposed to be lightweight.

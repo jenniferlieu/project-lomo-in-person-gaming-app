@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 ---
-# State and API calls
+# React API calls and State
 State allows components to manage and update their own data. Unlike props, which are passed from parent to child and are read-only, state is mutable and controlled by the component itself.
 
 `useState` and `useEffect` are two fundamental hooks in React that allow you to manage state and perform side effects in components.
