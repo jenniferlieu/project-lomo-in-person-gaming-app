@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 3
 ---
 # State and API calls
 State allows components to manage and update their own data. Unlike props, which are passed from parent to child and are read-only, state is mutable and controlled by the component itself.

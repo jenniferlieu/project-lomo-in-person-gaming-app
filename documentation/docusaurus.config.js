@@ -120,10 +120,10 @@ const config = {
             position: 'left',
             label: 'Documentation',
           },{
-            to: '/contributing/intro',
-            label: 'Contributing',
+            to: '/resources/intro',
+            label: 'Resources',
             position: 'left',
-            activeBaseRegex: `/contributing/`,
+            activeBaseRegex: `/resources/`,
           },
           {
             href: 'https://github.com/'+process.env.ORG_NAME+'/'+process.env.PROJECT_NAME,
@@ -200,9 +200,9 @@ const config = {
     [
       '@docusaurus/plugin-content-docs',
       {
-        id: 'contributing',
-        path: 'contributing',
-        routeBasePath: 'contributing',
+        id: 'resources',
+        path: 'resources',
+        routeBasePath: 'resources',
         sidebarPath: require.resolve('./sidebars.js'),
         // ... other options
       },

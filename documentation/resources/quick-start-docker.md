@@ -1,8 +1,7 @@
 ---
 sidebar_position: 4
 ---
-
-# Docker Commands
+# Quick Start Docker
 
 ## Docker concepts
 - A docker container is kind of a virtual machine except it only runs a lightweight command line version of Linux and uses the host computer's resources to function. It's supposed to be lightweight.
@@ -73,36 +72,3 @@ You can either use Docker Desktop's Dashboard or the command line.
    1. `-it` means interactive
 2. Start running commands as if it's your local machine. Meaning, don't use `sail` commands or docker commands, just use the original commands
    - Example: run `php --version` instead of `sail php --verion` or `docker exec -it <container-id/name> php --version`
-
-## Execute Laravel commands in docker container
-
-First access the docker command line before running any commands, otherwise, it'll just run on your machine and not in the docker container.
-
-For a list of Laravel commands used in this project, checkout the [Laravel commands guide](/contributing/laravel-tutorial/laravel-commands).
-
-### Execute `php` commands
-`php` is the programming language that laravel uses.
-
-```bash
-php <command> # original command without docker
-sail php <command> # laravel sail's shorthand command
-docker exec -it <container-id/name> php <command> # docker command
-```
-
-### Execute `php artisan` commands
-`php artisan` is a code generator command specifically for Laravel. It generates boilerplate templates for files in laravel. For example, you can create a boiler plate template for a Controller file using `php artisan make:controller UserController`. It will automatically create a file called `UserController.php` in the `app/Http/Controller` folder.
-
-```bash
-php artisan <command> # original command without docker
-sail artisan <command> # laravel sail's shorthand command
-docker exec -it <container-id/name> php artisan <command> # docker command
-```
-
-### Execute `composer` commands
-`composer` is a dependency manager library for php similar to how npm is used to manage node libraries.
-
-```bash
-composer <command> # original command without docker
-sail composer <command> # laravel sail's shorthand command
-docker exec -it <container-id/name> composer <command> # docker command
-```

@@ -1,15 +1,10 @@
 ---
-sidebar_position: 1
+sidebar_position: 5
 ---
 # Backend Overview
-This guide is meant to provide a general understand of how the Laravel backend works and start coding as quickly as possible.
+**The purpose of the backend is to create authenticated RESTful API routes and move data between the frontend and database.**
 
-This guide will use the `sail` command. For docker commands, check out the [Docker commands guide](/contributing/docker-commands).
-
-**The purpose of backend is move data between the frontend and database.** It does that by creating a url route in the `routes/api.php` file. Each route is mapped to a function inside the Controller files to handle that data. Each Controller file explicitly uses its associated Model file to send data to the database. For each Model file, Laravel will use their associated migration files to send data to the database behind the scenes.
-- Uses Laravel as the API backend ONLY
-- Uses Laravel WebSockets to push real-time changes
-- Uses the Laravel Sanctum middleware to create private API routes
+It does that by creating a url route in the `routes/api.php` file. Each route is mapped to a function inside the Controller files to handle that data. Each Controller file explicitly uses its associated Model file to send data to the database. For each Model file, Laravel will use their associated migration files to send data to the database behind the scenes.
 
 ## Data flow
 
@@ -85,16 +80,16 @@ sequenceDiagram
   - The Model refers to the database. These files can read and write to the database.
   - The View refers to the frontend.
   - The Controller is the middleman that moves data between the model/database and the view/controller. It handles and processes HTTP requests. For example, it receives data from the frontend, processes it, then sends it to the database.
+- API routes:
+  - Routes are basically subpage urls. For example, `/images` is a subpage route for `google.com/images`.
+  - API routes are links that are specifically used for sending data to and from the server and requires authentication to access the link/route.
+  - API routes must be routed through middleware to make them private, called "authenticating routes/API's"
 - HTTP requests:
     - GET - gets data
     - POST - creates data
     - PATCH - updates some data
     - PUT - updates data
     - DELETE - deletes data
-- API routes:
-  - Routes are basically subpage urls. For example, `/images` is a subpage route for `google.com/images`.
-  - API routes are links that are specifically used for sending data to and from the server and requires authentication to access the link/route.
-  - API routes must be routed through middleware to make them private, called "authenticating routes/API's"
 
 ## Laravel files and folders
 

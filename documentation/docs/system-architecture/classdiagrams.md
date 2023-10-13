@@ -242,7 +242,9 @@ The FriendsList displays a list of friends based on which filter is passed into 
 
 The backend is contained within a docker container composed of the Laravel Sail image for the backend and the MongoDB image for the database. The docker images shares the sail network allowing them to communicate with each other.
 
-The purpose of the backend is to create authenticated RESTful API routes between the frontend, backend, and database. Alongside HTTP requests, it will also use WebSockets to send real-time updates to the frontend when a new beacon create or a new comment posted on a beacon.
+**The purpose of the backend is to create authenticated RESTful API routes and move data between the frontend and database.** Alongside HTTP requests, it will also use WebSockets to send real-time updates to the frontend when a new beacon create or a new comment posted on a beacon.
+
+It does that by creating a url route in the `routes/api.php` file. Each route is mapped to a function inside the Controller files to handle that data. Each Controller file explicitly uses its associated Model file to send data to the database. For each Model file, Laravel will use their associated migration files to send data to the database behind the scenes.
 
 ```mermaid
 ---
@@ -254,11 +256,13 @@ classDiagram
     api *-- ReportController
 
     class api {
-        - Route::resource('/user', [UserController::class])
-        - Route::resource('/beacon', [BeaconController::class])
-        - Route::resource('/report', [ReportController::class])
-        - Route::get('/beacon/recommended', [BeaconController::class, getRecommendedBeacons])
-        - Route::get('/beacon/nearby', [BeaconController::class, getNearbyBeacons])
+        - Route::apiResources([
+            'users' => UserController::class,
+            'beacons' => BeaconController::class,
+        ])
+        - Route::get('/beacons/recommended', [BeaconController::class, 'getRecommendedBeacons'])
+        - Route::get('/beacons/nearby', [BeaconController::class, 'getNearbyBeacons'])
+        - Route::post('/reports', [ReportController::class, 'store'])
     }
 
     UserController *-- User
@@ -271,25 +275,6 @@ classDiagram
     }
     class User {
         - array fillable
-        + getUserIdAttritbute(): int
-        + getEmailAttribute(): string
-        + getPasswordAttribute(): string
-        + getUsernameAttribute(): string
-        + getFirstNameAttribute(): string
-        + getLastNameAttribute(): string
-        + getAvatarAttribute(): string
-        + getFriendsAttribute(): array
-        + getProfileAttribute(): object
-
-        + setUserIdAttritbute()
-        + setEmailAttribute()
-        + setPasswordAttribute()
-        + setUsernameAttribute()
-        + setFirstNameAttribute()
-        + setLastNameAttribute()
-        + setAvatarAttribute()
-        + setFriendsAttribute()
-        + setProfileAttribute()
     }
 
     BeaconController *-- Beacon
@@ -309,31 +294,6 @@ classDiagram
     }
     class Beacon {
         - array fillable
-        + getBeaconIdAttribute(): int
-        + getHostIdAttribute(): int
-        + getTitleAttribute(): string
-        + getImageAttribute(): string
-        + getGameAttribute(): string
-        + getDescriptionAttribute(): string
-        + getDateTimeAttribute(): DateTime
-        + getLocationAttribute(): string
-        + getNumPlayersNeeded(): int
-        + getWaitlistAttribute(): array
-        + getPlayersAttendedAttribute(): array
-        + getCommentsAttribute(): array
-
-        + setBeaconIdAttribute()
-        + setHostIdAttribute()
-        + setTitleAttribute()
-        + setImageAttribute()
-        + setGameAttribute()
-        + setDescriptionAttribute()
-        + setDateTimeAttribute()
-        + setLocationAttribute()
-        + setNumPlayersNeeded()
-        + setWaitlistAttribute()
-        + setPlayersAttendedAttribute()
-        + setCommentsAttribute()
     }
     class NewBeaconEvent {
         + broadcastWith()
@@ -351,22 +311,9 @@ classDiagram
     ReportController *-- Report
     class ReportController{
         + store(Request): array
-        + index(Request): array
-        + show(Request): array
-        + update(Request): array
-        + destory(Request): array
     }
     class Report {
         - array fillable
-        + getReporteeIdAttribute(): int
-        + getReportedIDAttribute(): int
-        + getTimestampAttribute(): DateTime
-        + getReportBodyAttribute(): string
-
-        + setReporteeIdAttribute()
-        + setReportedIDAttribute()
-        + setTimestampAttribute()
-        + setReportBodyAttribute()
     }
 ```
 #### Figure 2. Laravel backend class diagram
