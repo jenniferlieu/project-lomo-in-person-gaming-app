@@ -28,7 +28,7 @@ class BeaconCreationTest extends TestCase
      * Tests that validation checks fail on the POST request for beacons.
      * Should return a 422 status code for unprocessable entity.
      */
-    public function test_validation_should_fail_on_unsufficient_post_request(): void
+    public function test_validation_should_fail_on_insufficient_post_request(): void
     {
         $response = $this->withHeaders([
             'Accept' => 'application/json'
