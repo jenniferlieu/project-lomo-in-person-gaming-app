@@ -3,6 +3,6 @@
   "position": 6,
   "link": {
     "type": "generated-index",
-    "description": "Document Overview goes here."
+    "description": "High level overview of the class diagrams for frontend and backend, database diagrams, sequence diagrams for each use cases, and some inital design mockups."
   }
 }

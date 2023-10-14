@@ -5,9 +5,15 @@ sidebar_position: 1
 
 LOMO is a full-stack, mobile-first web app using **ReactJS and Tailwind CSS** for the frontend, **Laravel Sail** (dockerized version of Laravel) as the API backend, **MongoDB** as the database hosted on MongoDB Atlas, and **Docusaurus** as the documentation site hosted on **GitHub Pages**.
 
-The purpose of the frontend is to create a user interface for the app. The purpose of the backend is to be the app's API and move data between the frontend and database. The purpose of the database is to the persist data.The purpose of docker is to containzer the backend so that everyone is developing in the same environment as the production environment (in theory).
+The purpose of the frontend is to create a user interface for the app. 
 
-Check out the [Setup Instructions](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/setup-instructions) section on how to setup a local instance of the app.
+The purpose of the backend is to be the app's API and move data between the frontend and database. 
+
+The purpose of the database is to the persist data. 
+
+The purpose of docker is to containzer the backend so that everyone is developing in the same environment as the production environment (in theory).
+
+Check out the [Setup Instructions](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/#setup-instructions) on the main page of Docusaurus on how to setup a local instance of the app.
 
 Below are links to project boards, resources, official documentation, and tutorials.
 
