@@ -214,8 +214,7 @@ const config = {
     [
       "docusaurus2-dotenv-2",
       {
-        path: './.env', // The path to your environment variables, for local development
-        systemvars: true, // True loads all system variables, for GITHUB PAGES!
+        systemvars: true, // True loads all system variables
       },
     ],
     'plugin-image-zoom',

@@ -7,6 +7,10 @@ Laravel has a built-in test suite wrapper that uses the [PHPUnit testing framewo
 
 The unit tests are grouped together under Feature tests. Each feature test corresponds to a [use case](/docs/requirements/use-case-descriptions).
 
+:::note
+The Laravel Sail docker container must be running for the commands to work. For more testing commands, check out the [Larvel 10 testing documentation](https://laravel.com/docs/10.x/testing). Remember to use the [sail](https://laravel.com/docs/10.x/sail#executing-sail-commands) or [docker](/resources/docker-quick-start#access-the-docker-containers-command-line) command to execute any Laravel commands.
+:::
+
 To run ALL unit tests, run the following command:
 ```bash
 sail artisan test
@@ -16,8 +20,6 @@ To run ALL unit tests **AND** get test coverage results, run the following comma
 ```bash
 sail artisan test --coverage
 ```
-
-Note: The Laravel Sail docker container must be running for the commands to work. For more testing commands, check out the [Larvel 10 testing documentation](https://laravel.com/docs/10.x/testing). Remember to use the [sail](https://laravel.com/docs/10.x/sail#executing-sail-commands) or [docker](/resources/docker-quick-start#access-the-docker-containers-command-line) command to execute any Laravel commands.
 
 ## Test Coverage
 
@@ -57,10 +59,9 @@ Console/Kernel ............................... 16 / 66.7%
 ### 3. Beacon Creation Test
 
 #### Test: Checks that POST request to /api/beacons/ successfully accepts JSON data
-
-- ```test_post_beacon_request_returns_successful_response()```
+```test_post_beacon_request_returns_successful_response()```
 - Returns: HTTP status code 201 for successful resource creation
 
 #### Test: Checks that POST request to /api/beacons/ fails when required fields are empty
-- ```test_post_beacon_request_fails_when_required_fields_are_empty()```
+```test_post_beacon_request_fails_when_required_fields_are_empty()```
 - Returns: HTTP status code 422 for unprocessable entity
