@@ -180,8 +180,15 @@ php artisan config:clear
 
 ### Run docusaurus
 Go into the `documentation/` folder and run:
+
+**For Windows powershell:**
 ```bash
-export PROJECT_NAME=project-lomo-in-person-gaming-app && yarn start
+set PROJECT_NAME=project-lomo-in-person-gaming-app; set ORG_NAME=Capstone-Projects-2023-Fall; yarn start
+```
+
+**For Bash:**
+```bash
+export PROJECT_NAME=project-lomo-in-person-gaming-app && export ORG_NAME=Capstone-Projects-2023-Fall && yarn start
 ```
 
 ## Collaborators
