@@ -1,13 +1,36 @@
 [![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-7f7980b617ed060a017424585567c406b6ee15c891e84e1186181d67ecf80aa0.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=11814775)
 <div align="center">
 
-# LOMO
+# LOMO In Person Gaming App
 [![Report Issue on Jira](https://img.shields.io/badge/Report%20Issues-Jira-0052CC?style=flat&logo=jira-software)](https://temple-cis-projects-in-cs.atlassian.net/jira/software/c/projects/LM/issues)
 [![Deploy Docs](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml/badge.svg)](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml)
 [![Documentation Website Link](https://img.shields.io/badge/-Documentation%20Website-brightgreen)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/)
 
 
 </div>
+
+- [LOMO In Person Gaming App](#lomo-in-person-gaming-app)
+  - [Keywords](#keywords)
+  - [Project Abstract](#project-abstract)
+  - [High Level Requirement](#high-level-requirement)
+  - [Conceptual Design](#conceptual-design)
+  - [Background](#background)
+  - [Required Resources](#required-resources)
+  - [Setup Instructions](#setup-instructions)
+    - [System requirments and prerequisites](#system-requirments-and-prerequisites)
+    - [Setup local machine](#setup-local-machine)
+      - [1. Git clone the repo](#1-git-clone-the-repo)
+      - [2. Setup frontend](#2-setup-frontend)
+      - [3. Setup backend](#3-setup-backend)
+        - [(Optional) Setup sail alias](#optional-setup-sail-alias)
+      - [4. Setup docusaurus](#4-setup-docusaurus)
+    - [Troubleshooting for setting up the backend on Windows](#troubleshooting-for-setting-up-the-backend-on-windows)
+  - [Run](#run)
+    - [Run the app](#run-the-app)
+    - [Stop running the app](#stop-running-the-app)
+    - [Run docusaurus](#run-docusaurus)
+  - [Collaborators](#collaborators)
+
 
 ## Keywords
 
@@ -53,7 +76,7 @@ Instructions on how to setup a local instance of the app.
 - (For Windows machines only) WSL2 + Ubuntu 22.04.3 LTS (Jammy Jellyfish)
    1. [Install WSL2 with Ubuntu 22.04.2 LTS](https://www.youtube.com/watch?v=28Ei63qtquQ)
    2. [Setup Docker Desktop with WSL2](https://docs.docker.com/desktop/wsl/)
-   3. If using Visual Studio Code, [setup WSL2 with vscode](https://code.visualstudio.com/docs/remote/wsl) and install the "WSL extension" into the WSL's version of vscode.
+   3. If using Visual Studio Code, [setup WSL2 with vscode](https://code.visualstudio.com/docs/remote/wsl) and install the "[WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)" extension into the WSL's version of vscode. (Also install the "[Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)" extension if you want the Docker Desktop Dashboard inside vscode).
 
 ### Setup local machine
 
@@ -111,32 +134,6 @@ If you want to use the sail command, then you can continue to use `./vendor/bin/
    yarn install
    ```
 
-### Run
-
-#### Run the app
-1. **Start the backend server**
-   ```bash
-   ./vendor/bin/sail up -d
-   ```
-2. **Start frontend development server**
-   ```bash
-   npm start
-   ```
-3. Go to https://localhost:3000 to see the frontend server
-
-#### Stop running the app
-1. **Stop docker**
-   ```bash
-   ./vendor/bin/sail down
-   ```
-2. **Stop the react server**: enter `Ctrl+C` into the terminal running the react server.
-
-#### Run docusaurus
-Go into the `documentation/` folder and run:
-```bash
-export PROJECT_NAME=project-lomo-in-person-gaming-app && yarn start
-```
-
 ### Troubleshooting for setting up the backend on Windows 
 If you **CANNOT RUN THE DOCKER COMMAND TO INSTALL COMPOSER DEPENDENCIES**, (supported solution) you must git clone the project in the WSL's virtual machine instead of crossing over to the Windows files and folders. 
 - (Unsuported solution) If you wish to use the repo on your Windows filesystem AND already have PHP 8.2.10 and composer installed on your development machine, then run `composer install --ignore-platform-reqs` to install the composer dependencies. Just remember to use the `sail` or `docker` commands when running any `php` or `composer` commands AFTER the Docker container is setup so that the commands run inside the docker container and NOT on your machine! 
@@ -159,6 +156,32 @@ php artisan storage:link
 # clear the cache and config
 php artisan cache:clear
 php artisan config:clear
+```
+
+## Run
+
+### Run the app
+1. **Start the backend server**
+   ```bash
+   ./vendor/bin/sail up -d
+   ```
+2. **Start frontend development server**
+   ```bash
+   npm start
+   ```
+3. Go to https://localhost:3000 to see the frontend server
+
+### Stop running the app
+1. **Stop docker**
+   ```bash
+   ./vendor/bin/sail down
+   ```
+2. **Stop the react server**: enter `Ctrl+C` into the terminal running the react server.
+
+### Run docusaurus
+Go into the `documentation/` folder and run:
+```bash
+export PROJECT_NAME=project-lomo-in-person-gaming-app && yarn start
 ```
 
 ## Collaborators

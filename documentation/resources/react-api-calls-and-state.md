@@ -85,6 +85,9 @@ return(
 Besides updating the UI, useEffect is commonly used for performing side effects like **making API requests**, setting up subscriptions, or manipulating the DOM. For example, you can use it to fetch data from an API and update the component's state with the received data.
 
 All routes created in the `api.php` file will build on the `/api/` route. For example, the full '/hello' route will be https://localhost/api/hello. On the frontend, it will be called using only the subpage url `/api/hello`.
+
+<!-- TODO: Update the http request library -->
+<!-- TODO: Update the backend url -->
 ```jsx
 // MyComponent.js
 

@@ -13,7 +13,7 @@ The purpose of the database is to the persist data.
 
 The purpose of docker is to containzer the backend so that everyone is developing in the same environment as the production environment (in theory).
 
-Check out the [Setup Instructions](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/#setup-instructions) on the main page of Docusaurus on how to setup a local instance of the app.
+Check out the [Setup Instructions](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/#setup-instructions) on the main page of Docusaurus on how to setup a local instance of the app and for run instructions.
 
 Below are links to project boards, resources, official documentation, and tutorials.
 
