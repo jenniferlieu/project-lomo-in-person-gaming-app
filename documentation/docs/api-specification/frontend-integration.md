@@ -1,14 +1,14 @@
 ---
-sidebar_position: 2
+sidebar_position: 4
 description: How to connect frontend and backend
 ---
-# Frontend Integration
+# Frontend API Integration
 
 This section documents frontend API calls to the backend and explains how the frontend and backend are connected.
 
 Laravel is used as the API backend and acts as the middleman to move data between the frontend and the database. Please refer to the [Backend API Endpoints](/docs/api-specification/backend-api-endpoints/) documentation for the the specific API endpoints and requests.
 
-## Make API Calls
+## Making API Calls
 API calls from the frontend are made inside the `useEffect()` hook in React. For more information on React State, please refer to the [official React documentations](https://react.dev/).
 
 <!-- TODO: Update the http request library -->
@@ -60,7 +60,7 @@ A complete list of all acceptable fields for the JSON data.
 
 ### Users JSON data
 
-Contains data about the user's account settings, profile settings, and friends.
+This JSON schema is used by the `/api/users` endpoint.
 
 ```js
 "Users": { // JSON data for Users
@@ -73,8 +73,8 @@ Contains data about the user's account settings, profile settings, and friends.
   "profile": { // public information, filters, accountability
     "about me": "",
     "profile_pic": ""
-    "beacons_hosted": [{Beacons.beacon_id, Beacons.title, Beacons.image}],
-    "beacons_attended": [{Beacons.beacon_id, Beacons.title, Beacons.image}],
+    "beacons_hosted": [{Beacons.beacon_id, Beacons.title, Beacons.image}, {}],
+    "beacons_attended": [{Beacons.beacon_id, Beacons.title, Beacons.image}. {}],
     "preferred_games":"",
     "preference_tags":"",
   },
@@ -84,7 +84,7 @@ Contains data about the user's account settings, profile settings, and friends.
 
 ### Beacon JSON data
 
-Contains data about beacon information, map coordinates, a list of comments made about the beacon, and a list of players attending the beacon.
+This JSON schema is used by the `/api/beacons` endpoint.
 
 ```js
 "Beacons": {
@@ -95,28 +95,28 @@ Contains data about beacon information, map coordinates, a list of comments made
     "game_title": "",
     "game_image": ""
   },
-  "date": "",
-  "time": "",
+  "description": "", // more information about the event
+  "date_time": Date, // date and time 
   "location":  {
     "description": "", // Address / Name of place
     "latitude": float, // For the map
     "longitude": float // For the map
    },
   "players_needed": int, // Amount of players wanted
-  "players_attending": [{user_id}], // List of players attended
+  "players_attending": [{Users.user_id, Users.profile.profile_pic, Users.username}, {}], // List of players attended
   "comments": { // A place of intelligent discussion and detailed politics
     "comment_id": int, // Unique identifier
     "beacon_id": int, // What beacon its connected to
-    "user_id" :int, // user_id of the commenter
+    "user_id": int, // user_id of the commenter
     "body": "", // The comment
-    "timestamp: "" // Timestamp
+    "timestamp: Date // Timestamp
   }
 }
 ```
 
 ### Reports JSON data
 
-Contains data about the user making the report, the user being reported, the reason for the report, and a timestamp.
+This JSON schema is used by the `/api/reports` endpoint.
 
 ```js
 "Reports": {
@@ -124,13 +124,19 @@ Contains data about the user making the report, the user being reported, the rea
   "reportee_id": "", // the user making the report
   "reported_id": "", // the user being reported
   "body": "", // reason why they're being reported
-  "timestamp: "" // timestamp
+  "timestamp: Date // timestamp
 }
 ```
 
 ## Data Flow
 
-The backend will most likely use a combination of HTTP requests and WebSockets to move data between the frontend and the database.
+This sections describes how the data flows from the frontend to backend to database and back.
+
+The app uses a combination of HTTP requests and WebSockets to send and receive requests.
+
+Beacon data, such as the creation of a beacon or the creation of a comment, would use WebSockets to push real-time updates.
+
+Every other data will use HTTP Requests to send and receive data.
 
 ### HTTP requests
 
@@ -172,6 +178,7 @@ sequenceDiagram
 
 ### WebSockets
 
+<!-- TODO: Decide how the websocket data will be used -->
 When a new beacon or a new comment is created, that data will be added into the database from HTTP requests and then RETURN to the frontend THROUGH the WebSocket.
 
 Or it can just create a beacon through the WebSocket and then broadcast that change to all users through the WebSocket.

@@ -1,6 +1,6 @@
 ---
-sidebar_position: 3
-description: Documentation for Laravel's classes
+sidebar_position: 2
+description: Documentation for Laravel classes
 ---
 # Backend Class Documentation
 

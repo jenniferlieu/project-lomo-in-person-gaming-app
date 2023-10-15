@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-description: Documentation for frontend React components
+description: Documentation for React components
 ---
 # Frontend Class Documentation
 
