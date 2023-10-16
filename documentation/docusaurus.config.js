@@ -149,6 +149,10 @@ const config = {
                 label: 'Resources',
                 to: '/resources/intro',
               },
+              {
+                label: 'Backed API docs',
+                to: '/api',
+              }
             ],
           },
           // {
