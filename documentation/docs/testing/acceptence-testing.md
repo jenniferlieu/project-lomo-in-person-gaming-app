@@ -19,12 +19,48 @@ Demonstration of all of the functional and non-functional requirements. This can
 
 
 <table>
+<tr>
+    <tr>
+    <th>Project Name</th>
+    <th>Lomo</th>
+    <th>Block/Skip(B)</th>
+    <th>0</th>
+    <th></th>
+    </tr>
+    <tr>
+    <th>QA Technical Support Lead</th>
+    <th>tun85406@temple.edu</th>
+    <th>Pass(P)</th>
+    <th>0</th>
+    <th></th>
+    </tr>
+    <tr>
+    <th>QA Round</th>
+    <th>1</th>
+    <th>Fail(F)</th>
+    <th>0</th>
+    <th></th>
+    </tr>
+    <tr>
+    <th>Platform</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    </tr>
+    <tr>
+    <th>Tester Name</th>
+    <th></th>
+    <th>% Complete</th>
+    <th>0%</th>
+    <th>Notes if failed</th>
+    </tr>
     <tr>
     <th>Test ID</th>
     <th>Action/Steps</th>
     <th>Notes/Expected Result</th>
-    <th>___</th>
-    <th>___</th>
+    <th></th>
+    <th></th>
     </tr>
     <tr>
         <td>1</td>
@@ -37,9 +73,10 @@ Demonstration of all of the functional and non-functional requirements. This can
         <td>Beacon should display info when clicked</td>
     </tr>
     <tr>
-        <td>3</td>
-        
+        <td></td>
+        <td></td>
     </tr>
+</tr>
 </table>
 
 
