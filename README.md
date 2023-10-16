@@ -191,6 +191,20 @@ set PROJECT_NAME=project-lomo-in-person-gaming-app; set ORG_NAME=Capstone-Projec
 export PROJECT_NAME=project-lomo-in-person-gaming-app && export ORG_NAME=Capstone-Projects-2023-Fall && yarn start
 ```
 
+## [LOMO](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/) GitHub Stats
+
+### Number of opened pull requests made by each team member
+
+![LOMO pull requests](https://courses.ianapplebaum.com/api/pull-requests/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app)
+
+### Number of code reviews made by each team member
+
+![LOMO reviews](https://courses.ianapplebaum.com/api/reviews/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app)
+
+### Number of commits made by each team member
+
+![LOMO commits](https://courses.ianapplebaum.com/api/commits/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app)
+
 ## Collaborators
 
 [//]: # ( readme: collaborators -start )
