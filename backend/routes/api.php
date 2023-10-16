@@ -37,3 +37,21 @@ Route::resource('beacons', BeaconController::class, [
 Route::get('/hello', function() {
     return response()->json(['message' => 'hello world']);
 });
+
+Route::post('register', [UserController::class, 'store']);
+
+Route::post('login', [UserController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::resource('users', UserController::class, [
+        'except' => ['edit', 'create', 'store']
+    ]);
+
+    Route::resource('beacons', BeaconController::class, [
+        'except' => ['edit', 'create']
+    ]);
+});
