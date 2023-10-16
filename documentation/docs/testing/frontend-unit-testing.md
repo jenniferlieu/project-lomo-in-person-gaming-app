@@ -3,7 +3,8 @@ sidebar_position: 1
 ---
 # Frontend Unit Tests
 
-## App
+## React Components
+Each React component should have its own dedicated test file, and each of these test files must include at least one test case. Additionally, each component test file must include a test for page rendition. Any, and every, components that update states must include a test for a proper update.
 
 ## Account Creation
 
@@ -55,3 +56,4 @@ sidebar_position: 1
         </ul>
     </div>
 </details>
+
