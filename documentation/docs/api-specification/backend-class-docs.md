@@ -1,8 +1,8 @@
 ---
 sidebar_position: 2
-description: Documentation for Laravel's classes
+description: Documentation for Laravel classes
 ---
-# Backend Class Docs
+# Backend Class Documentation
 
 Documentation for the Laravel backend classes.
 
@@ -84,25 +84,25 @@ The User model class defines the object instance of a users document/row in Lara
 
 **Data fields:**
 
-- `fillable`: array
+- **`fillable`: array**
   - The attributes that are mass assignable.
-- `hidden`: array
+- **`hidden`: array**
   - The attributes that should be hidden for serialization.
-- `casts`: array
+- **`casts`: array**
   - The attributes that should be cast.
 
 ### Beacon
 
 The Beacon model class defines the object instance of a beacons document/row in Laravel. It contains a list of all the beacons collection fields.
 
-- `fillable`: array
+- **`fillable`: array**
   - The attributes that are mass assignable.
-- `guarded`: array
+- **`guarded`: array**
   - The attributes that are protected against mass assignment
 
 ### Report
 
 The Report model class defines the object instance of a reports document/row in Laravel. It contains a list of all the reports collection fields.
 
-- `fillable`: array
+- **`fillable`: array**
   - The attributes that are mass assignable.

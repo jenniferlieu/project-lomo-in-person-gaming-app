@@ -145,6 +145,10 @@ const config = {
                 label: 'Documentation',
                 to: '/docs/intro',
               },
+              {
+                label: 'Resources',
+                to: '/resources/intro',
+              },
             ],
           },
           // {
@@ -210,7 +214,7 @@ const config = {
     [
       "docusaurus2-dotenv-2",
       {
-        systemvars: true,
+        systemvars: true, // True loads all system variables
       },
     ],
     'plugin-image-zoom',
