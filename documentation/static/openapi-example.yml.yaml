@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: Swagger Petstore - OpenAPI 3.0
+  title: LOMO - OpenAPI 3.0
   description: |-
     This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
     Swagger at [http://swagger.io](http://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
@@ -18,22 +18,22 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.11
 externalDocs:
-  description: Find out more about Swagger
-  url: http://swagger.io
+  description: Return to the Backend API Documentation section
+  url: project-lomo-in-person-gaming-app/docs/api-specification/backend-api-endpoints
 servers:
   - url: /api/v3
 tags:
-  - name: pet
-    description: Everything about your Pets
+  - name: users
+    description: Access to user settings, user profile, and user's friends
     externalDocs:
       description: Find out more
       url: http://swagger.io
-  - name: store
+  - name: beacons
     description: Access to Petstore orders
     externalDocs:
       description: Find out more about our store
       url: http://swagger.io
-  - name: user
+  - name: reports
     description: Operations about user
 paths:
   /pet:

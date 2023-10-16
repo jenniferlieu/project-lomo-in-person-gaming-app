@@ -26,7 +26,7 @@ Below are links to project boards, resources, official documentation, and tutori
 - **React and Tailwind**
   - [React quick start guide](https://www.codementor.io/reactjs/tutorial/the-reactjs-quick-start-guide)
   - [Tailwind quick start guide](https://www.codeinwp.com/blog/tailwind-css-tutorial/)
-  - [React API calls and State (sidebar)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/state-and-api-calls#performing-side-effects-api-calls)
+  - [React API calls and State (sidebar)](/resources/react-api-calls-and-state)
 - **Laravel**
   - [Laravel quick start guide - 7 Laravel RESTful APIs best practices for 2023](https://benjamincrozat.com/laravel-restful-api-best-practices)
     - [List of HTTP status codes](https://benjamincrozat.com/laravel-restful-api-best-practices#use-the-correct-http-code-for-responses)
@@ -34,7 +34,7 @@ Below are links to project boards, resources, official documentation, and tutori
   - [Laravel API endpoints docs generator YouTube guide](https://www.youtube.com/watch?v=gp-_kcblYGA)
     - [Laravel Request Docs Github (the API endpoints docs generator)](https://github.com/rakutentech/laravel-request-docs)
 - **Docker**
-  - [Docker quick start guide (sidebar)](/resources/quick-start-docker)
+  - [Docker quick start guide (sidebar)](/resources/docker-quick-start)
 - **MongoDB**
   - [Tutorial on Setting up MongoDB with Laravel Sail](https://discord.com/channels/1150870543092949102/1150870543092949105/1156730930090737684)
   - [MongoDB datatype to php conversion](/docs/system-architecture/erddiagrams#datatype-conversion-from-mongodb-to-php)
@@ -44,6 +44,7 @@ Below are links to project boards, resources, official documentation, and tutori
 ## More Resources
 ### ReactJS
 - [Official React documentation](https://react.dev/)
+- [React Unit Tests](https://www.freecodecamp.org/news/how-to-write-unit-tests-in-react/)
 
 ### Tailwind CSS
 - [Official Tailwind documentation](https://tailwindcss.com/docs/installation)
@@ -75,6 +76,7 @@ Keep in mind that the some of the Laravel official documentation are written for
 - [Offical Docusaurus documentation](https://docusaurus.io/docs)
 - [Styling and Layout](https://docusaurus.io/docs/styling-layout)
 - [docusaurus2-dotenv-2](https://www.npmjs.com/package/docusaurus2-dotenv-2)
+- [redocusaurus](https://www.npmjs.com/package/redocusaurus) - embed OpenAPI specs into docusaurus
 
 ### WSL
 - [Official WSL installation guide](https://learn.microsoft.com/en-us/windows/wsl/install)
