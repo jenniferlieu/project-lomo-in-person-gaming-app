@@ -46,7 +46,7 @@ BeaconInfoWindow.defaultProps = {
   gameTitle: "game title",
   miscInfo: "misc info",
   gamePic: "images/catCry.jpg",
-  userPic: "images/catWut.png",
+  userPic: "images/catWut.jpg",
 };
 
 export default BeaconInfoWindow;

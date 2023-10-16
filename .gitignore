@@ -11,3 +11,5 @@
 yarn.lock
 .yarn-integrity
 .idea/
+package-lock.json
+package.json
