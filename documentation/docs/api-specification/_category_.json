@@ -3,6 +3,6 @@
   "position": 7,
   "link": {
     "type": "generated-index",
-    "description": "Please remove and replace examples where necessary."
+    "description": "API documentation is about how to use the backend Laravel classes and frontend React components, methods, and functions, their parameters and return values, etc. It also documents the backend API endpoints and the frontend API integration and connectivity to the backend."
   }
 }

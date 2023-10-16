@@ -154,6 +154,14 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+    'providers' => [
+
+        /*
+        * Laravel Framework Service Providers...
+        */
+        
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
+    ],
 
     'providers' => ServiceProvider::defaultProviders()->merge([
         /*
