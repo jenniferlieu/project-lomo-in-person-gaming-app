@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Login from './components/Login/Login';
+import Login from '../src/components/Login/Login';
 
 function login(email, password) {
     const { getByLabelText, getByText } = render(<Login />);
@@ -9,8 +9,8 @@ function login(email, password) {
         const subButton = getByText('Log In');
 
         //"Test user" inputs information
-        fireEvent.change(emailInput, { target: { value: 'test@test.com ' } });
-        fireEvent.change(passInput, { target: { value:'testpass' } });
+        fireEvent.change(emailInput, { target: { value: email } });
+        fireEvent.change(passInput, { target: { value: password } });
 
         //"Test user" submits form
         fireEvent.click(subButton);
