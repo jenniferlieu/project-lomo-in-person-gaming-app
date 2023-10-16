@@ -7,8 +7,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
-        console.log(pass);
+        console.log(email, pass);
     }
 
     return (
@@ -17,11 +16,11 @@ const Login = () => {
             <div className="login-wrapper" >
                 <h1 className="des-head"><strong>Welcome<br />Back!</strong></h1>
                 <form onSubmit={handleSubmit}>
-                    <label>
+                    <label htmlFor="email">
                         <p>Email:</p>
                     </label>
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" name="email" />
-                    <label>
+                    <label htmlFor="password">
                         <p>Password:</p>
                     </label>
                     <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" id="password" name="password" />
