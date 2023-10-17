@@ -21,7 +21,7 @@ const HomePage = () => {
       beaconInfo: {
         miscInfo: "AYYYYYY fahgettaboudit",
         username: "abkrivo",
-        gamePic: "images/catWut.png",
+        gamePic: "images/catWut.jpg",
         userPic: "images/catScream.jpg",
       },
     },
