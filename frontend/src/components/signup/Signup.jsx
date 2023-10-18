@@ -9,12 +9,10 @@ const Signup = () => {
     const [passwordsMatch, setPasswordsMatch] = useState(true);
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(username, email, pass1, pass2);
-        if (pass1 != pass2) {
-            console.log('Password did not match');
-        } else {
+        if (pass1 === pass2) {
             console.log('Passwords match');
+        } else {
+            console.log('Passwords did not match');
         }
     }
 
@@ -39,7 +37,9 @@ const Signup = () => {
         }
 
         return (
-            <button type="submit" onClick={animate} className={shake ? `shake` : null}>{p}</button>
+            <button data-testid="submit-button" type="submit" onClick={animate} className={shake ? `shake` : null}>
+                {p}
+            </button>
         );
 
     }
@@ -52,62 +52,29 @@ const Signup = () => {
             <div className="signup-wrapper" >
                 <h1 className="des-head"><strong>Never miss<br />out again!</strong></h1>
                 <form onSubmit={handleSubmit}>
-                    <label>
+                    <label htmlFor='username'>
                         <p>Username:</p>
                     </label>
+                    <input value={username} onChange={(e) => setUsername(e.target.value)} type="username" id="username" name="username" />
 
-                    <input
-                        value={username}
-                        onChange={(e) => setEmail(e.target.value)}
-                        type="username"
-                        id="username"
-                        name="username"
-                    />
-
-                    <label>
+                    <label htmlFor='email'>
                         <p>Email:</p>
                     </label>
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" name="email" />
 
-                    <input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        type="email"
-                        id="email"
-                        name="email"
-                    />
-
-                    <label>
+                    <label htmlFor='pass1'>
                         <p>Password:</p>
                     </label>
-
-                    <input
-                        value={pass1}
-                        onChange={(e) => {
-                            setPass1(e.target.value);
-                            handlePass1Change(e);
-                        }}
-                        type="password"
-                        id="password1"
-                        name="password1"
+                    <input value={pass1} onChange={(e) => { setPass1(e.target.value); handlePass1Change(e); }} type="password" id="pass1" name="pass1"
                     />
 
-                    <label>
+                    <label htmlFor='pass2'>
                         <p>Confirm password:</p>
                     </label>
+                    <input value={pass2} onChange={(e) => { setPass2(e.target.value); handlePass2Change(e) }} type="password" id="pass2" name="pass2" />
 
-                    <input
-                        value={pass2}
-                        onChange={(e) => {
-                            setPass2(e.target.value);
-                            handlePass2Change(e);
-                        }}
-                        type="password"
-                        id="password2"
-                        name="password2"
-                    />
-
-                    <div className="submit-button">
-                        <AnimatedButton p="Sign up" />
+                    <div className='submit-button'> 
+                    <AnimatedButton p="Sign Up" />
                     </div>
                 </form>
             </div>

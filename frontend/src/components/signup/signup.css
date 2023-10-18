@@ -54,7 +54,7 @@ p {
 }
 
 .submit-button {
-    margin: 2.5rem 30% 0 30%;
+    margin: 1.5rem 30% 0 30%;
     width: 40%;
     background-color: var(--color-option-3);
     padding: .2rem .3rem;
