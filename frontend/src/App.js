@@ -31,7 +31,6 @@ function App() {
       </h1> */}
       {/* <MapContainer/> */}
 
-      <Signup />
     </div>
   );
 }
