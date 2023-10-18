@@ -8,3 +8,8 @@
 .env.test.local
 .env.production.local
 .env
+yarn.lock
+.yarn-integrity
+.idea/
+package-lock.json
+package.json

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 openapi: 3.0.2
 info:
   title: Swagger Petstore - OpenAPI 3.0
@@ -798,3 +799,230 @@ components:
       type: apiKey
       name: api_key
       in: header
+=======
+openapi: 3.0.2
+info:
+  title: LOMO
+  description: |-
+    This is LOMO's interactive backend API endpoints documentation based on the OpenAPI 3.0 specification.  
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1
+externalDocs:
+  description: Click here to return to the Backend API Documentation section
+  url: /project-lomo-in-person-gaming-app/docs/api-specification/backend-api-endpoints
+servers:
+  - url: http://localhost/api/
+tags:
+  - name: user
+    description: Access to user settings, user profile, and user's friends
+  - name: beacon
+    description: Access to beacon information and comments
+  - name: report
+    description: Create reports to report users for harrassment or inappropriate behavior
+paths:
+  /user/{user}:
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: Creates a new user in the database
+      operationId: store
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /user/login:
+    get:
+      tags:
+        - user
+      summary: Login user
+      description: Logs in user using their email and password
+      operationId: loginUser
+      parameters:
+        - name: email
+          in: query
+          description: The email for login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid username/password supplied
+  /user/{user_id}:
+    get:
+      tags:
+        - user
+      summary: Get user by user_id
+      description: ''
+      operationId: show
+      parameters:
+        - name: user_id
+          in: path
+          description: 'The unique identification of a user in the database. Use 1 for testing'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid user_id supplied
+        '404':
+          description: User not found
+  /beacon/{beacon}:
+    post:
+      tags:
+        - beacon
+      summary: Create beacon
+      description: Creates a new beacon in the database
+      operationId: store
+      requestBody:
+        description: Created beacon object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beacon'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beacon'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 10
+        email:
+          type: string
+          example: john@email.com
+        username:
+          type: string
+          example: username
+        password:
+          type: string
+          example: '12345'
+        first_name:
+          type: string
+          example: John
+        last_name:
+          type: string
+          example: Doe
+        profile_pic:
+          type: string
+          example: 'http://placehold.co/200.png'
+        profile:
+          type: object
+          properties:
+            about_me: 
+              type: string
+              example: 'Hello, my name is John Doe.'
+            beacons_hosted:
+              type: array
+              items:
+                $ref: '#/components/schemas/beacons_object'
+            beacons_attended:
+              type: array
+              items:
+                $ref: '#/components/schemas/beacons_object'
+            preferred_games:
+              type: array
+              items:
+                $ref: '#/components/schemas/preferred_games'
+            preference_tags:
+              type: array
+              items:
+                type: string
+                example: 'genre1'
+    beacons_object:
+      type: object
+      properties:
+        beacon_id: 
+          type: int
+          example: 2
+        game_title:
+          type: string
+          example: 'Smash bros'
+        game_image:
+          type: string
+          example: 'http://placehold.co/200.png'
+    preferred_games:
+      type: object
+      properties:
+        game_title:
+          type: string
+          example: 'Smash Bros'
+        game_image:
+          type: string
+          example: 'http://placehold.co/200.png'
+    Beacon:
+      type: object
+      properties:
+        beacon_id:
+          type: int
+          example: 1
+        host_id:
+          type: int
+          example: 1
+        title:
+          type: string
+          example: 'Smash Bros'
+        game_title:
+          type: string
+          example: ''
+        game_image:
+          type: string
+          example: 'http://placehold.co/200.png'
+        description:
+          type: string
+          example: ''
+        date_time:
+          type: string
+          example: ''
+        
+
+>>>>>>> frontend
