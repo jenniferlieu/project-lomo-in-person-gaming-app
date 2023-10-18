@@ -9,7 +9,6 @@ const Signup = () => {
     const [passwordsMatch, setPasswordsMatch] = useState(true);
 
     const handleSubmit = (e) => {
-        e.preventDefault();
         if (pass1 === pass2) {
             console.log('Passwords match');
         } else {
