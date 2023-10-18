@@ -1,19 +1,19 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Login from '../src/components/Login/Login';
+import Login from './components/Login/Login';
 
 function login(email, password) {
     const { getByLabelText, getByText } = render(<Login />);
-        const emailInput = getByLabelText('Email:');
-        const passInput = getByLabelText('Password:');
-        const subButton = getByText('Log In');
+    const emailInput = getByLabelText('Email:');
+    const passInput = getByLabelText('Password:');
+    const subButton = getByText('Log In');
 
-        //"Test user" inputs information
-        fireEvent.change(emailInput, { target: { value: email } });
-        fireEvent.change(passInput, { target: { value: password } });
+    //"Test user" inputs information
+    fireEvent.change(emailInput, { target: { value: email } });
+    fireEvent.change(passInput, { target: { value: password } });
 
-        //"Test user" submits form
-        fireEvent.click(subButton);
+    //"Test user" submits form
+    fireEvent.click(subButton);
 }
 
 describe('Login Component', () => {
@@ -27,7 +27,7 @@ describe('Login Component', () => {
     });
 
     it('handles form input and submission', () => {
-        login('test@test.com','testpass');
+        login('test@test.com', 'testpass');
     });
 
     it('should log the input value to the console', () => {
@@ -35,7 +35,7 @@ describe('Login Component', () => {
         const consoleLogSpy = jest.spyOn(console, 'log');
 
         //Perform a test login
-        login('test@test.com','testpass');        
+        login('test@test.com', 'testpass');
 
         //Check if the console.log method was called with the expected message
         expect(consoleLogSpy).toHaveBeenCalledWith('test@test.com', 'testpass');
