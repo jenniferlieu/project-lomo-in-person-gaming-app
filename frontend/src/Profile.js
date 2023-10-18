@@ -5,7 +5,7 @@ const Profile = ({ profilePic, username, favList, currentList }) => {
 
   return (
     <>
-      <div className="bg-white rounded-lg w-full max-w-3xl mx-auto shadow-lg p-2">
+      <div className="bg-white rounded-lg w-full max-w-4xl mx-auto shadow-lg p-5">
         <div className="flex items-baseline mb-7">
           <img className="w-18 h-24" src={profilePic} alt="Profile Pic" />
           <h1 className="mx-5 font-semibold text-2xl">{username}</h1>
@@ -37,6 +37,9 @@ const Profile = ({ profilePic, username, favList, currentList }) => {
               ))}
             </div>
           </div>
+        </div>
+        <div className="text-left">
+            <h1>New Section</h1>
         </div>
       </div>
     </>
