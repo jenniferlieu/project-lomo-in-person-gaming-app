@@ -1,0 +1,110 @@
+* {
+    box-sizing: border-box;
+    --color-option-1: #ffffff;
+    --color-option-2: #c1c1c1;
+    --color-option-3: #808080;
+    --color-option-4: #3e3e3e;
+    --color-option-5: #000000;
+}
+
+body {
+    background-color: black;
+    font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    font-size: 1.3rem;
+}
+
+
+.mob-head {
+    display: block;
+    color: var(--color-option-1);
+    font-size: 3.5rem;
+    margin-top: 40%;
+    z-index: 1;
+}
+
+.des-head{
+    display: none;
+}
+
+form {
+    padding: 1rem;
+    color: var(--color-option-3);
+}
+
+input {
+    width: 100%;
+    padding: .2rem;
+    border: 2px solid var(--color-option-2);
+    
+}
+
+.signup-wrapper {
+    background-color: var(--color-option-1);
+    width: 98%;
+    height: 42rem;
+    border-radius: 1rem 1rem 0rem 0rem;
+    position: fixed;
+    bottom: 0%;
+    right: 1%;
+}
+
+p {
+    text-align: left;
+    padding-top: .5rem;
+}
+
+.submit-button {
+    margin: 1.5rem 30% 0 30%;
+    width: 40%;
+    background-color: var(--color-option-3);
+    padding: .2rem .3rem;
+    color: var(--color-option-1);
+    text-align: center;
+    text-decoration: none;
+}
+
+button.shake{
+    animation: shake .5s 1;
+}
+@keyframes shake {
+  0%  { transform: translate(2px, 1px)   rotate(0deg);  }
+  10% { transform: translate(-1px, -2px) rotate(-2deg); }
+  20% { transform: translate(-3px, 0px)  rotate(3deg);  }
+  30% { transform: translate(0px, 2px)   rotate(0deg);  }
+  40% { transform: translate(1px, -1px)  rotate(1deg);  }
+  50% { transform: translate(-1px, 2px)  rotate(-1deg); }
+  60% { transform: translate(-3px, 1px)  rotate(0deg);  }
+  70% { transform: translate(2px, 1px)   rotate(-2deg); }
+  80% { transform: translate(-1px, -1px) rotate(4deg);  }
+  90% { transform: translate(2px, 2px)   rotate(0deg);  }
+  100%{ transform: translate(1px, -2px)  rotate(-1deg); }
+}
+
+
+@media screen and (min-width: 480px) {
+
+    .mob-head {
+        display: none;
+    }
+
+    .des-head{
+        display:block;
+        margin: 2.5rem auto 0 auto;
+        color: var(--color-option-3);
+        font-size: 4.6rem;
+    }
+    
+    .signup-wrapper {
+        width: 32rem;
+        right: 0rem;
+        top: 0;
+        position: fixed;
+        height: 100%;
+        border-radius: 2rem 0rem 0rem 2rem;
+    }
+
+    form {
+        width: 90%;
+        margin: auto;
+    }
+  }
