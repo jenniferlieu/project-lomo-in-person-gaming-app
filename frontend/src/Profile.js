@@ -1,6 +1,6 @@
 import React from "react";
 
-const Profile = ({ profilePic, username, favList, currentList, systemList, genreList }) => {
+const Profile = ({ profilePic, username, favList, currentList, systemList, genreList, sessionsInfo }) => {
   const gamePicStyles = "w-24 h-36 mx-2";
   const titleStyles = "font-bold text-xl";
   const consolePicStyles = "w-28 h-28 mx-2";
@@ -8,9 +8,15 @@ const Profile = ({ profilePic, username, favList, currentList, systemList, genre
   return (
     <>
       <div className="bg-white rounded-lg w-full max-w-4xl mx-auto shadow-lg p-5">
-        <div className="flex items-baseline mb-7">
-          <img className="w-20 h-28" src={profilePic} alt="Profile Pic" />
-          <h1 className="mx-5 font-semibold text-3xl">{username}</h1>
+        <div className="flex justify-between">
+          <div className="flex items-baseline mb-7">
+            <img className="w-20 h-28" src={profilePic} alt="Profile Pic" />
+            <h1 className="mx-5 font-semibold text-3xl">{username}</h1>
+          </div>
+          <div className="pr-48 text-left font-semibold text-lg mt-5">
+            <h1>Sessions Hosted: {sessionsInfo.hosted}</h1>
+            <h1>Sessions Joined: {sessionsInfo.joined}</h1>
+          </div>
         </div>
         <div className="flex justify-between px-7">
           <div className="flex-col">
@@ -90,7 +96,11 @@ Profile.defaultProps = {
     "Some other Genre",
     "Soulslikes",
     "Roguelikes"
-  ]
+  ],
+  sessionsInfo: {
+    joined: 52,
+    hosted: 9
+  }
 };
 
 export default Profile;
