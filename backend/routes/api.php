@@ -30,3 +30,7 @@ Route::apiResources([
 Route::get('/hello', function() {
     return response()->json(['message' => 'hello world']);
 });
+
+Route::post('register', [UserController::class, 'store']);
+
+Route::post('login', [UserController::class, 'login']);
