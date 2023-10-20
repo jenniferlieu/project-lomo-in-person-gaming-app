@@ -39,9 +39,7 @@ return [
         'mongodb' => [
             'driver' => 'mongodb',
             'dsn' => env('DB_URI'),
-            'database' => 'lomo',
-            'ssl' => true
-            
+            'database' => env('DB_DATABASE'),
         ]
         // 'sqlite' => [
         //     'driver' => 'sqlite',
