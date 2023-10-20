@@ -29,7 +29,7 @@ class UserController extends Controller
         $user = new User();
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        
+            
         // inserts new user into database
         $user->save();
 

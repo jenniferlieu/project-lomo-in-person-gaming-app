@@ -27,7 +27,7 @@ class UserControllerTest extends TestCase
                          "email",
                          "updated_at",
                          "created_at",
-                         "id"
+                         "_id"
                      ]
                  ]);
     }
@@ -44,14 +44,14 @@ class UserControllerTest extends TestCase
         $response = $this->json('POST', '/api/login', $loginData);
 
         $response->assertStatus(200)
-                 ->assertJsonStructure([
-                     "token",
-                     "user" => [
-                         "email",
-                         "updated_at",
-                         "created_at",
-                         "id"
-                     ]
-                 ]);
+                ->assertJsonStructure([
+                    "token",
+                    "user" => [
+                        "email",
+                        "updated_at",
+                        "created_at",
+                        "_id"
+                    ]
+                ]);
     }
 }
