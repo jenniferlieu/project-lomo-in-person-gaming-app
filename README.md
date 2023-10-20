@@ -232,10 +232,10 @@ export PROJECT_NAME=project-lomo-in-person-gaming-app && export ORG_NAME=Capston
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/">
-                <img src="https://i.stack.imgur.com/frlIf.png" width="100;" alt="del-cj"/>
+            <a href="https://github.com/AlanU21">
+                <img src="https://avatars.githubusercontent.com/u/74085921?v=4" width="100;" alt="AlanU21"/>
                 <br />
-                <sub><b>Alan Saji</b></sub>
+                <sub><b>Alan Uthuppan</b></sub>
             </a>
         </td>
         <td align="center">
