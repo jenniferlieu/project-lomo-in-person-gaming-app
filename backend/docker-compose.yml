@@ -21,25 +21,7 @@ services:
             - '.:/var/www/html'
         networks:
             - sail
-        depends_on:
-            - mongodb
-
-    mongodb:
-        image: mongo:latest
-        environment:
-            - MONGO_INITDB_ROOT_USERNAME=root
-            - MONGO_INITDB_ROOT_PASSWORD=examplepassword
-        ports:
-            - "27017:27017"
-        networks:
-            - sail
-        volumes:
-            - mongodb_data:/data/db
 
 networks:
     sail:
         driver: bridge
-
-volumes:
-    mongodb_data:
-

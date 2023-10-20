@@ -14,15 +14,13 @@ class User extends Eloquent implements AuthenticatableContract
 {
     use HasApiTokens, HasFactory, Notifiable, Authenticatable;
 
-    protected $connection = 'mongodb';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];

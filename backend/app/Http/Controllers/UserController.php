@@ -12,7 +12,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        // gets all users from the database
+        $users = User::all();
+        return response()->json(['data' => $users], 200);
     }
 
     /**
@@ -25,7 +27,7 @@ class UserController extends Controller
         $user->password = $request->password;
         
         // inserts new user into database
-        // $user->save();
+        $user->save();
 
         return response()->json(['data' => $user], 201);
     }
@@ -35,13 +37,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        // delete this code when database works
-        $user = new User();
-        $user->email = "hello@example.com";
-        $user->password = "secret";
-
         // gets user data from database by user_id
-        // $user = User::find($id);
+        $user = User::find($id);
 
         return response()->json(['data' => $user], 200);
     }

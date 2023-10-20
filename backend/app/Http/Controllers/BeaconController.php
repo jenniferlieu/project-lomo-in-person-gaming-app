@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Beacon;
+use MongoDB\BSON\ObjectId;
 
 class BeaconController extends Controller
 {
@@ -12,7 +13,10 @@ class BeaconController extends Controller
      */
     public function index()
     {
-        //
+        // gets all beacons from the database
+        $beacon = new Beacon();
+        $beacon = Beacon::all();
+        return response()->json(['data' => $beacon->toArray()], 200);
     }
 
     /**
@@ -28,18 +32,23 @@ class BeaconController extends Controller
         ]);
 
         // Insert new beacon into the database
-        // code here
+        $beacon = Beacon::create([
+            'host_id' => new ObjectId($request->host_id),
+            'title' => $request->title
+        ]);
 
         // Returns data on the new beacon created and a success status code
-        return response()->json(['data' => $request->all()], 201); // 201 Request fulfilled and new resource created
+        return response()->json(['data' => $beacon], 201); // 201 Request fulfilled and new resource created
     }
 
     /**
      * Display the specified Beacon.
      */
-    public function show(string $id)
+    public function show(string $beacon_id)
     {
-        //
+        // gets beacon by id
+        $beacon = Beacon::find($beacon_id);
+        return response()->json(['data' => $beacon], 200);
     }
 
     /**
