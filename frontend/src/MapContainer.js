@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
-import Beacon from './Beacon';
+import Beacon from './Beacon.js';
 
 const MapContainer = ({ beaconList }) => {
   const mapStyles = {
