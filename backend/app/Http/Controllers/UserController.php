@@ -60,10 +60,10 @@ class UserController extends Controller
     public function show(string $id)
     {
         // gets user data from database by user_id
-        $user = User::find($id);
-
+        $user = User::with('profile', 'friends')->find($id);
         return response()->json(['data' => $user], 200);
     }
+    
 
     /**
      * Update the specified resource in storage.
