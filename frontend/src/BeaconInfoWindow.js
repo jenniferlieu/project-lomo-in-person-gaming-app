@@ -1,8 +1,10 @@
 import React from "react";
 
-const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose }) => {
+const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address }) => {
+  const formattedText = miscInfo.replace(/\n/g, "<br>");
+
   return (
-    <div className="bg-white rounded-lg w-full max-w-xl mx-auto shadow-lg my-5 p-2 px-2 relative">
+    <div className="bg-white rounded-lg w-xl max-w-2xl mx-auto shadow-lg my-5 p-2 px-2 relative">
       <div className="relative">
         <button
           className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
@@ -21,18 +23,45 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
           </div>
           <div className="ml-4">
             <h2 className="text-2xl mb-2">{gameTitle}</h2>
-            <p className="text-lg mb-2">
-              {startTime} - {endTime}
-            </p>
-            <p className="mb-2 text-lg">
-              Misc Info: <span className="font-light">{miscInfo}</span>
-            </p>
+            <p className="mb-4 text-lg" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
+            <div className="mb-4 text-xl">
+              <p className="">{address.name}</p>
+              <p className="font-light">{address.address}</p>
+            </div>
+            <div className="flex items-center text-lg mb-4">
+              <img
+                src="icons/clock.png"
+                alt="Clock Icon"
+                className="h-10 w-10 mr-2"
+              />
+              <p className="text-xl">
+                {startTime} - {endTime}
+              </p>
+            </div>
+            <div className="flex items-center text-lg mb-2">
+              <img
+                src="icons/people.png"
+                alt="People Icon"
+                className="h-10 w-10 mr-4"
+              />
+              <p className="text-xl">
+                {playerInfo.available}/{playerInfo.wanted}
+              </p>
+              <img
+                src="icons/controller.png"
+                alt="Controller Icon"
+                className="h-10 w-10 ml-4 mr-4"
+              />
+              <p className="text-xl">
+                {controllerInfo.available}/{controllerInfo.wanted}
+              </p>
+            </div>
           </div>
         </div>
         <img
           src={gamePic}
           alt="Game Pic"
-          className="absolute top-0 right-0 h-32 w-32 rounded-full"
+          className="absolute top-0 right-0 h-32 w-32 rounded-full mr-4"
         />
       </div>
     </div>
@@ -45,8 +74,20 @@ BeaconInfoWindow.defaultProps = {
   endTime: "end",
   gameTitle: "game title",
   miscInfo: "misc info",
+  address: {
+    name: "address name",
+    address: "address location"
+  },
   gamePic: "images/catCry.jpg",
   userPic: "images/catWut.jpg",
+  playerInfo: {
+    available: 2,
+    wanted: 4
+  },
+  controllerInfo: {
+    available: 1,
+    wanted: 4
+  }
 };
 
 export default BeaconInfoWindow;
