@@ -64,7 +64,9 @@ const Profile = ({ profilePic, username, favList, currentList, systemList, genre
             <h1 className={titleStyles}>Preferred Genres</h1>
             <div className="grid grid-cols-2 gap-1.5 text-left">
               {genreList.map((genre, index) => (
-                <h2 key={index} className="">{genre}</h2>
+                <h2 key={index} className="">
+                  {genre}
+                </h2>
               ))}
             </div>
           </div>
@@ -77,14 +79,18 @@ const Profile = ({ profilePic, username, favList, currentList, systemList, genre
 Profile.defaultProps = {
   profilePic: "images/catScream.jpg",
   username: "username",
-  favList: ["games/smashMelee.jpg", "games/ori.jpg", "games/bg3.jpg"],
+  favList: [
+    "games/smashMelee.jpg", 
+    "games/ori.jpg", 
+    "games/bg3.jpg"
+  ],
   currentList: [
     "games/pokemonSV.jpg",
     "games/mgr.jpg",
     "games/smashUltimate.jpg",
   ],
   systemList: [
-    "systems/xbox.png",
+    "systems/xbox.png", 
     "systems/switch.png"
   ],
   genreList: [
@@ -95,12 +101,12 @@ Profile.defaultProps = {
     "Another Genre",
     "Some other Genre",
     "Soulslikes",
-    "Roguelikes"
+    "Roguelikes",
   ],
   sessionsInfo: {
     joined: 52,
-    hosted: 9
-  }
+    hosted: 9,
+  },
 };
 
 export default Profile;
