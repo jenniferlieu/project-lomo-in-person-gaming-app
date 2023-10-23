@@ -50,7 +50,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
               <img
                 src="icons/controller.png"
                 alt="Controller Icon"
-                className="h-10 w-10 ml-4 mr-4"
+                className="h-10 w-10 ml-8 mr-4"
               />
               <p className="text-xl">
                 {controllerInfo.available}/{controllerInfo.wanted}
