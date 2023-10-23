@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\BeaconController;
 use App\Http\Controllers\UserController;
 
@@ -17,20 +16,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 // public api routes, need to be routed through middleware
-Route::apiResources([
-    'users' => UserController::class,
-    'beacons' => BeaconController::class
-]);
-
-Route::get('/hello', function() {
-    return response()->json(['message' => 'hello world']);
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('hello', function() {
+        return response()->json(['message' => 'hello world']);
+    });
+    Route::apiResource('beacons', BeaconController::class);
 });
-
-Route::post('register', [UserController::class, 'store']);
-
-Route::post('login', [UserController::class, 'login']);
