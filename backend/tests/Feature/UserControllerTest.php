@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserControllerTest extends TestCase
 {
@@ -34,10 +35,10 @@ class UserControllerTest extends TestCase
 
     public function testLogin()
     {
-        $user = User::factory()->create([
+        $user = [
             'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-        ]);
+            'password' => Hash::make('password'),
+        ];
 
         $loginData = ['email' => 'test@example.com', 'password' => 'password'];
 
@@ -54,4 +55,5 @@ class UserControllerTest extends TestCase
                     ]
                 ]);
     }
+
 }
