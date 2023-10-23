@@ -21,8 +21,7 @@ class Beacon extends Model
         'game.game_title',
         'game.game_image',
         'description',
-        'date',
-        'time',
+        'date_time',
         'location',
         'location.description',
         'location.latitude',
@@ -45,5 +44,9 @@ class Beacon extends Model
         'comments.*.user_id',
         'comments.*.body',
         'comments.*.timestamp'
+    ];
+
+    protected $casts = [
+        'date_time' => 'datetime'
     ];
 }

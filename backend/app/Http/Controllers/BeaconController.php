@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Beacon;
+use MongoDB\BSON\ObjectId;
+use App\Http\Requests\BeaconRequest;
 
 class BeaconController extends Controller
 {
@@ -12,34 +14,46 @@ class BeaconController extends Controller
      */
     public function index()
     {
-        //
+        // gets all beacons from the database
+        $beacon = new Beacon();
+        $beacon = Beacon::all();
+        return response()->json(['data' => $beacon->toArray()], 200);
     }
 
     /**
      * Store a newly created Beacon in storage.
      */
-    public function store(Request $request)
+    public function store(BeaconRequest $request)
     {
-        // Validate the request data
-        // If validation fails, Laravel will automatically return the errors as JSON with a 422 Unprocessable Entity status code
-        $request->validate([
-            'host_id' => 'required',
-            'title' => 'required|string|max:255',
-        ]);
+        // get variables from json request
+        $data = [
+            'host_id' => new ObjectId($request->host_id),
+            'title' => $request->title,
+            'game' => $request->game,
+            'description' => $request->description,
+            'date_time' => $request->date_time,
+            'location' => $request->location,
+            'players_needed' => $request->players_needed
+        ];
 
         // Insert new beacon into the database
-        // code here
+        $beacon = new Beacon();
+        $beacon->fill($data);
+        $beacon->players_attending = [];
+        $beacon->comments = [];
+
+        $beacon->save();
 
         // Returns data on the new beacon created and a success status code
-        return response()->json(['data' => $request->all()], 201); // 201 Request fulfilled and new resource created
+        return response()->json(['data' => $beacon], 201); // 201 Request fulfilled and new resource created
     }
 
     /**
      * Display the specified Beacon.
      */
-    public function show(string $id)
+    public function show(string $beacon_id)
     {
-        //
+        // 
     }
 
     /**

@@ -14,17 +14,18 @@ class User extends Eloquent implements AuthenticatableContract
 {
     use HasApiTokens, HasFactory, Notifiable, Authenticatable;
 
-    protected $connection = 'mongodb';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'user_id', 
+        'email', 
+        'username', 
+        'password', 
+        'first_name', 
+        'last_name'
     ];
 
     /**
@@ -46,4 +47,26 @@ class User extends Eloquent implements AuthenticatableContract
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Define the relationship with the Profile model.
+     * A user has one profile associated with it.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+    
+    /**
+     * Define the relationship with the Friend model.
+     * A user can have multiple friends associated with it.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function friends()
+    {
+        return $this->hasMany(Friend::class);
+    }
 }

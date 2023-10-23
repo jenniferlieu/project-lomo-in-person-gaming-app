@@ -16,24 +16,21 @@ use App\Http\Controllers\UserController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::resource('posts', Controller::class)->only([
-    'destroy', 'show', 'store', 'update'
- ]);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// create a public user route to test database for login and signup
-// delete after authentication has been setup
-Route::resource('users', UserController::class, [
-    'except' => ['edit', 'create']
-]);
-
-Route::resource('beacons', BeaconController::class, [
-    'except' => ['edit', 'create']
+// public api routes, need to be routed through middleware
+Route::apiResources([
+    'users' => UserController::class,
+    'beacons' => BeaconController::class
 ]);
 
 Route::get('/hello', function() {
     return response()->json(['message' => 'hello world']);
 });
+
+Route::post('register', [UserController::class, 'store']);
+
+Route::post('login', [UserController::class, 'login']);
