@@ -27,8 +27,8 @@ class BeaconFactory extends Factory
             'date_time' => fake()->dateTime->format('Y-m-d H:i:s'),
             'location' => [
                 'description' => fake()->address,
-                'latitude' => fake()->randomFloat,
-                'longitude' => fake()->randomFloat
+                'latitude' => fake()->latitude,
+                'longitude' => fake()->longitude
             ],
             'players_needed' => fake()->numberBetween(1, 100)
         ];
