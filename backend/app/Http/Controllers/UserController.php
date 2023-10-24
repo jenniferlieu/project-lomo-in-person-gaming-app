@@ -12,7 +12,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        // gets all users from the database
+        $user = User::all();
+        return response()->json(['data' => $user->toArray()], 200);
     }
 
     /**
@@ -24,7 +26,7 @@ class UserController extends Controller
         $user = User::with('profile', 'friends')->find($id);
         return response()->json(['data' => $user], 200);
     }
-    
+
 
     /**
      * Update the specified resource in storage.

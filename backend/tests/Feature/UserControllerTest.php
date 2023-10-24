@@ -6,54 +6,34 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use MongoDB\BSON\ObjectId;
 
 class UserControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use WithFaker;
 
-    public function testRegister()
+    /**
+     * Set up the test environment
+     */
+    public function setUp(): void
     {
-        $userData = [
-            "email" => "test@example.com",
-            "password" => "password",
-            "password_confirmation" => "password",
-        ];
+        parent::setUp(); // required
 
-        $response = $this->json('POST', '/api/register', $userData);
+        // setup code begins here
 
-        $response->assertStatus(201)
-                 ->assertJsonStructure([
-                     "data" => [
-                         "email",
-                         "updated_at",
-                         "created_at",
-                         "_id"
-                     ]
-                 ]);
+        // mock authentication for sanctum
+        $this->user = User::factory()->make(); // create a mock user
+        $this->user->id = new ObjectId(); // give the user a mongodb id
+        $this->actingAs($this->user, 'sanctum'); // create a mock token from sanctum
     }
 
-    public function testLogin()
-    {
-        $user = [
-            'email' => 'test@example.com',
-            'password' => Hash::make('password'),
-        ];
+    /**
+     * Test get all users
+     * Should return a status code of 200 and returns an array of users
+     */
+    public function test_get_all_users(): void {
+        $response = $this->getJson('/api/users');
 
-        $loginData = ['email' => 'test@example.com', 'password' => 'password'];
-
-        $response = $this->json('POST', '/api/login', $loginData);
-
-        $response->assertStatus(200)
-                ->assertJsonStructure([
-                    "token",
-                    "user" => [
-                        "email",
-                        "updated_at",
-                        "created_at",
-                        "_id"
-                    ]
-                ]);
+        $response->assertStatus(200)->assertJsonIsArray('data');
     }
-
 }

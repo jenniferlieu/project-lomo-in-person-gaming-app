@@ -30,7 +30,7 @@ class BeaconRequest extends FormRequest
             'date_time' => 'required|date',
             'location.description' => 'required|string',
             'location.latitude' => 'required|numeric',
-            'location.longtitude' => 'required|numeric',
+            'location.longitude' => 'required|numeric',
             'players_needed' => 'integer'
         ];
     }

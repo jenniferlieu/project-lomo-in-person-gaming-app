@@ -26,7 +26,6 @@ class AuthController extends Controller
         $token = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
-            'message' => 'User successfully created',
             'token' => $token,
             'user' => $user
         ], 201);
@@ -43,8 +42,7 @@ class AuthController extends Controller
         // then stores the user data in the session
         if (!Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'Error: Failed to login user',
-                'error' => 'Invalid email or password'
+                'message' => 'Invalid email or password',
             ], 401);
         }
 
@@ -55,7 +53,6 @@ class AuthController extends Controller
         $token = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
-            'message' => 'User successfully logged in',
             'token' => $token,
             'user' => $user
         ], 200);
