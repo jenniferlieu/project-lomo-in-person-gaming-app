@@ -1,6 +1,4 @@
 import React, { useState, onClose } from "react";
-import MapContainer from "./MapContainer";
-import { rectangle } from "leaflet";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
@@ -62,13 +60,14 @@ function BeaconCreation() {
             }}
           />
         </div>
-        <div classname="min-w-screen min-h-screen bg-black bg-opacity-25 flex justify-center items-center">
+        <div classname="w-20 h-40 bg-black bg-opacity-25 flex justify-center items-center">
           <label htmlFor={"input3"}>Misc. Info____</label>
           <input
             id={"MiscInfo"}
             type={"text"}
             value={misc}
             placeholder={"Additional Details"}
+            maxLength={100}
             onChange={(event) => {
               setMisc(event.target.value);
             }}
@@ -82,10 +81,16 @@ function BeaconCreation() {
           <DateTimePicker label="To: " />
         </LocalizationProvider>
         <button
-          className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+          className="relative top-0 transform  bg-blue text-gray-500 hover:text-white-700"
           onClick={onClose}
         >
           Cancel
+        </button>
+        <button
+          className="relative top-0 transform  bg-blue text-gray-500 hover:text-white-700"
+          onClick={onClose}
+        >
+          Confirm
         </button>
       </div>
     </div>
