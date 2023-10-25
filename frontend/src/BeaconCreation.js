@@ -9,7 +9,8 @@ function BeaconCreation() {
   const [name, setState] = useState("");
   const [game, setGame] = useState("");
   const [misc, setMisc] = useState("");
-
+  const [location, setLocation] = useState("");
+  const [people, setPeople] = useState("");
   return (
     <div>
       <div class="bg-white rounded-lg w-full leading-relaxed max-w-md mx-auto shadow-lg my-5 p-2 px-2 absolute">
@@ -34,6 +35,30 @@ function BeaconCreation() {
             placeholder={"Type Game Here"}
             onChange={(event) => {
               setGame(event.target.value);
+            }}
+          />
+        </div>
+        <div classname="min-w-screen min-h-screen bg-black  bg-opacity-25 flex justify-center items-center">
+          <label htmlFor={"input2"}>No. of players</label>
+          <input
+            id={"Players"}
+            type={"text"}
+            value={people}
+            placeholder={""}
+            onChange={(event) => {
+              setPeople(event.target.value);
+            }}
+          />
+        </div>
+        <div classname="min-w-screen min-h-screen bg-black  bg-opacity-25 flex justify-center items-center">
+          <label htmlFor={"input2"}>Location</label>
+          <input
+            id={"Location"}
+            type={"text"}
+            value={location}
+            placeholder={""}
+            onChange={(event) => {
+              setLocation(event.target.value);
             }}
           />
         </div>
