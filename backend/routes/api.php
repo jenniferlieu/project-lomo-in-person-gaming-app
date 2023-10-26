@@ -22,4 +22,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::apiResource('beacons', BeaconController::class);
     Route::apiResource('users', UserController::class)->except('store');
+    Route::get('users/{userId}/profile', [ProfileController::class, 'show']);
 });
