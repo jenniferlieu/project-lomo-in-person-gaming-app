@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../App';
 import "./login.css";
 
 const Login = () => {
     const [emailInput, setEmail] = useState('');
     const [passInput, setPass] = useState('');
     const navigate = useNavigate();
+    const auth = useContext(AuthContext);
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -34,8 +36,7 @@ const Login = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                const user = data.user;
-                const token = data.token;
+                auth.setIsLoggedIn(true);
                 console.log("Log in successful");
                 navigate('/home');
             } else {
