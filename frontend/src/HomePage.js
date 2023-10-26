@@ -12,6 +12,7 @@ const HomePage = () => {
         gameTitle: "Super Mario Bros. Wonder",
         miscInfo: "Let's beat the first World!\nIdk I haven't played yet",
         username: "amofro",
+        console: "Switch",
         address: {
           name: "Howard Gittis Student Center",
           address: "1755 N 13th St, Philadelphia, PA 19122"
@@ -26,7 +27,13 @@ const HomePage = () => {
         },
         controllerInfo: {
           available: 2,
-          wanted: 4
+          wanted: 4,
+          description: [
+            "Joycons",
+            "Pro Controller",
+            "Gamecube Controller",
+            "Idk madcatz or something... I'm wanna sleep"
+          ]
         }
       },
     },
@@ -38,6 +45,8 @@ const HomePage = () => {
         username: "abkrivo",
         gamePic: "images/catWut.jpg",
         userPic: "images/catScream.jpg",
+        console: "Xbox Classic",
+        gameTitle: "Halo Classic"
       },
     },
   ];
