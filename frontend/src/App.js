@@ -3,6 +3,7 @@ import "./App.css";
 import HomePage from "./HomePage";
 import Profile from "./Profile";
 import BeaconInfoWindow from "./BeaconInfoWindow";
+import GameAPITest from "./GameAPITest";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <HomePage />
       {/* <Profile username={"amofro"} /> */}
       {/* <BeaconInfoWindow /> */}
+      {/* <GameAPITest /> */}
     </div>
   );
 }
