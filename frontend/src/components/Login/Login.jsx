@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./login.css";
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const [emailInput, setEmail] = useState('');
+    const [passInput, setPass] = useState('');
+    const navigate = useNavigate();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -15,32 +17,37 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email, pass);
+        console.log(emailInput, passInput);
 
-        //Make an API call to verify the credentials
         try {
-            const response = await fetch('http://localhost/api/users', {
+            const response = await fetch('http://localhost/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type':'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({
+                    email: emailInput,
+                    password: passInput
+                }),
             });
 
             if (response.ok) {
-                //Upon a successful call
-                alert("Log in successful");
-            }
-            else {
-                //Upon a failed call
-                alert("Log in unsuccessful");
+                const data = await response.json();
+                const user = data.user;
+                const token = data.token;
+                console.log("Log in successful");
+                navigate('/home');
+            } else {
+                const data = await response.json();
+                const error = data.message;
+                console.log(error);
             }
         }
         catch (error) {
-            console.error("API call error: ");
-            alert("An error has occured during log in");
+            console.error(error);
         }
-    };
+    }
 
     return (
         <div className="login-container">
@@ -51,11 +58,11 @@ const Login = () => {
                     <label htmlFor="email">
                         <p>Email:</p>
                     </label>
-                    <input value={email} onChange={handleEmailChange} type="email" id="email" name="email" />
+                    <input value={emailInput} onChange={handleEmailChange} type="email" id="email" name="email" />
                     <label htmlFor="password">
                         <p>Password:</p>
                     </label>
-                    <input value={pass} onChange={handlePassChange} type="password" id="password" name="password" />
+                    <input value={passInput} onChange={handlePassChange} type="password" id="password" name="password" />
                     <div className="submit-button">
                         <button type="submit">Log In</button>
                     </div>
