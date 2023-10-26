@@ -1,6 +1,7 @@
 import React from "react";
+import ControllerInfo from "./ControllerInfo";
 
-const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address }) => {
+const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console }) => {
   const formattedText = miscInfo.replace(/\n/g, "<br>");
 
   return (
@@ -23,7 +24,8 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
           </div>
           <div className="ml-4">
             <h2 className="text-2xl mb-2">{gameTitle}</h2>
-            <p className="mb-4 text-lg" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
+            <p className="mb-2 text-xl" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
+            <p className="mb-4 text-xl font-light">{console}</p>
             <div className="mb-4 text-xl">
               <p className="">{address.name}</p>
               <p className="font-light">{address.address}</p>
@@ -74,6 +76,7 @@ BeaconInfoWindow.defaultProps = {
   endTime: "end",
   gameTitle: "game title",
   miscInfo: "misc info",
+  console: "console",
   address: {
     name: "address name",
     address: "address location"
@@ -86,7 +89,11 @@ BeaconInfoWindow.defaultProps = {
   },
   controllerInfo: {
     available: 1,
-    wanted: 4
+    wanted: 4,
+    description: [
+      "Controller Type 1",
+      "Controller Type 2"
+    ]
   }
 };
 
