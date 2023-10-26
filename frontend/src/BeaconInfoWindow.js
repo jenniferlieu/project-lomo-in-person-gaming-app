@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import ControllerInfo from "./ControllerInfo";
 
 const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console }) => {
+  const [showControllerInfo, setShowControllerInfo] = useState(false);
   const formattedText = miscInfo.replace(/\n/g, "<br>");
+
+  const handleInfoClick = () => {
+    setShowControllerInfo(!showControllerInfo);
+  };  
 
   return (
     <div className="bg-white rounded-lg w-xl max-w-2xl mx-auto shadow-lg my-5 p-2 px-2 relative">
@@ -57,6 +62,13 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
               <p className="text-xl">
                 {controllerInfo.available}/{controllerInfo.wanted}
               </p>
+              <button className="h-9 w-9" onClick={handleInfoClick}>
+                <img
+                  src="icons/i.png"
+                  alt="Info Icon"
+                  className="h-3 w-3 ml-3"
+                />
+              </button>
             </div>
           </div>
         </div>
@@ -66,6 +78,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
           className="absolute top-0 right-0 h-32 w-32 rounded-full mr-4"
         />
       </div>
+      {showControllerInfo && <ControllerInfo description={controllerInfo.description} onClose={handleInfoClick} />}
     </div>
   );
 };
