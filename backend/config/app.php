@@ -160,7 +160,6 @@ return [
         * Laravel Framework Service Providers...
         */
         
-        Jenssegers\Mongodb\MongodbServiceProvider::class,
     ],
 
     'providers' => ServiceProvider::defaultProviders()->merge([

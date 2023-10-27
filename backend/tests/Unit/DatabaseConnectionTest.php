@@ -15,6 +15,6 @@ class DatabaseConnectionTest extends TestCase
     {
         \DB::connection() ->getPDO();
         $response = \DB::connection()->getDatabaseName();
-        $this->assertEquals($response,!null);
+        $this->assertEquals($response, 'lomo');
     }
 }
