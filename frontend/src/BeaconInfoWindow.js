@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ControllerInfo from "./ControllerInfo";
+import ControllerInfo from "./ControllerInfo.js";
 
 const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console }) => {
   const [showControllerInfo, setShowControllerInfo] = useState(false);
