@@ -24,13 +24,13 @@ class BeaconRequest extends FormRequest
         return [
             'host_id' => 'required',
             'title' => 'required|string',
-            'game.game_title' => 'required|string',
-            'game.game_image' => 'required|string',
+            'game_title' => 'required|string',
+            'game_image' => 'required|string',
             'description' => 'string',
             'date_time' => 'required|date',
-            'location.description' => 'required|string',
-            'location.latitude' => 'required|numeric',
-            'location.longtitude' => 'required|numeric',
+            'address' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
             'players_needed' => 'integer'
         ];
     }

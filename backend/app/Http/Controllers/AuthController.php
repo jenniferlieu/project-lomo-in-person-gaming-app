@@ -18,12 +18,16 @@ class AuthController extends Controller
         $user = new User();
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->username = $request->username;
 
         // inserts new user into database
         $user->save();
 
+        // generate a personal access token for the user
+        $token = $user->createToken('authToken')->plainTextToken;
+
         return response()->json([
-            'message' => 'User successfully created',
+            'token' => $token,
             'user' => $user
         ], 201);
     }
@@ -40,7 +44,6 @@ class AuthController extends Controller
         if (!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Invalid email or password',
-                'error' => 'Invalid email or password'
             ], 401);
         }
 
@@ -51,7 +54,6 @@ class AuthController extends Controller
         $token = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
-            'message' => 'User successfully logged in',
             'token' => $token,
             'user' => $user
         ], 200);

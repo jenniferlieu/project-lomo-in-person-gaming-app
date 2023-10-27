@@ -29,10 +29,13 @@ class BeaconController extends Controller
         $data = [
             'host_id' => new ObjectId($request->host_id),
             'title' => $request->title,
-            'game' => $request->game,
+            'game_title' => $request->game_title,
+            'game_image' => $request->game_image,
             'description' => $request->description,
             'date_time' => $request->date_time,
-            'location' => $request->location,
+            'address' => $request->address,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'players_needed' => $request->players_needed
         ];
 
@@ -53,7 +56,7 @@ class BeaconController extends Controller
      */
     public function show(string $beacon_id)
     {
-        // 
+        //
     }
 
     /**

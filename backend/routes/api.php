@@ -16,10 +16,11 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// public api routes, need to be routed through middleware
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('hello', function() {
         return response()->json(['message' => 'hello world']);
     });
     Route::apiResource('beacons', BeaconController::class);
+    Route::apiResource('users', UserController::class)->except('store');
+    // Route::get('users/{userId}/profile', [ProfileController::class, 'show']);
 });
