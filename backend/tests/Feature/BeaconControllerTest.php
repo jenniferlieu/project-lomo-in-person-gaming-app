@@ -45,17 +45,13 @@ class BeaconControllerTest extends TestCase
             'data' => [
                 'host_id',
                 'title',
-                'game' => [
-                    'game_title',
-                    'game_image'
-                ],
+                'game_title',
+                'game_image',
                 'description',
                 'date_time',
-                'location' => [
-                    'description',
-                    'latitude',
-                    'longitude'
-                ],
+                'address',
+                'latitude',
+                'longitude',
                 'players_needed',
                 'created_at',
                 'updated_at',
@@ -75,12 +71,12 @@ class BeaconControllerTest extends TestCase
         $response->assertStatus(422)->assertInvalid([
             'host_id',
             'title',
-            'game.game_title',
-            'game.game_image',
+            'game_title',
+            'game_image',
             'date_time',
-            'location.description',
-            'location.latitude',
-            'location.longitude'
+            'address',
+            'latitude',
+            'longitude'
         ]);
     }
 
