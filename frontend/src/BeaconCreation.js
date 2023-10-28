@@ -3,13 +3,52 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
+
+
 function BeaconCreation() {
   const [name, setState] = useState("");
   const [game, setGame] = useState("");
   const [system, setSystem] = useState("");
   const [misc, setMisc] = useState("");
   const [location, setLocation] = useState("");
-  const [people, setPeople] = useState("");
+  const [players, setPlayers] = useState("");
+  const [timeFrom, setFrom] = useState("");
+  const [timeTo, setTo] = useState("");
+
+function onClose() {
+  let data = { // exepected json schema
+    host_id: "1", // required
+    title: name, // required
+    game_title: game, // required
+    game_image: "images/catScream.jpg", //required
+    description: misc,
+    date_time: timeFrom, // required
+    address: location, // required
+    latitude: 40.7580, // required
+    longitude: 73.9795, // required
+    num_players: players, // required
+  };
+  console.log(data); 
+
+  // define url and headers
+let url = "http://localhost/api/hello";
+let options = {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  }
+};
+
+// make api call
+fetch(url, options)
+  .then((response) => response.json())
+  .then((response) => {
+    console.log("response", response);
+  })
+  .catch((error) => console.log("error", error));
+}
+
   return (
     <div>
       <div class="bg-white rounded-lg w-full leading-relaxed max-w-md mx-auto shadow-lg my-5 p-2 px-2 text-left absolute">
@@ -47,11 +86,11 @@ function BeaconCreation() {
           <input
             id={"Players"}
             type={"text"}
-            value={people}
+            value={players}
             placeholder={"How many Players?"}
             required
             onChange={(event) => {
-              setPeople(event.target.value);
+              setPlayers(event.target.value);
             }}
           />
         </th>
@@ -99,12 +138,22 @@ function BeaconCreation() {
         </tr>
         <div>
           <LocalizationProvider dateAdapter={AdapterDayjs} classname="p-20">
-            <DateTimePicker label="From: " />
+            <DateTimePicker 
+            label="From: " 
+            value={timeFrom}
+            onChange={(newValue) => setFrom(newValue)}
+            />
+
           </LocalizationProvider>
         </div>
         <div>
           <LocalizationProvider dateAdapter={AdapterDayjs} classname="p-20">
-            <DateTimePicker label="To: " />
+            <DateTimePicker 
+            label="To: " 
+            value={timeTo}
+            onChange={(newValue) => setTo(newValue)}
+            />
+
           </LocalizationProvider>
         </div>
         <div>
