@@ -18,9 +18,10 @@ class Beacon extends Model
         'host_id',
         'title',
         'game_title',
-        'game_image',
+        'game_system',
         'description',
-        'date_time',
+        'start_date_time',
+        'end_date_time',
         'address',
         'latitude',
         'longitude',
@@ -28,6 +29,7 @@ class Beacon extends Model
     ];
 
     protected $casts = [
-        'date_time' => 'datetime'
+        'start_date_time' => 'datetime',
+        'end_date_time' => 'datetime',
     ];
 }
