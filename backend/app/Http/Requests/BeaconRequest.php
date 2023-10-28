@@ -32,7 +32,7 @@ class BeaconRequest extends FormRequest
             'address' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'players_needed' => 'integer'
+            'num_players' => 'integer'
         ];
     }
 }

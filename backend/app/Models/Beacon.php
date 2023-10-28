@@ -25,7 +25,7 @@ class Beacon extends Model
         'address',
         'latitude',
         'longitude',
-        'players_needed'
+        'num_players'
     ];
 
     protected $casts = [

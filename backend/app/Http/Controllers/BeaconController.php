@@ -37,7 +37,7 @@ class BeaconController extends Controller
             'address' => $request->address,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
-            'players_needed' => $request->players_needed
+            'num_players' => $request->num_players
         ];
 
         // Insert new beacon into the database

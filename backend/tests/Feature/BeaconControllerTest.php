@@ -55,7 +55,7 @@ class BeaconControllerTest extends TestCase
                 'address',
                 'latitude',
                 'longitude',
-                'players_needed',
+                'num_players',
                 'created_at',
                 'updated_at',
                 '_id'
