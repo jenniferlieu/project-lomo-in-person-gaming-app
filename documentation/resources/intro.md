@@ -3,7 +3,7 @@ sidebar_position: 1
 ---
 # Introduction
 
-LOMO is a full-stack, mobile-first web app using **ReactJS and Tailwind CSS** for the frontend, **Laravel Sail** (dockerized version of Laravel) as the API backend, **MongoDB** as the database hosted on MongoDB Atlas, and **Docusaurus** as the documentation site hosted on **GitHub Pages**.
+LOMO is a full-stack, mobile-first web app using **ReactJS and Tailwind CSS** for the frontend, **Laravel Sail** (dockerized version of Laravel) as the API backend, **PostgreSQL** as the database, and **Docusaurus** as the documentation site hosted on **GitHub Pages**.
 
 - The purpose of the frontend is to create a user interface for the app. 
 - The purpose of the backend is to be the app's API and move data between the frontend and database. 

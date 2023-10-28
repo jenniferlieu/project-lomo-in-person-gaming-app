@@ -46,7 +46,7 @@ When a user opens the app, they will see the interface of a 2d map in a top down
 
 ## Conceptual Design
 
-This will be a progressive web application using React as a frontend with Laravel PHP serving as our backend. Our backend will use MongoDB for establishing and maintaining a database. Laravel provides many built-in functions that can be expanded on to meet the needs of the project in a more productive fashion.
+This will be a progressive web application using React as a frontend with Laravel PHP serving as our backend. Our backend will use PostgreSQL for establishing and maintaining a database. Laravel provides many built-in functions that can be expanded on to meet the needs of the project in a more productive fashion.
 
 ## Background
 

@@ -20,7 +20,7 @@ This app is similar to Niantic Campfire, which is a companion app developed for 
 In many cases, there are people that, as much as they want to make in-person friends and play in-person games, they have a hard time finding a good method to do so. The name LOMO is inspired by the term FOMO, which stands for “fear of missing out”. For those that want an in-person connection when gaming, Lomo is intended to be as non-invasive as possible, where only essential communication is used by the app to facilitate getting together. 
 
 ## Conceptual Design
-This will be a progressive web application using React as a frontend with Laravel PHP serving as our backend. Our backend will use MongoDB for establishing and maintaining a database. Laravel provides many built-in functions that can be expanded on to meet the needs of the project in a more productive fashion.
+This will be a progressive web application using React as a frontend with Laravel PHP serving as our backend. Our backend will use PostgreSQL for establishing and maintaining a database. Laravel provides many built-in functions that can be expanded on to meet the needs of the project in a more productive fashion.
 
 ## Required Resources
 A background/understanding of web app development would be required. For software, React is most likely to be used. The utilization of APIs will also be required, such as a comprehensive list of games that the app can update and utilize. Everyone will need proper workspaces such as laptop or desktop computers compatible with our software. Software requirements include Docker, Git and Github.
