@@ -32,15 +32,18 @@ body {
 }
 
 form {
-    padding: 1rem;
     color: var(--color-option-3);
 }
 
 input {
     width: 100%;
-    padding: .2rem;
+    padding: .15rem;
     border: 2px solid var(--color-option-2);
     
+}
+
+label {
+    padding-top: .5rem;
 }
 
 .login-wrapper {
@@ -53,13 +56,7 @@ input {
     right: 1%;
 }
 
-p {
-    text-align: left;
-    padding-top: 1.5rem;
-    padding-bottom: .4rem;
-}
-
-.submit-button {
+.sub-button {
     margin: 2.5rem 30% 0 30%;
     width: 40%;
     background-color: var(--color-option-3);
@@ -68,7 +65,7 @@ p {
     text-align: center;
     text-decoration: none;
 }
-
+ 
 
 @media screen and (min-width: 480px) {
 
@@ -78,7 +75,7 @@ p {
 
     .des-head{
         display:block;
-        margin: 3rem auto 0 auto;
+        margin: 2rem auto 0 auto;
         color: var(--color-option-3);
         font-size: 5.3rem;
     }
@@ -94,6 +91,6 @@ p {
 
     form {
         width: 90%;
-        margin: 3rem auto 0 auto;
+        text-align: left;
     }
   }

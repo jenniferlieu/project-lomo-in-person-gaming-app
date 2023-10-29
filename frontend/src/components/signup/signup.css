@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
     box-sizing: border-box;
     --color-option-1: #ffffff;
@@ -27,15 +31,18 @@ body {
 }
 
 form {
-    padding: 1rem;
     color: var(--color-option-3);
 }
 
 input {
     width: 100%;
-    padding: .2rem;
+    padding: .15rem;
     border: 2px solid var(--color-option-2);
     
+}
+
+label {
+    padding-top: .5rem;
 }
 
 .signup-wrapper {
@@ -48,10 +55,6 @@ input {
     right: 1%;
 }
 
-p {
-    text-align: left;
-    padding-top: .5rem;
-}
 
 .submit-button {
     margin: 1.5rem 30% 0 30%;
@@ -89,7 +92,7 @@ button.shake{
 
     .des-head{
         display:block;
-        margin: 2.5rem auto 0 auto;
+        margin: 1.5rem auto 0 auto;
         color: var(--color-option-3);
         font-size: 4.6rem;
     }
