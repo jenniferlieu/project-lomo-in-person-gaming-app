@@ -17,7 +17,7 @@ function App() {
           <Routes>
             <Route path='/login' element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
             <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
-            {/* <Route path='/createbeacon' element={<BeaconCreation />} /> */}
+            <Route path='/createbeacon' element={<BeaconCreation />} />
             <Route path='/' element={isLoggedIn ? <BeaconCreation /> : <Navigate to="/login" />} />
           </Routes>
         </Router>
