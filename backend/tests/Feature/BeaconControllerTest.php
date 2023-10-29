@@ -13,6 +13,8 @@ class BeaconControllerTest extends TestCase
 {
     use WithFaker;
 
+    public User $user;
+
     /**
      * Set up the test environment
      */
@@ -46,13 +48,14 @@ class BeaconControllerTest extends TestCase
                 'host_id',
                 'title',
                 'game_title',
-                'game_image',
+                'game_system',
                 'description',
-                'date_time',
+                'start_date_time',
+                'end_date_time',
                 'address',
                 'latitude',
                 'longitude',
-                'players_needed',
+                'num_players',
                 'created_at',
                 'updated_at',
                 '_id'
@@ -72,8 +75,8 @@ class BeaconControllerTest extends TestCase
             'host_id',
             'title',
             'game_title',
-            'game_image',
-            'date_time',
+            'start_date_time',
+            'end_date_time',
             'address',
             'latitude',
             'longitude'
