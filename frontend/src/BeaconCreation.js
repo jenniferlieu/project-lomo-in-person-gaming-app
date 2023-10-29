@@ -3,6 +3,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
+
 function BeaconCreation() {
   const [name, setState] = useState("");
   const [game, setGame] = useState("");
@@ -12,11 +13,12 @@ function BeaconCreation() {
   const [players, setPlayers] = useState("");
   const [timeFrom, setFrom] = useState("");
   const [timeTo, setTo] = useState("");
+  const [statusCode, setStatusCode] = useState(null);
 
-function displayText(text) {
-  document.getElementById("displayArea").innerHTML = text;
-  
-}
+  function displayText(text) {
+    document.getElementById("displayArea").innerHTML = text;
+    document.getElementById("displayArea").className = "font-bold relative bg-green-400 py-1 px-1 rounded float-right";
+  }
 
   function onClose() {
     let data = {
@@ -47,24 +49,33 @@ function displayText(text) {
         "Content-Type": "application/json",
         Accept: "application/json",
         Authorization:
-          "Bearer 653c9caf1df79134d402c692|uKoK3o20u3kcSIZbooOTl3i8McWMMWd5oUtKoSdab467dec1",
+          "Bearer " + process.env.REACT_APP_TOKEN,
       },
       body: JSON.stringify(data),
     };
 
     // make api call
     fetch(url, options)
+      .then((response) => {
+        const responseclone = response.clone();
+        if (responseclone.ok) {
+          displayText("Beacon Confirmed!");
+          return responseclone; 
+        }
+      })
+
       .then((response) => response.json())
       .then((response) => {
         console.log("response", response);
-
-        displayText("Beacon Confirmed!");
-        /*
-        if (response == "<Response [201]>") {
-          
-        }
-        */
       })
+      /*
+      .then((responseclone)=> {
+        if (responseclone.ok) {
+           displayText("Hey");
+        }   
+      })
+        */
+
       .catch((error) => console.log("error", error));
   }
 
@@ -186,7 +197,10 @@ function displayText(text) {
           >
             Confirm
           </button>
-          <div className="font-bold relative bg-green-400 py-1 px-1 rounded float-right" id="displayArea">Confirmed?</div>
+          <div
+            className="font-bold relative py-1 px-1 rounded float-right"
+            id="displayArea"
+          ></div>
         </div>
       </div>
     </div>
