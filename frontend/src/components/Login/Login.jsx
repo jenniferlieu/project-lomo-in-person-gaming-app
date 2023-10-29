@@ -64,18 +64,16 @@ const Login = () => {
                 <h1 className="des-head"><strong>Welcome<br />Back!</strong></h1>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="email">
-                        <p>Email:</p>
+                        Email:
                     </label>
                     <input value={emailInput} onChange={handleEmailChange} type="email" id="email" name="email" />
                     <label htmlFor="password">
-                        <p>Password:</p>
+                        Password:
                     </label>
                     <input value={passInput} onChange={handlePassChange} type="password" id="password" name="password" />
-                    <div className="submit-button">
-                        <button type="submit">Log In</button>
-                    </div>
+                        <button className="sub-button" type="submit">Log In</button>
                 </form>
-                <p>Don't have an account? <Link to='/signup'>Stop missing out!</Link></p>
+                <p className="text-center pt-4">Don't have an account? <Link to='/signup'>Stop missing out!</Link></p>
             </div>
         </div>
     );

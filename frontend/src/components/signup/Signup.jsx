@@ -73,7 +73,7 @@ const Signup = () => {
         }
 
         return (
-            <button data-testid="submit-button" type="submit" onClick={animate} className={shake ? `shake` : null}>
+            <button data-testid="submit-button" type="submit" onClick={animate} className={shake ? `shake submit-button` : `submit-button`}>
                 {p}
             </button>
         );
@@ -87,30 +87,26 @@ const Signup = () => {
                 <h1 className="des-head"><strong>Never miss<br />out again!</strong></h1>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor='username'>
-                        <p>Username:</p>
+                        Username:
                     </label>
                     <input value={usernameInput} onChange={(e) => setUsername(e.target.value)} type="username" id="username" name="username" />
 
                     <label htmlFor='email'>
-                        <p>Email:</p>
+                        Email:
                     </label>
                     <input value={emailInput} onChange={(e) => setEmail(e.target.value)} type="email" id="email" name="email" />
 
                     <label htmlFor='pass1'>
-                        <p>Password:</p>
+                        Password:
                     </label>
-                    <input value={pass1Input} onChange={(e) => { setPass1(e.target.value); handlePass1Change(e); }} type="password" id="pass1" name="pass1"
-                    />
+                    <input value={pass1Input} onChange={(e) => { setPass1(e.target.value); handlePass1Change(e); }} type="password" id="pass1" name="pass1"/>
 
                     <label htmlFor='pass2'>
-                        <p>Confirm password:</p>
+                        Confirm password:
                     </label>
                     <input value={pass2Input} onChange={(e) => { setPass2(e.target.value); handlePass2Change(e) }} type="password" id="pass2" name="pass2" />
-
-                    <div className='submit-button'>
-                        <AnimatedButton p="Sign Up" />
-                    </div>
-                    <p>Already have an account? <Link to='/login'>Jump back in!</Link></p>
+                    <AnimatedButton p="Sign Up" />
+                    <p className='text-center pt-3'>Already have an account? <Link to='/login'>Jump back in!</Link></p>
                 </form>
             </div>
         </div>
