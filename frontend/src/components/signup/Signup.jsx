@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './signup.css';
 
 const Signup = () => {
@@ -76,6 +77,7 @@ const Signup = () => {
                     <div className='submit-button'> 
                     <AnimatedButton p="Sign Up" />
                     </div>
+                    <p>Already have an account? <Link to='/login'>Jump back in!</Link></p>
                 </form>
             </div>
         </div>
