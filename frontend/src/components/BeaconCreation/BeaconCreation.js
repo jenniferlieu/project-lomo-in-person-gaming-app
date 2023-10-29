@@ -1,7 +1,8 @@
-import React, { useState, onClose } from "react";
+import React, { useState, onClose, useContext } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs/AdapterDayjs.js";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker.js";
+import {AuthContext, useAuth }from "../../AuthContext.js";
 
 
 function BeaconCreation() {
@@ -14,6 +15,7 @@ function BeaconCreation() {
   const [timeFrom, setFrom] = useState("");
   const [timeTo, setTo] = useState("");
   const [statusCode, setStatusCode] = useState(null);
+  const {authUser} = useAuth();
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
@@ -49,7 +51,7 @@ function BeaconCreation() {
         "Content-Type": "application/json",
         Accept: "application/json",
         Authorization:
-          "Bearer " + process.env.REACT_APP_TOKEN,
+          "Bearer " + authUser,
       },
       body: JSON.stringify(data),
     };
@@ -83,7 +85,7 @@ function BeaconCreation() {
     <div>
       <div class="bg-white rounded-lg w-full leading-relaxed max-w-md mx-auto shadow-lg my-5 p-2 px-2 text-left absolute">
         <tr>
-          <th classname="min-w-screen min-h-screen bg-black bg-opacity-25 flex justify-center items-center">
+          <th className="min-w-screen min-h-screen bg-black bg-opacity-25 flex justify-center items-center">
             <label htmlFor={"input"}>Beacon Name</label>
             <input
               id={"BeaconName"}
@@ -96,7 +98,7 @@ function BeaconCreation() {
               }}
             />
           </th>
-          <th classname="min-w-screen min-h-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
+          <th className="min-w-screen min-h-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
             <label htmlFor={"input2"}>Game Title</label>
             <input
               id={"BeaconGame"}
@@ -111,7 +113,7 @@ function BeaconCreation() {
           </th>
         </tr>
         <tr>
-          <th classname="min-w-screen min-h-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
+          <th className="min-w-screen min-h-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
             <label htmlFor={"input3"}>No. of players</label>
             <input
               id={"Players"}
@@ -124,7 +126,7 @@ function BeaconCreation() {
               }}
             />
           </th>
-          <th classname="min-w-screen min-h-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
+          <th className="min-w-screen min-h-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
             <label htmlFor={"input4"}>Game System</label>
             <input
               id={"BeaconSystem"}
@@ -138,7 +140,7 @@ function BeaconCreation() {
             />
           </th>
         </tr>
-        <th classname="min-w-screen min-h-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
+        <th className="min-w-screen min-h-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
           <label htmlFor={"input5"}>Location</label>
           <input
             id={"Location"}
@@ -152,7 +154,7 @@ function BeaconCreation() {
           />
         </th>
         <tr>
-          <th classname="min-w-screen min-h-screen border-10 bg-black bg-opacity-25 flex p-2 span-5 justify-center items-center">
+          <th className="min-w-screen min-h-screen border-10 bg-black bg-opacity-25 flex p-2 span-5 justify-center items-center">
             <label htmlFor={"input6"}>Misc. Info</label>
             <input
               id={"MiscInfo"}
@@ -167,7 +169,7 @@ function BeaconCreation() {
           </th>
         </tr>
         <div>
-          <LocalizationProvider dateAdapter={AdapterDayjs} classname="p-20">
+          <LocalizationProvider dateAdapter={AdapterDayjs} className="p-20">
             <DateTimePicker
               label="From: "
               value={timeFrom}
@@ -176,7 +178,7 @@ function BeaconCreation() {
           </LocalizationProvider>
         </div>
         <div>
-          <LocalizationProvider dateAdapter={AdapterDayjs} classname="p-20">
+          <LocalizationProvider dateAdapter={AdapterDayjs} className="p-20">
             <DateTimePicker
               label="To: "
               value={timeTo}

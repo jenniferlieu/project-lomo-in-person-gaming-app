@@ -6,7 +6,7 @@ import { useAuth } from './AuthContext.js';
 import Login from './components/Login/Login.jsx';
 import Signup from './components/signup/Signup.jsx';
 import HomePage from './HomePage.js';
-import BeaconCreation from './BeaconCreation.js';
+import BeaconCreation from './components/BeaconCreation/BeaconCreation.js';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -17,7 +17,8 @@ function App() {
           <Routes>
             <Route path='/login' element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
             <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
-            <Route path='/' element={isLoggedIn ? <HomePage /> : <Navigate to="/login" />} />
+            {/* <Route path='/createbeacon' element={<BeaconCreation />} /> */}
+            <Route path='/' element={isLoggedIn ? <BeaconCreation /> : <Navigate to="/login" />} />
           </Routes>
         </Router>
     </div>

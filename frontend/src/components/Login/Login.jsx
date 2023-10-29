@@ -43,7 +43,9 @@ const Login = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setIsLoggedIn(true);
+                    console.log(data.token);
                     console.log("Log in successful");
+                    setAuthUser(data.token);
                     navigate('/');
                 } else {
                     const data = await response.json();
