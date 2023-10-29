@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../App.js';
+import { useAuth } from '../../AuthContext';
 import "./login.css";
 
 const Login = () => {
     const [emailInput, setEmail] = useState('');
     const [passInput, setPass] = useState('');
     const navigate = useNavigate();
-    const auth = useContext(AuthContext);
+    const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -22,7 +22,9 @@ const Login = () => {
         console.log(emailInput, passInput);
 
         if (emailInput === 'test@test.com' && passInput === 'testpass') {
-            auth.setIsLoggedIn(true);
+            setIsLoggedIn(true);
+            console.log('Test log in was successful');
+            navigate('/');
         }
         else {
             try {
@@ -40,9 +42,9 @@ const Login = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    auth.setIsLoggedIn(true);
+                    setIsLoggedIn(true);
                     console.log("Log in successful");
-                    navigate('/home');
+                    navigate('/');
                 } else {
                     const data = await response.json();
                     const error = data.message;

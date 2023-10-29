@@ -1,32 +1,24 @@
-import React, { createContext, useContext, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { useAuth } from './AuthContext.js';
 import Login from './components/Login/Login.jsx';
 import Signup from './components/signup/Signup.jsx';
 import HomePage from './HomePage.js';
 
-//Create authentication context
-const AuthContext = createContext({
-  isLoggedIn: false,
-  setIsLoggedIn: () => {},
-});
-
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const auth = useContext(AuthContext);
+  const { isLoggedIn } = useAuth();
 
   return (
     <div className='App'>
-      <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
         <Router>
           <Routes>
-            <Route exact path='/' element={auth.isLoggedIn ? <HomePage /> : <Navigate to='/login' />} />
-            <Route exact path='/login' element={<Login />} />
-            <Route exact path='/signup' element={<Signup />} />
+            <Route path='/login' element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
+            <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
+            <Route path='/' element={isLoggedIn ? <HomePage /> : <Navigate to="/login" />} />
           </Routes>
         </Router>
-      </AuthContext.Provider>
     </div>
   );
 }
