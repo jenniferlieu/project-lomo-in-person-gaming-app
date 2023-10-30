@@ -25,6 +25,17 @@ function BeaconCreation({beaconList}) {
     document.getElementById("displayArea").className = "font-bold relative bg-green-400 py-1 px-1 rounded float-right";
   }
 
+  function clearForm() {
+    setState("");
+    setGame("");
+    setSystem("");
+    setMisc("");
+    setLocation("");
+    setPlayers("");
+    setFrom("");
+    setTo("");
+  }
+
   function onClose() {
     let data = {
       // exepected json schema
@@ -216,14 +227,19 @@ function BeaconCreation({beaconList}) {
             className="font-bold relative bg-red-500 py-1 px-1 rounded float-right"
             onClick={onClose}
           >
-            Cancel
+            Confirm
+          </button>
+          <button
+            className="font-bold relative bg-red-500 py-1 px-1 rounded float-right"
+            onClick={clearForm}
+          >
+            Clear
           </button>
           <Link to="/">
             <button
               className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right"
-              onClick={onClose}
             >
-              Confirm
+              Close
             </button>
           </Link>
           <div
