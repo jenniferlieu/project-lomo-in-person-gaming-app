@@ -66,8 +66,8 @@ function App() {
           <Routes>
             <Route path='/login' element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
             <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
-            <Route path='/createbeacon' element={<BeaconCreation beaconList={beaconList} />} />
-            <Route path='/' element={<HomePage beaconList={beaconList}/>} />
+            <Route path='/createbeacon' element={isLoggedIn ? <BeaconCreation beaconList={beaconList} /> : <Navigate to='/login' />} />
+            <Route path='/' element={isLoggedIn ? <HomePage beaconList={beaconList}/> : <Navigate to='/login' />} />
           </Routes>
         </Router>
     </div>
