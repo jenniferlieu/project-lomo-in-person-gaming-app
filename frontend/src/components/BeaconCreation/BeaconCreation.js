@@ -2,10 +2,12 @@ import React, { useState, onClose, useContext } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs/AdapterDayjs.js";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker.js";
-import {AuthContext, useAuth }from "../../AuthContext.js";
+import { AuthContext, useAuth }from "../../AuthContext.js";
+import { Link } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 
 
-function BeaconCreation() {
+function BeaconCreation({beaconList}) {
   const [name, setState] = useState("");
   const [game, setGame] = useState("");
   const [system, setSystem] = useState("");
@@ -16,6 +18,7 @@ function BeaconCreation() {
   const [timeTo, setTo] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   const {authUser} = useAuth();
+  // const history = useHistory();
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
@@ -38,6 +41,28 @@ function BeaconCreation() {
       num_players: players, // required
     };
     console.log(data);
+
+    const beaconListData = {
+      circleLat: data.latitude,
+      circleLng: data.longitude,
+      beaconInfo: {
+        username: data.host_id,
+        gameTitle: data.game_title,
+        console: data.game_system,
+        miscInfo: data.misc,
+        startTime: data.start_date_time,
+        endTime: data.end_date_time,
+        playerInfo: {
+          wanted: data.num_players
+        },
+        address: {
+          address: data.address
+        }
+      }
+    };
+    beaconList.push(beaconListData);
+    console.log(beaconList);
+    // history.push("/");
 
     // define url and headers
     let url = "http://localhost/api/beacons";
@@ -193,12 +218,14 @@ function BeaconCreation() {
           >
             Cancel
           </button>
-          <button
-            className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right"
-            onClick={onClose}
-          >
-            Confirm
-          </button>
+          <Link to="/">
+            <button
+              className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right"
+              onClick={onClose}
+            >
+              Confirm
+            </button>
+          </Link>
           <div
             className="font-bold relative py-1 px-1 rounded float-right"
             id="displayArea"
