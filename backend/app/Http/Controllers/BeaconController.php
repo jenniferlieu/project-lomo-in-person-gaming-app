@@ -53,7 +53,8 @@ class BeaconController extends Controller
      */
     public function show(string $beacon_id)
     {
-        // 
+        $beacon = Beacon::find($beacon_id);
+        return response()->json(['data' => $beacon], 200);
     }
 
     /**
