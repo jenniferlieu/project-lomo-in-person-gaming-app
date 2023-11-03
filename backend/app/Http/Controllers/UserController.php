@@ -24,6 +24,10 @@ class UserController extends Controller
     {
         // gets user data from database by user_id
         $user = User::with('profile', 'friends')->find($id);
+        // check if user exist
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
         return response()->json(['data' => $user], 200);
     }
 

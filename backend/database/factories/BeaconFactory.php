@@ -19,18 +19,15 @@ class BeaconFactory extends Factory
         return [
             'host_id' => null,
             'title' => fake()->sentence,
-            'game' => [
-                'game_title' => fake()->sentence,
-                'game_image' => fake()->imageUrl
-            ],
+            'game_title' => fake()->sentence,
+            'game_system' => fake()->sentence,
             'description' => fake()->sentence,
-            'date_time' => fake()->dateTime->format('Y-m-d H:i:s'),
-            'location' => [
-                'description' => fake()->address,
-                'latitude' => fake()->latitude,
-                'longitude' => fake()->longitude
-            ],
-            'players_needed' => fake()->numberBetween(1, 100)
+            'start_date_time' => fake()->dateTime->format('Y-m-d H:i:s'),
+            'end_date_time' => fake()->dateTime->format('Y-m-d H:i:s'),
+            'address' => fake()->address,
+            'latitude' => fake()->latitude,
+            'longitude' => fake()->longitude,
+            'players_needed' => fake()->numberBetween(0, 10)
         ];
     }
 }
