@@ -97,7 +97,6 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
    ```bash
    npm install
    ```
-3. Copy the `.env.example` file and name it `.env` **! IMPORTANT !** secret keys are pinned in Discord
 
 #### 3. Setup backend
 1. Go to the `backend/` folder
