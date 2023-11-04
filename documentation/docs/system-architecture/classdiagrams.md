@@ -385,3 +385,86 @@ The SendNewBeacon event listener is triggered by the NewBeaconEvent. The `handle
 
 #### SendNewComment
 The SendNewComment event listener is triggered by the NewCommentEvent. The `handle()` method pushes the newly created comment data through the beacon WebSocket channel.
+
+## Frontend-Backend Integration
+
+This section describes how the frontend and backend are connected by explaining how the data flows between frontend, backend, and database.
+
+The app uses a combination of HTTP requests and WebSockets to send and receive requests. For the most part, data is sent and received through HTTP requests at API endpoints. The pub-sub WebSocket pattern is used to push data one-way to the frontend in real-time whenever an event is triggered. The frontend uses event listeners to connect to WebSocket channels and listen for events.
+
+The backend is comprised of all the boxes in between the frontend box and the database box.
+
+### HTTP requests
+
+Data can be sent and received through HTTP requests.
+
+```mermaid
+sequenceDiagram
+  participant Frontend
+
+  participant API Middleware
+  participant Controller
+  participant Model
+  participant Database
+
+  Frontend->>API Middleware: Sends an HTTP request with token
+  activate API Middleware
+  
+  API Middleware->>Controller: Successfully authenticates the token<br>Process data in Controller
+  deactivate API Middleware
+  activate Controller
+
+  Controller->>Model: Creates a new Model object
+  activate Model
+  Model-->>Controller: Returns a new Model instance
+  deactivate Model
+
+  Controller->>Database: Use Model object to access database
+  activate Database
+  Database-->>Controller: Returns data
+  deactivate Database
+  
+  Controller-->>Frontend: Returns data
+  deactivate Controller
+```
+
+### WebSockets
+
+From the frontend, data is only received through the WebSocket, never sent. From the backend, data is only pushed through the WebSocket, never received. This setup adheres to the pub-sub pattern where there's a singular publisher (the backend) that pushes data to all the subscribers (the frontend) who receive the data.
+
+WebSockets are used to display beacon data in real-time such as beacon information, comments, users joined.
+
+```mermaid
+sequenceDiagram
+  participant Frontend
+  participant API Middleware
+  participant Controller
+  participant Model
+  participant Event
+  participant Database
+
+  Frontend->>API Middleware: Sends a POST/PATCH request with token
+  activate API Middleware
+  
+  API Middleware->>Controller: Successfully authenticates the token<br>Process data in Controller
+  deactivate API Middleware
+  activate Controller
+
+  Controller->>Model: Creates a new Model object
+  activate Model
+  Model-->>Controller: Returns a new Model instance
+  deactivate Model
+
+  Controller->>Database: Use Model object to create data
+  activate Database
+  Database-->>Controller: Returns successful
+  deactivate Database
+  
+  Controller->>Event: Calls broadcast(new Event($data)) to trigger event
+  deactivate Controller
+  activate Event
+  Event-->Frontend: Pushes $data to the frontend through the event's WebSocket channel
+  deactivate Event
+
+  Frontend->>Frontend: Displays data in real time
+  ```
