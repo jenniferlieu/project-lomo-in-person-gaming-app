@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-{
-  "label": "Test Procedures",
-  "position": 8,
-  "link": {
-    "type": "generated-index",
-    "description": "Please remove and replace examples where necessary."
-  }
-}
-=======
 {
   "label": "Test Procedures",
   "position": 8,
@@ -16,4 +6,3 @@
     "description": "Documentation for the unit tests for both the frontend and backend, integration tests, and acceptance tests."
   }
 }
->>>>>>> frontend
