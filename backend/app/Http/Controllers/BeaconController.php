@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Beacon;
-use MongoDB\BSON\ObjectId;
 use App\Http\Requests\BeaconRequest;
 
 class BeaconController extends Controller
@@ -27,7 +26,7 @@ class BeaconController extends Controller
     {
         // get variables from json request
         $data = [
-            'host_id' => new ObjectId($request->host_id),
+            'host_id' => $request->host_id,
             'title' => $request->title,
             'game_title' => $request->game_title,
             'game_image' => $request->game_image,
