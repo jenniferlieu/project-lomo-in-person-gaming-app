@@ -3,7 +3,7 @@ sidebar_position: 1
 ---
 # Introduction
 
-LOMO is a full-stack, mobile-first web app using **ReactJS and Tailwind CSS** for the frontend, **Laravel Sail** (dockerized version of Laravel) as the API backend, **MongoDB** as the database hosted on MongoDB Atlas, and **Docusaurus** as the documentation site hosted on **GitHub Pages**.
+LOMO is a full-stack, mobile-first web app using **ReactJS and Tailwind CSS** for the frontend, **Laravel Sail** (dockerized version of Laravel) as the API backend, **PostgreSQL** as the database, and **Docusaurus** as the documentation site hosted on **GitHub Pages**.
 
 - The purpose of the frontend is to create a user interface for the app. 
 - The purpose of the backend is to be the app's API and move data between the frontend and database. 
@@ -36,7 +36,8 @@ Below are links to project boards, resources, official documentation, and tutori
 - **Docker**
   - [Docker quick start guide (sidebar)](/resources/docker-quick-start)
 - **MongoDB**
-  - [Tutorial on Setting up MongoDB with Laravel Sail](https://discord.com/channels/1150870543092949102/1150870543092949105/1156730930090737684)
+  - [Official MongoDB and Laravel quick start docs](https://www.mongodb.com/compatibility/mongodb-laravel-integration#laravel-mongodb-crud-example)
+  - [Official MongoDB query builder docs](https://github.com/mongodb/laravel-mongodb/blob/4.1/docs/query-builder.md)
   - [MongoDB datatype to php conversion](/docs/system-architecture/erddiagrams#datatype-conversion-from-mongodb-to-php)
 - **Docusuarus**
   - [Official docusaurus quick start guide](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/quick-start-docusaurus)
@@ -70,7 +71,7 @@ Keep in mind that the some of the Laravel official documentation are written for
 
 ### MongoDB
 - [Official MongoDB documentation](https://www.mongodb.com/docs/)
-- [MongoDB docs for Laravel 10 on github](https://github.com/mongodb/laravel-mongodb)
+- [Official MongoDB docs for Laravel 10 on github](https://github.com/mongodb/laravel-mongodb)
 
 ### Docusaurus
 - [Offical Docusaurus documentation](https://docusaurus.io/docs)
