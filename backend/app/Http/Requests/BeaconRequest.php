@@ -25,13 +25,14 @@ class BeaconRequest extends FormRequest
             'host_id' => 'required',
             'title' => 'required|string',
             'game_title' => 'required|string',
-            'game_image' => 'required|string',
+            'game_system' => 'required|string',
             'description' => 'string',
-            'date_time' => 'required|date',
+            'start_date_time' => 'required|date',
+            'end_date_time' => 'required|date',
             'address' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'players_needed' => 'integer'
+            'num_players' => 'integer'
         ];
     }
 }

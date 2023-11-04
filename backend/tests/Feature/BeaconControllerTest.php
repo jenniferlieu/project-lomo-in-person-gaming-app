@@ -4,14 +4,19 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Beacon;
 use MongoDB\BSON\ObjectId;
+use App\Events\BeaconCreated;
 
 class BeaconControllerTest extends TestCase
 {
     use WithFaker;
+    use RefreshDatabase;
+
+    public User $user;
 
     /**
      * Set up the test environment
@@ -46,13 +51,14 @@ class BeaconControllerTest extends TestCase
                 'host_id',
                 'title',
                 'game_title',
-                'game_image',
+                'game_system',
                 'description',
-                'date_time',
+                'start_date_time',
+                'end_date_time',
                 'address',
                 'latitude',
                 'longitude',
-                'players_needed',
+                'num_players',
                 'created_at',
                 'updated_at',
                 '_id'
@@ -72,8 +78,8 @@ class BeaconControllerTest extends TestCase
             'host_id',
             'title',
             'game_title',
-            'game_image',
-            'date_time',
+            'start_date_time',
+            'end_date_time',
             'address',
             'latitude',
             'longitude'
@@ -88,5 +94,24 @@ class BeaconControllerTest extends TestCase
         $response = $this->getJson('/api/beacons');
 
         $response->assertStatus(200)->assertJsonIsArray('data');
+    }
+
+    /**
+     * Test get all beacons
+     * Should return a status code of 200 and returns an array of beacons
+     */
+    public function test_beacon_created_event_dispatched(): void
+    {
+
+        Event::fake([BeaconCreated::class]);
+
+        // create a mock beacon
+        $beacon = Beacon::factory()->make([
+            'host_id' => $this->user->id, // set the host_id
+        ]);
+
+        $response = $this->postJson('/api/beacons', $beacon->toArray());
+
+        Event::assertDispatched(BeaconCreated::class);
     }
 }
