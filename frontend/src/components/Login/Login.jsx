@@ -59,20 +59,20 @@ const Login = () => {
     }
 
     return (
-        <div className="bg-teal-500">
-            <h1 className="mob-head"><strong>Welcome Back!</strong></h1>
-            <div className="login-wrapper" >
-                <h1 className="des-head"><strong>Welcome<br />Back!</strong></h1>
-                <form onSubmit={handleSubmit}>
+        <div>
+            <h1 className='text-6xl sm:hidden text-white bg-black text-center'><strong>Welcome Back!</strong></h1>
+            <div className="fixed overflow-hidden bg-white w-screen h-screen top-200 p-5 sm:w-1/3 sm:h-screen sm:right-0" >
+                <h1 className="text-6xl hidden sm:block text-center sm:pb-10"><strong>Welcome Back!</strong></h1>
+                <form onSubmit={handleSubmit} className="text-lg text-center">
                     <label htmlFor="email">
-                        Email:
+                        Email:<br />
                     </label>
                     <input value={emailInput} onChange={handleEmailChange} type="email" id="email" name="email" />
                     <label htmlFor="password">
-                        Password:
+                        <br />Password:<br />
                     </label>
                     <input value={passInput} onChange={handlePassChange} type="password" id="password" name="password" />
-                        <button className="sub-button" type="submit">Log In</button>
+                    <br /><button className="sub-button" type="submit">Log In</button>
                 </form>
                 <p className="text-center pt-4">Don't have an account? <Link to='/signup'>Stop missing out!</Link></p>
             </div>
