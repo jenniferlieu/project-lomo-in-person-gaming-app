@@ -6,7 +6,7 @@ import './NavBar.css';
 
 const NavBar = () => {
     return (
-        <nav className='bg-green-500 p-4'>
+        <nav className='bg-sky-700 p-4'>
             <div className='container mx-auto'>
                 <div className='flex justify-between items-center'>
                     <div className='text-white text-2x1 font-bold'>LOMO</div>
