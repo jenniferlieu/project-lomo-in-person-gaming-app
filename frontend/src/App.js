@@ -7,6 +7,7 @@ import Login from './components/Login/Login.jsx';
 import Signup from './components/signup/Signup.jsx';
 import HomePage from './HomePage.js';
 import BeaconCreation from './components/BeaconCreation/BeaconCreation.js';
+import NavBar from './components/NavBar/NavBar.jsx';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -63,6 +64,7 @@ function App() {
   return (
     <div className='App bg-gradient-to-tl from-[#10021e] to-[#210210] h-screen'>
         <Router>
+          <NavBar />
           <Routes>
             <Route path='/login' element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
             <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
