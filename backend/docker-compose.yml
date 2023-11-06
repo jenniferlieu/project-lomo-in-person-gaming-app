@@ -24,6 +24,20 @@ services:
         depends_on:
             - mongodb
 
+    
+    pgsql:
+        image: 'postgres:latest'
+        ports:
+            - '5432:5432'
+        environment:
+            POSTGRES_DB: env('DB_DATABASE')
+            POSTGRES_USER: env('DB_USERNAME')
+            POSTGRES_PASSWORD: env('DB_PASSWORD')
+        volumes:
+            - 'sailpgdata:/var/lib/postgresql/data'
+    
+
+
     mongodb:
         image: mongo:latest
         environment:
@@ -42,3 +56,4 @@ networks:
 
 volumes:
     mongodb_data:
+    sailpgdata:
