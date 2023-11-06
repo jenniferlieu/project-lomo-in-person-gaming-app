@@ -82,6 +82,9 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
+            'options' => [
+                PDO::PGSQL_ATTR_SSL_CA_FILE => env('DB_SSL_CERT_PATH'),
+            ],
         ],
 
         // 'sqlsrv' => [
