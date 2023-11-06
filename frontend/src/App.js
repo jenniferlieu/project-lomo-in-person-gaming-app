@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { useAuth } from './AuthContext.js';
 import Login from './components/Login/Login.jsx';
