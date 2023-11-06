@@ -23,12 +23,12 @@ class UserController extends Controller
     public function show(string $id)
     {
         // gets user data from database by user_id
-        $user = User::with('profile', 'friends')->find($id);
+        $user = User::find($id);
         // check if user exist
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
         }
-        return response()->json(['data' => $user], 200);
+        return response()->json(['data' => $user -> toArray()], 200);
     }
 
 
@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
     }
 
     /**
@@ -45,6 +45,6 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
     }
 }
