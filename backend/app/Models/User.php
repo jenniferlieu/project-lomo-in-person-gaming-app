@@ -3,16 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use MongoDB\Laravel\Eloquent\Model as Eloquent;
-use Illuminate\Auth\Authenticatable;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
-class User extends Eloquent implements AuthenticatableContract
+class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Authenticatable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,11 +19,11 @@ class User extends Eloquent implements AuthenticatableContract
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id', 
-        'email', 
-        'username', 
-        'password', 
-        'first_name', 
+        'user_id',
+        'email',
+        'username',
+        'password',
+        'first_name',
         'last_name'
     ];
 
@@ -47,4 +46,26 @@ class User extends Eloquent implements AuthenticatableContract
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Define the relationship with the Profile model.
+     * A user has one profile associated with it.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * Define the relationship with the Friend model.
+     * A user can have multiple friends associated with it.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function friends()
+    {
+        return $this->hasMany(Friend::class);
+    }
 }
