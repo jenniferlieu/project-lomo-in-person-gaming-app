@@ -5,7 +5,7 @@ description: Frontend and backend
 
 # Class Diagrams
 
-The app uses ReactJS for the frontend, Laravel for the backend, and MongoDB for the database. The backend is composed in a docker container running a sail network with the Laravel Sail image and the MongoDB image. 
+The app uses ReactJS for the frontend, Laravel for the backend, and PostgreSQL for the database.
 
 In order to provide fast, real-time updates, the app utilizes Laravel's builtin WebSocket along with the Laravel Echo library in both the backend and frontend to establish WebSocket connections between the two.
 
@@ -240,7 +240,7 @@ The FriendsList displays a list of friends based on which filter is passed into 
 
 ## Backend Class Diagram
 
-The backend is contained within a docker container composed of the Laravel Sail image for the backend and the MongoDB image for the database. The docker images shares the sail network allowing them to communicate with each other.
+The backend uses Laravel Sail, a dockerized Laravel.
 
 **The purpose of the backend is to create authenticated RESTful API routes and move data between the frontend and database.** Alongside HTTP requests, it will also use WebSockets to send real-time updates to the frontend when a new beacon create or a new comment posted on a beacon.
 
@@ -324,12 +324,12 @@ API use HTTP requests to create routes, allow communication between the frontend
 This is the `backend/routes/api.php` file. It contains routes to handle all of the api requests made to and from the frontend and maps them to Controller methods to be handled. The resource route automatically routes all of basic CRUD HTTP requests and maps each of them to basic CRUD methods (store, index, show, update, destory) in the Controller classes. And it does it all in one line `Route::resource`. Additional routes and methods outside of the basic CRUD operations must be explicitly created and defined.
 
 ### Models
-Models are responsible for interacting with the database, such as retrieving data, updating records, or creating new records. When getting data from the database, Models will also convert the database's data type into php data types. Check the Database Diagram page for data type conversions between MongoDB and PHP. 
+Models are responsible for interacting with the database, such as retrieving data, updating records, or creating new records. When getting data from the database, Models will also convert the database's data type into php data types.
 
 Model files are located in the `app/Models` folder and have the same name as the database table it's associated with.
 
 #### User
-The UserModel contains a fillable variable which lists all of the attributes in the User table of the database. It also contains getter and setter methods for each attribute in the User table. The getter methods will return convert the MongoDB data types into its equivalent php data types.
+The UserModel contains a fillable variable which lists all of the attributes in the User table of the database.
 
 #### Beacon
 The BeaconModel contains a fillable variable which lists all of the attributes in the Beacon table of the database. It also contains getter and setter methods for each attribute in the Beacon table. The getter methods will return convert the MongoDB data types into its equivalent php data types.
@@ -385,3 +385,86 @@ The SendNewBeacon event listener is triggered by the NewBeaconEvent. The `handle
 
 #### SendNewComment
 The SendNewComment event listener is triggered by the NewCommentEvent. The `handle()` method pushes the newly created comment data through the beacon WebSocket channel.
+
+## Frontend-Backend Integration
+
+This section describes how the frontend and backend are connected by explaining how the data flows between frontend, backend, and database.
+
+The app uses a combination of HTTP requests and WebSockets to send and receive requests. For the most part, data is sent and received through HTTP requests at API endpoints. The pub-sub WebSocket pattern is used to push data one-way to the frontend in real-time whenever an event is triggered. The frontend uses event listeners to connect to WebSocket channels and listen for events.
+
+The backend is comprised of all the boxes in between the frontend box and the database box.
+
+### HTTP requests
+
+Data can be sent and received through HTTP requests.
+
+```mermaid
+sequenceDiagram
+  participant Frontend
+
+  participant API Middleware
+  participant Controller
+  participant Model
+  participant Database
+
+  Frontend->>API Middleware: Sends an HTTP request with token
+  activate API Middleware
+  
+  API Middleware->>Controller: Successfully authenticates the token<br>Process data in Controller
+  deactivate API Middleware
+  activate Controller
+
+  Controller->>Model: Creates a new Model object
+  activate Model
+  Model-->>Controller: Returns a new Model instance
+  deactivate Model
+
+  Controller->>Database: Use Model object to access database
+  activate Database
+  Database-->>Controller: Returns data
+  deactivate Database
+  
+  Controller-->>Frontend: Returns data
+  deactivate Controller
+```
+
+### WebSockets
+
+From the frontend, data is only received through the WebSocket, never sent. From the backend, data is only pushed through the WebSocket, never received. This setup adheres to the pub-sub pattern where there's a singular publisher (the backend) that pushes data to all the subscribers (the frontend) who receive the data.
+
+WebSockets are used to display beacon data in real-time such as beacon information, comments, users joined.
+
+```mermaid
+sequenceDiagram
+  participant Frontend
+  participant API Middleware
+  participant Controller
+  participant Model
+  participant Event
+  participant Database
+
+  Frontend->>API Middleware: Sends a POST/PATCH request with token
+  activate API Middleware
+  
+  API Middleware->>Controller: Successfully authenticates the token<br>Process data in Controller
+  deactivate API Middleware
+  activate Controller
+
+  Controller->>Model: Creates a new Model object
+  activate Model
+  Model-->>Controller: Returns a new Model instance
+  deactivate Model
+
+  Controller->>Database: Use Model object to create data
+  activate Database
+  Database-->>Controller: Returns successful
+  deactivate Database
+  
+  Controller->>Event: Calls broadcast(new Event($data)) to trigger event
+  deactivate Controller
+  activate Event
+  Event-->Frontend: Pushes $data to the frontend through the event's WebSocket channel
+  deactivate Event
+
+  Frontend->>Frontend: Displays data in real time
+  ```

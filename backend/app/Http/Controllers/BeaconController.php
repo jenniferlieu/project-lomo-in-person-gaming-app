@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BeaconCreated;
 use Illuminate\Http\Request;
 use App\Models\Beacon;
 use App\Http\Requests\BeaconRequest;
@@ -29,22 +30,24 @@ class BeaconController extends Controller
             'host_id' => $request->host_id,
             'title' => $request->title,
             'game_title' => $request->game_title,
-            'game_image' => $request->game_image,
+            'game_system' => $request->game_system,
             'description' => $request->description,
-            'date_time' => $request->date_time,
+            'start_date_time' => $request->start_date_time,
+            'end_date_time' => $request->end_date_time,
             'address' => $request->address,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
-            'players_needed' => $request->players_needed
+            'num_players' => $request->num_players
         ];
 
         // Insert new beacon into the database
         $beacon = new Beacon();
         $beacon->fill($data);
-        $beacon->players_attending = [];
-        $beacon->comments = [];
 
         $beacon->save();
+
+        // Push new beacon data through websocket to all users
+        event(new BeaconCreated($beacon));
 
         // Returns data on the new beacon created and a success status code
         return response()->json(['data' => $beacon], 201); // 201 Request fulfilled and new resource created

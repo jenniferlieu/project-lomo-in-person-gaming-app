@@ -14,7 +14,7 @@ sidebar_position: 4
 * Php
 * Docker
 * Laravel
-* Mongodb
+* PostgreSQL
 
 **Editors**: 
 * VS Code

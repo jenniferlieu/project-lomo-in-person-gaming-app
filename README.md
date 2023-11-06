@@ -24,7 +24,6 @@
       - [3. Setup backend](#3-setup-backend)
         - [(Optional) Setup sail alias](#optional-setup-sail-alias)
       - [4. Setup docusaurus](#4-setup-docusaurus)
-    - [Troubleshooting for setting up the backend on Windows](#troubleshooting-for-setting-up-the-backend-on-windows)
   - [Run](#run)
     - [Run the app](#run-the-app)
     - [Stop running the app](#stop-running-the-app)
@@ -46,7 +45,7 @@ When a user opens the app, they will see the interface of a 2d map in a top down
 
 ## Conceptual Design
 
-This will be a progressive web application using React as a frontend with Laravel PHP serving as our backend. Our backend will use MongoDB for establishing and maintaining a database. Laravel provides many built-in functions that can be expanded on to meet the needs of the project in a more productive fashion.
+This will be a progressive web application using React as a frontend with Laravel PHP serving as our backend. Our backend will use PostgreSQL for establishing and maintaining a database. Laravel provides many built-in functions that can be expanded on to meet the needs of the project in a more productive fashion.
 
 ## Background
 
@@ -98,7 +97,6 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
    ```bash
    npm install
    ```
-3. Copy the `.env.example` file and name it `.env` **! IMPORTANT !** secret keys are pinned in Discord
 
 #### 3. Setup backend
 1. Go to the `backend/` folder
@@ -107,12 +105,37 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
    ```bash
    docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/var/www/html" -w /var/www/html laravelsail/php82-composer:latest composer install --ignore-platform-reqs
    ```
-4. Copy the `.env.example` file and name it `.env` **! IMPORTANT !** secret keys are pinned in Discord
-5. Build the image and start the docker container (in detached mode)
+   - **PROBLEM:** If you run into problems installing dependencies, then first check to make sure that you're in the `backend` folder and on the correct branch
+   - **PROBLEM:** If you continue to have problems with docker, then install php82, php82-openssl, and composer onto your machine, and use your machine's composer to install the dependencies `composer install --ignore-platform-reqs`. **IMPORTANT!** Afterwards, only use the container's composer and php commands so that they'll make changes to the container and **not** to your machine! `sail composer` and `sail php`
+1. Copy the `backend/.env.example` file and name it `backend/.env` 
+2. Replace the database and pusher env variables with the ones pinned in dicord
+3. Build the image and start the docker container (in detached mode)
    ```bash
    ./vendor/bin/sail up -d
    ```
-6. Go to http://localhost in your browser to view the backend UI
+4. Go to http://localhost in your browser to make sure that you can see the laravel welcome screen, and you're set!
+   1. **PROBLEM:** If you see a 500 server error and no detailed explanation of the error, then you forgot to copy the env file
+   2. **PROBLEM:** If you're on Windows using WSL2, you will need to change permissions for the storage folder and the storage/logs/laravel.log file. Run the commands below one line at a time, in order:
+        ```bash
+        # enter the docker container command line as the root user
+        ./vendor/bin/sail root-shell
+
+        # recursively change permissions on storage to allow read,write,execute for owner and group
+        chmod -R 775 storage/
+
+        # recursively change owner and group to root
+        chown -R root:root storage/
+
+        # change the permissions for storage/logs/laravel.log to allow read,write for other
+        chmod o+rw storage/logs/laravel.log
+
+        # setup the storage link between storage/ and public/storage folders
+        php artisan storage:link
+
+        # clear the cache and config
+        php artisan cache:clear
+        php artisan config:clear
+        ```  
 
 To stop the container: from your terminal, run `./vendor/bin/sail down`
 
@@ -122,9 +145,9 @@ In order to use the `sail` command, it has to be completely typed out: `./vendor
 **If you want to use the docker commands, don't setup the alias.** Refer to the **Exceute commands in conatiner** guide for executing laravel commands in docker. For simplicity, all guides will use `sail` commands.
 
 If you want to use the sail command, then you can continue to use `./vendor/bin/sail` or setup an alias to shortend it to `sail`.
-- To setup the alias run:
+- To setup the alias add this to your `~/.bashrc` or `~/.zshrc` in your home directory:
    ```bash
-   alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+   alias sail="vendor/bin/sail"
    ```
 
 #### 4. Setup docusaurus
@@ -133,30 +156,6 @@ If you want to use the sail command, then you can continue to use `./vendor/bin/
    ```bash
    yarn install
    ```
-
-### Troubleshooting for setting up the backend on Windows 
-If you **CANNOT RUN THE DOCKER COMMAND TO INSTALL COMPOSER DEPENDENCIES**, (supported solution) you must git clone the project in the WSL's virtual machine instead of crossing over to the Windows files and folders. 
-- (Unsuported solution) If you wish to use the repo on your Windows filesystem AND already have PHP 8.2.10 and composer installed on your development machine, then run `composer install --ignore-platform-reqs` to install the composer dependencies. Just remember to use the `sail` or `docker` commands when running any `php` or `composer` commands AFTER the Docker container is setup so that the commands run inside the docker container and NOT on your machine! 
-
-If you **get a PERMISSIONS type error for `/var/www/html/storage`**, you need to change the permissions and owner of the `storage/` folder (only do this on the development machine!). In the container's terminal (Docker Desktop Dashboard > "Containers" tab > laravel.test > "exec" tab), run these commands in order:
-
-```bash
-# enter the bash command line
-bash
-
-# recursively change permissions on storage to allow read,write,execute for owner and group
-chmod -R 775 storage/
-
-# recursively change owner and group to root
-chown -R root:root storage/
-
-# setup the storage link between storage/ and public/storage folders
-php artisan storage:link
-
-# clear the cache and config
-php artisan cache:clear
-php artisan config:clear
-```
 
 ## Run
 
@@ -232,10 +231,10 @@ export PROJECT_NAME=project-lomo-in-person-gaming-app && export ORG_NAME=Capston
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/">
-                <img src="https://i.stack.imgur.com/frlIf.png" width="100;" alt="del-cj"/>
+            <a href="https://github.com/AlanU21">
+                <img src="https://avatars.githubusercontent.com/u/74085921?v=4" width="100;" alt="AlanU21"/>
                 <br />
-                <sub><b>Alan Saji</b></sub>
+                <sub><b>Alan Uthuppan</b></sub>
             </a>
         </td>
         <td align="center">

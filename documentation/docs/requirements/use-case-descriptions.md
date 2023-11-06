@@ -5,16 +5,16 @@ sidebar_position: 5
 # Use-case descriptions
 ## Use Case 1: User Creates an Account
 1. The user downloads the Lomo App
-2. The user opens it and choose “Create Account”
+2. The user opens it and chooses “Create Account” in the center of the login screen
 3. The user enters their Email and password of choice
 4. The user confirms the password and presses “Sign up”
 5. The user establishes their username and profile details(optional at start)
 
 ## Use Case 2: User Logs In
-1. The user will open the app.
-2. The user will select "Log In"
+1. The user will open the app
+2. The user will select "Log In" on the login screen
 3. The user will enter their username and password
-4. If wrong, the user will not be allowed to continue
+4. If wrong, the user will be given a "wrong entry" message and must try again
 5. If correct, the user will sign in on the app with their credentials.
 
 ## Use Case 3: User Creates a Beacon
@@ -35,16 +35,17 @@ sidebar_position: 5
 
 
 ## Use Case 5: User Fills Out a Beacon Application
-1. The user fills out the application with an ETA, any controllers they can supply, and (automatically) their profile.
-2. The user (if enabled) notifies their friends that they have joined a beacon
-3. The user (optionally) comments on the beacon to communicate with the host and coordinate the event
-4. Once the user arrives, they mark it on the application, and leave the beacon’s space for others if the beacon hasn’t ended.
+1. The user clicks on the beacon they want to apply for
+2. The user fills out the application with an ETA, any controllers they can supply, and (automatically) their profile.
+3. The user (if enabled) notifies their friends that they have joined a beacon
+4. The user (optionally) comments on the beacon to communicate with the host and coordinate the event, these communications are public to anyone who can view the beacon
+5. The user will mark when they arrive on the application, and leave the beacon’s space for others if the beacon hasn’t ended.
 
 
 ## Use Case 6: User Reports an Unpleasant Experience
-1. The user reports a user through either the beacon or the user’s profile
-2. They will be prompted to check off a reason and any additional details through a text input
-3. This report will be sent to administrators, if the report is found to be accurate, the offending user will be disciplined with a reduction in privileges or a complete suspension of the account.
+1. The user will report another user through either the beacon they're hosting or the user’s profile, this will be marked by a flag icon
+2. The user will be prompted to check off a reason and any additional details through a text input
+3. The user will click the "confirm" button. This report will be sent to administrators, if the report is found to be accurate, the offending user will be disciplined with a reduction in privileges or a complete suspension of the account.
 
 ## Use Case 7: User Blocks Another User
 1. The user navigates to either a Beacon or the Friends menu (Recent Players)
