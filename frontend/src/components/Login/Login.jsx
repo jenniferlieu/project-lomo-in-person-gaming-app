@@ -7,7 +7,7 @@ const Login = () => {
     const [emailInput, setEmail] = useState('');
     const [passInput, setPass] = useState('');
     const navigate = useNavigate();
-    const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+    const { setAuthUser, setIsLoggedIn } = useAuth();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -43,7 +43,6 @@ const Login = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setIsLoggedIn(true);
-                    console.log(data.token);
                     console.log("Log in successful");
                     setAuthUser(data.token);
                     navigate('/');
@@ -60,7 +59,7 @@ const Login = () => {
     }
 
     return (
-        <div className="login-container">
+        <div className="bg-teal-500">
             <h1 className="mob-head"><strong>Welcome Back!</strong></h1>
             <div className="login-wrapper" >
                 <h1 className="des-head"><strong>Welcome<br />Back!</strong></h1>
