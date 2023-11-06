@@ -47,26 +47,4 @@ class User extends Eloquent implements AuthenticatableContract
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    /**
-     * Define the relationship with the Profile model.
-     * A user has one profile associated with it.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
-    }
-    
-    /**
-     * Define the relationship with the Friend model.
-     * A user can have multiple friends associated with it.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function friends()
-    {
-        return $this->hasMany(Friend::class);
-    }
 }

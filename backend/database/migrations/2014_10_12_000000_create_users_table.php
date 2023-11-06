@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            // It's possible to create separate tables for profile and friends
-            // And establish relationships with the users table
             $table->timestamps();
         });
     }

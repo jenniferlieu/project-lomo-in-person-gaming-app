@@ -22,9 +22,4 @@ class Profile extends Model
         'preferred_games' => 'array',
         'preference_tags' => 'array',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }
