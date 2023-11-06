@@ -6,7 +6,9 @@ import { useAuth } from './AuthContext.js';
 import Login from './components/Login/Login.jsx';
 import Signup from './components/signup/Signup.jsx';
 import HomePage from './HomePage.js';
+import BeaconApplication from './components/BeaconApplication/BeaconApplication.js';
 import BeaconCreation from './components/BeaconCreation/BeaconCreation.js';
+
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -60,7 +62,10 @@ function App() {
     },
   ];
 
+  
   return (
+   
+    
     <div className='App bg-gradient-to-tl from-[#10021e] to-[#210210] h-screen'>
         <Router>
           <Routes>
@@ -71,6 +76,7 @@ function App() {
           </Routes>
         </Router>
     </div>
+    
   );
 }
 
