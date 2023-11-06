@@ -11,8 +11,6 @@
         "laravel/framework": "^10.26.2",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "mongodb/laravel-mongodb": "^4.0",
-        "pusher/pusher-php-server": "^7.2",
         "rakutentech/laravel-request-docs": "^2.25"
     },
     "require-dev": {

@@ -12,10 +12,10 @@ class Profile extends Model
     protected $table = 'profiles';
 
     protected $fillable = [
-        'user_id', 
+        'user_id',
         'about_me',
         'preferred_games',
-        'preference_tags', 
+        'preference_tags',
     ];
 
     protected $casts = [
