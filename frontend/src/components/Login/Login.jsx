@@ -60,21 +60,21 @@ const Login = () => {
 
     return (
         <div>
-            <h1 className='text-6xl sm:hidden text-white bg-black text-center'><strong>Welcome Back!</strong></h1>
-            <div className="fixed overflow-hidden bg-white w-screen h-screen top-200 p-5 sm:w-1/3 sm:h-screen sm:right-0" >
-                <h1 className="text-6xl hidden sm:block text-center sm:pb-10"><strong>Welcome Back!</strong></h1>
-                <form onSubmit={handleSubmit} className="text-lg text-center">
+            <h1 className='text-6xl sm:hidden text-sky-950 bg-transparent text-center'><strong>Welcome Back!</strong></h1>
+            <div className="fixed overflow-hidden bg-teal-100 text-sky-950 w-screen h-screen top-200 p-8 sm:w-1/3 sm:h-screen sm:right-0" >
+                <h1 className="text-6xl hidden text-sky-950 sm:block text-center sm:pb-10"><strong>Welcome Back!</strong></h1>
+                <form onSubmit={handleSubmit} className="text-lg text-left">
                     <label htmlFor="email">
-                        Email:<br />
+                        Email:
                     </label>
-                    <input value={emailInput} onChange={handleEmailChange} type="email" id="email" name="email" />
+                    <input value={emailInput} onChange={handleEmailChange} type="email" id="email" name="email" className='w-full p-1 my-2' />
                     <label htmlFor="password">
-                        <br />Password:<br />
+                        Password:
                     </label>
-                    <input value={passInput} onChange={handlePassChange} type="password" id="password" name="password" />
-                    <br /><button className="sub-button" type="submit">Log In</button>
+                    <input value={passInput} onChange={handlePassChange} type="password" id="password" name="password" className='w-full p-1 my-2' />
+                    <br /><button className="rounded-full bg-sky-900 text-teal-50 px-8 py-2 my-5 mx-auto" type="submit">Log In</button>
                 </form>
-                <p className="text-center pt-4">Don't have an account? <Link to='/signup'>Stop missing out!</Link></p>
+                <p className="text-center">Don't have an account? <Link to='/signup' className="text-teal-700">Stop missing out!</Link></p>
             </div>
         </div>
     );
