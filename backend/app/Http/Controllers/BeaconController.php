@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\BeaconCreated;
+use App\Http\Requests\BeaconPostRequest;
 use Illuminate\Http\Request;
 use App\Models\Beacon;
-use App\Http\Requests\BeaconRequest;
+use Clickbar\Magellan\Data\Geometries\Point;
 
 class BeaconController extends Controller
 {
@@ -14,7 +15,7 @@ class BeaconController extends Controller
      */
     public function index()
     {
-        // gets all beacons from the database
+        // Gets all beacons from the database
         $beacon = new Beacon();
         $beacon = Beacon::all();
         return response()->json(['data' => $beacon->toArray()], 200);
@@ -23,10 +24,10 @@ class BeaconController extends Controller
     /**
      * Store a newly created Beacon in storage.
      */
-    public function store(BeaconRequest $request)
+    public function store(BeaconPostRequest $request)
     {
-        // get variables from json request
-        $data = [
+        // Insert new beacons into storage
+        $beacon = Beacon::create([
             'host_id' => $request->host_id,
             'title' => $request->title,
             'game_title' => $request->game_title,
@@ -35,16 +36,9 @@ class BeaconController extends Controller
             'start_date_time' => $request->start_date_time,
             'end_date_time' => $request->end_date_time,
             'address' => $request->address,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
+            'coordinates' => Point::makeGeodetic($request->latitude, $request->longitude),
             'num_players' => $request->num_players
-        ];
-
-        // Insert new beacon into the database
-        $beacon = new Beacon();
-        $beacon->fill($data);
-
-        $beacon->save();
+        ]);
 
         // Push new beacon data through websocket to all users
         event(new BeaconCreated($beacon));

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamp('start_date_time');
             $table->timestamp('end_date_time');
             $table->text('address');
-            $table->point('coordinates'); // will change to geography data type if postgis extension enabled
+            $table->magellanGeography('coordinates');
             $table->integer('num_players');
             $table->timestampsTz();
         });

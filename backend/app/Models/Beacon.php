@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Clickbar\Magellan\Database\Eloquent\HasPostgisColumns;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -9,6 +10,18 @@ use Illuminate\Support\Str;
 class Beacon extends Model
 {
     use HasFactory;
+    use HasPostgisColumns;
+
+    /**
+     * Attributes that use the postgis extension types
+     */
+    protected array $postgisColumns = [
+        'coordinates' => [
+            'type' => 'geography',
+            'srid' => 4326,
+        ],
+    ];
+
 
     // Format model to use uuid as primary key: Set uuid primary key to not increment
     public $incrementing = false;
