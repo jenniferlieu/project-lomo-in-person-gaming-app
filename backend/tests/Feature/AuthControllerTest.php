@@ -26,9 +26,10 @@ class AuthControllerTest extends TestCase
             ->assertJsonStructure([
                 "data" => [
                     "email",
+                    "username",
                     "updated_at",
                     "created_at",
-                    "_id"
+                    "id"
                 ]
             ]);
     }
@@ -49,9 +50,10 @@ class AuthControllerTest extends TestCase
                 "token",
                 "user" => [
                     "email",
+                    "username",
                     "updated_at",
                     "created_at",
-                    "_id"
+                    "id"
                 ]
             ]);
     }

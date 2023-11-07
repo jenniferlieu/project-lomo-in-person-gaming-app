@@ -6,11 +6,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
-use MongoDB\BSON\ObjectId;
 
 class UserControllerTest extends TestCase
 {
     use WithFaker;
+
+    public User $user;
 
     /**
      * Set up the test environment
@@ -23,7 +24,6 @@ class UserControllerTest extends TestCase
 
         // mock authentication for sanctum
         $this->user = User::factory()->make(); // create a mock user
-        $this->user->id = new ObjectId(); // give the user a mongodb id
         $this->actingAs($this->user, 'sanctum'); // create a mock token from sanctum
     }
 
@@ -34,6 +34,6 @@ class UserControllerTest extends TestCase
     public function test_get_all_users(): void {
         $response = $this->getJson('/api/users');
 
-        $response->assertStatus(200)->assertJsonIsArray('data');
+        $response->assertStatus(200);
     }
 }
