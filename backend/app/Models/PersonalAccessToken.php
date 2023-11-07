@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\PersonalAccessToken as SanctumPersonalAccessToken;
 
-class Profile extends Model
+class PersonalAccessToken extends SanctumPersonalAccessToken
 {
     use HasFactory;
 
@@ -25,18 +25,4 @@ class Profile extends Model
             $model->id = Str::uuid();
         });
     }
-
-    protected $table = 'profiles';
-
-    protected $fillable = [
-        'user_id',
-        'about_me',
-        'preferred_games',
-        'preference_tags',
-    ];
-
-    protected $casts = [
-        'preferred_games' => 'array',
-        'preference_tags' => 'array',
-    ];
 }
