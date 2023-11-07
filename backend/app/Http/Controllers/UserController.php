@@ -43,12 +43,12 @@ class UserController extends Controller
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255'
             //find user by user id
-            $user = User::where('user_id', $id)->first();
+            // $user = User::where('user_id', $id)->first();
             //if cannot find user, return error message
-            if(!user){
-                return response()->json(['error' => 'User not found'], 404);
-            }
-            $user -> fill($validatedData)
+            // if(!user){
+            //     return response()->json(['error' => 'User not found'], 404);
+            // }
+            // $user -> fill($validatedData)
         ]);
     }
 
@@ -57,6 +57,6 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        
+
     }
 }
