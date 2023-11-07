@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignUuid('user_id')->references('id')->on('users')->contrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->text('about_me');
-            $table->text('preferred_games'); // array of text
-            $table->text('preference_tags');  // array of text
+            $table->text('about_me')->nullable();
+            $table->text('preferred_games')->nullable(); // array of text
+            $table->text('preference_tags')->nullable();  // array of text
             $table->timestampsTz();
         });
 

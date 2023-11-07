@@ -19,12 +19,12 @@ return new class extends Migration
             $table->text('title');
             $table->text('game_title');
             $table->text('game_system');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamp('start_date_time');
             $table->timestamp('end_date_time');
             $table->text('address');
             $table->magellanGeography('coordinates');
-            $table->integer('num_players');
+            $table->integer('num_players')->nullable();
             $table->timestampsTz();
         });
     }
