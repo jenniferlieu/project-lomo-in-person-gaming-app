@@ -5,7 +5,7 @@ import Beacon from './Beacon.js';
 
 const MapContainer = ({ beaconList }) => {
   const mapStyles = {
-    height: '100vh',
+    height: '94vh',
     width: '100%',
   };
 
