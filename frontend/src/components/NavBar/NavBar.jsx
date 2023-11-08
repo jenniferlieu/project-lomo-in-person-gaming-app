@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logout from '../../Logout';
+import { useAuth } from '../../AuthContext.js';
 import './NavBar.css';
 
-
-
 const NavBar = () => {
+    const { logout } = useAuth();
+
+    const handleLogout = () => {
+        logout();
+    }
+
     return (
         <nav className='bg-sky-700 p-4'>
             <div className='container mx-auto'>
@@ -15,7 +19,7 @@ const NavBar = () => {
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/createbeacon'>New Beacon</Link></li>
                         <li><Link to='/beaconlist'>List View</Link></li>
-                        <Logout />
+                        <li onClick={handleLogout}>Log Out</li>
                     </ul>
                 </div>
             </div>
