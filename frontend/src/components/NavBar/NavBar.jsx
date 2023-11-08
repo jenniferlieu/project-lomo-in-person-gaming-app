@@ -19,6 +19,7 @@ const NavBar = () => {
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/createbeacon'>New Beacon</Link></li>
                         <li><Link to='/beaconlist'>List View</Link></li>
+                        <li><Link to='/comments'>Comments</Link></li>
                         <li onClick={handleLogout}>Log Out</li>
                     </ul>
                 </div>
