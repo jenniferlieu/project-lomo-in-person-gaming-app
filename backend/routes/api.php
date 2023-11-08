@@ -17,9 +17,6 @@ use App\Http\Controllers\UserController;
 */
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('hello', function() {
-        return response()->json(['message' => 'hello world']);
-    });
     Route::apiResource('beacons', BeaconController::class);
     Route::apiResource('users', UserController::class)->except('store');
 });
