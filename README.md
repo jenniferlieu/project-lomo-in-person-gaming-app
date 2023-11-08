@@ -6,8 +6,6 @@
 [![Deploy Docs](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml/badge.svg)](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml)
 ![Deploy Vercel](https://img.shields.io/github/deployments/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/production?logo=vercel&label=vercel)
 
-
-
 [![Documentation Website Link](https://img.shields.io/badge/-Documentation%20Website-brightgreen)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/)
 
 
