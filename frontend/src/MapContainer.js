@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap } from '@react-google-maps/api';
 import { Link } from 'react-router-dom';
 import Beacon from './Beacon.js';
 
@@ -34,36 +34,35 @@ const MapContainer = ({ beaconList }) => {
 
   return (
     <div className='relative h-screen w-full'>
-      <LoadScript googleMapsApiKey={apiKey}>
-        <div className='absolute top-0 left-0 w-full h-full'>
-          <GoogleMap
-            mapContainerStyle={mapStyles}
-            zoom={10}
-            center={mapCenter}
-            onLoad={(map) => {
-              mapRef.current = map;
-              setMapLoaded(true);
-            }}
-          >
-            {beaconList.map((beacon, index) => (
-              <Beacon
-                key={index}
-                id={index}
-                activeBeacon={activeBeacon}
-                onBeaconClick={handleBeaconClick}
-                circleLat={beacon.circleLat}
-                circleLng={beacon.circleLng}
-                beaconInfo={beacon.beaconInfo}
-              />
-            ))}
-          </GoogleMap>
-        </div>
-        <Link to="/createbeacon" className="absolute top-0 left-0 m-4 z-10">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Create Beacon
-          </button>
-        </Link>
-      </LoadScript>
+      <div className='absolute top-0 left-0 w-full h-full'>
+        <GoogleMap
+          mapContainerStyle={mapStyles}
+          zoom={10}
+          center={mapCenter}
+          onLoad={(map) => {
+            mapRef.current = map;
+            setMapLoaded(true);
+          }}
+          googleMapsApiKey={apiKey}
+        >
+          {beaconList.map((beacon, index) => (
+            <Beacon
+              key={index}
+              id={index}
+              activeBeacon={activeBeacon}
+              onBeaconClick={handleBeaconClick}
+              circleLat={beacon.circleLat}
+              circleLng={beacon.circleLng}
+              beaconInfo={beacon.beaconInfo}
+            />
+          ))}
+        </GoogleMap>
+      </div>
+      <Link to="/createbeacon" className="absolute top-0 left-0 m-4 z-10">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Create Beacon
+        </button>
+      </Link>
     </div>
   );
 };
