@@ -7,7 +7,7 @@ const Comment = ({ author, text, onDelete }) => {
             <h3>{author}</h3>
             <p>{text}</p>
             <button onClick={onDelete}>
-                <FontAwesomeIcon icon='trash' />
+                X
             </button>
         </div>
     );
@@ -30,13 +30,19 @@ const CommentSection = () => {
     };
 
     return (
-        <div>
-            <h1>Comment Section</h1>
+        <div className='bg-white relative w-full p-2'>
+            <h1 className='text-2xl text-sky-950 text-center'>Comment Section</h1>
+            <div classname='flex justify-center w-full'>
+                <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)} className='border-2 border-sky-950 w-11/12 left-0 self-center m-auto'/>
+                <button onClick={addComment} className='rounded-full bg-sky-900 text-teal-50 px-3 py-1 text-md self-auto m-2'>
+                    +
+                </button>
+            </div>
+
             {comments.map((comment) => (
                 <Comment key={comment.id} text={comment.text} onDelete={() => deleteComment(comment.id)} />
             ))}
-            <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)} />
-            <button onClick={addComment}>Add Comment</button>
+                      
         </div>
     );
 }
