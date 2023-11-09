@@ -50,7 +50,7 @@ class UserController extends Controller
         }
         // fill the user data
         $user->fill($validatedData);
-        
+
         // Save the user data
         if (!$user->save()) {
         return response()->json(['message' => 'User updated successfully', 'data' => $user], 200);
@@ -64,6 +64,16 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-
+        $user = User::find($id);
+        // check if user exist
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        // Try to delete the user
+        if ($user->delete()) {
+        return response()->json(['message' => 'User deleted successfully'], 200);
+        } else {
+        return response()->json(['error' => 'Failed to delete user'], 500);
+        }
     }
 }
