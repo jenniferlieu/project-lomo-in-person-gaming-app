@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ControllerInfo from "./ControllerInfo.js";
+import CommentSection from "./components/Comments.jsx";
 
 const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console }) => {
   const [showControllerInfo, setShowControllerInfo] = useState(false);
@@ -23,15 +24,18 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
             <img
               src={userPic}
               alt="Game Pic"
-              className="top-0 right-0 h-16 w-16 mr-4"
+              className="top-0 right-0 h-20 w-20 mr-4"
             />
             <h1 className="text-3xl font-bold">{username}</h1>
           </div>
           <div className="ml-4">
+            <h2 className="text-2xl font-light">Game / Event</h2>
             <h2 className="text-2xl mb-2">{gameTitle}</h2>
             <p className="mb-2 text-xl" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
-            <p className="mb-4 text-xl font-light">{console}</p>
+            <p className="text-xl font-light">Console</p>
+            <p className="mb-4 text-xl">{console}</p>
             <div className="mb-4 text-xl">
+              <p className="font-light">Location</p>
               <p className="">{address.name}</p>
               <p className="font-light">{address.address}</p>
             </div>
@@ -75,10 +79,11 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
         <img
           src={gamePic}
           alt="Game Pic"
-          className="absolute top-0 right-0 h-32 w-32 rounded-full mr-4"
+          className="absolute top-0 right-0 h-32 w-32 rounded-full mx-4"
         />
       </div>
       {showControllerInfo && <ControllerInfo description={controllerInfo.description} onClose={handleInfoClick} />}
+      <CommentSection />
     </div>
   );
 };
