@@ -121,7 +121,7 @@ function BeaconCreation({beaconList}) {
     <div>
       <div class="bg-white rounded-lg w-full leading-relaxed max-w-md mx-auto shadow-lg my-5 p-2 px-2 text-left absolute">
         <tr>
-          <th className="min-w-screen min-h-screen bg-black bg-opacity-25 flex justify-center items-center">
+          <th className="min-w-screen bg-black bg-opacity-25 flex justify-center items-center">
             <label htmlFor={"input"}>Beacon Name</label>
             <input
               id={"BeaconName"}
@@ -134,7 +134,7 @@ function BeaconCreation({beaconList}) {
               }}
             />
           </th>
-          <th className="min-w-screen min-h-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
+          <th className="min-w-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
             <label htmlFor={"input2"}>Game Title</label>
             <input
               id={"BeaconGame"}
@@ -149,7 +149,7 @@ function BeaconCreation({beaconList}) {
           </th>
         </tr>
         <tr>
-          <th className="min-w-screen min-h-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
+          <th className="min-w-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
             <label htmlFor={"input3"}>No. of players</label>
             <input
               id={"Players"}
@@ -162,7 +162,7 @@ function BeaconCreation({beaconList}) {
               }}
             />
           </th>
-          <th className="min-w-screen min-h-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
+          <th className="min-w-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
             <label htmlFor={"input4"}>Game System</label>
             <input
               id={"BeaconSystem"}
@@ -176,7 +176,7 @@ function BeaconCreation({beaconList}) {
             />
           </th>
         </tr>
-        <th className="min-w-screen min-h-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
+        <th className="min-w-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
           <label htmlFor={"input5"}>Location</label>
           <input
             id={"Location"}
@@ -190,7 +190,7 @@ function BeaconCreation({beaconList}) {
           />
         </th>
         <tr>
-          <th className="min-w-screen min-h-screen border-10 bg-black bg-opacity-25 flex p-2 span-5 justify-center items-center">
+          <th className="min-w-screen border-10 bg-black bg-opacity-25 flex p-2 span-5 justify-center items-center">
             <label htmlFor={"input6"}>Misc. Info</label>
             <input
               id={"MiscInfo"}
