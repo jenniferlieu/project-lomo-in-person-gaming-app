@@ -16,7 +16,6 @@ const MapContainer = ({ beaconList }) => {
 
   const [mapCenter, setMapCenter] = useState(defaultCenter);
   const [activeBeacon, setActiveBeacon] = useState(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
   const mapRef = useRef(null);
 
   const handleBeaconClick = (id) => {
@@ -30,7 +29,7 @@ const MapContainer = ({ beaconList }) => {
     }
   }
 
-  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+  const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   return (
     <div className='relative h-screen w-full'>
@@ -41,7 +40,6 @@ const MapContainer = ({ beaconList }) => {
           center={mapCenter}
           onLoad={(map) => {
             mapRef.current = map;
-            setMapLoaded(true);
           }}
           googleMapsApiKey={apiKey}
         >

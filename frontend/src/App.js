@@ -11,7 +11,7 @@ import NavBar from './components/NavBar/NavBar.jsx';
 
 function App() {
   const { isLoggedIn } = useAuth();
-  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+  const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   const beaconList = [
     {
