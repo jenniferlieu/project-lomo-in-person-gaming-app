@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
+use Laravel\Sanctum\Sanctum;
+use App\Models\PersonalAccessToken;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // format personal access token to use uuid primary key
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
     }
 }

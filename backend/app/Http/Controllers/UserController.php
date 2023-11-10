@@ -23,12 +23,12 @@ class UserController extends Controller
     public function show(string $id)
     {
         // gets user data from database by user_id
-        $user = User::with('profile', 'friends')->find($id);
+        $user = User::find($id);
         // check if user exist
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
         }
-        return response()->json(['data' => $user], 200);
+        return response()->json(['data' => $user -> toArray()], 200);
     }
 
 
@@ -36,8 +36,20 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
+    {   //validation
+        $validatedData = $request->validate([
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'username' => 'required|max:255',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255'
+            //find user by user id
+            // $user = User::where('user_id', $id)->first();
+            //if cannot find user, return error message
+            // if(!user){
+            //     return response()->json(['error' => 'User not found'], 404);
+            // }
+            // $user -> fill($validatedData)
+        ]);
     }
 
     /**
@@ -45,6 +57,6 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
     }
 }
