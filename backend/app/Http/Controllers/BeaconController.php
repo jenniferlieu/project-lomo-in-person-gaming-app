@@ -27,19 +27,14 @@ class BeaconController extends Controller
      */
     public function store(BeaconPostRequest $request)
     {
+        // Modify JSON response to add a coordinates field for the database
+        $beaconRequest = $request->all();
+        $beaconRequest['coordinates'] = Point::makeGeodetic($request->latitude, $request->longitude); // create coordinates field as type geography with latitude and longitude points
+        unset($beaconRequest['latitude']); // remove latitude field
+        unset($beaconRequest['longitude']); // remove longitude field
+
         // Insert new beacons into storage
-        $beacon = Beacon::create([
-            'host_id' => $request->host_id,
-            'title' => $request->title,
-            'game_title' => $request->game_title,
-            'game_system' => $request->game_system,
-            'description' => $request->description,
-            'start_date_time' => $request->start_date_time,
-            'end_date_time' => $request->end_date_time,
-            'address' => $request->address,
-            'coordinates' => Point::makeGeodetic($request->latitude, $request->longitude),
-            'num_players' => $request->num_players
-        ]);
+        $beacon = Beacon::create($beaconRequest);
 
         // Transform JSON returned from database into the same JSON format request received
         // Remove coordinates field and replace it with latitude and longitude
