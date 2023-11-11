@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\BeaconCreated;
 use App\Http\Requests\BeaconPostRequest;
+use App\Http\Resources\BeaconJsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Beacon;
 use Clickbar\Magellan\Data\Geometries\Point;
@@ -18,7 +19,7 @@ class BeaconController extends Controller
         // Gets all beacons from the database
         $beacon = new Beacon();
         $beacon = Beacon::all();
-        return response()->json(['data' => $beacon->toArray()], 200);
+        return response()->json(['beacon' => $beacon->toArray()], 200);
     }
 
     /**
@@ -40,11 +41,15 @@ class BeaconController extends Controller
             'num_players' => $request->num_players
         ]);
 
+        // Transform JSON returned from database into the same JSON format request received
+        // Remove coordinates field and replace it with latitude and longitude
+        $beaconJson = new BeaconJsonResponse($beacon);
+
         // Push new beacon data through websocket to all users
-        event(new BeaconCreated($beacon));
+        event(new BeaconCreated($beaconJson));
 
         // Returns data on the new beacon created and a success status code
-        return response()->json(['data' => $beacon], 201); // 201 Request fulfilled and new resource created
+        return response()->json(['beacon' => $beaconJson], 201); // 201 Request fulfilled and new resource created
     }
 
     /**

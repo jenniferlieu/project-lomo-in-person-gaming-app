@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Http\Resources\BeaconJsonResponse;
 use App\Models\Beacon;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -18,7 +19,7 @@ class BeaconCreated implements ShouldBroadcast
     /**
      * The beacon instance.
      */
-    public Beacon $beacon;
+    public BeaconJsonResponse $beacon;
 
     /**
      * Create a new event instance.
