@@ -30,8 +30,9 @@ const MapContainer = ({ beaconList }) => {
     }
   }
 
-  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
-
+  const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+  console.log(beaconList);
+  
   return (
     <div className='relative h-screen w-full'>
       <LoadScript googleMapsApiKey={apiKey}>

@@ -1,4 +1,4 @@
-import React, { useState, onClose, useContext } from "react";
+import React, { useState, useContext } from "react";
 
 // make controller input a dropdown?
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -9,13 +9,42 @@ import { Link } from "react-router-dom";
 
 
 function BeaconApplication() {
+  const [controlNum, setController] = useState("");
+  const [extraNotes, setNotes] = useState("");
   function clearForm() {
     setController("");
     setNotes("");
   }
 
-  const [controlNum, setController] = useState("");
-  const [extraNotes, setNotes] = useState("");
+/*
+  const beaconListData = {
+    beaconInfo: {
+      username: data.host_id,
+      gameTitle: data.game_title,
+      console: data.game_system,
+      miscInfo: data.misc,
+      startTime: data.start_date_time,
+      endTime: data.end_date_time,
+      playerInfo: {
+        wanted: data.num_players,
+      },
+      address: {
+        address: data.address,
+      },
+      controllerInfo: {
+        available: data.controlNum,
+        wanted: data.controlNeeded,
+      }
+    },
+  };
+*/
+  function Apply() {
+  
+  
+  }
+
+
+  
   return (
 
     <form
@@ -25,6 +54,8 @@ function BeaconApplication() {
         <h2>Beacon Name Here</h2>
         <h2>Host Name Here</h2>
         <h2>Applicant name Here</h2>
+
+        
       <div>
         <label>Controllers</label>
         <input
@@ -54,7 +85,7 @@ function BeaconApplication() {
         />
         <button
           className="font-bold relative bg-blue-500 py-1 px-1 rounded float-right"
-          onClick={onClose}
+          onClick={Apply}
         >
           Submit
         </button>
@@ -66,7 +97,7 @@ function BeaconApplication() {
         </button>
         <button
           className="font-bold relative bg-red-500 py-1 px-1 rounded float-right"
-          onClick={onClose}
+          onClick={clearForm}
         >
           Close
         </button>

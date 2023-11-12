@@ -10,8 +10,14 @@ import BeaconApplication from './components/BeaconApplication/BeaconApplication.
 import BeaconCreation from './components/BeaconCreation/BeaconCreation.js';
 
 
+
 function App() {
   const { isLoggedIn } = useAuth();
+
+
+  // import laravelEcho
+
+
 
   const beaconList = [
     {
@@ -64,8 +70,8 @@ function App() {
 
   
   return (
-   
-    
+   <BeaconApplication/>
+    /*
     <div className='App bg-gradient-to-tl from-[#10021e] to-[#210210] h-screen'>
         <Router>
           <Routes>
@@ -76,6 +82,7 @@ function App() {
           </Routes>
         </Router>
     </div>
+    */
     
   );
 }
