@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         // gets all users from the database
         $user = User::all();
-        return response()->json(['data' => $user->toArray()], 200);
+        return response()->json(['data' => $user], 200);
     }
 
     /**
@@ -23,12 +23,13 @@ class UserController extends Controller
     public function show(string $id)
     {
         // gets user data from database by user_id
-        $user = User::with('profile', 'friends')->find($id);
+        $user = User::find($id);
         // check if user exist
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
         }
-        return response()->json(['data' => $user], 200);
+        // Return only the user information from the users table
+        return response()->json(['data' => ['id' => $user->id,'email' => $user->email,'username' => $user->username]], 200);
     }
 
 
@@ -36,8 +37,26 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
+    {   
+        // Validate the request data
+        $validatedData = $request->validate([
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'username' => 'required|max:255'
+        ]);
+        $user = User::find($id);
+        // check if user exist
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        // fill the user data
+        $user->fill($validatedData);
+
+        // Save the user data
+        if (!$user->save()) {
+        return response()->json(['message' => 'User updated successfully', 'data' => $user], 200);
+        } else {
+        return response()->json(['error' => 'Failed to update user'], 500);
+        }
     }
 
     /**
@@ -45,6 +64,16 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        // check if user exist
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        // Try to delete the user
+        if ($user->delete()) {
+        return response()->json(['message' => 'User deleted successfully'], 200);
+        } else {
+        return response()->json(['error' => 'Failed to delete user'], 500);
+        }
     }
 }

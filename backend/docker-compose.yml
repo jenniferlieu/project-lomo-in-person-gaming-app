@@ -22,24 +22,21 @@ services:
             - '.:/var/www/html'
         networks:
             - sail
-        depends_on:
-            - mongodb
 
-    mongodb:
-        image: mongo:latest
-        environment:
-            - MONGO_INITDB_ROOT_USERNAME=root
-            - MONGO_INITDB_ROOT_PASSWORD=examplepassword
+    pgsql:
+        image: 'postgres:latest'
         ports:
-            - "27017:27017"
-        networks:
-            - sail
+            - '5432:5432'
+        environment:
+            POSTGRES_DB: env('DB_DATABASE')
+            POSTGRES_USER: env('DB_USERNAME')
+            POSTGRES_PASSWORD: env('DB_PASSWORD')
         volumes:
-            - mongodb_data:/data/db
+            - 'sailpgdata:/var/lib/postgresql/data'
 
 networks:
     sail:
         driver: bridge
 
 volumes:
-    mongodb_data:
+    sailpgdata:

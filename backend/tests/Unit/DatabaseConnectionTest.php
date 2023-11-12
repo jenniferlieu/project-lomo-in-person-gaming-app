@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseConnectionTest extends TestCase
 {
@@ -13,8 +14,7 @@ class DatabaseConnectionTest extends TestCase
      */
     public function test_database_connection(): void
     {
-        \DB::connection() ->getPDO();
-        $response = \DB::connection()->getDatabaseName();
-        $this->assertEquals($response,!null);
+        $pdo = DB::connection()->getPDO();
+        $this->assertEquals(\PDO::ERRMODE_EXCEPTION, $pdo->getAttribute(\PDO::ATTR_ERRMODE));
     }
 }

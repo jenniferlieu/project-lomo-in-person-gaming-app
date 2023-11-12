@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\Sanctum\PersonalAccessToken;
 use Illuminate\Foundation\AliasLoader;
+use Laravel\Sanctum\Sanctum;
+use App\Models\PersonalAccessToken;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,13 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        /**
-         * use the custom PersonalAccessToken class using MongoDB's Model
-         */
-        // Loader Alias
-        $loader = AliasLoader::getInstance();
-
-        // SANCTUM CUSTOM PERSONAL-ACCESS-TOKEN
-        $loader->alias(\Laravel\Sanctum\PersonalAccessToken::class, PersonalAccessToken::class);
+        // format personal access token to use uuid primary key
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
     }
 }
