@@ -1,10 +1,14 @@
-import React, { useState, onClose, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs/AdapterDayjs.js";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker.js";
 import { AuthContext, useAuth } from "../../AuthContext.js";
 import { Link } from "react-router-dom";
 // import { useHistory } from 'react-router-dom'
+//import {laravelEcho} from "../laravelEcho/laravelEcho.js";
+import { useEffect } from "react";
+import Echo from "laravel-echo"; // eslint-disable-next-line
+import Pusher from "pusher-js";
 
 function BeaconCreation({ beaconList }) {
   const [name, setState] = useState("");
@@ -17,7 +21,6 @@ function BeaconCreation({ beaconList }) {
   const [timeTo, setTo] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   const { authUser } = useAuth();
-  // const history = useHistory();
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
@@ -36,10 +39,38 @@ function BeaconCreation({ beaconList }) {
     setTo("");
   }
 
+  useEffect(() => {
+    const laravelEcho = new Echo({
+      broadcaster: "pusher",
+      key: process.env.REACT_APP_PUSHER_APP_KEY,
+      wsHost: process.env.REACT_APP_PUSHER_HOST,
+      wsPort: process.env.REACT_APP_PUSHER_PORT,
+      wssPort: process.env.REACT_APP_PUSHER_PORT,
+      cluster: process.env.REACT_APP_PUSHER_CLUSTER,
+      forceTLS: false,
+      encrypted: true,
+      disableStats: true,
+      enabledTransports: ["ws", "wss"],
+    });
+    console.log(laravelEcho);
+    /*
+        // Connect to a public websocket channel
+        laravelEcho.channel("new-beacon").listen("BeaconCreated", (e) => {
+          // runs every time data ia pushed through the websocket
+          console.log(e.beacon);
+        });
+    
+        // Cleanup function to disconnect the Echo instance when the component unmounts
+        return () => {
+          laravelEcho.disconnect();
+        };
+        */
+  }, []); // Empty dependency array ensures this runs on mount and unmount only
+
   function onClose() {
     let data = {
       // exepected json schema
-      host_id: process.env.REACT_APP_HOST_ID, // required
+      host_id: "09963d41-b3c7-4972-90ad-d2ae8b2f82c1", // required
       title: name, // required
       game_title: game, // required
       game_system: system, //required
@@ -47,8 +78,8 @@ function BeaconCreation({ beaconList }) {
       start_date_time: timeFrom, // required
       end_date_time: timeTo, //required
       address: location, // required
-      latitude: 40.758, // required
-      longitude: 73.9795, // required
+      latitude: 40 + Math.random(), // required
+      longitude: 73 + Math.random(), // required
       num_players: players, // required
     };
     console.log(data);
@@ -71,8 +102,10 @@ function BeaconCreation({ beaconList }) {
         },
       },
     };
+
     beaconList.push(beaconListData);
     console.log(beaconList);
+
     // history.push("/");
 
     // define url and headers
@@ -105,79 +138,77 @@ function BeaconCreation({ beaconList }) {
       .then((response) => {
         console.log("response", response);
       })
-      /*
-      .then((responseclone)=> {
-        if (responseclone.ok) {
-           displayText("Hey");
-        }   
-      })
-        */
 
       .catch((error) => console.log("error", error));
   }
 
   return (
-    <div>
-      <div class="bg-white rounded-lg w-full leading-relaxed max-w-md mx-auto shadow-lg my-5 p-2 px-2 text-left absolute">
-        <tr>
-          <th className="min-w-screen min-h-screen bg-black bg-opacity-25 flex justify-center items-center">
-            <label htmlFor={"input"}>Beacon Name</label>
-            <input
-              id={"BeaconName"}
-              type={"text"}
-              value={name}
-              placeholder={"Name"}
-              required
-              onChange={(event) => {
-                setState(event.target.value);
-              }}
-            />
-          </th>
-          <th className="min-w-screen min-h-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
-            <label htmlFor={"input2"}>Game Title</label>
-            <input
-              id={"BeaconGame"}
-              type={"text"}
-              value={game}
-              placeholder={"Type Game Here"}
-              required
-              onChange={(event) => {
-                setGame(event.target.value);
-              }}
-            />
-          </th>
-        </tr>
-        <tr>
-          <th className="min-w-screen min-h-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
-            <label htmlFor={"input3"}>No. of players</label>
-            <input
-              id={"Players"}
-              type={"text"}
-              value={players}
-              placeholder={"How many Players?"}
-              required
-              onChange={(event) => {
-                setPlayers(event.target.value);
-              }}
-            />
-          </th>
-          <th className="min-w-screen min-h-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
-            <label htmlFor={"input4"}>Game System</label>
-            <input
-              id={"BeaconSystem"}
-              type={"text"}
-              value={system}
-              placeholder={"Which System?"}
-              required
-              onChange={(event) => {
-                setSystem(event.target.value);
-              }}
-            />
-          </th>
-        </tr>
-        <th className="min-w-screen min-h-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
+    <div class="bg-white rounded-lg w-full md:w-1/2 flex-col items-center justify-center m-auto shadow-lg p-3 h-auto">
+      <tr>
+        <td className="min-w-auto min-h-auto text-sky-950 p-2">
+          <label htmlFor={"input"}>Beacon Name</label>
+          <input
+            className="m-1 p-1 border-2 border-teal-100"
+            id={"BeaconName"}
+            type={"text"}
+            value={name}
+            placeholder={"Name"}
+            required
+            onChange={(event) => {
+              setState(event.target.value);
+            }}
+          />
+        </td>
+        <td className="min-w-auto min-h-auto text-sky-950 p-2">
+          <label htmlFor={"input2"}>Game Title</label>
+          <input
+            className="m-1 p-1 border-2 border-teal-100"
+            id={"BeaconGame"}
+            type={"text"}
+            value={game}
+            placeholder={"Type Game Here"}
+            required
+            onChange={(event) => {
+              setGame(event.target.value);
+            }}
+          />
+        </td>
+      </tr>
+      <tr>
+        <td className="min-w-auto min-h-auto text-sky-950 p-2">
+          <label htmlFor={"input3"}>No. of players</label>
+          <input
+            className="m-1 p-1 border-2 border-teal-100"
+            id={"Players"}
+            type={"text"}
+            value={players}
+            placeholder={"How many Players?"}
+            required
+            onChange={(event) => {
+              setPlayers(event.target.value);
+            }}
+          />
+        </td>
+        <td className="min-w-auto min-h-auto text-sky-950 p-2">
+          <label htmlFor={"input4"}>Game System</label>
+          <input
+            className="m-1 p-1 border-2 border-teal-100"
+            id={"BeaconSystem"}
+            type={"text"}
+            value={system}
+            placeholder={"Which System?"}
+            required
+            onChange={(event) => {
+              setSystem(event.target.value);
+            }}
+          />
+        </td>
+      </tr>
+      <tr>
+        <td className="min-w-auto min-h-auto text-sky-950 p-2">
           <label htmlFor={"input5"}>Location</label>
           <input
+            className="m-1 p-1 border-2 border-teal-100 min-w-full"
             id={"Location"}
             type={"text"}
             value={location}
@@ -187,22 +218,25 @@ function BeaconCreation({ beaconList }) {
               setLocation(event.target.value);
             }}
           />
-        </th>
-        <tr>
-          <th className="min-w-screen min-h-screen border-10 bg-black bg-opacity-25 flex p-2 span-5 justify-center items-center">
-            <label htmlFor={"input6"}>Misc. Info</label>
-            <input
-              id={"MiscInfo"}
-              type={"text"}
-              value={misc}
-              placeholder={"Additional Details"}
-              maxLength={100}
-              onChange={(event) => {
-                setMisc(event.target.value);
-              }}
-            />
-          </th>
-        </tr>
+        </td>
+      </tr>
+      <tr>
+        <td className="min-w-auto min-h-auto text-sky-950 p-2">
+          <label htmlFor={"input6"}>Misc. Info</label>
+          <input
+            className="m-1 p-1 border-2 border-teal-100 w-full"
+            id={"MiscInfo"}
+            type={"text"}
+            value={misc}
+            placeholder={"Additional Details"}
+            maxLength={100}
+            onChange={(event) => {
+              setMisc(event.target.value);
+            }}
+          />
+        </td>
+      </tr>
+      <div className=" flex flex-row space-x-20 justify-center my-3">
         <div>
           <LocalizationProvider dateAdapter={AdapterDayjs} className="p-20">
             <DateTimePicker
@@ -221,29 +255,29 @@ function BeaconCreation({ beaconList }) {
             />
           </LocalizationProvider>
         </div>
-        <div>
-          <button
-            className="font-bold relative bg-red-500 py-1 px-1 rounded float-right"
-            onClick={onClose}
-          >
-            Confirm
+      </div>
+      <div className="flex flex-row space-x-2 mt-3 justify-center">
+        <button
+          className="font-bold relative bg-teal-500 py-1 px-1 rounded float-right"
+          onClick={onClose}
+        >
+          Confirm
+        </button>
+        <button
+          className="font-bold relative bg-red-500 py-1 px-1 rounded float-right"
+          onClick={clearForm}
+        >
+          Clear
+        </button>
+        <Link to="/">
+          <button className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right">
+            Close
           </button>
-          <button
-            className="font-bold relative bg-red-500 py-1 px-1 rounded float-right"
-            onClick={clearForm}
-          >
-            Clear
-          </button>
-          <Link to="/">
-            <button className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right">
-              Close
-            </button>
-          </Link>
-          <div
-            className="font-bold relative py-1 px-1 rounded float-right"
-            id="displayArea"
-          ></div>
-        </div>
+        </Link>
+        <div
+          className="font-bold relative py-1 px-1 rounded float-right"
+          id="displayArea"
+        ></div>
       </div>
     </div>
   );
