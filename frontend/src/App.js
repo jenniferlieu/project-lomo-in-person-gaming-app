@@ -73,7 +73,6 @@ function App() {
               <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
               <Route path='/createbeacon' element={isLoggedIn ? <BeaconCreation beaconList={beaconList} /> : <Navigate to='/login' />} />
               <Route path='/' element={isLoggedIn ? <HomePage beaconList={beaconList} googleMapsApiKey={apiKey}/> : <Navigate to='/login' />} />
-              <Route path='/comments' element={<CommentSection />} />
             </Routes>
           </LoadScript>
         </Router>
