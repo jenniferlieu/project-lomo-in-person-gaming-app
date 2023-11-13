@@ -43,16 +43,16 @@ function BeaconApplication({ beaconList }) {
   return (
     <form
       id="joinForm"
-      className="bg-white rounded-lg w-full leading-relaxed max-w-md mx-auto shadow-lg my-5 p-2 px-2 text-left container absolute"
+      className="bg-white rounded-lg w-full md:w-1/2 flex-col items-center justify-center m-auto shadow-lg p-3 h-auto text-sky-950"
     >
-      <h2>Beacon Name Here</h2>
-      <h2>Host Name Here</h2>
-      <h2>Applicant name Here</h2>
+      <h1 className="text-2xl text-center">Beacon Name Here</h1>
+      <h2 className='text-xl text-left'>Host Name Here</h2>
+      <h3 className='text-l text-right'>Applicant name Here</h3>
 
-      <div>
-        <label>Controllers</label>
+      <div className="">
+        <label>Controllers <br /></label>
         <input
-          className="min-w-fit min-h-fit bg-white bg-opacity-25 flex p-2 justify-center items-center"
+           className='m-1 p-1 border-2 border-teal-100'
           label="Controllers"
           id={"controlNum"}
           type={"text"}
@@ -63,9 +63,9 @@ function BeaconApplication({ beaconList }) {
             setController(event.target.value);
           }}
         />
-        <label>Heads Up to Host</label>
+        <label><br />Heads Up to Host<br /></label>
         <input
-          className="min-w-fit min-h-fit bg-white bg-opacity-25 flex p-2 justify-center items-center"
+          className='m-1 p-1 border-2 border-teal-100'
           label="Heads Up to Host"
           id={"extraNotes"}
           type={"text"}
