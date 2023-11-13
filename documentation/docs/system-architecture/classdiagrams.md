@@ -5,7 +5,7 @@ description: Frontend and backend
 
 # Class Diagrams
 
-The app uses ReactJS for the frontend, Laravel for the backend, and MongoDB for the database. The backend is composed in a docker container running a sail network with the Laravel Sail image and the MongoDB image. 
+The app uses ReactJS for the frontend, Laravel for the backend, and PostgreSQL for the database.
 
 In order to provide fast, real-time updates, the app utilizes Laravel's builtin WebSocket along with the Laravel Echo library in both the backend and frontend to establish WebSocket connections between the two.
 
@@ -240,77 +240,68 @@ The FriendsList displays a list of friends based on which filter is passed into 
 
 ## Backend Class Diagram
 
-The backend is contained within a docker container composed of the Laravel Sail image for the backend and the MongoDB image for the database. The docker images shares the sail network allowing them to communicate with each other.
+The backend uses Laravel Sail, a dockerized Laravel.
 
-**The purpose of the backend is to create authenticated RESTful API routes and move data between the frontend and database.** Alongside HTTP requests, it will also use WebSockets to send real-time updates to the frontend when a new beacon create or a new comment posted on a beacon.
-
-It does that by creating a url route in the `routes/api.php` file. Each route is mapped to a function inside the Controller files to handle that data. Each Controller file explicitly uses its associated Model file to send data to the database. For each Model file, Laravel will use their associated migration files to send data to the database behind the scenes.
+The purpose of the backend is to create authenticated RESTful API routes and move data between the frontend and database. Alongside HTTP requests, it will also use WebSockets to send real-time updates to the frontend when a new beacon create or a new comment posted on a beacon.
 
 ```mermaid
 ---
 title: Laravel backend class diagram
 ---
 classDiagram
+    web *-- AuthController
+    class web {
+        - Route::post('register', [AuthController::class, 'register'])
+        - Route::post('login', [AuthController::class, 'login'])
+    }
+
+    class AuthController {
+        + register(Request)
+        + login(Request)
+    }
+
     api *-- UserController
     api *-- BeaconController
     api *-- ReportController
 
     class api {
-        - Route::apiResources([
-            'users' => UserController::class,
-            'beacons' => BeaconController::class,
-        ])
-        - Route::get('/beacons/recommended', [BeaconController::class, 'getRecommendedBeacons'])
-        - Route::get('/beacons/nearby', [BeaconController::class, 'getNearbyBeacons'])
-        - Route::post('/reports', [ReportController::class, 'store'])
+        - Route::apiResources(['users' => UserController::class,'beacons' => BeaconController::class,])
     }
 
     UserController *-- User
     class UserController{
-        + store(Request): array
-        + index(Request): array
-        + show(Request): array
-        + update(Request): array
-        + destory(Request): array
+        + index()
+        + store(Request)
+        + show(string)
+        + update(Request)
+        + destory(string)
     }
     class User {
         - array fillable
     }
 
     BeaconController *-- Beacon
-    BeaconController *-- NewBeaconEvent
-    NewBeaconEvent *-- SendNewBeacon
-    BeaconController *-- NewCommentEvent
-    NewCommentEvent *-- SendNewComment
+    BeaconController *-- BeaconCreated
     class BeaconController{
-        + store(Request): array
-        + index(Request): array
-        + show(Request): array
-        + update(Request): array
-        + destory(Request): array
-
-        + getRecommendedBeacons(Request): array
-        + getNearbyBeacons(Request): array
+        + index()
+        + store(Request)
+        + show(string)
+        + update(Request)
+        + destory(string)
     }
     class Beacon {
         - array fillable
     }
-    class NewBeaconEvent {
-        + broadcastWith()
-    }
-    class NewCommentEvent {
-        + broadcastWith()
-    }
-    class SendNewBeacon {
-        + handle()
-    }
-    class SendNewComment {
-        + handle()
+    BeaconCreated <|-- ShouldBroadcast
+    class BeaconCreated {
+        + Beacon beacon
+        + __construct(Beacon): void
+        + broadcastOn(): array
     }
 
     ReportController *-- Report
     class ReportController{
-        + store(Request): array
+        + store(Request)
     }
     class Report {
         - array fillable
@@ -318,70 +309,113 @@ classDiagram
 ```
 #### Figure 2. Laravel backend class diagram
 
-API use HTTP requests to create routes, allow communication between the frontend and the backend. All API routes must authenticated through the middleware, Laravel Sanctum, before reaching the servers.  
+The web.php file creates public routes.
 
-### api
-This is the `backend/routes/api.php` file. It contains routes to handle all of the api requests made to and from the frontend and maps them to Controller methods to be handled. The resource route automatically routes all of basic CRUD HTTP requests and maps each of them to basic CRUD methods (store, index, show, update, destory) in the Controller classes. And it does it all in one line `Route::resource`. Additional routes and methods outside of the basic CRUD operations must be explicitly created and defined.
-
-### Models
-Models are responsible for interacting with the database, such as retrieving data, updating records, or creating new records. When getting data from the database, Models will also convert the database's data type into php data types. Check the Database Diagram page for data type conversions between MongoDB and PHP. 
-
-Model files are located in the `app/Models` folder and have the same name as the database table it's associated with.
-
-#### User
-The UserModel contains a fillable variable which lists all of the attributes in the User table of the database. It also contains getter and setter methods for each attribute in the User table. The getter methods will return convert the MongoDB data types into its equivalent php data types.
-
-#### Beacon
-The BeaconModel contains a fillable variable which lists all of the attributes in the Beacon table of the database. It also contains getter and setter methods for each attribute in the Beacon table. The getter methods will return convert the MongoDB data types into its equivalent php data types.
-
-#### Report
-The ReportModel contains a fillable variable which lists all of the attributes in the Report table of the database. It also contains getter and setter methods for each attribute in the Report table. The getter methods will return convert the MongoDB data types into its equivalent php data types.
-
+The api.php file creates the api routes that are protected by Laravel Sanctum's middleware and require authentication to access.
 
 ### Controllers
-Controllers act as an intermediary between the HTTP requests and Models, handling the requests by doing validation checks and processing data.
+Controllers act as an intermediary between the frontend HTTP requests and the database. They use an instance of the Model class to send data to the database and query data from the database, sending the necessary request back to the frontend.
 
-Controller files are located in the `app/Http/Controllers` folder.
+The typical 5 CRUD api functions are:
+1. index(): gets a list of all items
+2. store(): creates a new item
+3. show(): gets an item by its id
+4. update(): updates an item using its id
+5. destroy(): deletes an item
 
-#### UserController
-The UserController class has all the basic CRUD methods (store, index, show, update, destory) to handle all basic CRUD operations pertaining to user data. After processing the data, each method will send the data to the UserModel.
+### Models
+Models represent a table in the database and contains a list of all the table fields.
 
-#### BeaconController
-The BeaconController class has all the basic CRUD methods (store, index, show, update, destory) to handle all basic CRUD operations pertaining to beacon data. It also has custom methods to get recommended and nearby beacons. After processing the data, each method will send the data to the BeaconModel. 
-
-The store and update methods will trigger the NewBeaconEvent by calling `broadcast(new NewBeaconEvent)` when a new beacon is successfully created. Or it will trigger the NewCommentEvent by calling `broadcast(new NewCommentEvent)` when a new comment has been added.
-
-#### ReportController
-The ReportController class has all the basic CRUD methods (store, index, show, update, destory) to handle all basic CRUD operations pertaining to report data. After processing the data, each method will send the data to the ReportModel.
+They are responsible for interacting with the database tables using Laravel's Eloquent ORM, such as retrieving data, updating records, creating new records, deleting records, and querying records.
 
 ### Broadcast Events
-Broadcast events are usually used for notifying connected clients (such as web browsers) about changes or events that occur on the server through WebSockets in real-time. They define the data that needs to be sent to the frontend through the WebSocket. They are called by Controllers to let the system know that an event has been triggered such as a when a new beacon has been created. 
+Broadcast events are used as part of the pub-sub WebSocket model to create a one-way WebSocket channel notifying changes that occur on the server. They define the WebSocket channel and the data that needs to be sent to the frontend through the WebSocket. They are activated when the `broadcast()` function is called, pushing data to all connected clients through the WebSocket, in real-time.
 
-Every broadcast event contains a `broadcastWith()` function which defines which data will be sent through the WebSocket.
+Broadcast events that need to be pushed through WebSockets in real-time implements the `ShouldBroadcast` interface.
 
-Once an event has been called, Laravel will automatically call the associated event listener's `handle()` method which will send the data through the WebSocket.
+#### BeaconCreated
+This event is triggered when a new beacon has been successfully created and saved into the database. It returns the newly created beacon's data.  It implements the `ShouldBroadcast` interface for real-time broadcasting.
 
-Broadcast events files are located in the `app/Events` folder and usually end in "Event".
 
-#### NewBeaconEvent
-The NewBeaconEvent is triggered when a new beacon has been successfully created and saved into the database. 
+## Frontend-Backend Integration
 
-It contains a function called `broadcastWith()` which returns the newly created beacon data. The function is automatically called by the SendNewBeacon event listener's `handle()` method.
+This section describes how the frontend and backend are connected by explaining how the data flows between frontend, backend, and database.
 
-#### NewCommentEvent
-The NewCommentEvent is triggered when a new comment has been successfully created and saved into the database. 
+The app uses a combination of HTTP requests and WebSockets to send and receive requests. For the most part, data is sent and received through HTTP requests at API endpoints. The pub-sub WebSocket pattern is used to push data one-way to the frontend in real-time whenever an event is triggered. The frontend uses event listeners to connect to WebSocket channels and listen for events.
 
-It contains a function called `broadcastWith()` which returns the newly created comment data. The function is automatically called by the SendNewComment event listener's `handle()` method.
+The backend is comprised of all the boxes in between the frontend box and the database box.
 
-### Event Listeners
-Event listeners are automically called when broadcast events are triggered by the Controller. Specifically, the `handle()` method is called, which every event listener has. It defines what action to occur when an event is triggered such as pushing the the data through a specific WebSocket channel for beacons.
+### HTTP requests
 
-All event listener classes must also be registered in the `app/Providers/EventServiceProvider.php` file as an array item to specify which event the listener is connected to and triggered by.
+Data can be sent and received through HTTP requests.
 
-Event listener files are located in the `app/Listeners` folder and usually start with "Send".
+```mermaid
+sequenceDiagram
+  participant Frontend
 
-#### SendNewBeacon
-The SendNewBeacon event listener is triggered by the NewBeaconEvent. The `handle()` method pushes the newly created beacon data through the beacon WebSocket channel.
+  participant API Middleware
+  participant Controller
+  participant Model
+  participant Database
 
-#### SendNewComment
-The SendNewComment event listener is triggered by the NewCommentEvent. The `handle()` method pushes the newly created comment data through the beacon WebSocket channel.
+  Frontend->>API Middleware: Sends an HTTP request with token
+  activate API Middleware
+  
+  API Middleware->>Controller: Successfully authenticates the token<br>Process data in Controller
+  deactivate API Middleware
+  activate Controller
+
+  Controller->>Model: Creates a new Model object
+  activate Model
+  Model-->>Controller: Returns a new Model instance
+  deactivate Model
+
+  Controller->>Database: Use Model object to access database
+  activate Database
+  Database-->>Controller: Returns data
+  deactivate Database
+  
+  Controller-->>Frontend: Returns data
+  deactivate Controller
+```
+
+### WebSockets
+
+From the frontend, data is only received through the WebSocket, never sent. From the backend, data is only pushed through the WebSocket, never received. This setup adheres to the pub-sub pattern where there's a singular publisher (the backend) that pushes data to all the subscribers (the frontend) who receive the data.
+
+WebSockets are used to display beacon data in real-time such as beacon information, comments, users joined.
+
+```mermaid
+sequenceDiagram
+  participant Frontend
+  participant API Middleware
+  participant Controller
+  participant Model
+  participant Event
+  participant Database
+
+  Frontend->>API Middleware: Sends a POST/PATCH request with token
+  activate API Middleware
+  
+  API Middleware->>Controller: Successfully authenticates the token<br>Process data in Controller
+  deactivate API Middleware
+  activate Controller
+
+  Controller->>Model: Creates a new Model object
+  activate Model
+  Model-->>Controller: Returns a new Model instance
+  deactivate Model
+
+  Controller->>Database: Use Model object to create data
+  activate Database
+  Database-->>Controller: Returns successful
+  deactivate Database
+  
+  Controller->>Event: Calls broadcast(new Event($data)) to trigger event
+  deactivate Controller
+  activate Event
+  Event-->Frontend: Pushes $data to the frontend through the event's WebSocket channel
+  deactivate Event
+
+  Frontend->>Frontend: Displays data in real time
+  ```

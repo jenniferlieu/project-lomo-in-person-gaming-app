@@ -26,4 +26,14 @@ class ServerTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    /**
+     * Tests the laravel websockets dashboard returns a successful response
+     */
+    public function test_the_laravel_websockets_dashboard_returns_a_successful_response(): void
+    {
+        $response = $this->get('/laravel-websockets');
+
+        $response->assertStatus(403);
+    }
 }

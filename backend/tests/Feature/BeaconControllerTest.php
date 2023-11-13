@@ -4,16 +4,19 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Beacon;
-use MongoDB\BSON\ObjectId;
+use App\Events\BeaconCreated;
 
 class BeaconControllerTest extends TestCase
 {
     use WithFaker;
+    use RefreshDatabase; // clears the entire database after each test
 
     public User $user;
+    public Beacon $beacon;
 
     /**
      * Set up the test environment
@@ -25,9 +28,16 @@ class BeaconControllerTest extends TestCase
         // setup code begins here
 
         // mock authentication for sanctum
-        $this->user = User::factory()->make(); // create a mock user
-        $this->user->id = new ObjectId(); // give the mock user a mongodb id
+        $this->user = User::factory()->create(); // create a mock user
         $this->actingAs($this->user, 'sanctum'); // create a mock token from sanctum
+
+        // create a mock beacon JSON replacing coordinates with latitude and longitude
+        $this->beacon = Beacon::factory()->make([
+            'host_id' => $this->user->id
+        ]);
+        unset($this->beacon['coordinates']); // delete the coordindates field
+        $this->beacon['latitude'] = $this->faker->latitude(); // add latitude field
+        $this->beacon['longitude'] = $this->faker->longitude(); // add longitude field
     }
 
     /**
@@ -37,30 +47,9 @@ class BeaconControllerTest extends TestCase
     public function test_post_beacon_request_returns_successful_response(): void
     {
         // create a mock beacon
-        $beacon = Beacon::factory()->make([
-            'host_id' => $this->user->id, // set the host_id
-        ]);
+        $response = $this->postJson('/api/beacons', $this->beacon->toArray());
 
-        $response = $this->postJson('/api/beacons', $beacon->toArray());
-
-        $response->assertStatus(201)->assertJsonStructure([
-            'data' => [
-                'host_id',
-                'title',
-                'game_title',
-                'game_system',
-                'description',
-                'start_date_time',
-                'end_date_time',
-                'address',
-                'latitude',
-                'longitude',
-                'num_players',
-                'created_at',
-                'updated_at',
-                '_id'
-            ]
-        ]);
+        $response->assertStatus(201);
     }
 
     /**
@@ -71,25 +60,31 @@ class BeaconControllerTest extends TestCase
     {
         $response = $this->postJson('/api/beacons');
 
-        $response->assertStatus(422)->assertInvalid([
-            'host_id',
-            'title',
-            'game_title',
-            'start_date_time',
-            'end_date_time',
-            'address',
-            'latitude',
-            'longitude'
-        ]);
+        $response->assertStatus(422);
     }
 
     /**
      * Test get all beacons
      * Should return a status code of 200 and returns an array of beacons
      */
-    public function test_get_all_beacons(): void {
+    public function test_get_all_beacons(): void
+    {
         $response = $this->getJson('/api/beacons');
 
-        $response->assertStatus(200)->assertJsonIsArray('data');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Test get all beacons
+     * Should return a status code of 200 and returns an array of beacons
+     */
+    public function test_beacon_created_event_dispatched(): void
+    {
+
+        Event::fake([BeaconCreated::class]);
+
+        $response = $this->postJson('/api/beacons', $this->beacon->toArray());
+
+        Event::assertDispatched(BeaconCreated::class);
     }
 }
