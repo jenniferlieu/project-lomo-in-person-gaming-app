@@ -17,8 +17,8 @@ return new class extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->text('about_me')->nullable();
-            $table->json('preferred_games')->nullable(); // use json type
-            $table->json('preference_tags')->nullable();  // use json type
+            $table->text('preferred_games')->nullable(); 
+            $table->text('preference_tags')->nullable(); 
             $table->timestampsTz();
         });
 
