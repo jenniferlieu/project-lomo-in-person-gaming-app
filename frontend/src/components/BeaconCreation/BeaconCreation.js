@@ -2,12 +2,11 @@ import React, { useState, onClose, useContext } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs/AdapterDayjs.js";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker.js";
-import { AuthContext, useAuth }from "../../AuthContext.js";
-import { Link } from 'react-router-dom'
+import { AuthContext, useAuth } from "../../AuthContext.js";
+import { Link } from "react-router-dom";
 // import { useHistory } from 'react-router-dom'
 
-
-function BeaconCreation({beaconList}) {
+function BeaconCreation({ beaconList }) {
   const [name, setState] = useState("");
   const [game, setGame] = useState("");
   const [system, setSystem] = useState("");
@@ -17,12 +16,13 @@ function BeaconCreation({beaconList}) {
   const [timeFrom, setFrom] = useState("");
   const [timeTo, setTo] = useState("");
   const [statusCode, setStatusCode] = useState(null);
-  const {authUser} = useAuth();
+  const { authUser } = useAuth();
   // const history = useHistory();
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
-    document.getElementById("displayArea").className = "font-bold relative bg-green-400 py-1 px-1 rounded float-right";
+    document.getElementById("displayArea").className =
+      "font-bold relative bg-green-400 py-1 px-1 rounded float-right";
   }
 
   function clearForm() {
@@ -39,7 +39,7 @@ function BeaconCreation({beaconList}) {
   function onClose() {
     let data = {
       // exepected json schema
-      host_id: "653578eeab2e358c510a1eb2", // required
+      host_id: process.env.REACT_APP_HOST_ID, // required
       title: name, // required
       game_title: game, // required
       game_system: system, //required
@@ -64,19 +64,19 @@ function BeaconCreation({beaconList}) {
         startTime: data.start_date_time,
         endTime: data.end_date_time,
         playerInfo: {
-          wanted: data.num_players
+          wanted: data.num_players,
         },
         address: {
-          address: data.address
-        }
-      }
+          address: data.address,
+        },
+      },
     };
     beaconList.push(beaconListData);
     console.log(beaconList);
     // history.push("/");
 
     // define url and headers
-    let url = "http://localhost/api/beacons";
+    let url = "http://34.148.52.211/api/beacons";
     let logindata = {
       email: "pikachu@test.com",
       password: "secret1234",
@@ -86,8 +86,7 @@ function BeaconCreation({beaconList}) {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization:
-          "Bearer " + authUser,
+        Authorization: "Bearer " + authUser,
       },
       body: JSON.stringify(data),
     };
@@ -98,7 +97,7 @@ function BeaconCreation({beaconList}) {
         const responseclone = response.clone();
         if (responseclone.ok) {
           displayText("Beacon Confirmed!");
-          return responseclone; 
+          return responseclone;
         }
       })
 
@@ -236,9 +235,7 @@ function BeaconCreation({beaconList}) {
             Clear
           </button>
           <Link to="/">
-            <button
-              className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right"
-            >
+            <button className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right">
               Close
             </button>
           </Link>
