@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 //import {laravelEcho} from "../laravelEcho/laravelEcho.js";
 import { useEffect } from "react";
 import Echo from "laravel-echo"; // eslint-disable-next-line
-import Pusher from "pusher-js";
-
 function BeaconCreation({ beaconList }) {
   const [name, setState] = useState("");
   const [game, setGame] = useState("");

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ControllerInfo from "./ControllerInfo.js";
 import CommentSection from "./components/Comments.jsx";
+import BeaconApplication from "./components/BeaconApplication/BeaconApplication.js";
+import { Link } from 'react-router-dom';
 
 const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console }) => {
   const [showControllerInfo, setShowControllerInfo] = useState(false);
@@ -8,7 +10,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
 
   const handleInfoClick = () => {
     setShowControllerInfo(!showControllerInfo);
-  };  
+  };
 
   return (
     <div className="bg-white rounded-lg w-xl max-w-2xl mx-auto shadow-lg my-5 p-2 px-2 relative">
@@ -73,9 +75,11 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
                   className="h-3 w-3 ml-3"
                 />
               </button>
-              <button className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Join Beacon
-              </button>
+              <Link to="/joinbeacon">
+                <button className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Join Beacon
+                </button>
+              </Link>
             </div>
           </div>
         </div>

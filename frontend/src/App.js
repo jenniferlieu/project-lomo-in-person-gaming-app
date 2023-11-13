@@ -17,11 +17,6 @@ function App() {
   const { isLoggedIn } = useAuth();
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
-
-  // import laravelEcho
-
-
-
   const beaconList = [
     {
       circleLat: 40,
@@ -81,13 +76,12 @@ function App() {
               <Route path='/login' element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
               <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
               <Route path='/createbeacon' element={isLoggedIn ? <BeaconCreation beaconList={beaconList} /> : <Navigate to='/login' />} />
+              <Route path='/joinbeacon' element={isLoggedIn ? <BeaconApplication beaconList={beaconList} /> : <Navigate to='/login' />} />
               <Route path='/' element={isLoggedIn ? <HomePage beaconList={beaconList} googleMapsApiKey={apiKey}/> : <Navigate to='/login' />} />
             </Routes>
           </LoadScript>
         </Router>
     </div>
-    */
-    
   );
 }
 
