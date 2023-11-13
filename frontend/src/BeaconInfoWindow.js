@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ControllerInfo from "./ControllerInfo.js";
+import CommentSection from "./components/Comments.jsx";
 
 const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console }) => {
   const [showControllerInfo, setShowControllerInfo] = useState(false);
@@ -72,6 +73,9 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
                   className="h-3 w-3 ml-3"
                 />
               </button>
+              <button className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Join Beacon
+              </button>
             </div>
           </div>
         </div>
@@ -82,6 +86,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
         />
       </div>
       {showControllerInfo && <ControllerInfo description={controllerInfo.description} onClose={handleInfoClick} />}
+      <CommentSection />
     </div>
   );
 };

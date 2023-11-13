@@ -8,6 +8,7 @@ import Signup from './components/signup/Signup.jsx';
 import HomePage from './HomePage.js';
 import BeaconCreation from './components/BeaconCreation/BeaconCreation.js';
 import NavBar from './components/NavBar/NavBar.jsx';
+import CommentSection from './components/Comments.jsx';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -63,7 +64,7 @@ function App() {
   ];
 
   return (
-    <div className='App bg-gradient-to-tl from-[#10021e] to-[#210210] h-screen'>
+    <div className='App bg-gradient-to-b from-sky-500 to-teal-600 h-screen'>
         <Router>
           <LoadScript googleMapsApiKey={apiKey}>
             <NavBar />
@@ -72,6 +73,7 @@ function App() {
               <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
               <Route path='/createbeacon' element={isLoggedIn ? <BeaconCreation beaconList={beaconList} /> : <Navigate to='/login' />} />
               <Route path='/' element={isLoggedIn ? <HomePage beaconList={beaconList} googleMapsApiKey={apiKey}/> : <Navigate to='/login' />} />
+              <Route path='/comments' element={<CommentSection />} />
             </Routes>
           </LoadScript>
         </Router>
