@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-{
-  "label": "Software Development Plan",
-  "position": 5,
-  "link": {
-    "type": "generated-index",
-    "description": "Document Overview goes here."
-  }
-}
-=======
 {
   "label": "Software Development Plan",
   "position": 5,
@@ -16,4 +6,3 @@
     "description": "Describes the development environment and the tools needed to develop the app."
   }
 }
->>>>>>> frontend

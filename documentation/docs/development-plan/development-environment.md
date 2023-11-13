@@ -1,10 +1,3 @@
-<<<<<<< HEAD
----
-sidebar_position: 4
----
-
-# Development Environment
-=======
 ---
 sidebar_position: 4
 ---
@@ -21,9 +14,8 @@ sidebar_position: 4
 * Php
 * Docker
 * Laravel
-* Mongodb
+* PostgreSQL
 
 **Editors**: 
 * VS Code
 * GitHub Codespaces
->>>>>>> frontend

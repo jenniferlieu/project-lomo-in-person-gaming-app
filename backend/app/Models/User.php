@@ -3,16 +3,32 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use MongoDB\Laravel\Eloquent\Model as Eloquent;
-use Illuminate\Auth\Authenticatable;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Support\Str;
 
-class User extends Eloquent implements AuthenticatableContract
+class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Authenticatable;
+    use HasApiTokens, HasFactory, Notifiable;
+
+    // Format model to use uuid as primary key: Set uuid primary key to not increment
+    public $incrementing = false;
+
+    // Format model to use uuid as primary key: Set uuid primary key type to string instead of an integer
+    protected $keyType = 'string';
+
+    // Format model to use uuid as primary key: Automatically create a new uuid for primary key
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -20,12 +36,10 @@ class User extends Eloquent implements AuthenticatableContract
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id', 
-        'email', 
-        'username', 
-        'password', 
-        'first_name', 
-        'last_name'
+        'user_id',
+        'email',
+        'username',
+        'password'
     ];
 
     /**
@@ -58,7 +72,7 @@ class User extends Eloquent implements AuthenticatableContract
     {
         return $this->hasOne(Profile::class);
     }
-    
+
     /**
      * Define the relationship with the Friend model.
      * A user can have multiple friends associated with it.
