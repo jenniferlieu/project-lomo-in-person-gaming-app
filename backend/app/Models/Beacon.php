@@ -57,6 +57,11 @@ class Beacon extends Model
         'num_players'
     ];
 
+    protected $guarded = [
+        'latitude',
+        'longitude'
+    ];
+
     protected $casts = [
         'start_date_time' => 'datetime',
         'end_date_time' => 'datetime',

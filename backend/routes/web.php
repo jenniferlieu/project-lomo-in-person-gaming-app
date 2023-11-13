@@ -21,12 +21,3 @@ Route::get('/', function () {
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
-
-Route::get('/test', function () {
-    try {
-        DB::connection()->getPdo();
-        return "Successfully connected to the database.";
-    } catch (\Exception $e) {
-        return "Failed to connect to the database: " . $e->getMessage();
-    }
-});
