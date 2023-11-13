@@ -30,7 +30,8 @@ const MapContainer = ({ beaconList }) => {
   }
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
+  console.log(beaconList);
+  
   return (
     <div className='absolute top-70 left-0 w-full'>
       <GoogleMap

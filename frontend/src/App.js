@@ -6,13 +6,21 @@ import { useAuth } from './AuthContext.js';
 import Login from './components/Login/Login.jsx';
 import Signup from './components/signup/Signup.jsx';
 import HomePage from './HomePage.js';
+import BeaconApplication from './components/BeaconApplication/BeaconApplication.js';
 import BeaconCreation from './components/BeaconCreation/BeaconCreation.js';
 import NavBar from './components/NavBar/NavBar.jsx';
 import CommentSection from './components/Comments.jsx';
 
+
+
 function App() {
   const { isLoggedIn } = useAuth();
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
+
+  // import laravelEcho
+
+
 
   const beaconList = [
     {
@@ -63,6 +71,7 @@ function App() {
     },
   ];
 
+  
   return (
     <div className='App bg-gradient-to-b from-sky-500 to-teal-600 h-screen'>
         <Router>
@@ -77,6 +86,8 @@ function App() {
           </LoadScript>
         </Router>
     </div>
+    */
+    
   );
 }
 

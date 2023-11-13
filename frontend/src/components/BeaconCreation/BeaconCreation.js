@@ -1,13 +1,16 @@
-import React, { useState, onClose, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs/AdapterDayjs.js";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker.js";
-import { AuthContext, useAuth }from "../../AuthContext.js";
-import { Link } from 'react-router-dom'
+import { AuthContext, useAuth } from "../../AuthContext.js";
+import { Link } from "react-router-dom";
 // import { useHistory } from 'react-router-dom'
+//import {laravelEcho} from "../laravelEcho/laravelEcho.js";
+import { useEffect } from "react";
+import Echo from "laravel-echo"; // eslint-disable-next-line
+import Pusher from "pusher-js";
 
-
-function BeaconCreation({beaconList}) {
+function BeaconCreation({ beaconList }) {
   const [name, setState] = useState("");
   const [game, setGame] = useState("");
   const [system, setSystem] = useState("");
@@ -17,12 +20,13 @@ function BeaconCreation({beaconList}) {
   const [timeFrom, setFrom] = useState("");
   const [timeTo, setTo] = useState("");
   const [statusCode, setStatusCode] = useState(null);
-  const {authUser} = useAuth();
+  const { authUser } = useAuth();
   // const history = useHistory();
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
-    document.getElementById("displayArea").className = "font-bold relative bg-green-400 py-1 px-1 rounded float-right";
+    document.getElementById("displayArea").className =
+      "font-bold relative bg-green-400 py-1 px-1 rounded float-right";
   }
 
   function clearForm() {
@@ -36,10 +40,38 @@ function BeaconCreation({beaconList}) {
     setTo("");
   }
 
+  useEffect(() => {
+    const laravelEcho = new Echo({
+      broadcaster: "pusher",
+      key: process.env.REACT_APP_PUSHER_APP_KEY,
+      wsHost: process.env.REACT_APP_PUSHER_HOST,
+      wsPort: process.env.REACT_APP_PUSHER_PORT,
+      wssPort: process.env.REACT_APP_PUSHER_PORT,
+      cluster: process.env.REACT_APP_PUSHER_CLUSTER,
+      forceTLS: false,
+      encrypted: true,
+      disableStats: true,
+      enabledTransports: ["ws", "wss"],
+    });
+    console.log(laravelEcho);
+/*
+    // Connect to a public websocket channel
+    laravelEcho.channel("new-beacon").listen("BeaconCreated", (e) => {
+      // runs every time data ia pushed through the websocket
+      console.log(e.beacon);
+    });
+
+    // Cleanup function to disconnect the Echo instance when the component unmounts
+    return () => {
+      laravelEcho.disconnect();
+    };
+    */
+  }, []); // Empty dependency array ensures this runs on mount and unmount only
+
   function onClose() {
     let data = {
       // exepected json schema
-      host_id: "653578eeab2e358c510a1eb2", // required
+      host_id: "09963d41-b3c7-4972-90ad-d2ae8b2f82c1", // required
       title: name, // required
       game_title: game, // required
       game_system: system, //required
@@ -47,8 +79,8 @@ function BeaconCreation({beaconList}) {
       start_date_time: timeFrom, // required
       end_date_time: timeTo, //required
       address: location, // required
-      latitude: 40.758, // required
-      longitude: 73.9795, // required
+      latitude: 40 + Math.random(), // required
+      longitude: 73 + Math.random(), // required
       num_players: players, // required
     };
     console.log(data);
@@ -64,15 +96,17 @@ function BeaconCreation({beaconList}) {
         startTime: data.start_date_time,
         endTime: data.end_date_time,
         playerInfo: {
-          wanted: data.num_players
+          wanted: data.num_players,
         },
         address: {
-          address: data.address
-        }
-      }
+          address: data.address,
+        },
+      },
     };
+
     beaconList.push(beaconListData);
     console.log(beaconList);
+
     // history.push("/");
 
     // define url and headers
@@ -86,8 +120,7 @@ function BeaconCreation({beaconList}) {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization:
-          "Bearer " + authUser,
+        Authorization: "Bearer " + authUser,
       },
       body: JSON.stringify(data),
     };
@@ -98,7 +131,7 @@ function BeaconCreation({beaconList}) {
         const responseclone = response.clone();
         if (responseclone.ok) {
           displayText("Beacon Confirmed!");
-          return responseclone; 
+          return responseclone;
         }
       })
 
@@ -106,13 +139,6 @@ function BeaconCreation({beaconList}) {
       .then((response) => {
         console.log("response", response);
       })
-      /*
-      .then((responseclone)=> {
-        if (responseclone.ok) {
-           displayText("Hey");
-        }   
-      })
-        */
 
       .catch((error) => console.log("error", error));
   }
@@ -121,7 +147,7 @@ function BeaconCreation({beaconList}) {
     <div>
       <div class="bg-white rounded-lg w-full leading-relaxed max-w-md mx-auto shadow-lg my-5 p-2 px-2 text-left absolute">
         <tr>
-          <th className="min-w-screen bg-black bg-opacity-25 flex justify-center items-center">
+          <th className="min-w-auto min-h-auto bg-black bg-opacity-25 flex justify-center items-center">
             <label htmlFor={"input"}>Beacon Name</label>
             <input
               id={"BeaconName"}
@@ -134,7 +160,7 @@ function BeaconCreation({beaconList}) {
               }}
             />
           </th>
-          <th className="min-w-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
+          <th className="min-w-auto min-h-auto bg-black bg-opacity-25 flex p-2 justify-center items-center">
             <label htmlFor={"input2"}>Game Title</label>
             <input
               id={"BeaconGame"}
@@ -149,7 +175,7 @@ function BeaconCreation({beaconList}) {
           </th>
         </tr>
         <tr>
-          <th className="min-w-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
+          <th className="min-w-auto min-h-auto bg-black  bg-opacity-25 flex p-2 justify-center items-center">
             <label htmlFor={"input3"}>No. of players</label>
             <input
               id={"Players"}
@@ -162,7 +188,7 @@ function BeaconCreation({beaconList}) {
               }}
             />
           </th>
-          <th className="min-w-screen bg-black bg-opacity-25 flex p-2 justify-center items-center">
+          <th className="min-w-auto min-h-auto bg-black bg-opacity-25 flex p-2 justify-center items-center">
             <label htmlFor={"input4"}>Game System</label>
             <input
               id={"BeaconSystem"}
@@ -176,7 +202,7 @@ function BeaconCreation({beaconList}) {
             />
           </th>
         </tr>
-        <th className="min-w-screen bg-black  bg-opacity-25 flex p-2 justify-center items-center">
+        <th className="min-w-auto min-h-auto bg-black  bg-opacity-25 flex p-2 justify-center items-center">
           <label htmlFor={"input5"}>Location</label>
           <input
             id={"Location"}
@@ -190,7 +216,7 @@ function BeaconCreation({beaconList}) {
           />
         </th>
         <tr>
-          <th className="min-w-screen border-10 bg-black bg-opacity-25 flex p-2 span-5 justify-center items-center">
+          <th className="min-w-auto min-h-auto border-10 bg-black bg-opacity-25 flex p-2 span-5 justify-center items-center">
             <label htmlFor={"input6"}>Misc. Info</label>
             <input
               id={"MiscInfo"}
@@ -236,9 +262,7 @@ function BeaconCreation({beaconList}) {
             Clear
           </button>
           <Link to="/">
-            <button
-              className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right"
-            >
+            <button className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right">
               Close
             </button>
           </Link>
