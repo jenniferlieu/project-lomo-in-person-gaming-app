@@ -1,65 +1,58 @@
 import React, { useState, useContext } from "react";
-
+import { Link, useNavigate } from "react-router-dom";
 // make controller input a dropdown?
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs/AdapterDayjs.js";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker.js";
-import { AuthContext, useAuth } from "../../AuthContext.js";
-import { Link } from "react-router-dom";
 
-
-function BeaconApplication() {
+function BeaconApplication({ beaconList }) {
   const [controlNum, setController] = useState("");
   const [extraNotes, setNotes] = useState("");
+  const navigate = useNavigate();
+
   function clearForm() {
     setController("");
     setNotes("");
   }
 
-/*
-  const beaconListData = {
-    beaconInfo: {
-      username: data.host_id,
-      gameTitle: data.game_title,
-      console: data.game_system,
-      miscInfo: data.misc,
-      startTime: data.start_date_time,
-      endTime: data.end_date_time,
-      playerInfo: {
-        wanted: data.num_players,
-      },
-      address: {
-        address: data.address,
-      },
-      controllerInfo: {
-        available: data.controlNum,
-        wanted: data.controlNeeded,
-      }
-    },
-  };
-*/
   function Apply() {
-  
-  
+    console.log(beaconList[1]);
+    let data = {
+      controllerInfo: {
+        numControllers: controlNum,
+      },
+      playerInfo: {
+        addedPlayer: 1,
+      },
+    };
+
+    const beaconUpdateData = {
+      beaconInfo: {
+        playerInfo: {
+          available: data.addedPlayer,
+        },
+        controllerInfo: {
+          available: data.numControllers,
+        },
+      },
+    };
+    beaconList[1].beaconInfo.controllerInfo.available =
+      beaconList[1].beaconInfo.controllerInfo.available + parseInt(controlNum);
+    beaconList[1].beaconInfo.playerInfo.available =
+      beaconList[1].beaconInfo.playerInfo.available + 1;
+    console.log(beaconList[1]);
   }
 
-
-  
   return (
-
     <form
       id="joinForm"
-      class="bg-white rounded-lg w-full leading-relaxed max-w-md mx-auto shadow-lg my-5 p-2 px-2 text-left container absolute"
+      className="bg-white rounded-lg w-full leading-relaxed max-w-md mx-auto shadow-lg my-5 p-2 px-2 text-left container absolute"
     >
-        <h2>Beacon Name Here</h2>
-        <h2>Host Name Here</h2>
-        <h2>Applicant name Here</h2>
+      <h2>Beacon Name Here</h2>
+      <h2>Host Name Here</h2>
+      <h2>Applicant name Here</h2>
 
-        
       <div>
         <label>Controllers</label>
         <input
-          class="min-w-fit min-h-fit bg-white bg-opacity-25 flex p-2 justify-center items-center"
+          className="min-w-fit min-h-fit bg-white bg-opacity-25 flex p-2 justify-center items-center"
           label="Controllers"
           id={"controlNum"}
           type={"text"}
@@ -72,7 +65,7 @@ function BeaconApplication() {
         />
         <label>Heads Up to Host</label>
         <input
-          class="min-w-fit min-h-fit bg-white bg-opacity-25 flex p-2 justify-center items-center"
+          className="min-w-fit min-h-fit bg-white bg-opacity-25 flex p-2 justify-center items-center"
           label="Heads Up to Host"
           id={"extraNotes"}
           type={"text"}
@@ -83,24 +76,31 @@ function BeaconApplication() {
             setNotes(event.target.value);
           }}
         />
+
+        <Link to="/">
+          <button
+            className="font-bold relative bg-green-500 text-black py-1 px-1 rounded float-right"
+            onClick={(event) => {
+              Apply();
+            }}
+          >
+            Submit
+          </button>
+        </Link>
         <button
-          className="font-bold relative bg-blue-500 py-1 px-1 rounded float-right"
-          onClick={Apply}
-        >
-          Submit
-        </button>
-        <button
-          className="font-bold relative bg-white-500 py-1 px-1 rounded float-right"
+          className="font-bold relative bg-blue-500 text-black py-1 px-1 rounded float-right"
           onClick={clearForm}
         >
           Clear
         </button>
-        <button
-          className="font-bold relative bg-red-500 py-1 px-1 rounded float-right"
-          onClick={clearForm}
-        >
-          Close
-        </button>
+        <Link to="/">
+          <button
+            className="font-bold relative bg-red-500 text-black py-1 px-1 rounded float-right"
+            onClick={clearForm}
+          >
+            Close
+          </button>
+        </Link>
       </div>
     </form>
   );
