@@ -21,9 +21,20 @@ class ProfileFactory extends Factory
         return [
             'user_id' => User::factory(), 
             'about_me' => $this->faker->text,
-            'preferred_games' => ['Game 1', 'Game 2'], 
-            'preference_tags' => ['Tag 1', 'Tag 2'], 
+            'preferred_games' => $this->toPostgresArray(['Game 1', 'Game 2']), 
+            'preference_tags' => $this->toPostgresArray(['Tag 1', 'Tag 2']), 
         ];
     }
+
+    /**
+     * Convert a PHP array to a PostgreSQL array string.
+     */
+    protected function toPostgresArray(array $array): string
+    {
+        return '{' . implode(',', array_map(function ($value) {
+            return '"' . addslashes($value) . '"';
+        }, $array)) . '}';
+    }
 }
+
 
