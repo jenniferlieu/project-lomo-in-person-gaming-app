@@ -7,6 +7,11 @@ use App\Models\Profile;
 
 class ProfileController extends Controller
 {
+    public function index()
+    {
+        //todo
+    }
+
     public function show($userId)
     {
         // Find the profile by user ID
@@ -37,5 +42,10 @@ class ProfileController extends Controller
         $profile->update($validatedData);
         // Return a success message and the updated profile data in a JSON response
         return response()->json(['message' => 'Profile updated successfully', 'data' => $profile], 200);
+    }
+
+    public function destroy(string $id)
+    {
+        //todo
     }
 }
