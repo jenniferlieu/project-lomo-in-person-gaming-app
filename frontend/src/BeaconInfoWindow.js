@@ -28,18 +28,18 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
               alt="Game Pic"
               className="top-0 right-0 h-20 w-20 mr-4"
             />
-            <h1 className="text-3xl font-bold">{username}</h1>
+            <h1 className="text-2xl font-bold">{username}</h1>
           </div>
           <div className="ml-4">
-            <h2 className="text-2xl font-light">Game / Event</h2>
-            <h2 className="text-2xl mb-2">{gameTitle}</h2>
+            <h2 className="text-xl border-b border-gray-400 w-[95%]">Game</h2>
+            <h2 className="text-xl mb-2">{gameTitle}</h2>
             <p className="mb-2 text-xl" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
-            <p className="text-xl font-light">Console</p>
+            <p className="text-xl border-b border-gray-400 w-[95%]">Console</p>
             <p className="mb-4 text-xl">{console}</p>
             <div className="mb-4 text-xl">
-              <p className="font-light">Location</p>
-              <p className="">{address.name}</p>
-              <p className="font-light">{address.address}</p>
+              <p className="border-b border-gray-400 w-[95%]">Location</p>
+              <p>{address.name}</p>
+              <p>{address.address}</p>
             </div>
             <div className="flex items-center text-lg mb-4">
               <img
@@ -77,7 +77,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
               </button>
               <Link to="/joinbeacon">
                 <button className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Join Beacon
+                  Join!
                 </button>
               </Link>
             </div>
@@ -86,7 +86,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
         <img
           src={gamePic}
           alt="Game Pic"
-          className="absolute top-0 right-0 h-32 w-32 rounded-full mx-4"
+          className="absolute top-0 right-0 h-[7.5rem] w-[7.5rem] rounded-full mx-4"
         />
       </div>
       {showControllerInfo && <ControllerInfo description={controllerInfo.description} onClose={handleInfoClick} />}
