@@ -31,13 +31,13 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
             <h1 className="text-2xl font-bold">{username}</h1>
           </div>
           <div className="ml-4">
-            <h2 className="text-xl border-b border-gray-400 w-[95%]">Game</h2>
+            <h2 className="text-xl border-b border-dashed border-gray-400 w-[95%]">Game</h2>
             <h2 className="text-xl mb-2">{gameTitle}</h2>
             <p className="mb-2 text-xl" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
-            <p className="text-xl border-b border-gray-400 w-[95%]">Console</p>
+            <p className="text-xl border-b border-dashed border-gray-400 w-[95%]">Console</p>
             <p className="mb-4 text-xl">{console}</p>
             <div className="mb-4 text-xl">
-              <p className="border-b border-gray-400 w-[95%]">Location</p>
+              <p className="border-b border-dashed border-gray-400 w-[95%]">Location</p>
               <p>{address.name}</p>
               <p>{address.address}</p>
             </div>
