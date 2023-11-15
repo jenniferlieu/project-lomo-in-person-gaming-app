@@ -4,7 +4,7 @@ import CommentSection from "./components/Comments.jsx";
 import BeaconApplication from "./components/BeaconApplication/BeaconApplication.js";
 import { Link } from 'react-router-dom';
 
-const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console }) => {
+const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console, id }) => {
   const [showControllerInfo, setShowControllerInfo] = useState(false);
   const formattedText = miscInfo.replace(/\n/g, "<br>");
   const [showComments, setShowComments] = useState(false);
@@ -100,7 +100,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
           <span className="text-xl">Comments</span> <span className="text-base">{showComments ? '▲' : '▼'}</span>
         </button>
       </div>
-      {showComments && <CommentSection />}
+      {showComments && <CommentSection beaconId={id} />}
     </div>
   );
 };
