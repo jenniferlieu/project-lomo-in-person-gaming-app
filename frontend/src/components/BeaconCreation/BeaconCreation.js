@@ -70,7 +70,7 @@ function BeaconCreation({ beaconList }) {
   function onClose() {
     let data = {
       // exepected json schema
-      host_id: process.env.REACT_APP_HOST_ID, // required
+      host_id: "9bcf9ede-6da6-49aa-966e-f498603218f4", // required
       title: name, // required
       game_title: game, // required
       game_system: system, //required
