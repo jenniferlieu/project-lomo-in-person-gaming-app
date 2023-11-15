@@ -97,7 +97,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
       {showControllerInfo && <ControllerInfo description={controllerInfo.description} onClose={handleInfoClick} />}
       <div className="flex justify-center">
         <button onClick={handleCommentsClick}>
-          Comments {showComments ? '▲' : '▼'}
+          <span className="text-xl">Comments</span> <span className="text-base">{showComments ? '▲' : '▼'}</span>
         </button>
       </div>
       {showComments && <CommentSection />}
