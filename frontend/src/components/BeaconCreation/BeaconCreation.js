@@ -109,7 +109,7 @@ function BeaconCreation({ beaconList }) {
     // history.push("/");
 
     // define url and headers
-    let url = "http://34.148.52.211/api/beacons";
+    let url = "http://localhost/api/beacons";
     let logindata = {
       email: "pikachu@test.com",
       password: "secret1234",
