@@ -27,7 +27,7 @@ const Login = () => {
       navigate("/");
     } else {
       try {
-        const response = await fetch("http://34.148.52.211/login", {
+        const response = await fetch("http://localhost/login", {
           method: "POST",
           headers: {
             Accept: "application/json",
