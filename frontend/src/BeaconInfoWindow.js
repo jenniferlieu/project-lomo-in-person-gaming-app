@@ -7,6 +7,11 @@ import { Link } from 'react-router-dom';
 const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console }) => {
   const [showControllerInfo, setShowControllerInfo] = useState(false);
   const formattedText = miscInfo.replace(/\n/g, "<br>");
+  const [showComments, setShowComments] = useState(false);
+
+  const handleCommentsClick = () => {
+    setShowComments(!showComments);
+  };
 
   const handleInfoClick = () => {
     setShowControllerInfo(!showControllerInfo);
@@ -90,7 +95,12 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
         />
       </div>
       {showControllerInfo && <ControllerInfo description={controllerInfo.description} onClose={handleInfoClick} />}
-      <CommentSection />
+      <div className="flex justify-center">
+        <button onClick={handleCommentsClick}>
+          Comments {showComments ? '▲' : '▼'}
+        </button>
+      </div>
+      {showComments && <CommentSection />}
     </div>
   );
 };
