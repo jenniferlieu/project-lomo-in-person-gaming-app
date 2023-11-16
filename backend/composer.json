@@ -12,6 +12,8 @@
         "laravel/framework": "^10.26.2",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "laravel/vapor-cli": "^1.60",
+        "laravel/vapor-core": "^2.32",
         "rakutentech/laravel-request-docs": "^2.25"
     },
     "require-dev": {
