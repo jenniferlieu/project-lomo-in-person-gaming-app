@@ -7,9 +7,9 @@ return [
     'debug' => false,
 
     /*
-    * Route where request docs will be served from laravel app.
-    * localhost:8080/request-docs
-    */
+     * Route where request docs will be served from laravel app.
+     * localhost:8080/request-docs
+     */
     'url' => 'request-docs',
     'middlewares' => [
         // \Rakutentech\LaravelRequestDocs\NotFoundWhenProduction::class,
@@ -26,6 +26,10 @@ return [
         '#^sanctum#',
         '#^_ignition#',
         '#^_tt#',
+        '#^laravel-websockets#',
+        '#^broadcasting#',
+        '#^vapor#',
+        '#^/#'
     ],
 
     'hide_meta_data' => false,
@@ -39,7 +43,7 @@ return [
         'rules'
     ],
     // Can be overridden as // @LRDresponses 200|400|401
-    'default_responses' => [ "200", "400", "401", "403", "404", "405", "422", "429", "500", "503"],
+    'default_responses' => ["200", "400", "401", "403", "404", "405", "422", "429", "500", "503"],
 
     // By default, LRD group your routes by the first /path.
     // This is a set of regex to group your routes by prefix.
@@ -54,8 +58,8 @@ return [
     // open api config
     // used to generate open api json
     'open_api' => [
-        'title' => 'Laravel Request Docs',
-        'description' => 'Laravel Request Docs',
+        'title' => 'LOMO API Documentation',
+        'description' => 'LOMO API Documentation',
         // default version that this library provides
         'version' => '3.0.0',
         // changeable
@@ -68,7 +72,7 @@ return [
         //ref: https://github.com/OAI/OpenAPI-Specification/pull/2117
         'delete_with_body' => false,
         //exclude http methods that will be excluded from openapi export
-        'exclude_http_methods' => [],
+        'exclude_http_methods' => ['head', 'put'],
         // for now putting default responses for all. This can be changed later based on specific needs
         'responses' => [
             '200' => [
