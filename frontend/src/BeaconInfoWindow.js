@@ -4,7 +4,7 @@ import CommentSection from "./components/Comments.jsx";
 import BeaconApplication from "./components/BeaconApplication/BeaconApplication.js";
 import { Link } from 'react-router-dom';
 
-const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console }) => {
+const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console, id }) => {
   const [showControllerInfo, setShowControllerInfo] = useState(false);
   const formattedText = miscInfo.replace(/\n/g, "<br>");
   const [showComments, setShowComments] = useState(false);
@@ -41,20 +41,26 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
             <p className="mb-2 text-xl" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
             <p className="text-xl border-b border-solid border-gray-400 w-[95%] font-semibold">Console</p>
             <p className="mb-4 text-xl">{console}</p>
-            <div className="mb-4 text-xl">
-              <p className="border-b border-solid border-gray-400 w-[95%] font-semibold">Location</p>
-              <p>{address.name}</p>
-              <p>{address.address}</p>
-            </div>
-            <div className="flex items-center text-lg mb-4">
-              <img
-                src="icons/clock.png"
-                alt="Clock Icon"
-                className="h-10 w-10 mr-2"
-              />
-              <p className="text-xl">
-                {startTime} - {endTime}
-              </p>
+            <div className="mb-4">
+              <div className="flex justify-between items-center text-xl">
+                <span className="border-b border-solid border-gray-400 w-[95%] flex justify-between">
+                  <p className="font-semibold">Location</p>
+                  <div className="flex items-center">
+                    <img
+                      src="icons/clock.png"
+                      alt="Clock Icon"
+                      className="h-6 w-6 mr-2"
+                    />
+                    <p className="text-xl">
+                      {startTime} - {endTime}
+                    </p>
+                  </div>
+                </span>
+              </div>
+              <div className="text-xl">
+                <p>{address.name}</p>
+                <p>{address.address}</p>
+              </div>
             </div>
             <div className="flex items-center text-lg mb-2">
               <img
@@ -100,7 +106,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
           <span className="text-xl">Comments</span> <span className="text-base">{showComments ? '▲' : '▼'}</span>
         </button>
       </div>
-      {showComments && <CommentSection />}
+      {showComments && <CommentSection beaconId={id} />}
     </div>
   );
 };
