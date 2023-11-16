@@ -41,20 +41,26 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
             <p className="mb-2 text-xl" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
             <p className="text-xl border-b border-solid border-gray-400 w-[95%] font-semibold">Console</p>
             <p className="mb-4 text-xl">{console}</p>
-            <div className="mb-4 text-xl">
-              <p className="border-b border-solid border-gray-400 w-[95%] font-semibold">Location</p>
-              <p>{address.name}</p>
-              <p>{address.address}</p>
-            </div>
-            <div className="flex items-center text-lg mb-4">
-              <img
-                src="icons/clock.png"
-                alt="Clock Icon"
-                className="h-10 w-10 mr-2"
-              />
-              <p className="text-xl">
-                {startTime} - {endTime}
-              </p>
+            <div className="mb-4">
+              <div className="flex justify-between items-center text-xl">
+                <span className="border-b border-solid border-gray-400 w-[95%] flex justify-between">
+                  <p className="font-semibold">Location</p>
+                  <div className="flex items-center">
+                    <img
+                      src="icons/clock.png"
+                      alt="Clock Icon"
+                      className="h-6 w-6 mr-2"
+                    />
+                    <p className="text-xl">
+                      {startTime} - {endTime}
+                    </p>
+                  </div>
+                </span>
+              </div>
+              <div className="text-xl">
+                <p>{address.name}</p>
+                <p>{address.address}</p>
+              </div>
             </div>
             <div className="flex items-center text-lg mb-2">
               <img
