@@ -26,7 +26,6 @@ return [
         '#^sanctum#',
         '#^_ignition#',
         '#^_tt#',
-        '#^laravel-websockets#',
         '#^broadcasting#',
         '#^vapor#',
         '#^/#'

@@ -6,7 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.2.10",
-        "beyondcode/laravel-websockets": "^1.14",
         "clickbar/laravel-magellan": "^1.4",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.26.2",
@@ -14,6 +13,7 @@
         "laravel/tinker": "^2.8",
         "laravel/vapor-cli": "^1.60",
         "laravel/vapor-core": "^2.32",
+        "pusher/pusher-php-server": "^7.2",
         "rakutentech/laravel-request-docs": "^2.25"
     },
     "require-dev": {
