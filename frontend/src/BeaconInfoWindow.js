@@ -37,8 +37,19 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
           </div>
           <div className="ml-4">
             <h2 className="text-xl border-b border-solid border-gray-400 w-[95%] font-semibold">Game</h2>
-            <h2 className="text-xl mb-2">{gameTitle}</h2>
-            <p className="mb-2 text-xl" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
+            <div className="flex justify-between">
+              <div>
+                <h2 className="text-xl mb-2">{gameTitle}</h2>
+                <p className="mb-2 text-xl" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
+              </div>
+              <div className="pl-2">
+                <Link to="/joinbeacon">
+                  <button className="mr-8 mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Join!
+                  </button>
+                </Link>
+              </div>
+            </div>
             <p className="text-xl border-b border-solid border-gray-400 w-[95%] font-semibold">Console</p>
             <p className="mb-4 text-xl">{console}</p>
             <div className="mb-4">
@@ -86,11 +97,6 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
                   className="h-3 w-3 ml-3"
                 />
               </button>
-              <Link to="/joinbeacon">
-                <button className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Join!
-                </button>
-              </Link>
             </div>
           </div>
         </div>
