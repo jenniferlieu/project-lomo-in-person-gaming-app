@@ -30,8 +30,8 @@ class BeaconPostRequest extends FormRequest
             'start_date_time' => 'required|date',
             'end_date_time' => 'required|date',
             'address' => 'required|string',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
+            'latitude' => 'required|numeric|between:-90,90|decimal:5,20',
+            'longitude' => 'required|numeric|between:-180,180|decimal:5,20',
             'num_players' => 'integer'
         ];
     }
