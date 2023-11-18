@@ -20,7 +20,7 @@ const Signup = () => {
 
       //Call API for signup
       try {
-        const response = await fetch("http://34.148.52.211/register", {
+        const response = await fetch("http://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/register", {
           method: "POST",
           headers: {
             Accept: "application/json",

@@ -50,12 +50,13 @@ function BeaconApplication({ beaconList }) {
       <h3 className='text-l text-right'>Applicant name Here</h3>
 
       <div className="">
-        <label>Controllers <br /></label>
+        <label>Controllers </label>
         <input
            className='m-1 p-1 border-2 border-teal-100'
+           data-dropdown-toggle="dropdown"
           label="Controllers"
           id={"controlNum"}
-          type={"text"}
+          type={"number"}
           value={controlNum}
           placeholder={"Controllers?"}
           required

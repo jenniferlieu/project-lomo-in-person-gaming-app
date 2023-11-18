@@ -41,19 +41,13 @@ function BeaconCreation({ beaconList }) {
 
   useEffect(() => {
     const laravelEcho = new Echo({
-      broadcaster: "pusher",
+      broadcaster: 'pusher',
       key: process.env.REACT_APP_PUSHER_APP_KEY,
-      wsHost: process.env.REACT_APP_PUSHER_HOST,
-      wsPort: process.env.REACT_APP_PUSHER_PORT,
-      wssPort: process.env.REACT_APP_PUSHER_PORT,
       cluster: process.env.REACT_APP_PUSHER_CLUSTER,
-      forceTLS: false,
-      encrypted: true,
-      disableStats: true,
-      enabledTransports: ["ws", "wss"],
+      forceTLS: true
     });
     console.log(laravelEcho);
-    /*
+    
         // Connect to a public websocket channel
         laravelEcho.channel("new-beacon").listen("BeaconCreated", (e) => {
           // runs every time data ia pushed through the websocket
@@ -64,13 +58,13 @@ function BeaconCreation({ beaconList }) {
         return () => {
           laravelEcho.disconnect();
         };
-        */
+        
   }, []); // Empty dependency array ensures this runs on mount and unmount only
 
   function onClose() {
     let data = {
       // exepected json schema
-      host_id: "9bcf9ede-6da6-49aa-966e-f498603218f4", // required
+      host_id: "d204c816-42b9-4295-acce-b094b4b3aead", // required
       title: name, // required
       game_title: game, // required
       game_system: system, //required
@@ -109,7 +103,7 @@ function BeaconCreation({ beaconList }) {
     // history.push("/");
 
     // define url and headers
-    let url = "http://34.148.52.211/api/beacons";
+    let url = "http://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons";
     let logindata = {
       email: "pikachu@test.com",
       password: "secret1234",

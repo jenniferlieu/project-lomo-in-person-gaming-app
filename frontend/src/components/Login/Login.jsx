@@ -27,7 +27,7 @@ const Login = () => {
       navigate("/");
     } else {
       try {
-        const response = await fetch("http://34.148.52.211/login", {
+        const response = await fetch("http://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/login", {
           method: "POST",
           headers: {
             Accept: "application/json",
