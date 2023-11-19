@@ -42,11 +42,16 @@ jobs:
           php artisan key:generate
           chmod -R 777 storage bootstrap/cache
 
-      - name: Create database tables and entires
+      - name: Create testing schema in database
+        run: psql -h localhost -U postgres -c 'CREATE SCHEMA testing;'
+        env:
+          PGPASSWORD: postgres
+
+      - name: Create database tables
         run: php artisan migrate --env=testing
 
       - name: Execute tests
-        run: php artisan test --testsuite=Feature --env=testing
+        run: php artisan test --testsuite=Feature
 
   Backend-Server-Health-Test:
     runs-on: ubuntu-latest
@@ -72,4 +77,4 @@ jobs:
           chmod -R 777 storage bootstrap/cache
 
       - name: Execute tests
-        run: php artisan test tests/Unit/ServerTest.php --env=testing
+        run: php artisan test tests/Unit/ServerTest.php
