@@ -45,7 +45,7 @@ jobs:
       - name: Create testing schema in database
         run: psql -h localhost -U postgres -c 'CREATE SCHEMA testing;'
         env:
-          PGPASSWORD: postgres
+          PGPASSWORD: password
 
       - name: Create database tables
         run: php artisan migrate --env=testing
