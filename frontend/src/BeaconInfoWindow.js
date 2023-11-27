@@ -73,7 +73,17 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
                 <p>{address.address}</p>
               </div>
             </div>
-            <div className="flex items-center text-lg mb-2">
+            {(playerInfo.joined || BeaconInfoWindow.defaultProps.playerInfo.joined).map((user, index) => (
+              <div key={index} className="flex items-center text-lg mb-2">
+                <img
+                  src={user.pic}
+                  alt="User Pic"
+                  className="h-9 w-9 mr-4 rounded-full"
+                />
+                <p className="text-[1.2rem]">{user.username}</p>
+              </div>
+            ))}
+            {/* <div className="flex items-center text-lg mb-2">
               <img
                 src="icons/people.png"
                 alt="People Icon"
@@ -97,7 +107,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
                   className="h-3 w-3 ml-3"
                 />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
         <img
@@ -132,7 +142,24 @@ BeaconInfoWindow.defaultProps = {
   userPic: "images/catWut.jpg",
   playerInfo: {
     available: 2,
-    wanted: 4
+    wanted: 4,
+    joined: [
+      {
+        pic: "images/catMonster.jpg",
+        username: "User 1",
+        controllers: 2
+      },
+      {
+        pic: "images/catWut.jpg",
+        username: "User 2",
+        controllers: 0
+      },
+      {
+        pic: "images/catScream.jpg",
+        username: "User 3",
+        controllers: 1
+      }
+    ]
   },
   controllerInfo: {
     available: 1,
