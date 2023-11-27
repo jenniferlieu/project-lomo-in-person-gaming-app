@@ -80,7 +80,17 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
                   alt="User Pic"
                   className="h-9 w-9 mr-4 rounded-full"
                 />
-                <p className="text-[1.2rem]">{user.username}</p>
+                <p className="text-xl">{user.username}</p>
+                {user.controllers > 0 && (
+                  <div className="ml-4 flex items-center">
+                    <img
+                      src="icons/controller.png"
+                      alt="Controllers Icon"
+                      className="h-7 w-7 mx-2"
+                    />
+                    <p className="text-xl">{user.controllers}</p>
+                  </div>
+                )}
               </div>
             ))}
             {/* <div className="flex items-center text-lg mb-2">
