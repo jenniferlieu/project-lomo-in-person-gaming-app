@@ -1,5 +1,8 @@
+import { useAuth } from "../AuthContext.js";
 
 function GetBeaconList() {
+    const { authUser } = useAuth();
+
     // define url and headers
     let url = "http://localhost/api/beacons";
     let logindata = {
@@ -12,8 +15,7 @@ function GetBeaconList() {
         "Content-Type": "application/json",
         Accept: "application/json",
         Authorization: "Bearer " + authUser,
-      },
-      body: JSON.stringify(data),
+      }
     };
 
     // make api call
@@ -32,5 +34,6 @@ function GetBeaconList() {
       })
 
       .catch((error) => console.log("error", error));
-    return
 }
+
+export default GetBeaconList;
