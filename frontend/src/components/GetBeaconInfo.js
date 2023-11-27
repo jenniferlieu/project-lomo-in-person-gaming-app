@@ -1,0 +1,4 @@
+
+function GetBeaconList() {
+    return 
+}
