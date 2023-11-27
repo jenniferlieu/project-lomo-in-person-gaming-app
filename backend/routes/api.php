@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeaconController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendeeController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 Route::apiResource('attendees', AttendeeController::class);
 Route::post('attendees', [App\Http\Controllers\AttendeeController::class,'store']);
+
+Route::apiResource('profiles', ProfileController::class);
