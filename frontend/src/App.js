@@ -38,7 +38,24 @@ function App() {
         endTime: "7:00 PM",
         playerInfo: {
           available: 1,
-          wanted: 4
+          wanted: 4,
+          joined: [
+            {
+              pic: "images/catMonster.jpg",
+              username: "amofro",
+              controllers: 2
+            },
+            {
+              pic: "images/catWut.jpg",
+              username: "User 2",
+              controllers: 0
+            },
+            {
+              pic: "images/catScream.jpg",
+              username: "User 3",
+              controllers: 1
+            }
+          ]
         },
         controllerInfo: {
           available: 2,
