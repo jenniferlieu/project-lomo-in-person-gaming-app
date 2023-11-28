@@ -1,5 +1,5 @@
 import React from "react";
-import MapContainer from "./MapContainer.js";
+import MapContainer from "./components/Beacon/MapContainer.js";
 
 const HomePage = ({beaconList}) => {
 

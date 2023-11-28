@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ControllerInfo from "./ControllerInfo.js";
-import CommentSection from "./components/Comments.jsx";
-import BeaconApplication from "./components/BeaconApplication/BeaconApplication.js";
+import CommentSection from "../../Comments.jsx";
+import BeaconApplication from "../../BeaconApplication/BeaconApplication.js";
 import { Link } from 'react-router-dom';
 
 const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console, id }) => {
@@ -73,6 +73,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
                 <p>{address.address}</p>
               </div>
             </div>
+            {/* Joined Users Section */}
             {(playerInfo.joined || BeaconInfoWindow.defaultProps.playerInfo.joined).map((user, index) => (
               <div key={index} className="flex items-center text-lg mb-2">
                 <img
@@ -93,6 +94,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
                 )}
               </div>
             ))}
+            {/* End Joined Users Section */}
             {/* <div className="flex items-center text-lg mb-2">
               <img
                 src="icons/people.png"
