@@ -1,6 +1,6 @@
 import React from 'react';
 import { Circle } from '@react-google-maps/api';
-import BeaconInfoWindow from './BeaconInfoWindow.js';
+import BeaconInfoWindow from './InfoWindow/BeaconInfoWindow.js';
 
 const Beacon = ({ id, activeBeacon, onBeaconClick, beaconInfo, circleLat, circleLng }) => {
   const circle = {
