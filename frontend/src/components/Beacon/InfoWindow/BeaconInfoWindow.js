@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ControllerInfo from "./ControllerInfo.js";
 import CommentSection from "../../Comments.jsx";
 import BeaconApplication from "../../BeaconApplication/BeaconApplication.js";
+import JoinedUsers from "./JoinedUsers.js";
 import { Link } from 'react-router-dom';
 
 const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, gamePic, userPic, onClose, playerInfo, controllerInfo, address, console, id }) => {
@@ -73,28 +74,8 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
                 <p>{address.address}</p>
               </div>
             </div>
-            {/* Joined Users Section */}
-            {(playerInfo.joined || BeaconInfoWindow.defaultProps.playerInfo.joined).map((user, index) => (
-              <div key={index} className="flex items-center text-lg mb-2">
-                <img
-                  src={user.pic}
-                  alt="User Pic"
-                  className="h-9 w-9 mr-4 rounded-full"
-                />
-                <p className="text-xl">{user.username}</p>
-                {user.controllers > 0 && (
-                  <div className="ml-4 flex items-center">
-                    <img
-                      src="icons/controller.png"
-                      alt="Controllers Icon"
-                      className="h-7 w-7 mx-2"
-                    />
-                    <p className="text-xl">{user.controllers}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-            {/* End Joined Users Section */}
+            <JoinedUsers playerInfo={playerInfo} />
+            {/* Old info section, keeping here just in case */}
             {/* <div className="flex items-center text-lg mb-2">
               <img
                 src="icons/people.png"
@@ -120,6 +101,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
                 />
               </button>
             </div> */}
+            {/* End of old info section */}
           </div>
         </div>
         <img
