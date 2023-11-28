@@ -36,7 +36,7 @@ const BeaconInfoWindow = ({ username, startTime, endTime, gameTitle, miscInfo, g
             />
             <h1 className="text-2xl font-bold">{username}</h1>
           </div>
-          <div className="ml-4">
+          <div className="mx-4">
             <h2 className="text-xl border-b border-solid border-gray-400 w-[95%] font-semibold">Game</h2>
             <div className="flex justify-between">
               <div>
