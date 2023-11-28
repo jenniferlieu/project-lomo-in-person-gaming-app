@@ -4,11 +4,17 @@ const JoinedUsers = ({ playerInfo }) => {
   const picClass = "h-12 w-12 rounded-full";
 
   const renderLayout = () => {
+    const placeholders = Array(playerInfo.wanted - playerInfo.joined.length).fill({
+        pic: "icons/question.jpg",
+        username: "",
+        controllers: 0,
+      });
+      const users = [...playerInfo.joined, ...placeholders];
     switch (playerInfo.wanted) {
       case 2:
         return (
           <div className="flex flex-row justify-between items-start ml-16 mr-20">
-            {(playerInfo.joined || this.defaultProps.playerInfo.joined).map(
+            {users.map(
               (user, index) => (
                 <div
                   key={index}
@@ -34,7 +40,7 @@ const JoinedUsers = ({ playerInfo }) => {
       case 3:
         return (
           <div className="flex flex-row justify-between items-start mr-4">
-            {(playerInfo.joined || this.defaultProps.playerInfo.joined).map(
+            {users.map(
               (user, index) => (
                 <div
                   key={index}
@@ -60,7 +66,7 @@ const JoinedUsers = ({ playerInfo }) => {
       case 4:
         return (
           <div className="grid grid-cols-2 gap-2">
-            {(playerInfo.joined || this.defaultProps.playerInfo.joined).map(
+            {users.map(
               (user, index) => (
                 <div
                   key={index}
@@ -87,7 +93,7 @@ const JoinedUsers = ({ playerInfo }) => {
         return (
           <div className="grid grid-rows-2 gap-4">
             <div className="flex flex-row justify-between items-start mr-4">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
+              {users
                 .slice(0, 3)
                 .map((user, index) => (
                   <div
@@ -110,7 +116,7 @@ const JoinedUsers = ({ playerInfo }) => {
                 ))}
             </div>
             <div className="flex flex-row justify-between items-start ml-16 mr-20">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
+              {users
                 .slice(3, 5)
                 .map((user, index) => (
                   <div
@@ -138,7 +144,7 @@ const JoinedUsers = ({ playerInfo }) => {
         return (
           <div className="grid grid-rows-2 gap-4">
             <div className="flex flex-row justify-between items-start mr-4">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
+              {users
                 .slice(0, 3)
                 .map((user, index) => (
                   <div
@@ -161,7 +167,7 @@ const JoinedUsers = ({ playerInfo }) => {
                 ))}
             </div>
             <div className="flex flex-row justify-between items-start mr-4">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
+              {users
                 .slice(3, 6)
                 .map((user, index) => (
                   <div
@@ -189,7 +195,7 @@ const JoinedUsers = ({ playerInfo }) => {
         return (
           <div className="grid grid-rows-3 gap-4">
             <div className="flex flex-row justify-between items-start ml-16 mr-20">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
+              {users
                 .slice(0, 2)
                 .map((user, index) => (
                   <div
@@ -212,7 +218,7 @@ const JoinedUsers = ({ playerInfo }) => {
                 ))}
             </div>
             <div className="flex flex-row justify-between items-start mr-4">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
+              {users
                 .slice(2, 5)
                 .map((user, index) => (
                   <div
@@ -235,7 +241,7 @@ const JoinedUsers = ({ playerInfo }) => {
                 ))}
             </div>
             <div className="flex flex-row justify-between items-start ml-16 mr-20">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
+              {users
                 .slice(5, 7)
                 .map((user, index) => (
                   <div
@@ -263,7 +269,7 @@ const JoinedUsers = ({ playerInfo }) => {
         return (
           <div className="grid grid-rows-3 gap-4">
             <div className="flex flex-row justify-between items-start mr-4">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
+              {users
                 .slice(0, 3)
                 .map((user, index) => (
                   <div
@@ -286,7 +292,7 @@ const JoinedUsers = ({ playerInfo }) => {
                 ))}
             </div>
             <div className="flex flex-row justify-between items-start ml-16 mr-20">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
+              {users
                 .slice(3, 5)
                 .map((user, index) => (
                   <div
@@ -309,7 +315,7 @@ const JoinedUsers = ({ playerInfo }) => {
                 ))}
             </div>
             <div className="flex flex-row justify-between items-start mr-4">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
+              {users
                 .slice(5, 8)
                 .map((user, index) => (
                   <div
@@ -337,80 +343,74 @@ const JoinedUsers = ({ playerInfo }) => {
         return (
           <div className="grid grid-rows-3 gap-4">
             <div className="flex flex-row justify-between items-start mr-4">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
-                .slice(0, 3)
-                .map((user, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center text-lg mb-2"
-                  >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
-                    <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
-                      <div className="flex items-center">
-                        <img
-                          src="icons/controller.png"
-                          alt="Controllers Icon"
-                          className="h-7 w-7 mx-2"
-                        />
-                        <p className="text-xl">{user.controllers}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
+              {users.slice(0, 3).map((user, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col items-center text-lg mb-2"
+                >
+                  <img src={user.pic} alt="User Pic" className={picClass} />
+                  <p className="text-xl">{user.username}</p>
+                  {user.controllers > 0 && (
+                    <div className="flex items-center">
+                      <img
+                        src="icons/controller.png"
+                        alt="Controllers Icon"
+                        className="h-7 w-7 mx-2"
+                      />
+                      <p className="text-xl">{user.controllers}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
             <div className="flex flex-row justify-between items-start mr-4">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
-                .slice(3, 6)
-                .map((user, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center text-lg mb-2"
-                  >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
-                    <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
-                      <div className="flex items-center">
-                        <img
-                          src="icons/controller.png"
-                          alt="Controllers Icon"
-                          className="h-7 w-7 mx-2"
-                        />
-                        <p className="text-xl">{user.controllers}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
+              {users.slice(3, 6).map((user, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col items-center text-lg mb-2"
+                >
+                  <img src={user.pic} alt="User Pic" className={picClass} />
+                  <p className="text-xl">{user.username}</p>
+                  {user.controllers > 0 && (
+                    <div className="flex items-center">
+                      <img
+                        src="icons/controller.png"
+                        alt="Controllers Icon"
+                        className="h-7 w-7 mx-2"
+                      />
+                      <p className="text-xl">{user.controllers}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
             <div className="flex flex-row justify-between items-start mr-4">
-              {(playerInfo.joined || this.defaultProps.playerInfo.joined)
-                .slice(6, 9)
-                .map((user, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center text-lg mb-2"
-                  >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
-                    <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
-                      <div className="flex items-center">
-                        <img
-                          src="icons/controller.png"
-                          alt="Controllers Icon"
-                          className="h-7 w-7 mx-2"
-                        />
-                        <p className="text-xl">{user.controllers}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
+              {users.slice(6, 9).map((user, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col items-center text-lg mb-2"
+                >
+                  <img src={user.pic} alt="User Pic" className={picClass} />
+                  <p className="text-xl">{user.username}</p>
+                  {user.controllers > 0 && (
+                    <div className="flex items-center">
+                      <img
+                        src="icons/controller.png"
+                        alt="Controllers Icon"
+                        className="h-7 w-7 mx-2"
+                      />
+                      <p className="text-xl">{user.controllers}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         );
       default:
         return (
           <>
-            {(playerInfo.joined || this.defaultProps.playerInfo.joined).map(
+            {users.map(
               (user, index) => (
                 <div key={index} className="flex items-center text-lg mb-2">
                   <img
