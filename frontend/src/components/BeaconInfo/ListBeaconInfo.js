@@ -3,16 +3,20 @@ import GetBeaconInfo from './GetBeaconInfo.js';
 
 function ListView() {
     const beaconList = GetBeaconInfo();
+    console.log(beaconList);
 
     return (
       <div>
-        {/* Use beaconList data in your component */}
-        {beaconList.map(beacon => (
-          <div key={beacon.id}>
-            {/* Render beacon information */}
-            <p>{beacon.name}</p>
-          </div>
-        ))}
+        <h1 className='text-center text-xl'>Active Beacons</h1>
+        {beaconList.map((beacon) => 
+            <div key={beacon.id} className='w-full m-2 m-auto p-2'>
+                <h3>{beacon.title}</h3>
+                <p>{beacon.description}</p>
+                <div className='flex'>
+                    <p>Console: {beacon.console}</p>
+                </div>
+            </div>
+        )}
       </div>
     );
   }
