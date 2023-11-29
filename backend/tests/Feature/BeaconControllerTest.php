@@ -46,6 +46,7 @@ class BeaconControllerTest extends TestCase
      */
     public function test_post_beacon_request_returns_successful_response(): void
     {
+        Event::fake([BeaconCreated::class]);
         // create a mock beacon
         $response = $this->postJson('/api/beacons', $this->beacon->toArray());
 
