@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeaconController;
 use App\Http\Controllers\UserController;
@@ -17,9 +16,6 @@ use App\Http\Controllers\UserController;
 */
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('hello', function() {
-        return response()->json(['message' => 'hello world']);
-    });
     Route::apiResource('beacons', BeaconController::class);
     Route::apiResource('users', UserController::class)->except('store');
 });
