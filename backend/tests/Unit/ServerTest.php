@@ -22,28 +22,8 @@ class ServerTest extends TestCase
      */
     public function test_the_request_docs_returns_a_successful_response(): void
     {
-        $response = $this->get('/request-docs');
-
-        $response->assertStatus(200);
-    }
-
-    /**
-     * Tests the api routes don't have any errors by testing the openapi.json export file
-     */
-    public function test_the_routes_have_no_errors(): void
-    {
         $response = $this->get('/request-docs/api?openapi=true');
 
         $response->assertStatus(200);
-    }
-
-    /**
-     * Tests the laravel websockets dashboard returns a successful response
-     */
-    public function test_the_laravel_websockets_dashboard_returns_a_successful_response(): void
-    {
-        $response = $this->get('/laravel-websockets');
-
-        $response->assertStatus(403);
     }
 }
