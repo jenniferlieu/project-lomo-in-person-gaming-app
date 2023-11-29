@@ -48,4 +48,9 @@ class ProfileController extends Controller
     {
         //todo
     }
+
+    public function store(string $id)
+    {
+        //todo
+    }
 }
