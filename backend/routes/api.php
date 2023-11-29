@@ -24,8 +24,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::apiResource('beacons', BeaconController::class);
     Route::apiResource('users', UserController::class)->except('store');
+    Route::delete('beacons', 'BeaconController@delete');
 });
 Route::apiResource('attendees', AttendeeController::class);
 Route::post('attendees', [App\Http\Controllers\AttendeeController::class,'store']);
 
 Route::apiResource('profiles', ProfileController::class);
+
