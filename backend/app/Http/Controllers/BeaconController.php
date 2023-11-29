@@ -82,8 +82,17 @@ class BeaconController extends Controller
     /**
      * Remove the specified Beacon from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $beacon_id)
     {
-        //
+        $beacon = Beacon::find($beacon_id);
+        
+        if (!$beacon) {
+            return response()-json(['error' => 'Beacon not found'],400);
+        }
+        if($beacon->delete()) {
+            return response() ->json(['message' => 'Beacon deleted successfully'], 200);
+        } else {
+            return response()->json(['error' => 'Failed to delete beacon'],500);
+        }
     }
 }

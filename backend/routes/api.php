@@ -20,7 +20,8 @@ use App\Http\Controllers\ProfileController;
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('beacons', BeaconController::class);
     Route::apiResource('users', UserController::class)->except('store');
-    Route::get('games', [GameController::class, 'getGame']);
+    Route::delete('beacons', 'BeaconController@delete');
 });
 
 Route::apiResource('profiles', ProfileController::class);
+
