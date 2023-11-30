@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 //import {laravelEcho} from "../laravelEcho/laravelEcho.js";
 import { useEffect } from "react";
 import Echo from "laravel-echo"; // eslint-disable-next-line
-import Pusher from 'pusher-js';
+import Pusher from "pusher-js";
 
 function BeaconCreation({ beaconList }) {
   const [name, setState] = useState("");
@@ -70,7 +70,7 @@ function BeaconCreation({ beaconList }) {
   function onClose() {
     let data = {
       // exepected json schema
-      host_id: "09963d41-b3c7-4972-90ad-d2ae8b2f82c1", // required
+      host_id: "9bcf9ede-6da6-49aa-966e-f498603218f4", // required
       title: name, // required
       game_title: game, // required
       game_system: system, //required
@@ -148,7 +148,7 @@ function BeaconCreation({ beaconList }) {
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
           <label htmlFor={"input"}>Beacon Name</label>
           <input
-            className='m-1 p-1 border-2 border-teal-100'
+            className="m-1 p-1 border-2 border-teal-100"
             id={"BeaconName"}
             type={"text"}
             value={name}
@@ -162,7 +162,7 @@ function BeaconCreation({ beaconList }) {
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
           <label htmlFor={"input2"}>Game Title</label>
           <input
-            className='m-1 p-1 border-2 border-teal-100'
+            className="m-1 p-1 border-2 border-teal-100"
             id={"BeaconGame"}
             type={"text"}
             value={game}
@@ -178,7 +178,7 @@ function BeaconCreation({ beaconList }) {
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
           <label htmlFor={"input3"}>No. of players</label>
           <input
-            className='m-1 p-1 border-2 border-teal-100'
+            className="m-1 p-1 border-2 border-teal-100"
             id={"Players"}
             type={"text"}
             value={players}
@@ -192,7 +192,7 @@ function BeaconCreation({ beaconList }) {
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
           <label htmlFor={"input4"}>Game System</label>
           <input
-            className='m-1 p-1 border-2 border-teal-100'
+            className="m-1 p-1 border-2 border-teal-100"
             id={"BeaconSystem"}
             type={"text"}
             value={system}
@@ -208,7 +208,7 @@ function BeaconCreation({ beaconList }) {
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
           <label htmlFor={"input5"}>Location</label>
           <input
-            className='m-1 p-1 border-2 border-teal-100 min-w-full'
+            className="m-1 p-1 border-2 border-teal-100 min-w-full"
             id={"Location"}
             type={"text"}
             value={location}
@@ -224,7 +224,7 @@ function BeaconCreation({ beaconList }) {
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
           <label htmlFor={"input6"}>Misc. Info</label>
           <input
-            className='m-1 p-1 border-2 border-teal-100 w-full'
+            className="m-1 p-1 border-2 border-teal-100 w-full"
             id={"MiscInfo"}
             type={"text"}
             value={misc}
@@ -236,7 +236,7 @@ function BeaconCreation({ beaconList }) {
           />
         </td>
       </tr>
-      <div className=' flex flex-row space-x-20 justify-center my-3'>
+      <div className=" flex flex-row space-x-20 justify-center my-3">
         <div>
           <LocalizationProvider dateAdapter={AdapterDayjs} className="p-20">
             <DateTimePicker
@@ -256,7 +256,7 @@ function BeaconCreation({ beaconList }) {
           </LocalizationProvider>
         </div>
       </div>
-      <div className='flex flex-row space-x-2 mt-3 justify-center'>
+      <div className="flex flex-row space-x-2 mt-3 justify-center">
         <button
           className="font-bold relative bg-teal-500 py-1 px-1 rounded float-right"
           onClick={onClose}
