@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// make controller input a dropdown?
+
 
 function BeaconApplication({ beaconList }) {
   const [controlNum, setController] = useState("");
@@ -47,10 +47,10 @@ function BeaconApplication({ beaconList }) {
     >
       <h1 className="text-2xl text-center">Beacon Name Here</h1>
       <h2 className='text-xl text-left'>Host Name Here</h2>
-      <h3 className='text-l text-right'>Applicant name Here</h3>
+      <h3 className='text-l text-left'>Applicant name Here</h3>
 
       <div className="">
-        <label>Controllers </label>
+        <label><br/>Controllers <br/></label>
         <input
            className='m-1 p-1 border-2 border-teal-100'
            data-dropdown-toggle="dropdown"
@@ -67,11 +67,11 @@ function BeaconApplication({ beaconList }) {
         <label><br />Heads Up to Host<br /></label>
         <input
           className='m-1 p-1 border-2 border-teal-100'
-          label="Heads Up to Host"
+          label="Heads Up Host"
           id={"extraNotes"}
           type={"text"}
           value={extraNotes}
-          placeholder={"Anything you want to tell the host?"}
+          placeholder={"Notes to Host"}
           required
           onChange={(event) => {
             setNotes(event.target.value);
@@ -97,7 +97,7 @@ function BeaconApplication({ beaconList }) {
         <Link to="/">
           <button
             className="font-bold relative bg-red-500 text-black py-1 px-1 rounded float-right"
-            onClick={clearForm}
+            onClick={onclose}
           >
             Close
           </button>

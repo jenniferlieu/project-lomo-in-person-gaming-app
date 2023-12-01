@@ -64,7 +64,7 @@ function BeaconCreation({ beaconList }) {
   function onClose() {
     let data = {
       // exepected json schema
-      host_id: "d204c816-42b9-4295-acce-b094b4b3aead", // required
+      host_id: "6ae59aa7-258e-414b-b833-11c1fca69d7a", // required
       title: name, // required
       game_title: game, // required
       game_system: system, //required
@@ -103,7 +103,7 @@ function BeaconCreation({ beaconList }) {
     // history.push("/");
 
     // define url and headers
-    let url = "http://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons";
+    let url = "https://localhost/api/beacons";
     let logindata = {
       email: "pikachu@test.com",
       password: "secret1234",
@@ -137,12 +137,12 @@ function BeaconCreation({ beaconList }) {
   }
 
   return (
-    <div class="bg-white rounded-lg w-full md:w-1/2 flex-col items-center justify-center m-auto shadow-lg p-3 h-auto">
+    <div class="bg-white rounded-lg w-full md:w-1/2 flex-col items-center justify-center m-auto shadow-lg p-4 h-auto">
       <tr>
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
-          <label htmlFor={"input"}>Beacon Name</label>
+          <label htmlFor={"input"}><br/>Beacon Name<br/></label>
           <input
-            className="m-1 p-1 border-2 border-teal-100"
+            className="m-auto p-1 border-2 border-teal-100"
             id={"BeaconName"}
             type={"text"}
             value={name}
@@ -154,9 +154,9 @@ function BeaconCreation({ beaconList }) {
           />
         </td>
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
-          <label htmlFor={"input2"}>Game Title</label>
+          <label htmlFor={"input2"}><br/>Game Title<br/></label>
           <input
-            className="m-1 p-1 border-2 border-teal-100"
+            className="m-auto p-1 border-2 border-teal-100"
             id={"BeaconGame"}
             type={"text"}
             value={game}
@@ -170,11 +170,12 @@ function BeaconCreation({ beaconList }) {
       </tr>
       <tr>
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
-          <label htmlFor={"input3"}>No. of players</label>
+          <label htmlFor={"input3"}> <br/>No. of players<br/></label>
           <input
-            className="m-1 p-1 border-2 border-teal-100"
+            className="m-auto p-1 border-2 border-teal-100"
             id={"Players"}
-            type={"text"}
+            type={"number"}
+            min={2}
             value={players}
             placeholder={"How many Players?"}
             required
@@ -184,9 +185,9 @@ function BeaconCreation({ beaconList }) {
           />
         </td>
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
-          <label htmlFor={"input4"}>Game System</label>
+          <label htmlFor={"input4"}> <br/>Game System<br/></label>
           <input
-            className="m-1 p-1 border-2 border-teal-100"
+            className="m-auto p-1 border-2 border-teal-100"
             id={"BeaconSystem"}
             type={"text"}
             value={system}
@@ -202,7 +203,7 @@ function BeaconCreation({ beaconList }) {
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
           <label htmlFor={"input5"}>Location</label>
           <input
-            className="m-1 p-1 border-2 border-teal-100 min-w-full"
+            className="m-auto p-1 border-2 border-teal-100 min-w-full"
             id={"Location"}
             type={"text"}
             value={location}
@@ -218,7 +219,7 @@ function BeaconCreation({ beaconList }) {
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
           <label htmlFor={"input6"}>Misc. Info</label>
           <input
-            className="m-1 p-1 border-2 border-teal-100 w-full"
+            className="m-auto p-1 border-2 border-teal-100 w-full"
             id={"MiscInfo"}
             type={"text"}
             value={misc}
@@ -230,9 +231,9 @@ function BeaconCreation({ beaconList }) {
           />
         </td>
       </tr>
-      <div className=" flex flex-row space-x-20 justify-center my-3">
+      <div className=" flex flex-row space-x-10 justify-left  my-3">
         <div>
-          <LocalizationProvider dateAdapter={AdapterDayjs} className="p-20">
+          <LocalizationProvider dateAdapter={AdapterDayjs} className="p-10">
             <DateTimePicker
               label="From: "
               value={timeFrom}
@@ -241,7 +242,7 @@ function BeaconCreation({ beaconList }) {
           </LocalizationProvider>
         </div>
         <div>
-          <LocalizationProvider dateAdapter={AdapterDayjs} className="p-20">
+          <LocalizationProvider dateAdapter={AdapterDayjs} className="p-10">
             <DateTimePicker
               label="To: "
               value={timeTo}
@@ -251,23 +252,25 @@ function BeaconCreation({ beaconList }) {
         </div>
       </div>
       <div className="flex flex-row space-x-2 mt-3 justify-center">
-        <button
-          className="font-bold relative bg-teal-500 py-1 px-1 rounded float-right"
-          onClick={onClose}
-        >
-          Confirm
-        </button>
+        
+        <Link to="/">
+          <button className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right">
+            Close
+          </button>
+        </Link>
+        
         <button
           className="font-bold relative bg-red-500 py-1 px-1 rounded float-right"
           onClick={clearForm}
         >
           Clear
         </button>
-        <Link to="/">
-          <button className="font-bold relative bg-blue-400 py-1 px-1 rounded float-right">
-            Close
-          </button>
-        </Link>
+        <button
+          className="font-bold relative bg-teal-500 py-1 px-1 rounded float-right"
+          onClick={onClose}
+        >
+          Confirm
+        </button>
         <div
           className="font-bold relative py-1 px-1 rounded float-right"
           id="displayArea"
