@@ -9,7 +9,10 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        //todo
+        // Retrieve all profiles from the database
+        $profiles = Profile::all();
+        // Return the profiles in a JSON response
+        return response()->json(['data' => $profiles], 200);
     }
 
     public function show($userId)
@@ -44,13 +47,31 @@ class ProfileController extends Controller
         return response()->json(['message' => 'Profile updated successfully', 'data' => $profile], 200);
     }
 
-    public function destroy(string $id)
+    public function destroy($userId)
     {
-        //todo
+        // Find the profile by user ID
+        $profile = Profile::find($userId);
+            // return an error response if not found
+            if (!$profile) {
+                return response()->json(['error' => 'Profile not found'], 404);
+            }
+        $profile->delete();
+        // show successful message
+        return response()->json(['message' => 'Profile deleted successfully'], 200);
     }
 
-    public function store(string $id)
+    public function store(Request $request)
     {
-        //todo
+        // Validate the request data
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer',
+            'about_me' => 'string|nullable',
+            'preferred_games' => 'array|nullable',
+            'preference_tags' => 'array|nullable',
+        ]);
+        // Create a new profile with the validated data
+        $profile = Profile::create($validatedData);
+        // Return a success message and the profile data
+        return response()->json(['message' => 'Profile created successfully', 'data' => $profile], 201);
     }
 }
