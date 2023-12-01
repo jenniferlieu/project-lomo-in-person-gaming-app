@@ -47,9 +47,12 @@ class ProfileController extends Controller
         return response()->json(['message' => 'Profile updated successfully', 'data' => $profile], 200);
     }
 
-    public function destroy(string $id)
+    public function destroy($userId)
     {
-        //todo
+        // Find the profile by user ID
+        $profile = Profile::find($userId);
+        $profile->delete();
+        return response()->json(['message' => 'Profile deleted successfully'], 200);
     }
 
     public function store(string $id)
