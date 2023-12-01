@@ -5,11 +5,6 @@ sidebar_position: 1
 
 LOMO is a full-stack, mobile-first web app using **ReactJS and Tailwind CSS** for the frontend, **Laravel Sail** (dockerized version of Laravel) as the API backend, **PostgreSQL** as the database, and **Docusaurus** as the documentation site hosted on **GitHub Pages**.
 
-- The purpose of the frontend is to create a user interface for the app. 
-- The purpose of the backend is to be the app's API and move data between the frontend and database. 
-- The purpose of the database is to the persist data. 
-- The purpose of docker is to containzer the backend so that everyone is developing in the same environment as the production environment (in theory).
-
 [Setup Instructions](/#setup-instructions) are on the main page of Docusaurus. [Run instructions](/#run) are also on the main page of the Docusaurus.
 
 Below are links to project boards, resources, official documentation, and tutorials.
@@ -42,6 +37,15 @@ Below are links to project boards, resources, official documentation, and tutori
 - **Docusuarus**
   - [Official docusaurus quick start guide](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/quick-start-docusaurus)
 
+## Documentation for Packages Used
+- [Laravel Twitch](https://github.com/romanzipp/Laravel-Twitch) - Twitch API wrapper for Laravel to make API calls easier
+- [Twitch Games API](https://dev.twitch.tv/docs/api/reference#get-games) - Twitch API
+- [Laravel Request Docs](https://github.com/rakutentech/laravel-request-docs) - Automatically generates an interactive API documentation website
+- [Laravel Magellan](https://github.com/clickbar/laravel-magellan) - Adds Postgres functionality for geospatial data
+- [Laravel Echo WebSocket](https://laravel.com/docs/10.x/broadcasting#receiving-broadcasts) - Laravel's frontend WebSocket library and wrapper for Pusher
+- [Pusher WebSocket](https://pusher.com/docs/channels/using_channels/client-api-overview/?ref=docs-index) - Pusher's frontend WebSocket documentation - Laravel Echo uses Pusher behind the scenes, so if you want to do more advanced stuff with the WebSocket client in the frontend, check out this documentation
+- [Zustand](https://github.com/pmndrs/zustand) - Lightweight state management library for React
+
 ## More Resources
 ### ReactJS
 - [Official React documentation](https://react.dev/)
@@ -65,9 +69,11 @@ Keep in mind that the some of the Laravel official documentation are written for
 - [Laravel Model doc](https://laravel.com/docs/10.x/eloquent)
 - [Laravel WebSocket doc](https://laravel.com/docs/10.x/broadcasting)
   - [Laravel Event and Event Listener docs](https://laravel.com/docs/10.x/events)
+  - [YouTube - How to create WebSocket channels](https://www.youtube.com/watch?v=NMstI0hghnE)
 - [Laravel Sanctum docs to authenticate API routes](https://laravel.com/docs/10.x/sanctum)
 - [Laravel Testing docs](https://laravel.com/docs/10.x/testing)
 - [Laravel Sail docs](https://laravel.com/docs/10.x/sail)
+- [Blog Guide - Rate Limiting](https://medium.com/@antoine.lame/using-the-rate-limiter-in-laravel-dab58a5040bc)
 
 ### MongoDB
 - [Official MongoDB documentation](https://www.mongodb.com/docs/)
