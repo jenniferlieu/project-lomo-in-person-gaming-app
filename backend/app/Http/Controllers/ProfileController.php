@@ -60,8 +60,18 @@ class ProfileController extends Controller
         return response()->json(['message' => 'Profile deleted successfully'], 200);
     }
 
-    public function store(string $id)
+    public function store(Request $request)
     {
-        //todo
+        // Validate the request data
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer',
+            'about_me' => 'string|nullable',
+            'preferred_games' => 'array|nullable',
+            'preference_tags' => 'array|nullable',
+        ]);
+        // Create a new profile with the validated data
+        $profile = Profile::create($validatedData);
+        // Return a success message and the profile data
+        return response()->json(['message' => 'Profile created successfully', 'data' => $profile], 201);
     }
 }
