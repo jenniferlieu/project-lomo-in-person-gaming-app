@@ -9,7 +9,10 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        //todo
+        // Retrieve all profiles from the database
+        $profiles = Profile::all();
+        // Return the profiles in a JSON response
+        return response()->json(['data' => $profiles], 200);
     }
 
     public function show($userId)
