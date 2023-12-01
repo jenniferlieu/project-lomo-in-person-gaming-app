@@ -77,7 +77,7 @@ function App() {
             <Routes>
               <Route path='/login' element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
               <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
-              <Route path='/beaconlist' element={isLoggedIn ? <ListView /> : <Navigate to='/login' />} />
+              <Route path='/beaconlist' element={isLoggedIn ? <ListView beaconList /> : <Navigate to='/login' />} />
               <Route path='/createbeacon' element={isLoggedIn ? <BeaconCreation beaconList={beaconList} /> : <Navigate to='/login' />} />
               <Route path='/joinbeacon' element={isLoggedIn ? <BeaconApplication beaconList={beaconList} /> : <Navigate to='/login' />} />
               <Route path='/' element={isLoggedIn ? <HomePage beaconList={beaconList} googleMapsApiKey={apiKey}/> : <Navigate to='/login' />} />
