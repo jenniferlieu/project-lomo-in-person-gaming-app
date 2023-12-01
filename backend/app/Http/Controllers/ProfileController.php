@@ -51,7 +51,12 @@ class ProfileController extends Controller
     {
         // Find the profile by user ID
         $profile = Profile::find($userId);
+            // return an error response if not found
+            if (!$profile) {
+                return response()->json(['error' => 'Profile not found'], 404);
+            }
         $profile->delete();
+        // show successful message
         return response()->json(['message' => 'Profile deleted successfully'], 200);
     }
 
