@@ -35,8 +35,55 @@ class Profile extends Model
         'preference_tags',
     ];
 
-    protected $casts = [
-        'preferred_games' => 'array',
-        'preference_tags' => 'array',
-    ];
+    public function setPreferredGamesAttribute($value)
+    {
+        // Check if the input value is an array
+        if (is_array($value)) {
+            // Convert the array to a PostgreSQL array format
+            $this->attributes['preferred_games'] = $this->toPostgresArray($value);
+        }
+    }
+    
+    public function setPreferenceTagsAttribute($value)
+    {
+        // Check if the input value is an array
+        if (is_array($value)) {
+            // Convert the array to a PostgreSQL array format
+            $this->attributes['preference_tags'] = $this->toPostgresArray($value);
+        }
+    }
+    
+    public function getPreferredGamesAttribute($value)
+    {
+        // Convert the PostgreSQL array format back to a PHP array
+        return $this->fromPostgresArray($value);
+    }
+    
+    public function getPreferenceTagsAttribute($value)
+    {
+        // Convert the PostgreSQL array format back to a PHP array
+        return $this->fromPostgresArray($value);
+    }
+
+    /**
+     * Convert a PHP array to a PostgreSQL array string.
+     */
+    protected function toPostgresArray($array)
+    {
+        return '{' . implode(',', array_map(function ($value) {
+            return '"' . addslashes($value) . '"';
+        }, $array)) . '}';
+    }
+
+    /**
+     * Convert a PostgreSQL array string to a PHP array.
+     */
+    protected function fromPostgresArray($string)
+    {
+        $string = trim($string, "{}");
+        $array = explode(',', $string);
+        return array_map(function ($value) {
+            return stripslashes(trim($value, "\""));
+        }, $array);
+    }
 }

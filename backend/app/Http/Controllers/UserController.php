@@ -54,7 +54,7 @@ class UserController extends Controller
         $user->fill($validatedData);
 
         // Save the user data
-        if (!$user->save()) {
+        if ($user->save()) {
             return response()->json(['message' => 'User updated successfully', 'data' => $user], 200);
         } else {
             return response()->json(['error' => 'Failed to update user'], 500);
