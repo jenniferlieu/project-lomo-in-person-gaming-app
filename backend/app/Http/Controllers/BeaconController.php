@@ -20,7 +20,7 @@ class BeaconController extends Controller
     public function index()
     {
         // Gets all beacons from the database
-        return response()->json(['beacon' => BeaconJsonResponse::collection(Beacon::all())], 200);
+        return response()->json(['data' => BeaconJsonResponse::collection(Beacon::all())], 200);
     }
 
     /**
@@ -59,7 +59,7 @@ class BeaconController extends Controller
         event(new BeaconCreated($beaconJson));
 
         // Returns data on the new beacon created and a success status code
-        return response()->json(['beacon' => $beaconJson], 201); // 201 Request fulfilled and new resource created
+        return response()->json(['data' => $beaconJson], 201); // 201 Request fulfilled and new resource created
     }
 
     /**
@@ -85,14 +85,14 @@ class BeaconController extends Controller
     public function destroy(string $beacon_id)
     {
         $beacon = Beacon::find($beacon_id);
-        
+
         if (!$beacon) {
-            return response()-json(['error' => 'Beacon not found'],400);
+            return response()->json(['error' => 'Beacon not found'], 400);
         }
-        if($beacon->delete()) {
-            return response() ->json(['message' => 'Beacon deleted successfully'], 200);
+        if ($beacon->delete()) {
+            return response()->json(['message' => 'Beacon deleted successfully'], 200);
         } else {
-            return response()->json(['error' => 'Failed to delete beacon'],500);
+            return response()->json(['error' => 'Failed to delete beacon'], 500);
         }
     }
 }
