@@ -46,12 +46,10 @@ const MapContainer = ({ beaconList }) => {
         {beaconList.map((beacon, index) => (
           <Beacon
             key={index}
-            id={index}
+            id={beacon.id}
             activeBeacon={activeBeacon}
             onBeaconClick={handleBeaconClick}
-            circleLat={beacon.circleLat}
-            circleLng={beacon.circleLng}
-            beaconInfo={beacon.beaconInfo}
+            beacon={beacon}
           />
         ))}
       </GoogleMap>
