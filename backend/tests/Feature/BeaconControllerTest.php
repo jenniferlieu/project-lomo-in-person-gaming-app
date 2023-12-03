@@ -5,10 +5,14 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
+use romanzipp\Twitch\Facades\Twitch;
+use romanzipp\Twitch\Result;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Beacon;
 use App\Events\BeaconCreated;
+use Mockery;
+use Psr\Http\Message\ResponseInterface;
 
 class BeaconControllerTest extends TestCase
 {
@@ -17,6 +21,7 @@ class BeaconControllerTest extends TestCase
 
     public User $user;
     public Beacon $beacon;
+    public ResponseInterface $mockTwitchResponse;
 
     /**
      * Set up the test environment
@@ -38,6 +43,23 @@ class BeaconControllerTest extends TestCase
         unset($this->beacon['coordinates']); // delete the coordindates field
         $this->beacon['latitude'] = $this->faker->latitude(); // add latitude field
         $this->beacon['longitude'] = $this->faker->longitude(); // add longitude field
+
+        // create mock events
+        Event::fake([BeaconCreated::class]);
+
+        // create mock Twitch response
+        $this->mockTwitchResponse = Mockery::mock(ResponseInterface::class);
+        $this->mockTwitchResponse->shouldReceive('getStatusCode')->andReturn(200);
+        $this->mockTwitchResponse->shouldReceive('getBody')->andReturn(json_encode([
+            'data' => [
+                [
+                    "id" => "33214",
+                    "name" => "Fortnite",
+                    "box_art_url" => "https://static-cdn.jtvnw.net/ttv-boxart/33214-{width}x{height}.jpg",
+                    "igdb_id" => "1905"
+                ],
+            ]
+        ]));
     }
 
     /**
@@ -46,10 +68,10 @@ class BeaconControllerTest extends TestCase
      */
     public function test_post_beacon_request_returns_successful_response(): void
     {
-        Event::fake([BeaconCreated::class]);
-        // create a mock beacon
+        Twitch::shouldReceive('getGames')
+            ->once()
+            ->andReturn(new Result($this->mockTwitchResponse));
         $response = $this->postJson('/api/beacons', $this->beacon->toArray());
-
         $response->assertStatus(201);
     }
 
@@ -81,11 +103,10 @@ class BeaconControllerTest extends TestCase
      */
     public function test_beacon_created_event_dispatched(): void
     {
-
-        Event::fake([BeaconCreated::class]);
-
-        $response = $this->postJson('/api/beacons', $this->beacon->toArray());
-
+        Twitch::shouldReceive('getGames')
+            ->once()
+            ->andReturn(new Result($this->mockTwitchResponse));
+        $this->postJson('/api/beacons', $this->beacon->toArray());
         Event::assertDispatched(BeaconCreated::class);
     }
 }

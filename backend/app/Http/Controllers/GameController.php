@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use romanzipp\Twitch\Twitch;
+
 use Exception;
 use Illuminate\Http\Request;
+use romanzipp\Twitch\Facades\Twitch;
 
 /**
  * Gets game information by game ID or name using Twitch's API.
@@ -22,14 +23,16 @@ class GameController extends Controller
 {
     /**
      * @lrd:start
-     * Gets game name and image url using Twitch's API.
+     * Gets game data using Twitch's API. Returned as an array of objects.
+     * - At least one of these parameters required.
+     * - To retrieve multiple games, separate same parameters with commas.
+     * -
      *
-     * At least one of these parameters required.
+     * - **id** = twitch's game id e.g: ?id=509538,33214
+     * - **name** = title of the game e.g: ?name=animal crossing: new horizons,fortnite
+     * - **igdb_id** = igdb's game id e.g: ?igdb_id=109462,1905
      *
      * For Twitch API documentation: https://dev.twitch.tv/docs/api/reference#get-games
-     * - **id** = twitch's game id e.g: ?id=509538
-     * - **name** = title of the game e.g: ?name=animal crossing: new horizons
-     * - **igdb_id** = igdb's game id e.g: ?igdb_id=109462
      * @lrd:start
      *
      * @LRDparam id string|nullable
@@ -37,17 +40,18 @@ class GameController extends Controller
      * @LRDparam igdb_id string|nullable
      */
     // public function getGameImageURL(?string $id = null, ?string $name = null, ?string $igdb_id = null)
-    public function getGame(Request $request)
+    public function getGames(Request $request)
     {
-        // Create a Twitch instance
-        $twitch = new Twitch;
+        $ids = explode(',', $request->query('name'));
+        $names = explode(',', $request->query('name'));
+        $igdb_ids = explode(',', $request->query('name'));
 
         // Make API call to Twitch to Get game image url
         try {
-            $result = $twitch->getGames([
-                'id' => $request->input('id'),
-                'name' => $request->input('name'),
-                'igdb_id' => $request->input('igdb_id'),
+            $result = Twitch::getGames([
+                'id' => $ids,
+                'name' => $names,
+                'igdb_id' => $igdb_ids,
             ]);
         } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
@@ -59,14 +63,19 @@ class GameController extends Controller
         }
 
         // Shift result to get the first (and only) game data in array
-        $gameData = $result->shift();
+        $gameData = (array) $result->data();
+        if (!$gameData) {
+            return response()->json(['error' => 'Empty data. No such game exists.']);
+        }
 
-        // Get the full sized image url
-        // remove the optional width and height substring in image url
-        $gameImageURLFull = str_replace("-{width}x{height}", "", $gameData->box_art_url);
-        $gameData->box_art_url_full = $gameImageURLFull;
+        // Add full-sized image url
+        $gameData = json_decode(json_encode($gameData), true); // convert stdClass object to array
+        for ($i = 0; $i < count($gameData); $i++) {
+            if (array_key_exists('box_art_url', $gameData[$i])) {
+                $gameData[$i]['box_art_url_full'] = str_replace('-{width}x{height}', '', $gameData[$i]['box_art_url']);
+            }
+        }
 
-        // Return game image url
         return response()->json(['data' => $gameData]);
     }
 }
