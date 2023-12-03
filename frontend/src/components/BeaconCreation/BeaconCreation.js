@@ -70,7 +70,7 @@ function BeaconCreation({ beaconList }) {
   function onClose() {
     let data = {
       // exepected json schema
-      host_id: "9bcf9ede-6da6-49aa-966e-f498603218f4", // required
+      host_id: process.env.REACT_APP_HOST_ID, // required
       title: name, // required
       game_title: game, // required
       game_system: system, //required
@@ -109,7 +109,8 @@ function BeaconCreation({ beaconList }) {
     // history.push("/");
 
     // define url and headers
-    let url = "http://34.148.52.211/api/beacons";
+    let url =
+      "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons";
     let logindata = {
       email: "pikachu@test.com",
       password: "secret1234",

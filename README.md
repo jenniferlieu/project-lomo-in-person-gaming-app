@@ -4,7 +4,7 @@
 # LOMO In Person Gaming App
 [![Report Issue on Jira](https://img.shields.io/badge/Report%20Issues-Jira-0052CC?style=flat&logo=jira-software)](https://temple-cis-projects-in-cs.atlassian.net/jira/software/c/projects/LM/issues)
 [![Deploy Docs](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml/badge.svg)](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml)
-![Deploy Vercel](https://img.shields.io/github/deployments/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/production?logo=vercel&label=vercel)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f2ed186c-f3f0-4d94-aa1d-c1a935d61d7f/deploy-status)](https://app.netlify.com/sites/lomogaming/deploys)
 
 [![Documentation Website Link](https://img.shields.io/badge/-Documentation%20Website-brightgreen)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/)
 
