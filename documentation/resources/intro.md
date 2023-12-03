@@ -3,8 +3,6 @@ sidebar_position: 1
 ---
 # Introduction
 
-LOMO is a full-stack, mobile-first web app using **ReactJS and Tailwind CSS** for the frontend, **Laravel Sail** (dockerized version of Laravel) as the API backend, **PostgreSQL** as the database, and **Docusaurus** as the documentation site hosted on **GitHub Pages**.
-
 [Setup Instructions](/#setup-instructions) are on the main page of Docusaurus. [Run instructions](/#run) are also on the main page of the Docusaurus.
 
 Below are links to project boards, resources, official documentation, and tutorials.

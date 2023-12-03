@@ -23,16 +23,17 @@ class BeaconPostRequest extends FormRequest
     {
         return [
             'host_id' => 'string',
-            'title' => 'required|string',
             'game_title' => 'required|string',
-            'game_system' => 'required|string',
+            'console' => 'required|string',
             'description' => 'string',
             'start_date_time' => 'required|date',
             'end_date_time' => 'required|date',
-            'address' => 'required|string',
+            'place_name' => 'required|string',
+            'street_address' => 'required|string',
             'latitude' => 'required|numeric|between:-90,90|decimal:5,20',
             'longitude' => 'required|numeric|between:-180,180|decimal:5,20',
-            'num_players' => 'integer'
+            'players_wanted' => 'integer',
+            'controllers_wanted' => 'integer'
         ];
     }
 }
