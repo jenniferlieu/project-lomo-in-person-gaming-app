@@ -34,7 +34,21 @@ const BeaconInfoWindow = ({
     setShowControllerInfo(!showControllerInfo);
   };
 
-  // const hostInfo = GetUserById({host_id});
+  function formatTime(dateString) {
+    const date = new Date(dateString);
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const strTime = hours + ':' + (minutes < 10 ? '0' + minutes : minutes) + ' ' + ampm;
+    return strTime;
+  }
+  
+  const startTime = formatTime(start_date_time);
+  const endTime = formatTime(end_date_time);
+
+  const hostInfo = GetUserById(host_id);
 
   return (
     <div className="bg-white rounded-lg w-xl max-w-2xl mx-auto shadow-lg my-5 p-2 px-2 relative">
@@ -52,7 +66,7 @@ const BeaconInfoWindow = ({
               alt="Game Pic"
               className="top-0 right-0 h-20 w-20 mr-4"
             />
-            <h1 className="text-2xl font-bold">{host_id}</h1>
+            <h1 className="text-2xl font-bold">{hostInfo.username}</h1>
           </div>
           <div className="mx-4">
             <h2 className="text-xl border-b border-solid border-gray-400 w-[95%] font-semibold">Game</h2>
@@ -82,7 +96,7 @@ const BeaconInfoWindow = ({
                       className="h-6 w-6 mr-2"
                     />
                     <p className="text-xl">
-                      {start_date_time} - {end_date_time}
+                      {startTime} - {endTime}
                     </p>
                   </div>
                 </span>
