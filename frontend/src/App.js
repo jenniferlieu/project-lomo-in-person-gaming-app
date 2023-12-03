@@ -15,6 +15,7 @@ import BeaconApplication from "./components/BeaconApplication/BeaconApplication.
 import BeaconCreation from "./components/BeaconCreation/BeaconCreation.js";
 import NavBar from "./components/NavBar/NavBar.jsx";
 import CommentSection from "./components/Comments.jsx";
+import ListView from './components/BeaconInfo/ListBeaconInfo.js';
 import useEchoStore from "./useEchoStore.js";
 import Echo from "laravel-echo"; // eslint-disable-next-line
 import Pusher from "pusher-js"; // used behind the scenes by the new Echo function
@@ -101,6 +102,23 @@ function App() {
         playerInfo: {
           available: 1,
           wanted: 4,
+          joined: [
+            {
+              pic: "images/catMonster.jpg",
+              username: "amofro",
+              controllers: 2
+            },
+            {
+              pic: "images/catWut.jpg",
+              username: "User 2",
+              controllers: 0
+            },
+            {
+              pic: "images/catScream.jpg",
+              username: "User 3",
+              controllers: 1
+            }
+          ]
         },
         controllerInfo: {
           available: 2,
@@ -141,6 +159,10 @@ function App() {
             <Route
               path="/signup"
               element={isLoggedIn ? <Navigate to="/" /> : <Signup />}
+            />
+            <Route 
+              path='/beaconlist' 
+              element={isLoggedIn ? <ListView /> : <Navigate to='/login' />} 
             />
             <Route
               path="/createbeacon"
