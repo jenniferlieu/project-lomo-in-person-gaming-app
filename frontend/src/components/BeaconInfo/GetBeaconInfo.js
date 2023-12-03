@@ -28,6 +28,7 @@ const GetBeaconInfo = () => {
 
         // Parse the response as JSON and return it
         const data = await response.json();
+        console.log("beacon response status: ", response.status);
         console.log("beacon data retrieved: ", data.data);
         setBeaconList(data.data);
       } catch (error) {
