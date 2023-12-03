@@ -12,6 +12,25 @@ class ProfileControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function testIndexProfile()
+    {
+        // Create multiple users and corresponding profiles
+        $users = User::factory()->count(3)->create();
+        $users->each(function ($user) {
+            Profile::factory()->create(['user_id' => $user->id]);
+        });
+
+        // Send a GET request to get all profiles
+        $response = $this->get('/api/profiles');
+
+        // Assert that the response status is 200 OK
+        $response->assertStatus(200);
+
+        // Assert that the response contains all the created profiles
+        $profiles = Profile::all();
+        $response->assertJson(['data' => $profiles->toArray()]);
+    }
+
     public function testShowProfile()
     {
         // Create a user and the corresponding user profile
