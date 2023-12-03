@@ -26,6 +26,9 @@ return [
         '#^sanctum#',
         '#^_ignition#',
         '#^_tt#',
+        '#^broadcasting#',
+        '#^vapor#',
+        '#^/#'
     ],
 
     'hide_meta_data' => false,
@@ -56,8 +59,8 @@ return [
     // open api config
     // used to generate open api json
     'open_api' => [
-        'title' => 'Laravel Request Docs',
-        'description' => 'Laravel Request Docs',
+        'title' => 'LOMO API Documentation',
+        'description' => 'LOMO API Documentation',
         // default version that this library provides
         'version' => '3.0.0',
         // changeable
@@ -70,7 +73,7 @@ return [
         //ref: https://github.com/OAI/OpenAPI-Specification/pull/2117
         'delete_with_body' => false,
         //exclude http methods that will be excluded from openapi export
-        'exclude_http_methods' => [],
+        'exclude_http_methods' => ['head', 'put'],
         // for now putting default responses for all. This can be changed later based on specific needs
         'responses' => [
             '200' => [
