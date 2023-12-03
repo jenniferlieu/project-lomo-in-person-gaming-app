@@ -2,17 +2,23 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2.10",
-        "beyondcode/laravel-websockets": "^1.14",
         "clickbar/laravel-magellan": "^1.4",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.26.2",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "rakutentech/laravel-request-docs": "^2.25"
+        "laravel/vapor-cli": "^1.60",
+        "laravel/vapor-core": "^2.32",
+        "pusher/pusher-php-server": "^7.2",
+        "rakutentech/laravel-request-docs": "^2.25",
+        "romanzipp/laravel-twitch": "^4.6"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

@@ -9,12 +9,14 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @lrd:start
+     * Get an array of all users
+     * @lrd:end
      */
     public function index()
     {
         // gets all users from the database
-        $user = User::all();
-        return response()->json(['data' => $user], 200);
+        return response()->json(['data' => User::all()], 200);
     }
 
     /**
@@ -29,7 +31,7 @@ class UserController extends Controller
             return response()->json(['error' => 'User not found'], 404);
         }
         // Return only the user information from the users table
-        return response()->json(['data' => ['id' => $user->id,'email' => $user->email,'username' => $user->username]], 200);
+        return response()->json(['data' => ['id' => $user->id, 'email' => $user->email, 'username' => $user->username]], 200);
     }
 
 
@@ -37,7 +39,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {   
+    {
         // Validate the request data
         $validatedData = $request->validate([
             'email' => 'required|email|max:255|unique:users,email,' . $id,
@@ -52,10 +54,10 @@ class UserController extends Controller
         $user->fill($validatedData);
 
         // Save the user data
-        if (!$user->save()) {
-        return response()->json(['message' => 'User updated successfully', 'data' => $user], 200);
+        if ($user->save()) {
+            return response()->json(['message' => 'User updated successfully', 'data' => $user], 200);
         } else {
-        return response()->json(['error' => 'Failed to update user'], 500);
+            return response()->json(['error' => 'Failed to update user'], 500);
         }
     }
 
@@ -71,9 +73,9 @@ class UserController extends Controller
         }
         // Try to delete the user
         if ($user->delete()) {
-        return response()->json(['message' => 'User deleted successfully'], 200);
+            return response()->json(['message' => 'User deleted successfully'], 200);
         } else {
-        return response()->json(['error' => 'Failed to delete user'], 500);
+            return response()->json(['error' => 'Failed to delete user'], 500);
         }
     }
 }
