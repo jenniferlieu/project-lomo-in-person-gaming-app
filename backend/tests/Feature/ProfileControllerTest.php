@@ -48,7 +48,13 @@ class ProfileControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson(['message' => 'Profile updated successfully', 'data' => $updatedData]);
 
+        $dbData = [
+            'about_me' => $updatedData['about_me'],
+            'preferred_games' => '{' . implode(',', $updatedData['preferred_games']) . '}',
+            'preference_tags' => '{' . implode(',', $updatedData['preference_tags']) . '}',
+        ];
+
         // Verify that the user profile in the database has been updated
-        $this->assertDatabaseHas('profiles', $updatedData);
+        $this->assertDatabaseHas('profiles', $dbData);
     }
 }

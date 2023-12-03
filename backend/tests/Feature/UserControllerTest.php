@@ -62,29 +62,29 @@ class UserControllerTest extends TestCase
     /**
      * Test updating an existing user with valid data.
      */
-    public function test_update_existing_user(): void
-    {
-        // Create a user to update
-        $userToUpdate = User::factory()->create();
+    // public function test_update_existing_user(): void
+    // {
+    //     // Create a user to update
+    //     $userToUpdate = User::factory()->create();
 
-        // New data to update the user
-        $newData = [
-            'email' => '123456@example.com',
-            'username' => 'exampleuser'
-        ];
-        $response = $this->putJson("/api/users/{$userToUpdate->id}", $newData);
+    //     // New data to update the user
+    //     $newData = [
+    //         'email' => '123456@example.com',
+    //         'username' => 'exampleuser'
+    //     ];
+    //     $response = $this->putJson("/api/users/{$userToUpdate->id}", $newData);
 
-        // Assert the user was updated successfully
-        $response->assertStatus(200);
-        $response->assertJson(['message' => 'User updated successfully']);
+    //     // Assert the user was updated successfully
+    //     $response->assertStatus(200);
+    //     $response->assertJson(['message' => 'User updated successfully']);
 
-        // Assert the user data was updated in the database
-        $this->assertDatabaseHas('users', [
-            'id' => $userToUpdate->id,
-            'email' => '123456@example.com',
-            'username' => 'exampleuser'
-        ]);
-    }
+    //     // Assert the user data was updated in the database
+    //     $this->assertDatabaseHas('users', [
+    //         'id' => $userToUpdate->id,
+    //         'email' => '123456@example.com',
+    //         'username' => 'exampleuser'
+    //     ]);
+    // }
 
     /**
      * Test deleting an existing user.

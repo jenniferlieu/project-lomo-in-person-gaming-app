@@ -1,23 +1,84 @@
-import React from 'react';
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
-import { LoadScript } from '@react-google-maps/api';
-import './App.css';
-import { useAuth } from './AuthContext.js';
-import Login from './components/Login/Login.jsx';
-import Signup from './components/signup/Signup.jsx';
-import HomePage from './HomePage.js';
-import BeaconApplication from './components/BeaconApplication/BeaconApplication.js';
-import BeaconCreation from './components/BeaconCreation/BeaconCreation.js';
-import NavBar from './components/NavBar/NavBar.jsx';
-import CommentSection from './components/Comments.jsx';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+import { LoadScript } from "@react-google-maps/api";
+import "./App.css";
+import { useAuth } from "./AuthContext.js";
+import Login from "./components/Login/Login.jsx";
+import Signup from "./components/signup/Signup.jsx";
+import HomePage from "./HomePage.js";
+import BeaconApplication from "./components/BeaconApplication/BeaconApplication.js";
+import BeaconCreation from "./components/BeaconCreation/BeaconCreation.js";
+import NavBar from "./components/NavBar/NavBar.jsx";
+import CommentSection from "./components/Comments.jsx";
 import ListView from './components/BeaconInfo/ListBeaconInfo.js';
-// import GetBeaconInfo from './components/BeaconInfo/GetBeaconInfo.js';
-
-
+import useEchoStore from "./useEchoStore.js";
+import Echo from "laravel-echo"; // eslint-disable-next-line
+import Pusher from "pusher-js"; // used behind the scenes by the new Echo function
 
 function App() {
   const { isLoggedIn } = useAuth();
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+  const laravelEcho = useEchoStore((state) => state.laravelEcho);
+  const setLaravelEcho = useEchoStore((state) => state.setLaravelEcho);
+
+  // Connect to WebSocket
+  if (!laravelEcho) {
+    // create a new websocket connection
+    const laravelWebsocket = new Echo({
+      broadcaster: "pusher",
+      key: process.env.REACT_APP_PUSHER_APP_KEY,
+      cluster: process.env.REACT_APP_PUSHER_CLUSTER,
+      forceTLS: true,
+    });
+
+    // store the connection in state manager
+    setLaravelEcho(laravelWebsocket);
+  }
+
+  // Display messages for websocket states
+  // More information about the available states and state lifecycle:
+  // https://pusher.com/docs/channels/using_channels/connection/#connection-states
+  if (laravelEcho) {
+    // Initial state. No event is emitted in this state.
+    laravelEcho.connector.pusher.connection.bind("initalized", () => {
+      console.log("Laravel echo websocket initalized.");
+    });
+
+    // All dependencies have been loaded and Channels is trying to connect.
+    laravelEcho.connector.pusher.connection.bind("connecting", () => {
+      console.log("Laravel echo websocket is connecting.");
+    });
+
+    // The connection to Channels is open and authenticated with your app.
+    laravelEcho.connector.pusher.connection.bind("connected", () => {
+      console.log("Laravel echo websocket connected.");
+    });
+
+    // The Channels connection was previously connected and has now intentionally been closed.
+    laravelEcho.connector.pusher.connection.bind("disconnected", () => {
+      console.log("Laravel echo websocket disconnected.");
+      setLaravelEcho(null);
+    });
+
+    // Channels is not supported by the browser.
+    laravelEcho.connector.pusher.connection.bind("failed", () => {
+      console.log(
+        "Laravel echo websocket failed. Websockets are not supported by this browser."
+      );
+    });
+
+    // The connection is temporarily unavailable.
+    laravelEcho.connector.pusher.connection.bind("unavailable", () => {
+      console.log(
+        "Laravel echo websocket is temporarily unavailable. Please check your internet connection."
+      );
+    });
+  }
 
   const beaconList = [
     {
@@ -32,7 +93,7 @@ function App() {
         console: "Switch",
         address: {
           name: "Howard Gittis Student Center",
-          address: "1755 N 13th St, Philadelphia, PA 19122"
+          address: "1755 N 13th St, Philadelphia, PA 19122",
         },
         gamePic: "images/catScream.jpg",
         userPic: "images/catMonster.jpg",
@@ -66,9 +127,9 @@ function App() {
             "Joycons",
             "Pro Controller",
             "Gamecube Controller",
-            "Idk madcatz or something... I'm wanna sleep"
-          ]
-        }
+            "Idk madcatz or something... I'm wanna sleep",
+          ],
+        },
       },
     },
     {
@@ -80,27 +141,62 @@ function App() {
         gamePic: "images/catWut.jpg",
         userPic: "images/catScream.jpg",
         console: "Xbox Classic",
-        gameTitle: "Halo Classic"
+        gameTitle: "Halo Classic",
       },
     },
   ];
 
-  
   return (
-    <div className='App bg-gradient-to-b from-sky-500 to-teal-600 h-screen'>
-        <Router>
-          <LoadScript googleMapsApiKey={apiKey}>
-            <NavBar />
-            <Routes>
-              <Route path='/login' element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
-              <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
-              <Route path='/beaconlist' element={isLoggedIn ? <ListView /> : <Navigate to='/login' />} />
-              <Route path='/createbeacon' element={isLoggedIn ? <BeaconCreation beaconList={beaconList} /> : <Navigate to='/login' />} />
-              <Route path='/joinbeacon' element={isLoggedIn ? <BeaconApplication beaconList={beaconList} /> : <Navigate to='/login' />} />
-              <Route path='/' element={isLoggedIn ? <HomePage beaconList={beaconList} googleMapsApiKey={apiKey}/> : <Navigate to='/login' />} />
-            </Routes>
-          </LoadScript>
-        </Router>
+    <div className="App bg-gradient-to-b from-sky-500 to-teal-600 h-screen">
+      <Router>
+        <LoadScript googleMapsApiKey={apiKey}>
+          <NavBar />
+          <Routes>
+            <Route
+              path="/login"
+              element={isLoggedIn ? <Navigate to="/" /> : <Login />}
+            />
+            <Route
+              path="/signup"
+              element={isLoggedIn ? <Navigate to="/" /> : <Signup />}
+            />
+            <Route 
+              path='/beaconlist' 
+              element={isLoggedIn ? <ListView /> : <Navigate to='/login' />} 
+            />
+            <Route
+              path="/createbeacon"
+              element={
+                isLoggedIn ? (
+                  <BeaconCreation beaconList={beaconList} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/joinbeacon"
+              element={
+                isLoggedIn ? (
+                  <BeaconApplication beaconList={beaconList} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/"
+              element={
+                isLoggedIn ? (
+                  <HomePage beaconList={beaconList} googleMapsApiKey={apiKey} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+          </Routes>
+        </LoadScript>
+      </Router>
     </div>
   );
 }

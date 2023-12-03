@@ -20,15 +20,17 @@ class BeaconFactory extends Factory
     {
         return [
             'host_id' => fake()->randomElement(User::pluck('id')),
-            'title' => fake()->sentence,
-            'game_title' => fake()->sentence,
-            'game_system' => fake()->sentence,
+            'game_title' => "Fortnite",
+            'game_image' => fake()->imageUrl(640, 480, 'animals', true),
+            'console' => fake()->sentence,
             'description' => fake()->sentence,
             'start_date_time' => fake()->dateTime->format('Y-m-d H:i:s'),
             'end_date_time' => fake()->dateTime->format('Y-m-d H:i:s'),
-            'address' => fake()->address,
+            'place_name' => fake()->sentence,
+            'street_address' => fake()->address,
             'coordinates' => Point::makeGeodetic(fake()->latitude, fake()->longitude()),
-            'num_players' => fake()->numberBetween(0, 10)
+            'players_wanted' => fake()->numberBetween(0, 10),
+            'controllers_wanted' => fake()->numberBetween(0, 10),
         ];
     }
 }
