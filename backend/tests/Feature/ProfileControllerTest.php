@@ -92,4 +92,33 @@ class ProfileControllerTest extends TestCase
         // Verify that the user profile in the database has been updated
         $this->assertDatabaseHas('profiles', $dbData);
     }
+
+    public function testStoreProfile()
+    {
+        // Create a user to associate with the new profile
+        $user = User::factory()->create();
+
+        // Prepare the data for the new profile
+        $profileData = [
+            'user_id' => $user->id,
+            'about_me' => 'New About Me',
+            'preferred_games' => ['Game X', 'Game Y'],
+            'preference_tags' => ['Tag X', 'Tag Y'],
+        ];
+
+        // Send a POST request to store the new profile
+        $response = $this->post('/api/profiles', $profileData);
+
+        // Assert the response status is 201 Created
+        $response->assertStatus(201);
+
+        // Assert the response contains the profile data
+        $response->assertJson(['data' => $profileData]);
+
+        // Verify that the profile is now in the database
+        $this->assertDatabaseHas('profiles', [
+            'user_id' => $user->id,
+            'about_me' => 'New About Me'
+        ]);
+    }
 }
