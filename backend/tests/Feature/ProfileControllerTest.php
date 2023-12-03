@@ -12,7 +12,7 @@ class ProfileControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testIndexProfile()
+    public function testIndexProfiles()
     {
         // Create multiple users and corresponding profiles
         $users = User::factory()->count(3)->create();
@@ -44,6 +44,22 @@ class ProfileControllerTest extends TestCase
         // Assert that the response is successful and contains the user profile data
         $response->assertStatus(200);
         $response->assertJson(['data' => $profile->toArray()]);
+    }
+
+    public function testDestroyProfile()
+    {
+        // Create a user and a corresponding profile
+        $user = User::factory()->create();
+        $profile = Profile::factory()->create(['user_id' => $user->id]);
+
+        // Send a DELETE request to delete the profile
+        $response = $this->delete("/api/profiles/{$profile->id}");
+
+        // Assert that the response status code is 200 OK
+        $response->assertStatus(200);
+
+        // Assert that the profile has been deleted from the database
+        $this->assertDatabaseMissing('profiles', ['id' => $profile->id]);
     }
 
     public function testUpdateProfile()
