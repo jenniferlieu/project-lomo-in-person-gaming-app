@@ -25,5 +25,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::apiResource('attendees', AttendeeController::class);
 Route::post('attendees', [App\Http\Controllers\AttendeeController::class, 'store']);
 
-Route::apiResource('profiles', ProfileController::class);
+Route::get('/profiles/{user_id}', [ProfileController::class, 'show']);
 

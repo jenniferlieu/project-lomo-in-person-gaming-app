@@ -26,6 +26,11 @@ class Profile extends Model
         });
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     protected $table = 'profiles';
 
     protected $fillable = [
