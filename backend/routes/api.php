@@ -26,6 +26,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Route::delete('beacons', 'BeaconController@delete');
     Route::get('beacons/{beacon}/comments', [CommentController::class, 'index']);
     Route::post('beacons/{beacon}/comments', [CommentController::class, 'store']);
+    Route::delete('beacons/{beacon}/comments/{comment}', [CommentController::class, 'destroy']);
+
 });
 
 Route::apiResource('attendees', AttendeeController::class);
