@@ -35,5 +35,21 @@ class CommentController extends Controller
 
         return response()->json($comment, 201);
     }
+
+    public function destroy($beaconId, $commentId)
+    {
+        $comment = Comment::where('id', $commentId)->where('beacon_id', $beaconId)->first();
+
+        if (!$comment) {
+            return response()->json(['message' => 'Comment not found'], 404);
+        }
+
+        if ($comment->delete()) {
+            broadcast(new CommentDeleted($commentId, $beaconId));
+            return response()->json(['message' => 'Comment deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Failed to delete comment'], 500);
+        }
+    }
 }
 
