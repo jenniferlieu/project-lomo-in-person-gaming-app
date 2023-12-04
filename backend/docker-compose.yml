@@ -41,6 +41,3 @@ networks:
         driver: bridge
 volumes:
     sailpgdata:
-networks:
-    sail:
-        driver: bridge

@@ -9,7 +9,7 @@ const Signup = () => {
   const [pass1Input, setPass1] = useState("");
   const [pass2Input, setPass2] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const { setAuthUser, setIsLoggedIn } = useAuth();
+  const { setAuthUser, setIsLoggedIn, setUserId } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,7 +20,7 @@ const Signup = () => {
 
       //Call API for signup
       try {
-        const response = await fetch("https://localhost/register", {
+        const response = await fetch("http://localhost/register", {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -37,6 +37,7 @@ const Signup = () => {
           const data = await response.json();
           setIsLoggedIn(true);
           console.log("Log in successful");
+          setUserId(data.user.id);
           setAuthUser(data.token);
           navigate("/");
         } else {
