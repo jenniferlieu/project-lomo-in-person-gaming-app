@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
-import { LoadScript } from '@react-google-maps/api';
+import { LoadScript, useLoadScript } from '@react-google-maps/api';
 import './App.css';
 import { useAuth } from './AuthContext.js';
 import Login from './components/Login/Login.jsx';

@@ -10,6 +10,18 @@ import { useEffect } from "react";
 import Echo from "laravel-echo"; // eslint-disable-next-line
 import Pusher from "pusher-js";
 
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import "@reach/combobox/styles.css"
+
+
 function BeaconCreation({ beaconList }) {
   const [name, setState] = useState("");
   const [game, setGame] = useState("");
@@ -21,6 +33,49 @@ function BeaconCreation({ beaconList }) {
   const [timeTo, setTo] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   const { authUser } = useAuth();
+  
+  const config = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries: ["places"],
+  });
+  
+  const PlacesAutocomplete = ({setSelected}) => {
+    const {
+      ready,
+      value,
+      setValue,
+      suggestions: {status, data},
+      clearSuggestions,
+    } = usePlacesAutocomplete();
+
+    const handleSelect = async (value) =>{
+      setValue(location, false);
+      clearSuggestions();
+
+      const results = await getGeocode({location});
+      const {lat, lng} = await getLatLng(results[0]);
+      setSelected({lat, lng});
+    }
+    return ( 
+    <Combobox onSelect={handleSelect}>
+      <ComboboxInput
+        value={location}
+        onChange={(event) => setLocation(event.target.value)}
+        disabled={!ready}
+        className="combobox-input"
+        placeholder="Search address" 
+      />
+      <ComboboxPopover>
+        <ComboboxList>
+          {status === "OK" &&
+            data.map(({place_id, description}) => (
+              <ComboboxOption key={place_id} value={description}/> 
+          ))}
+        </ComboboxList>
+      </ComboboxPopover>
+    </Combobox>
+    );
+  };
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
@@ -136,6 +191,7 @@ function BeaconCreation({ beaconList }) {
       .catch((error) => console.log("error", error));
   }
 
+  const [selected, setSelected] = useState(null);
   return (
     <div class="bg-white rounded-lg w-full md:w-1/2 flex-col items-center justify-center m-auto shadow-lg p-4 h-auto">
       <tr>
@@ -202,17 +258,9 @@ function BeaconCreation({ beaconList }) {
       <tr>
         <td className="min-w-auto min-h-auto text-sky-950 p-2">
           <label htmlFor={"input5"}>Location</label>
-          <input
-            className="m-auto p-1 border-2 border-teal-100 min-w-full"
-            id={"Location"}
-            type={"text"}
-            value={location}
-            placeholder={"Where to play?"}
-            required
-            onChange={(event) => {
-              setLocation(event.target.value);
-            }}
-          />
+          <div className ="places-container min-w-auto min-h-auto text-sky-950 p-2">
+          <PlacesAutocomplete setSelected={setSelected}/>
+          </div>
         </td>
       </tr>
       <tr>
@@ -280,4 +328,19 @@ function BeaconCreation({ beaconList }) {
   );
 }
 
+
 export default BeaconCreation;
+
+/*
+<input
+            className="m-auto p-1 border-2 border-teal-100 min-w-full"
+            id={"Location"}
+            type={"text"}
+            value={location}
+            placeholder={"Where to play?"}
+            required
+            onChange={(event) => {
+              setLocation(event.target.value);
+            }}
+          />
+          */
