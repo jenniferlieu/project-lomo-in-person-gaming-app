@@ -36,7 +36,7 @@ const MapContainer = ({ beaconList }) => {
     <div className='absolute top-70 left-0 w-full'>
       <GoogleMap
         mapContainerStyle={mapStyles}
-        zoom={10}
+        zoom={14}
         center={mapCenter}
         onLoad={(map) => {
           mapRef.current = map;
