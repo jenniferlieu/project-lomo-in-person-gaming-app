@@ -26,7 +26,7 @@ function ListView() {
           </div>
           <div>
             <img src="../../../public/icons/people.png" alt="people"></img>
-            <p>{beacon.playerInfo.length}/{beacon.players_wanted}</p>
+            <p>{beacon.players_wanted}</p>
           </div>
         </div>
       )}
