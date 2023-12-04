@@ -20,14 +20,14 @@ function BeaconCreation({ beaconList }) {
   const { authUser } = useAuth();
   const laravelEcho = useEchoStore((state) => state.laravelEcho);
 
-  useEffect(() => {
-    // Connect to websocket channel
-    laravelEcho.channel("new-beacon").listen("BeaconCreated", (event) => {
-      // runs every time data is pushed through the websocket
-      console.log("new-beacon channel", event.beacon);
-    });
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   // Connect to websocket channel
+  //   laravelEcho.channel("new-beacon").listen("BeaconCreated", (event) => {
+  //     // runs every time data is pushed through the websocket
+  //     console.log("new-beacon channel", event.beacon);
+  //   });
+  //   // eslint-disable-next-line
+  // }, []);
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
