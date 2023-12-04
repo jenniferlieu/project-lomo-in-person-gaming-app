@@ -30,8 +30,8 @@ const GetGameByName = ( gameName ) => {
 
         // Parse the response as JSON and return it
         const data = await response.json();
-        console.log("user response status: ", response.status);
-        console.log("user data retrieved: ", data.data);
+        console.log("game response status: ", response.status);
+        console.log("game data retrieved: ", data);
         setGameInfo(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
