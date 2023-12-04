@@ -8,26 +8,35 @@ import { Link } from "react-router-dom";
 import useEchoStore from "../../useEchoStore.js";
 
 function BeaconCreation({ beaconList }) {
-  const [name, setState] = useState("");
-  const [game, setGame] = useState("");
-  const [system, setSystem] = useState("");
-  const [misc, setMisc] = useState("");
-  const [location, setLocation] = useState("");
-  const [players, setPlayers] = useState("");
-  const [timeFrom, setFrom] = useState("");
+  const [game, setGame] = useState(""); //game_title
+  const [console, setConsole] = useState(""); //console
+  const [description, setDesc] = useState(""); //description
+  const [placeName, setPlaceName] = useState(""); //place_name
+  const [players, setPlayers] = useState(""); //player_wanted
+  const [timeFrom, setFrom] = useState(""); //start_date_time
   const [timeTo, setTo] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   const { authUser } = useAuth();
   const laravelEcho = useEchoStore((state) => state.laravelEcho);
 
-  // useEffect(() => {
-  //   // Connect to websocket channel
-  //   laravelEcho.channel("new-beacon").listen("BeaconCreated", (event) => {
-  //     // runs every time data is pushed through the websocket
-  //     console.log("new-beacon channel", event.beacon);
-  //   });
-  //   // eslint-disable-next-line
-  // }, []);
+  // {  DataFields
+  //   console
+  //   controllers_wanted
+  //   created_at
+  //   description
+  //   end_date_time
+  //   game_image
+  //   game_title
+  //   host_id
+  //   id
+  //   latitude
+  //   longitude
+  //   place_name
+  //   players_wanted
+  //   start_date_time
+  //   street_address
+  //   updated_at
+  // }
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
