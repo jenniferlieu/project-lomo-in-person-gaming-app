@@ -62,7 +62,8 @@ const BeaconInfoWindow = ({
         <div className="ml-2 mt-2 text-left">
           <div className="flex items-baseline mb-2">
             <img
-              src={host_image}
+              // src={host_image}
+              src="images/catScream.jpg"
               alt="Game Pic"
               className="top-0 right-0 h-20 w-20 mr-4"
             />
