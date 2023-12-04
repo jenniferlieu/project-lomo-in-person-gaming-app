@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\BeaconCreated;
+use App\Helpers\BeaconHelper;
 use App\Http\Requests\BeaconPostRequest;
 use App\Http\Resources\BeaconJsonResponse;
 use App\Http\Requests\BeaconUpdateRequest;
@@ -11,7 +12,6 @@ use App\Models\Beacon;
 use Clickbar\Magellan\Data\Geometries\Point;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-
 
 class BeaconController extends Controller
 {
@@ -32,28 +32,30 @@ class BeaconController extends Controller
      * @lrd:start
      * Creates a new Beacon
      * - **host_id** : user_id of the user creating the beacon; user_id must exist
-     * - **title** : title of the beacon event
      * - **game_title** : title of the game being played at the event
-     * - **game_system** : such as PC, Nintendo Switch, Xbox, etc.
+     * - **console** : such as PC, Nintendo Switch, Xbox, etc.
      * - **description** : information about the event
      * - **start_date_time** : when the event will start; example format = 12/12/23 1:00pm
      * - **end_date_time** : when the event will end; example format = 12/12/23 1:00pm
-     * - **address** : street address of the event location
+     * - **place_name** : name of the place / meeting location
+     * - **street_address** : street address of the meeting location
      * - **latitude** : GPS latitude of the address
      * - **longitude** : GPS longitude of the address
-     * - **num_players** : number of players needed to start the event
+     * - **players_wanted** : number of players needed
+     * - **controllers_wanted** : number of conotrollers needed
      * @lrd:end
      */
     public function store(BeaconPostRequest $request)
     {
-        // Modify JSON response to add a coordinates field for the database
-        $beaconRequest = $request->all();
-        $beaconRequest['coordinates'] = Point::makeGeodetic($request->latitude, $request->longitude); // create coordinates field as type geography
-        unset($beaconRequest['latitude']); // remove latitude field
-        unset($beaconRequest['longitude']); // remove longitude field
+        // Modify JSON request to fit in the database
+        try {
+            $requestModified = BeaconHelper::fillBeaconRequest($request->all());
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
 
         // Insert new beacons into storage
-        $beacon = Beacon::create($beaconRequest);
+        $beacon = Beacon::create($requestModified);
 
         // Transform JSON returned from database into the same JSON format request received
         // Remove coordinates field and replace it with latitude and longitude

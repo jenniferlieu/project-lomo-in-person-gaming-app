@@ -7,7 +7,7 @@ description: Database Diagram
 
 ```mermaid
 ---
-title: Database Entity-Relationship-Diagram vers. omega-0.0.2
+title: Database Entity-Relationship-Diagram vers. 0.0.3
 ---
 erDiagram
     users { 
@@ -38,15 +38,17 @@ erDiagram
     beacons {
         uuid id PK
         uuid host_id FK
-        text title
         text game_title
-        text game_system
+        text game_image
+        text console
         text description
         timestamp start_date_time
         timestamp end_date_time
-        text address
+        text place_name
+        text street_address
         geography coordinates
-        int players_needed
+        int players_wanted
+        int controllers_wanted
         timestamp created_at
         timestamp updated_at
     }
@@ -57,7 +59,7 @@ erDiagram
         uuid id PK
         uuid user_id FK
         uuid beacon_id FK
-        text body
+        text content
         timestamp created_at
         timestamp updated_at
     }
@@ -67,6 +69,7 @@ erDiagram
         uuid id PK
         uuid beacon_id FK
         uuid user_id FK
+        int controllers_brought
     }
 
     users ||--o{ reports : "have against them many"
@@ -74,7 +77,7 @@ erDiagram
         uuid id PK
         uuid user_id FK
         uuid reported_id FK
-        text body
+        text content
         timestamp created_at
         timestamp updated_at
     }

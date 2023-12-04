@@ -1,14 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs/AdapterDayjs.js";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker.js";
 import { AuthContext, useAuth } from "../../AuthContext.js";
 import { Link } from "react-router-dom";
 // import { useHistory } from 'react-router-dom'
-//import {laravelEcho} from "../laravelEcho/laravelEcho.js";
-import { useEffect } from "react";
-import Echo from "laravel-echo"; // eslint-disable-next-line
-import Pusher from "pusher-js";
+import useEchoStore from "../../useEchoStore.js";
 
 function BeaconCreation({ beaconList }) {
   const [name, setState] = useState("");
@@ -21,6 +18,16 @@ function BeaconCreation({ beaconList }) {
   const [timeTo, setTo] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   const { authUser } = useAuth();
+  const laravelEcho = useEchoStore((state) => state.laravelEcho);
+
+  // useEffect(() => {
+  //   // Connect to websocket channel
+  //   laravelEcho.channel("new-beacon").listen("BeaconCreated", (event) => {
+  //     // runs every time data is pushed through the websocket
+  //     console.log("new-beacon channel", event.beacon);
+  //   });
+  //   // eslint-disable-next-line
+  // }, []);
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
@@ -38,34 +45,6 @@ function BeaconCreation({ beaconList }) {
     setFrom("");
     setTo("");
   }
-
-  useEffect(() => {
-    const laravelEcho = new Echo({
-      broadcaster: "pusher",
-      key: process.env.REACT_APP_PUSHER_APP_KEY,
-      wsHost: process.env.REACT_APP_PUSHER_HOST,
-      wsPort: process.env.REACT_APP_PUSHER_PORT,
-      wssPort: process.env.REACT_APP_PUSHER_PORT,
-      cluster: process.env.REACT_APP_PUSHER_CLUSTER,
-      forceTLS: false,
-      encrypted: true,
-      disableStats: true,
-      enabledTransports: ["ws", "wss"],
-    });
-    console.log(laravelEcho);
-    /*
-        // Connect to a public websocket channel
-        laravelEcho.channel("new-beacon").listen("BeaconCreated", (e) => {
-          // runs every time data ia pushed through the websocket
-          console.log(e.beacon);
-        });
-    
-        // Cleanup function to disconnect the Echo instance when the component unmounts
-        return () => {
-          laravelEcho.disconnect();
-        };
-        */
-  }, []); // Empty dependency array ensures this runs on mount and unmount only
 
   function onClose() {
     let data = {

@@ -11,19 +11,17 @@ const Comment = ({ text, onDelete }) => {
     );
 }
 
-const CommentSection = () => {
+const CommentSection = ({ beaconId }) => {
     // Initialize comments from localStorage or an empty array if no data is present
     const [comments, setComments] = useState(() => {
-        const storedComments = localStorage.getItem('comments');
-        return storedComments ? JSON.parse(storedComments) : [
-            { id: 1, text: "This game is so fun! I can't wait to play together!!" },
-        ];
+        const storedComments = localStorage.getItem(`comments_${beaconId}`);
+        return storedComments ? JSON.parse(storedComments) : [];
     });
     const [newComment, setNewComment] = useState('');
 
     // Save comments to localStorage whenever comments change
     useEffect(() => {
-        localStorage.setItem('comments', JSON.stringify(comments));
+        localStorage.setItem(`comments_${beaconId}`, JSON.stringify(comments));
     }, [comments]);
 
     const addComment = () => {

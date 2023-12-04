@@ -154,24 +154,15 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-    'providers' => [
-
-        /*
-        * Laravel Framework Service Providers...
-        */
-
-        Jenssegers\Mongodb\MongodbServiceProvider::class,
-        Illuminate\Broadcasting\BroadcastServiceProvider::class, 
-    ],
 
     'providers' => ServiceProvider::defaultProviders()->merge([
-        /*
-         * Package Service Providers...
-         */
+            /*
+             * Package Service Providers...
+             */
 
-        /*
-         * Application Service Providers...
-         */
+            /*
+             * Application Service Providers...
+             */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\BroadcastServiceProvider::class,

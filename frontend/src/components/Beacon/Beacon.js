@@ -1,14 +1,14 @@
 import React from 'react';
 import { Circle } from '@react-google-maps/api';
-import BeaconInfoWindow from './BeaconInfoWindow.js';
+import BeaconInfoWindow from './InfoWindow/BeaconInfoWindow.js';
 
-const Beacon = ({ id, activeBeacon, onBeaconClick, beaconInfo, circleLat, circleLng }) => {
+const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
   const circle = {
     center: {
-        lat: circleLat,
-        lng: circleLng
+        lat: beacon.latitude,
+        lng: beacon.longitude
       },
-    radius: 2000, // Radius in meters 
+    radius: 250, // Radius in meters 
     options: {
       fillColor: '#FF0000', 
       strokeColor: '#0000FF', 
@@ -26,8 +26,8 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beaconInfo, circleLat, circle
       <Circle {...circle} onClick={toggleDisplayBeacon} />
       {activeBeacon === id && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="w-[30rem]">
-            <BeaconInfoWindow {...beaconInfo} onClose={toggleDisplayBeacon} />
+          <div className="w-screen max-w-[30rem]">
+            <BeaconInfoWindow {...beacon} onClose={toggleDisplayBeacon} id={id}/>
           </div>
         </div>
       )}
