@@ -35,4 +35,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class,'beaconAttendees']);
 Route::get('/profiles/{user_id}', [ProfileController::class, 'show']);
+Route::put('/profiles/{user_id}', [ProfileController::class, 'update']);
+Route::delete('/profiles/{user_id}', [ProfileController::class, 'destroy']);
+Route::post('/profiles', [ProfileController::class, 'store']);
+Route::get('/profiles', [ProfileController::class, 'index']);
 
