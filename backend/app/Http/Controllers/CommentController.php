@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Beacon;
 use Illuminate\Http\Request;
-use App\Events\CommentPosted;
+use App\Events\CommentCreated;
 
 class CommentController extends Controller
 {
@@ -31,7 +31,7 @@ class CommentController extends Controller
         $comment->save();
 
         // Broadcast the event
-        broadcast(new CommentPosted($comment))->toOthers();
+        broadcast(new CommentCreated($comment))->toOthers();
 
         return response()->json($comment, 201);
     }
