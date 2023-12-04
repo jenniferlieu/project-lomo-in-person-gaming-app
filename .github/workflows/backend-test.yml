@@ -2,7 +2,10 @@ name: Test Backend
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["main, production"]
+    paths: ["backend/**"]
+  push:
+    branches: ["main, production"]
     paths: ["backend/**"]
 
 jobs:
