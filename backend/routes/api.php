@@ -30,4 +30,5 @@ Route::post('attendees', [App\Http\Controllers\AttendeeController::class, 'store
 
 Route::apiResource('profiles', ProfileController::class);
 
-Route::
+Route::get('beacons/{beacon}/comments', [CommentController::class, 'index']);
+Route::post('beacons/{beacon}/comments', [CommentController::class, 'store']);
