@@ -13,20 +13,27 @@ function formatTime(dateString) {
   return strTime;
 }
 
-function openWindow(beacon) {
-  console.log('beacon clicked', {...beacon});
-  <BeaconInfoWindow {...beacon} />
-}
 
 function ListView() {
   const beaconList = GetBeaconInfo();
   console.log(beaconList);
 
+  const [selectedBeacon, setSelectedBeacon] = useState(null);
+
+  const openWindow = (beacon) => {
+    console.log("beacon clicked: ", { ...beacon });
+    setSelectedBeacon(beacon);
+  }
+
+  const closeWindow = () => {
+    setSelectedBeacon(null);
+  }
+
   return (
     <div className='w-screen'>
       <h1 className='text-center text-shrink font-bold text-6xl text-sky-950'>Active Beacons</h1>
       {beaconList.map((beacon) =>
-        <div key={beacon.id}  className='box-border w-11/12 m-auto my-3 p-2 rounded-md bg-white text-sky-950 flex' onClick={() => openWindow(beacon)}>
+        <div key={beacon.id} className='box-border w-11/12 m-auto my-3 p-2 rounded-md bg-white text-sky-950 flex' onClick={() => openWindow(beacon)}>
           <div className='w-min-2/3 flex-grow text-left'>
             <p className='font-bold text-lg'>{beacon.game_title}</p>
             <p>{beacon.console}</p>
@@ -58,6 +65,14 @@ function ListView() {
               </g>
             </svg>
             <p>{beacon.players_wanted} players</p>
+          </div>
+        </div>
+      )}
+
+      {selectedBeacon && (
+        <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center'>
+          <div className='relative z-10 bg-white p-4 rounded-md'>
+            <BeaconInfoWindow {...selectedBeacon} onClose={closeWindow} />
           </div>
         </div>
       )}
