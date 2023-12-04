@@ -74,4 +74,9 @@ class ProfileController extends Controller
         // Return a success message and the profile data
         return response()->json(['message' => 'Profile created successfully', 'data' => $profile], 201);
     }
+
+    public function uploadProfilePicture(Request $request, $userId)
+    {
+        // TODO
+    }
 }
