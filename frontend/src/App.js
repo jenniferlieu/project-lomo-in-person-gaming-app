@@ -1,19 +1,24 @@
-import React from 'react';
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
-import { LoadScript, useLoadScript } from '@react-google-maps/api';
-import './App.css';
-import { useAuth } from './AuthContext.js';
-import Login from './components/Login/Login.jsx';
-import Signup from './components/signup/Signup.jsx';
-import HomePage from './HomePage.js';
-import BeaconApplication from './components/BeaconApplication/BeaconApplication.js';
-import BeaconCreation from './components/BeaconCreation/BeaconCreation.js';
-import NavBar from './components/NavBar/NavBar.jsx';
-import CommentSection from './components/Comments.jsx';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+import { LoadScript } from "@react-google-maps/api";
+import "./App.css";
+import { useAuth } from "./AuthContext.js";
+import Login from "./components/Login/Login.jsx";
+import Signup from "./components/signup/Signup.jsx";
+import HomePage from "./HomePage.js";
+import BeaconApplication from "./components/BeaconApplication/BeaconApplication.js";
+import BeaconCreation from "./components/BeaconCreation/BeaconCreation.js";
+import NavBar from "./components/NavBar/NavBar.jsx";
+import CommentSection from "./components/Comments.jsx";
 import ListView from './components/BeaconInfo/ListBeaconInfo.js';
-// import GetBeaconInfo from './components/BeaconInfo/GetBeaconInfo.js';
-
-
+import useEchoStore from "./useEchoStore.js";
+import Echo from "laravel-echo"; // eslint-disable-next-line
+import Pusher from "pusher-js"; // used behind the scenes by the new Echo function
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -142,20 +147,56 @@ function App() {
   ];
 
   return (
-    <div className='App bg-gradient-to-b from-sky-500 to-teal-600 h-screen'>
-        <Router>
-          <LoadScript googleMapsApiKey={apiKey}>
-            <NavBar />
-            <Routes>
-              <Route path='/login' element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
-              <Route path='/signup' element={isLoggedIn ? <Navigate to="/" /> : <Signup />} />
-              <Route path='/beaconlist' element={isLoggedIn ? <ListView beaconList /> : <Navigate to='/login' />} />
-              <Route path='/createbeacon' element={isLoggedIn ? <BeaconCreation beaconList={beaconList} /> : <Navigate to='/login' />} />
-              <Route path='/joinbeacon' element={isLoggedIn ? <BeaconApplication beaconList={beaconList} /> : <Navigate to='/login' />} />
-              <Route path='/' element={isLoggedIn ? <HomePage beaconList={beaconList} googleMapsApiKey={apiKey}/> : <Navigate to='/login' />} />
-            </Routes>
-          </LoadScript>
-        </Router>
+    <div className="App bg-gradient-to-b from-sky-500 to-teal-600 h-screen">
+      <Router>
+        <LoadScript googleMapsApiKey={apiKey}>
+          <NavBar />
+          <Routes>
+            <Route
+              path="/login"
+              element={isLoggedIn ? <Navigate to="/" /> : <Login />}
+            />
+            <Route
+              path="/signup"
+              element={isLoggedIn ? <Navigate to="/" /> : <Signup />}
+            />
+            <Route 
+              path='/beaconlist' 
+              element={isLoggedIn ? <ListView /> : <Navigate to='/login' />} 
+            />
+            <Route
+              path="/createbeacon"
+              element={
+                isLoggedIn ? (
+                  <BeaconCreation beaconList={beaconList} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/joinbeacon"
+              element={
+                isLoggedIn ? (
+                  <BeaconApplication beaconList={beaconList} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/"
+              element={
+                isLoggedIn ? (
+                  <HomePage beaconList={beaconList} googleMapsApiKey={apiKey} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+          </Routes>
+        </LoadScript>
+      </Router>
     </div>
   );
 }

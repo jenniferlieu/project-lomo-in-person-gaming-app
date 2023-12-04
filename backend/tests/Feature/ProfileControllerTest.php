@@ -54,6 +54,19 @@ class ProfileControllerTest extends TestCase
             'preference_tags' => '{' . implode(',', $updatedData['preference_tags']) . '}',
         ];
 
+        // Send a PUT request to update the user profile
+        $response = $this->put("/api/profiles/{$profile->id}", $updatedData);
+
+        // Assert that the response is successful and contains the updated user profile data
+        $response->assertStatus(200);
+        $response->assertJson(['message' => 'Profile updated successfully', 'data' => $updatedData]);
+
+        $dbData = [
+            'about_me' => $updatedData['about_me'],
+            'preferred_games' => '{' . implode(',', $updatedData['preferred_games']) . '}',
+            'preference_tags' => '{' . implode(',', $updatedData['preference_tags']) . '}',
+        ];
+
         // Verify that the user profile in the database has been updated
         $this->assertDatabaseHas('profiles', $dbData);
     }

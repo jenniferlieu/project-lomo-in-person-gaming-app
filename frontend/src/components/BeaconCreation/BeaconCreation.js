@@ -5,10 +5,7 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicke
 import { AuthContext, useAuth } from "../../AuthContext.js";
 import { Link } from "react-router-dom";
 // import { useHistory } from 'react-router-dom'
-//import {laravelEcho} from "../laravelEcho/laravelEcho.js";
-import { useEffect } from "react";
-import Echo from "laravel-echo"; // eslint-disable-next-line
-import Pusher from "pusher-js";
+import useEchoStore from "../../useEchoStore.js";
 
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
@@ -75,6 +72,8 @@ function BeaconCreation({ beaconList }) {
     </Combobox>
     );
   };
+  const laravelEcho = useEchoStore((state) => state.laravelEcho);
+
   // {  DataFields
   //   console
   //   controllers_wanted
