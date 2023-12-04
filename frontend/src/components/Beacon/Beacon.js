@@ -8,7 +8,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
         lat: beacon.latitude,
         lng: beacon.longitude
       },
-    radius: 2000, // Radius in meters 
+    radius: 250, // Radius in meters 
     options: {
       fillColor: '#FF0000', 
       strokeColor: '#0000FF', 
