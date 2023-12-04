@@ -28,8 +28,8 @@ const GetBeaconInfo = () => {
 
         // Parse the response as JSON and return it
         const data = await response.json();
-        console.log("beacon data retrieved: ", data.beacon);
-        setBeaconList(data.beacon);
+        console.log("beacon data retrieved: ", data.data);
+        setBeaconList(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
         // You might want to throw the error or handle it in some way
