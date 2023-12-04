@@ -6,6 +6,7 @@ use App\Http\Controllers\BeaconController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendeeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('users', UserController::class)->except('store');
     Route::get('games', [GameController::class, 'getGames']);
     // Route::delete('beacons', 'BeaconController@delete');
+    Route::get('beacons/{beacon}/comments', [CommentController::class, 'index']);
+    Route::post('beacons/{beacon}/comments', [CommentController::class, 'store']);
 });
 
 Route::apiResource('attendees', AttendeeController::class);
