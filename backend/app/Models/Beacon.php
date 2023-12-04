@@ -46,15 +46,17 @@ class Beacon extends Model
      */
     protected $fillable = [
         'host_id',
-        'title',
         'game_title',
-        'game_system',
+        'game_image',
+        'console',
         'description',
         'start_date_time',
         'end_date_time',
-        'address',
+        'place_name',
+        'street_address',
         'coordinates',
-        'num_players'
+        'players_wanted',
+        'controllers_wanted'
     ];
 
     protected $guarded = [
