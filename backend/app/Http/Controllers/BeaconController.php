@@ -17,23 +17,38 @@ class BeaconController extends Controller
 {
     /**
      * Display a listing of the Beacon.
+     * @lrd:start
+     * Get an array of all beacons
+     * @lrd:end
      */
     public function index()
     {
         // Gets all beacons from the database
-        $beacon = new Beacon();
-        $beacon = Beacon::all();
-        return response()->json(['beacon' => $beacon->toArray()], 200);
+        return response()->json(['data' => BeaconJsonResponse::collection(Beacon::all())], 200);
     }
 
     /**
      * Store a newly created Beacon in storage.
+     * @lrd:start
+     * Creates a new Beacon
+     * - **host_id** : user_id of the user creating the beacon; user_id must exist
+     * - **title** : title of the beacon event
+     * - **game_title** : title of the game being played at the event
+     * - **game_system** : such as PC, Nintendo Switch, Xbox, etc.
+     * - **description** : information about the event
+     * - **start_date_time** : when the event will start; example format = 12/12/23 1:00pm
+     * - **end_date_time** : when the event will end; example format = 12/12/23 1:00pm
+     * - **address** : street address of the event location
+     * - **latitude** : GPS latitude of the address
+     * - **longitude** : GPS longitude of the address
+     * - **num_players** : number of players needed to start the event
+     * @lrd:end
      */
     public function store(BeaconPostRequest $request)
     {
         // Modify JSON response to add a coordinates field for the database
         $beaconRequest = $request->all();
-        $beaconRequest['coordinates'] = Point::makeGeodetic($request->latitude, $request->longitude); // create coordinates field as type geography with latitude and longitude points
+        $beaconRequest['coordinates'] = Point::makeGeodetic($request->latitude, $request->longitude); // create coordinates field as type geography
         unset($beaconRequest['latitude']); // remove latitude field
         unset($beaconRequest['longitude']); // remove longitude field
 
@@ -48,7 +63,7 @@ class BeaconController extends Controller
         event(new BeaconCreated($beaconJson));
 
         // Returns data on the new beacon created and a success status code
-        return response()->json(['beacon' => $beaconJson], 201); // 201 Request fulfilled and new resource created
+        return response()->json(['data' => $beaconJson], 201); // 201 Request fulfilled and new resource created
     }
 
     /**
@@ -102,14 +117,14 @@ class BeaconController extends Controller
     public function destroy(string $beacon_id)
     {
         $beacon = Beacon::find($beacon_id);
-        
+
         if (!$beacon) {
-            return response()-json(['error' => 'Beacon not found'],400);
+            return response()->json(['error' => 'Beacon not found'], 400);
         }
-        if($beacon->delete()) {
-            return response() ->json(['message' => 'Beacon deleted successfully'], 200);
+        if ($beacon->delete()) {
+            return response()->json(['message' => 'Beacon deleted successfully'], 200);
         } else {
-            return response()->json(['error' => 'Failed to delete beacon'],500);
+            return response()->json(['error' => 'Failed to delete beacon'], 500);
         }
     }
 }

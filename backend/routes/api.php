@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeaconController;
 use App\Http\Controllers\UserController;
@@ -20,9 +19,6 @@ use App\Models\Attendee;
 */
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('hello', function() {
-        return response()->json(['message' => 'hello world']);
-    });
     Route::apiResource('beacons', BeaconController::class);
     Route::delete('beacons', 'BeaconController@delete');    
     Route::delete('attendees', 'AttendeeController@delete');
@@ -34,5 +30,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class,'beaconAttendees']);
 
-Route::apiResource('profiles', ProfileController::class);
+Route::get('/profiles/{user_id}', [ProfileController::class, 'show']);
 
