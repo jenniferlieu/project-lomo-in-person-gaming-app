@@ -6,6 +6,7 @@ use App\Http\Controllers\BeaconController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendeeController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Attendee;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +24,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return response()->json(['message' => 'hello world']);
     });
     Route::apiResource('beacons', BeaconController::class);
+    Route::delete('beacons', 'BeaconController@delete');    
+    Route::delete('attendees', 'AttendeeController@delete');
     Route::apiResource('users', UserController::class)->except('store');
-    Route::delete('beacons', 'BeaconController@delete');
+    Route::apiResource('attendees', AttendeeController::class);
+    Route::post('attendees', [App\Http\Controllers\AttendeeController::class,'store']); 
+    Route::patch('beacons', 'BeaconController@update');
 });
-Route::apiResource('attendees', AttendeeController::class);
-Route::post('attendees', [App\Http\Controllers\AttendeeController::class,'store']);
+
+Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class,'beaconAttendees']);
 
 Route::apiResource('profiles', ProfileController::class);
 
