@@ -19,6 +19,8 @@ class CommentController extends Controller
     public function store(Request $request, $beaconId)
     {
         $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'beacon_id' => 'required|exists:beacons,id',
             'content' => 'required|string',
         ]);
 

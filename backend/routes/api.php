@@ -30,3 +30,4 @@ Route::post('attendees', [App\Http\Controllers\AttendeeController::class, 'store
 
 Route::apiResource('profiles', ProfileController::class);
 
+Route::
