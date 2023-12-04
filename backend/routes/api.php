@@ -24,6 +24,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('users', UserController::class)->except('store');
     Route::get('games', [GameController::class, 'getGames']);
     // Route::delete('beacons', 'BeaconController@delete');
+    Route::get('beacons/{beacon}/comments', [CommentController::class, 'index']);
+    Route::post('beacons/{beacon}/comments', [CommentController::class, 'store']);
 });
 
 Route::apiResource('attendees', AttendeeController::class);
@@ -31,5 +33,3 @@ Route::post('attendees', [App\Http\Controllers\AttendeeController::class, 'store
 
 Route::apiResource('profiles', ProfileController::class);
 
-Route::get('beacons/{beacon}/comments', [CommentController::class, 'index']);
-Route::post('beacons/{beacon}/comments', [CommentController::class, 'store']);
