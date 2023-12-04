@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Beacon;
 use Illuminate\Http\Request;
 use App\Events\CommentCreated;
+use App\Events\CommentDeleted;
 
 class CommentController extends Controller
 {
