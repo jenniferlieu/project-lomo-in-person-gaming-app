@@ -1,8 +1,8 @@
 // Thanks for the skeleton Carla :)
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../AuthContext.js";
 
-const GetGameByName = ( gameName ) => {
+const GetGameByName = (gameName) => {
   const { authUser } = useAuth();
   const [gameInfo, setGameInfo] = useState([]);
 
@@ -10,14 +10,14 @@ const GetGameByName = ( gameName ) => {
     const fetchData = async () => {
       console.log(`Game Name: ${gameName}`);
       // define url and headers
-      let url = `http://localhost/api/games?name=${gameName}`;
+      let url = `https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/games?name=${gameName}`;
       let options = {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
           Authorization: "Bearer " + authUser,
-        }
+        },
       };
       try {
         // make api call
