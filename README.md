@@ -7,7 +7,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f2ed186c-f3f0-4d94-aa1d-c1a935d61d7f/deploy-status)](https://app.netlify.com/sites/lomogaming/deploys)
 
 [![Documentation Website Link](https://img.shields.io/badge/-Documentation%20Website-brightgreen)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/)
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f2ed186c-f3f0-4d94-aa1d-c1a935d61d7f/deploy-status)](https://app.netlify.com/sites/lomogaming/deploys)
 
 </div>
 
@@ -95,6 +95,9 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
 
 #### 2. Setup frontend
 1. Go to the `frontend/` folder
+    ```bash
+    cd frontend
+    ```
 2. Install node dependencies:
    ```bash
    npm install
@@ -102,6 +105,9 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
 
 #### 3. Setup backend
 1. Go to the `backend/` folder
+    ```bash
+    cd backend
+    ```
 2. Start the Docker Desktop application (Docker Desktop must be running the background to run any docker commands)
 3. Install composer dependencies (composer is a package manager for php)
    ```bash
@@ -109,15 +115,19 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
    ```
    - **PROBLEM:** If you run into problems installing dependencies, then first check to make sure that you're in the `backend` folder and on the correct branch
    - **PROBLEM:** If you continue to have problems with docker, then install php82, php82-openssl, and composer onto your machine, and use your machine's composer to install the dependencies `composer install --ignore-platform-reqs`. **IMPORTANT!** Afterwards, only use the container's composer and php commands so that they'll make changes to the container and **not** to your machine! `sail composer` and `sail php`
-1. Copy the `backend/.env.example` file and name it `backend/.env` 
-2. Replace the database and pusher env variables with the ones pinned in dicord
-3. Build the image and start the docker container (in detached mode)
+4. Copy the `backend/.env.example` file and name it `backend/.env` 
+    ```bash
+    cp .env.example .env
+
+    # get database, pusher, and twitch env variables in discord
+    ```
+5. Build the image and start the docker container (in detached mode)
    ```bash
    ./vendor/bin/sail up -d
    ```
-4. Go to http://localhost in your browser to make sure that you can see the laravel welcome screen, and you're set!
+6. Go to [http://localhost](http://localhost) in your browser to make sure that you can see the laravel welcome screen, and you're set!
    1. **PROBLEM:** If you see a 500 server error and no detailed explanation of the error, then you forgot to copy the env file
-   2. **PROBLEM:** If you're on Windows using WSL2, you will need to change permissions for the storage folder and the storage/logs/laravel.log file. Run the commands below one line at a time, in order:
+   2. **PROBLEM:** If you get a permissions error for the storage folder and the storage/logs/laravel.log file. Run the commands below one line at a time, in order:
         ```bash
         # enter the docker container command line as the root user
         ./vendor/bin/sail root-shell
@@ -154,6 +164,9 @@ If you want to use the sail command, then you can continue to use `./vendor/bin/
 
 #### 4. Setup docusaurus
 1. Go to `documentation/` folder
+    ```bash
+    cd documentation
+    ```
 2. Install node dependencies:
    ```bash
    yarn install
@@ -170,7 +183,7 @@ If you want to use the sail command, then you can continue to use `./vendor/bin/
    ```bash
    npm start
    ```
-3. Go to https://localhost:3000 to see the frontend server
+3. Go to [https://localhost:3000](https://localhost:3000) to see the frontend server
 
 ### Stop running the app
 1. **Stop docker**
@@ -182,14 +195,11 @@ If you want to use the sail command, then you can continue to use `./vendor/bin/
 ### Run docusaurus
 Go into the `documentation/` folder and run:
 
-**For Windows powershell:**
 ```bash
-set PROJECT_NAME=project-lomo-in-person-gaming-app; set ORG_NAME=Capstone-Projects-2023-Fall; yarn start
-```
+PROJECT_NAME=project-lomo-in-person-gaming-app ORG_NAME=Capstone-Projects-2023-Fall yarn start
 
-**For Bash:**
-```bash
-export PROJECT_NAME=project-lomo-in-person-gaming-app && export ORG_NAME=Capstone-Projects-2023-Fall && yarn start
+# or use the alias
+yarn start-lomo
 ```
 
 ## Collaborators

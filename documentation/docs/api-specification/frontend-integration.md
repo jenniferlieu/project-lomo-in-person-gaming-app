@@ -78,7 +78,8 @@ A complete list of json fields that can be returned from an HTTP request.
   "token": string, // bearer token
   "data": object, // resource data like user or beacon, etc
   "message": string, // message from the backend
-  "errors": object // error messages
+  "error": string, // single error message
+  "errors": object // multiple error messages
 }
 ```
 
@@ -127,18 +128,20 @@ A complete list of all beacon json fields.
   "data": {
     "id": string, // Unique identifier
     "host_id": string, // user_id of the User
-    "title": string, // What is going to happen at the event (doubles practice, mario wonder, pokemans vgc, etc.)
     "game_title": string, // title of the game being played at the event
-    "game_system": string, // game system like PC, Nintendo Switch, Xbox, Playstation
+    "game_image": string, // image of the game
+    "console": string, // game system like PC, Nintendo Switch, Xbox, Playstation
     "description": string, // more information about the event
     "start_date_time": string, // when the event will start; example format = 12/12/23 1:00pm
     "end_date_time": string, // when the event will end; example format = 12/12/23 1:00pm
-    "description": string, // street address of the event location
+    "place_name": string, // place of the event
+    "street_address": string, // street address of the event location
     "latitude": float, // For the map
     "longitude": float, // For the map
-    "num_players": int, // Amount of players wanted
+    "players_wanted": int, // Amount of players wanted
+    "controllers_wanted": int, // Amount of controllers wanted
     "created_at": string, // read-only. date and time that data was first created
-    "updated_at": string // read-only. date and time that data was last updated
+    "updated_at": string, // read-only. date and time that data was last updated
   }
 }
 ```
@@ -146,12 +149,14 @@ A complete list of all beacon json fields.
 ### Game JSON
 ```json
 {
-  "data": {
-    "id": int, // twitch's game id
-    "name": string, // game title
-    "box_art_url": string, // url of the game image with custom width and height
-    "igdb_id": int, // igdb's game id
-    "box_art_url_full": string, // url of the game image at full size
-  }
+  "data": [ // array of game data
+    {
+      "id": int, // twitch's game id
+      "name": string, // game title
+      "box_art_url": string, // url of the game image with custom width and height
+      "igdb_id": int, // igdb's game id
+      "box_art_url_full": string, // url of the game image at full size
+    }
+  ]
 }
 ```
