@@ -15,7 +15,7 @@ class ProfileControllerTest extends TestCase {
 
     /**
      * Set up the test environment
-     */
+    **/
     public function setUp(): void {
         parent::setUp(); // required
 
