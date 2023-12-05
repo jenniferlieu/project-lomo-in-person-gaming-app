@@ -27,6 +27,7 @@ class GameController extends Controller {
         //     ->select(['name', 'cover'])
         //     ->with(['cover'])
         //     ->get();
+        $gamesJson = [];
 
         $games = Game::fuzzySearch(
             // fields to search in
@@ -39,6 +40,16 @@ class GameController extends Controller {
             ->with(['cover'])
             ->get();
 
-        return response()->json(['data' => $games]);
+        // return only the cover url instead of the entire cover object
+        $gamesSize = count($games);
+        for($i = 0; $i < $gamesSize; $i++) {
+            $game = (array)$games[$i]->attributes;
+            $artwork = $game['cover']['url'];
+            unset($game['cover']);
+            $game['url'] = $artwork;
+            array_push($gamesJson, $game);
+        }
+
+        return response()->json(['data' => $gamesJson]);
     }
 }
