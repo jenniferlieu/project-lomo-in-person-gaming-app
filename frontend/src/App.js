@@ -12,7 +12,7 @@ import Login from "./components/Login/Login.jsx";
 import Signup from "./components/signup/Signup.jsx";
 import HomePage from "./HomePage.js";
 import BeaconApplication from "./components/BeaconApplication/BeaconApplication.js";
-//import BeaconCreation from "./components/BeaconCreation/BeaconCreation.js";
+import BeaconCreation from "./components/BeaconCreation/BeaconCreation.js";
 import NavBar from "./components/NavBar/NavBar.jsx";
 import ListView from './components/BeaconInfo/ListBeaconInfo.js';
 import useEchoStore from "./useEchoStore.js";
@@ -146,7 +146,7 @@ function App() {
   ];
 
   return (
-    <div className="App bg-gradient-to-b from-sky-500 to-teal-600 h-screen">
+    <div className="App bg-gradient-to-b from-sky-500 to-teal-600 bg-scroll h-min-full h-screen">
       <Router>
         <LoadScript googleMapsApiKey={apiKey}>
           <NavBar />
@@ -163,7 +163,7 @@ function App() {
               path='/beaconlist' 
               element={isLoggedIn ? <ListView /> : <Navigate to='/login' />} 
             />
-            {/* <Route
+            <Route
               path="/createbeacon"
               element={
                 isLoggedIn ? (
@@ -172,7 +172,7 @@ function App() {
                   <Navigate to="/login" />
                 )
               }
-            /> */}
+            />
             <Route
               path="/joinbeacon"
               element={
