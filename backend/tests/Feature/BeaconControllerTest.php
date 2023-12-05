@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
-use romanzipp\Twitch\Facades\Twitch;
-use romanzipp\Twitch\Result;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Beacon;

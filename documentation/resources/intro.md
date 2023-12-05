@@ -36,8 +36,8 @@ Below are links to project boards, resources, official documentation, and tutori
   - [Official docusaurus quick start guide](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/resources/quick-start-docusaurus)
 
 ## Documentation for Packages Used
-- [Laravel Twitch](https://github.com/romanzipp/Laravel-Twitch) - Twitch API wrapper for Laravel to make API calls easier
-- [Twitch Games API](https://dev.twitch.tv/docs/api/reference#get-games) - Twitch API
+- [IGDB Laravel](https://github.com/marcreichel/igdb-laravel) - IGDB API wrapper for Laravel to make API calls easier
+- [IGDB Games API](https://api-docs.igdb.com/#getting-started) - IGDB API Documentation
 - [Laravel Request Docs](https://github.com/rakutentech/laravel-request-docs) - Automatically generates an interactive API documentation website
 - [Laravel Magellan](https://github.com/clickbar/laravel-magellan) - Adds Postgres functionality for geospatial data
 - [Laravel Echo WebSocket](https://laravel.com/docs/10.x/broadcasting#receiving-broadcasts) - Laravel's frontend WebSocket library and wrapper for Pusher

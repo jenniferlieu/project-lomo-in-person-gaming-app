@@ -6,12 +6,10 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
-use romanzipp\Twitch\Facades\Twitch;
 use Mockery;
 use Psr\Http\Message\ResponseInterface;
 
-class GameControllerTest extends TestCase
-{
+class GameControllerTest extends TestCase {
     public User $user;
     public ResponseInterface $mockTwitchResponse;
     public array $mockGameData;
@@ -19,8 +17,7 @@ class GameControllerTest extends TestCase
     /**
      * Set up the test environment
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp(); // required
 
         // setup code begins here
@@ -69,8 +66,7 @@ class GameControllerTest extends TestCase
     /**
      * Test games api gets games by name
      */
-    public function test_games_api_gets_games_by_name(): void
-    {
+    public function test_games_api_gets_games_by_name(): void {
         $this->mockTwitchResponse->shouldReceive('getBody')->andReturn(json_encode([
             'data' => [$this->mockGameData['fortnite'], $this->mockGameData['splatoon'], $this->mockGameData['animalCrossing']]
         ]));
@@ -81,9 +77,9 @@ class GameControllerTest extends TestCase
 
         Twitch::shouldReceive('getGames')
             ->once()
-            ->andReturn(new \romanzipp\Twitch\Result($this->mockTwitchResponse));
+            ->andReturn(new Result($this->mockTwitchResponse));
         $response = $this->call('GET', '/api/games', [
-            'name' => $this->mockGameData['fortnite']['name'] . '.' . $this->mockGameData['splatoon']['name'] . '.' . $this->mockGameData['animalCrossing']['name'],
+            'name' => $this->mockGameData['fortnite']['name'].'.'.$this->mockGameData['splatoon']['name'].'.'.$this->mockGameData['animalCrossing']['name'],
         ]);
         $response->assertStatus(200)->assertJson($mockGameData);
     }
@@ -91,8 +87,7 @@ class GameControllerTest extends TestCase
     /**
      * Test games api gets games by id
      */
-    public function test_games_api_gets_games_by_id(): void
-    {
+    public function test_games_api_gets_games_by_id(): void {
         $this->mockTwitchResponse->shouldReceive('getBody')->andReturn(json_encode([
             'data' => [$this->mockGameData['fortnite'], $this->mockGameData['splatoon'], $this->mockGameData['animalCrossing']]
         ]));
@@ -103,9 +98,9 @@ class GameControllerTest extends TestCase
 
         Twitch::shouldReceive('getGames')
             ->once()
-            ->andReturn(new \romanzipp\Twitch\Result($this->mockTwitchResponse));
+            ->andReturn(new Result($this->mockTwitchResponse));
         $response = $this->call('GET', '/api/games', [
-            'id' => $this->mockGameData['fortnite']['id'] . '.' . $this->mockGameData['splatoon']['id'] . '.' . $this->mockGameData['animalCrossing']['id'],
+            'id' => $this->mockGameData['fortnite']['id'].'.'.$this->mockGameData['splatoon']['id'].'.'.$this->mockGameData['animalCrossing']['id'],
         ]);
         $response->assertStatus(200)->assertJson($mockGameData);
     }
@@ -113,8 +108,7 @@ class GameControllerTest extends TestCase
     /**
      * Test games api gets games by igdb_id
      */
-    public function test_games_api_gets_games_by_igbd_id(): void
-    {
+    public function test_games_api_gets_games_by_igbd_id(): void {
         $this->mockTwitchResponse->shouldReceive('getBody')->andReturn(json_encode([
             'data' => [$this->mockGameData['fortnite'], $this->mockGameData['splatoon'], $this->mockGameData['animalCrossing']]
         ]));
@@ -125,9 +119,9 @@ class GameControllerTest extends TestCase
 
         Twitch::shouldReceive('getGames')
             ->once()
-            ->andReturn(new \romanzipp\Twitch\Result($this->mockTwitchResponse));
+            ->andReturn(new Result($this->mockTwitchResponse));
         $response = $this->call('GET', '/api/games', [
-            'igdb_id' => $this->mockGameData['fortnite']['igdb_id'] . '.' . $this->mockGameData['splatoon']['igdb_id'] . '.' . $this->mockGameData['animalCrossing']['igdb_id'],
+            'igdb_id' => $this->mockGameData['fortnite']['igdb_id'].'.'.$this->mockGameData['splatoon']['igdb_id'].'.'.$this->mockGameData['animalCrossing']['igdb_id'],
         ]);
         $response->assertStatus(200)->assertJson($mockGameData);
     }
