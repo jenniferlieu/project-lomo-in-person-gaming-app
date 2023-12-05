@@ -5,6 +5,7 @@ import BeaconApplication from "../../BeaconApplication/BeaconApplication.js";
 import JoinedUsers from "./JoinedUsers.js";
 import GetUserById from "../../BeaconInfo/GetUserById.js";
 import { Link } from 'react-router-dom';
+import GetBeaconById from "../../BeaconInfo/GetBeaconById.js";
 
 const BeaconInfoWindow = ({ 
   host_id, 
@@ -49,6 +50,7 @@ const BeaconInfoWindow = ({
   const endTime = formatTime(end_date_time);
 
   const hostInfo = GetUserById(host_id);
+  const thisBeaconInfo = GetBeaconById(id);
 
   return (
     <div className="bg-white rounded-lg w-xl max-w-2xl mx-auto shadow-lg my-5 p-2 px-2 relative">
@@ -62,8 +64,7 @@ const BeaconInfoWindow = ({
         <div className="ml-2 mt-2 text-left">
           <div className="flex items-baseline mb-2">
             <img
-              // src={host_image}
-              src="images/catScream.jpg"
+              src={hostInfo.avatar || "icons/defaultPFP.jpg"}
               alt="Game Pic"
               className="top-0 right-0 h-20 w-20 mr-4"
             />
@@ -107,7 +108,7 @@ const BeaconInfoWindow = ({
                 <p>{street_address}</p>
               </div>
             </div>
-            <JoinedUsers playerInfo={BeaconInfoWindow.defaultProps.playerInfo} />
+            <JoinedUsers attendees={thisBeaconInfo[1]?.attendees || []} playersWanted={players_wanted} />
             {/* Old info section, keeping here just in case */}
             {/* <div className="flex items-center text-lg mb-2">
               <img
