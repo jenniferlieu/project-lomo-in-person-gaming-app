@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Beacon;
 use Illuminate\Http\Request;
 use App\Events\CommentCreated;
+use App\Events\CommentDeleted;
 
 class CommentController extends Controller
 {
@@ -34,6 +35,22 @@ class CommentController extends Controller
         broadcast(new CommentCreated($comment))->toOthers();
 
         return response()->json($comment, 201);
+    }
+
+    public function destroy($beaconId, $commentId)
+    {
+        $comment = Comment::where('id', $commentId)->where('beacon_id', $beaconId)->first();
+
+        if (!$comment) {
+            return response()->json(['message' => 'Comment not found'], 404);
+        }
+
+        if ($comment->delete()) {
+            broadcast(new CommentDeleted($commentId, $beaconId));
+            return response()->json(['message' => 'Comment deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Failed to delete comment'], 500);
+        }
     }
 }
 

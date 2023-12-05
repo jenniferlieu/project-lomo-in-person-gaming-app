@@ -31,6 +31,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('games', [GameController::class, 'getGames']);
     Route::get('beacons/{beacon}/comments', [CommentController::class, 'index']);
     Route::post('beacons/{beacon}/comments', [CommentController::class, 'store']);
+    Route::delete('beacons/{beacon}/comments/{comment}', [CommentController::class, 'destroy']);
+
 });
 
 Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class,'beaconAttendees']);
