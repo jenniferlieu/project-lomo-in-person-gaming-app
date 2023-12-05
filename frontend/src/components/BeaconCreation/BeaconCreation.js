@@ -25,13 +25,13 @@ function BeaconCreation({ beaconList }) {
     const [gameConsole, setConsole] = useState(""); //console
     const [description, setDesc] = useState(""); //description
     const [placeName, setPlaceName] = useState(""); //place_name
-    const [address, setAddress] = useState(null); //address_street
+    const [address, setAddress] = useState(""); //address_street
     const [players, setPlayers] = useState(""); //player_wanted
     const [timeFrom, setFrom] = useState(""); //start_date_time
     const [timeTo, setTo] = useState(""); //end_date_time
-    const [controllers, setControllers] = useState(null); //controllers_wanted
+    const [controllers, setControllers] = useState(""); //controllers_wanted
     const [statusCode, setStatusCode] = useState(null);
-    const { authUser, userId, userEmail, userPassword } = useAuth();
+    const { authUser, userId } = useAuth();
 
     const config = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -146,7 +146,9 @@ function BeaconCreation({ beaconList }) {
             place_name: placeName,
             players_wanted: players,
             start_date_time: timeFrom,
-            street_address: address
+            street_address: address,
+            latitude: "39.981985",
+            longitude: "-75.155562"
         };
         console.log(data);
 
@@ -175,10 +177,10 @@ function BeaconCreation({ beaconList }) {
         // history.push("/");
 
         // define url and headers
-        let url = "https://localhost/api/beacons";
+        let url = "http://localhost/api/beacons";
         let logindata = {
-            email: userEmail,
-            password: userPassword,
+            email: 'pikachu@test.com',
+            password: 'secret1234',
         };
         let options = {
             method: "POST",
