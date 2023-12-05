@@ -26,16 +26,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class,'beaconAttendees']);
     Route::get('beacon-display-user-info', function () {
         event(new \App\Events\BeaconDisplayUserInfo());
-
+    });
     Route::get('games', [GameController::class, 'getGames']);
 
     Route::get('beacons/{beacon}/comments', [CommentController::class, 'index']);
     Route::post('beacons/{beacon}/comments', [CommentController::class, 'store']);
-    });
-    Route::get('attendee-info', function (){
-        event(new \App\Events\AttendeeInfo());
-    });
-        Route::delete('beacons/{beacon}/comments/{comment}', [CommentController::class, 'destroy']);
+    // Route::get('attendee-info', function (){
+    //     event(new \App\Events\AttendeeInfo());
+    // });
+    Route::delete('beacons/{beacon}/comments/{comment}', [CommentController::class, 'destroy']);
 
     Route::get('/profiles/{user_id}', [ProfileController::class, 'show']);
     Route::put('/profiles/{user_id}', [ProfileController::class, 'update']);
