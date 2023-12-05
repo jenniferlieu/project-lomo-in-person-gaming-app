@@ -54,7 +54,8 @@ class UserControllerTest extends TestCase
             'data' => [
                 'id' => $userToShow->id,
                 'email' => $userToShow->email,
-                'username' => $userToShow->username
+                'username' => $userToShow->username,
+                'avatar' => $userToShow->avatar
             ]
         ]);
     }
@@ -70,7 +71,8 @@ class UserControllerTest extends TestCase
     //     // New data to update the user
     //     $newData = [
     //         'email' => '123456@example.com',
-    //         'username' => 'exampleuser'
+    //         'username' => 'exampleuser',
+    //         'avatar' => 'new_avatar_url'
     //     ];
     //     $response = $this->putJson("/api/users/{$userToUpdate->id}", $newData);
 
