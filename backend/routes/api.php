@@ -28,6 +28,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('beacons/{beacon}/comments', [CommentController::class, 'index']);
     Route::post('beacons/{beacon}/comments', [CommentController::class, 'store']);
+    Route::delete('beacons/{beacon}/comments/{comment}', [CommentController::class, 'destroy']);
 
     Route::get('/profiles/{user_id}', [ProfileController::class, 'show']);
     Route::put('/profiles/{user_id}', [ProfileController::class, 'update']);
