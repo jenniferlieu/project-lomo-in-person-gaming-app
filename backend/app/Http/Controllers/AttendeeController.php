@@ -15,14 +15,10 @@ class AttendeeController extends Controller
         $attendee = new Attendee();
         $attendee = Attendee::all();
         return response()->json(['attendee' => $attendee->toArray(),200]);
+        return response()->json(['message' => 'testing']);
     }
 
     public function store(AttendeePostRequest $request) {
-        // $attendeeRequest = $request->all();
-        // $attendee = Attendee::create($attendeeRequest);
-        // $attendeeJson = new AttendeeJsonResponse($attendee);
-        // event(new AttendeeCreate($attendeeJson));
-        // return response()->json(['attendee' => $attendeeJson],200);
         $attendee = new Attendee();
         $attendee->beacon_id = $request->beacon_id;
         if (!Beacon::find($attendee->beacon_id)) {
@@ -41,7 +37,7 @@ class AttendeeController extends Controller
 
     public function show(string $beacon_id) {
         $attendees = DB::table('attendees')->where('beacon_id', $beacon_id)->get();
-        return response()->json(['attendees' => $attendees,200]);
+        return response()->json(['attendees' => $attendees],200);
     }
 
     public function update() {
@@ -71,12 +67,7 @@ class AttendeeController extends Controller
         foreach ($users as $gamer) {
             $username = DB::table('users')->where('id', $gamer)->get();
             array_push($usernames,$username[0]->username);
-            // and return avatar 
-            // and controllers being brought 
-            // use new BeaconJsonResponse to return data
-            // use event for websocket 
-
         }
-        return response()->json(['attendees' => $attendees,200]);
+        return response()->json(['attendees' => $attendees],200);
     }
 }

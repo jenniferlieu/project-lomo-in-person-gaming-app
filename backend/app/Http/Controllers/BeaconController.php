@@ -76,10 +76,10 @@ class BeaconController extends Controller
         $beaconInfo = array();
         $beacon = Beacon::find($beacon_id);
         array_push($beaconInfo,$beacon);
-        $attendees = DB::table('attendees')->where('beacon_id', $beacon_id)->get();
-        $users = array();
         $attendeeTable = DB::table('attendees')->where('beacon_id',$beacon_id)->get(['user_id','controllers_brought']);
-        array_push($beaconInfo,response()->json(['attendees' => $attendeeTable], 200)->getData());
+        $joinTables = DB::table('attendees')->select('attendees.user_id','users.username','users.avatar','attendees.controllers_brought')
+        ->join('users', 'users.id', '=', 'attendees.user_id')->where('beacon_id',$beacon_id)->get();
+        array_push($beaconInfo,response()->json(['attendees' => $joinTables], 200)->getData());
         return response()->json(['data' => $beaconInfo], 200);
     }
 

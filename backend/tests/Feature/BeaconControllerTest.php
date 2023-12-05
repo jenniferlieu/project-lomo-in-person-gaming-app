@@ -14,8 +14,7 @@ use App\Events\BeaconCreated;
 use Mockery;
 use Psr\Http\Message\ResponseInterface;
 
-class BeaconControllerTest extends TestCase
-{
+class BeaconControllerTest extends TestCase {
     use WithFaker;
     use RefreshDatabase; // clears the entire database after each test
 
@@ -26,8 +25,7 @@ class BeaconControllerTest extends TestCase
     /**
      * Set up the test environment
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp(); // required
 
         // setup code begins here
@@ -41,8 +39,6 @@ class BeaconControllerTest extends TestCase
             'host_id' => $this->user->id
         ]);
         unset($this->beacon['coordinates']); // delete the coordindates field
-        $this->beacon['latitude'] = $this->faker->latitude(); // add latitude field
-        $this->beacon['longitude'] = $this->faker->longitude(); // add longitude field
 
         // create mock events
         Event::fake([BeaconCreated::class]);
@@ -66,11 +62,14 @@ class BeaconControllerTest extends TestCase
      * Tests the post request to the '/api/beacons' route to create a new beacon.
      * Should return success status code 201 for successful resource creation.
      */
-    public function test_post_beacon_request_returns_successful_response(): void
-    {
+    public function test_post_beacon_request_returns_successful_response(): void {
         Twitch::shouldReceive('getGames')
             ->once()
             ->andReturn(new Result($this->mockTwitchResponse));
+
+        // set fake latitude and longitude here to avoid async problems
+        $this->beacon['latitude'] = $this->faker->latitude(); // add latitude field
+        $this->beacon['longitude'] = $this->faker->longitude(); // add longitude field
         $response = $this->postJson('/api/beacons', $this->beacon->toArray());
         $response->assertStatus(201);
     }
@@ -79,8 +78,7 @@ class BeaconControllerTest extends TestCase
      * Tests that validation checks fail on the POST request for beacons.
      * Should return a 422 status code for unprocessable entity.
      */
-    public function test_post_beacon_request_fails_when_required_fields_are_empty(): void
-    {
+    public function test_post_beacon_request_fails_when_required_fields_are_empty(): void {
         $response = $this->postJson('/api/beacons');
 
         $response->assertStatus(422);
@@ -90,8 +88,7 @@ class BeaconControllerTest extends TestCase
      * Test get all beacons
      * Should return a status code of 200 and returns an array of beacons
      */
-    public function test_get_all_beacons(): void
-    {
+    public function test_get_all_beacons(): void {
         $response = $this->getJson('/api/beacons');
 
         $response->assertStatus(200);
@@ -101,11 +98,14 @@ class BeaconControllerTest extends TestCase
      * Test get all beacons
      * Should return a status code of 200 and returns an array of beacons
      */
-    public function test_beacon_created_event_dispatched(): void
-    {
+    public function test_beacon_created_event_dispatched(): void {
         Twitch::shouldReceive('getGames')
             ->once()
             ->andReturn(new Result($this->mockTwitchResponse));
+
+        // set fake latitude and longitude here to avoid async problems
+        $this->beacon['latitude'] = $this->faker->latitude(); // add latitude field
+        $this->beacon['longitude'] = $this->faker->longitude(); // add longitude field
         $this->postJson('/api/beacons', $this->beacon->toArray());
         Event::assertDispatched(BeaconCreated::class);
     }
