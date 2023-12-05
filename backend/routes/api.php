@@ -20,15 +20,17 @@ use App\Models\Attendee;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('beacons', BeaconController::class);
-    Route::delete('beacons', 'BeaconController@delete');    
-    Route::delete('attendees', 'AttendeeController@delete');
     Route::apiResource('users', UserController::class)->except('store');
     Route::apiResource('attendees', AttendeeController::class);
-    Route::post('attendees', [App\Http\Controllers\AttendeeController::class,'store']); 
-    Route::patch('beacons', 'BeaconController@update');
-});
+    Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class,'beaconAttendees']);
+    Route::get('beacon-display-user-info', function () {
+        event(new \App\Events\BeaconDisplayUserInfo());
+    });
+    Route::get('attendee-info', function (){
+        event(new \App\Events\AttendeeInfo());
+    });
 
-Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class,'beaconAttendees']);
+});
 
 Route::get('/profiles/{user_id}', [ProfileController::class, 'show']);
 

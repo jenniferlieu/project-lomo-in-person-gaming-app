@@ -23,14 +23,9 @@ Route::get('/', function () {
 Route::middleware(['throttle:login'])->group(function () {
     Route::post('login', [AuthController::class, 'login']);
 });
-Route::get('attendee-info', function (){
-    event(new \App\Events\AttendeeInfo());
-});
 
 Route::middleware(['throttle:register'])->group(function () {
     Route::post('register', [AuthController::class, 'register']);
 });
 
-Route::get('beacon-display-user-info', function () {
-    event(new \App\Events\BeaconDisplayUserInfo());
-});
+
