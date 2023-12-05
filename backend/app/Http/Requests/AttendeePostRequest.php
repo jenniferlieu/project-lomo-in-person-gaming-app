@@ -23,6 +23,7 @@ class AttendeePostRequest extends FormRequest
         return [
             'beacon_id' => 'required',
             'user_id' => 'required',
+            'controllers_brought'
         ];
     }
 
