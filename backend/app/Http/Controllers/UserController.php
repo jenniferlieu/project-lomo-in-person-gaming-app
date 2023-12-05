@@ -31,7 +31,12 @@ class UserController extends Controller
             return response()->json(['error' => 'User not found'], 404);
         }
         // Return only the user information from the users table
-        return response()->json(['data' => ['id' => $user->id, 'email' => $user->email, 'username' => $user->username]], 200);
+        return response()->json(['data' => [
+            'id' => $user->id, 
+            'email' => $user->email, 
+            'username' => $user->username,
+            'avatar' => $user->avatar
+        ]], 200);
     }
 
 
@@ -43,7 +48,8 @@ class UserController extends Controller
         // Validate the request data
         $validatedData = $request->validate([
             'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'username' => 'required|max:255'
+            'username' => 'required|max:255',
+            'avatar' => 'nullable|string' 
         ]);
         $user = User::find($id);
         // check if user exist
