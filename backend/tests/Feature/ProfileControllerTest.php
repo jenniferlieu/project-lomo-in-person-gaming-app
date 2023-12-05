@@ -39,7 +39,7 @@ class ProfileControllerTest extends TestCase
         $profile = Profile::factory()->create(['user_id' => $user->id]);
 
         // Send a GET request to display the user profile
-        $response = $this->get("/api/profiles/{$profile->id}");
+        $response = $this->get("/api/profiles/{$user->id}");
 
         // Assert that the response is successful and contains the user profile data
         $response->assertStatus(200);
@@ -53,7 +53,7 @@ class ProfileControllerTest extends TestCase
         $profile = Profile::factory()->create(['user_id' => $user->id]);
 
         // Send a DELETE request to delete the profile
-        $response = $this->delete("/api/profiles/{$profile->id}");
+        $response = $this->delete("/api/profiles/{$user->id}");
 
         // Assert that the response status code is 200 OK
         $response->assertStatus(200);
@@ -77,7 +77,7 @@ class ProfileControllerTest extends TestCase
         ];
 
         // Send a PUT request to update the user profile
-        $response = $this->put("/api/profiles/{$profile->id}", $updatedData);
+        $response = $this->put("/api/profiles/{$user->id}", $updatedData);
 
         // Assert that the response is successful and contains the updated user profile data
         $response->assertStatus(200);
@@ -102,22 +102,22 @@ class ProfileControllerTest extends TestCase
         $profileData = [
             'user_id' => $user->id,
             'about_me' => 'New About Me',
-            'preferred_games' => ['Game X', 'Game Y'],
-            'preference_tags' => ['Tag X', 'Tag Y'],
+            'preferred_games' => ['Game1', 'Game2'],
+            'preference_tags' => ['Tag1', 'Tag2']
         ];
 
         // Send a POST request to store the new profile
-        $response = $this->post('/api/profiles', $profileData);
+        $response = $this->postJson('/api/profiles', $profileData);
 
         // Assert the response status is 201 Created
         $response->assertStatus(201);
 
         // Assert the response contains the profile data
-        $response->assertJson(['data' => $profileData]);
+        $response->assertJson(['message' => 'Profile created successfully', 'data' => $profileData]);
 
         // Verify that the profile is now in the database
         $this->assertDatabaseHas('profiles', [
-            'user_id' => $user->id,
+            'user_id' => $profileData['user_id'],
             'about_me' => 'New About Me'
         ]);
     }

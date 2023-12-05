@@ -64,7 +64,7 @@ class ProfileController extends Controller
     {
         // Validate the request data
         $validatedData = $request->validate([
-            'user_id' => 'required|integer',
+            'user_id' => 'required|uuid',
             'about_me' => 'string|nullable',
             'preferred_games' => 'array|nullable',
             'preference_tags' => 'array|nullable',
