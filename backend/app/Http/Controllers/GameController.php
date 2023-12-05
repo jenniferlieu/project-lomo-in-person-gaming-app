@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
-use Exception;
 use Illuminate\Http\Request;
+use MarcReichel\IGDBLaravel\Models\Game;
 
 /**
  * Gets game information by game ID or name using IGDB's API.
@@ -20,9 +19,26 @@ use Illuminate\Http\Request;
 class GameController extends Controller {
     /**
      * @lrd:start
-     * Gets game data using IGDB's API. Returned as an array of objects.
+     * Gets game data (name, cover, url) using IGDB's API. Returned as an array of objects.
      */
-    public function getGames(Request $request) {
+    public function getGamesByName(string $game_title) {
+        // $game_title = ucwords($game_title);
+        // $games = Game::where('name', $game_title)
+        //     ->select(['name', 'cover'])
+        //     ->with(['cover'])
+        //     ->get();
 
+        $games = Game::fuzzySearch(
+            // fields to search in
+            ['name'],
+            // the query to search for
+            $game_title,
+            // enable/disable case sensitivity (disabled by default)
+            false,
+        )->select(['name', 'cover'])
+            ->with(['cover'])
+            ->get();
+
+        return response()->json(['data' => $games]);
     }
 }

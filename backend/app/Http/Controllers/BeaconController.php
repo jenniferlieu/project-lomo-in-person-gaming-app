@@ -3,26 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Events\BeaconCreated;
-use App\Helpers\BeaconHelper;
 use App\Http\Requests\BeaconPostRequest;
 use App\Http\Resources\BeaconJsonResponse;
 use App\Http\Requests\BeaconUpdateRequest;
+use App\Models\Attendee;
 use Illuminate\Http\Request;
 use App\Models\Beacon;
 use Clickbar\Magellan\Data\Geometries\Point;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
 
-class BeaconController extends Controller
-{
+class BeaconController extends Controller {
     /**
      * Display a listing of the Beacon.
      * @lrd:start
      * Get an array of all beacons
      * @lrd:end
      */
-    public function index()
-    {
+    public function index() {
         // Gets all beacons from the database
         return response()->json(['data' => BeaconJsonResponse::collection(Beacon::all())], 200);
     }
@@ -45,17 +42,22 @@ class BeaconController extends Controller
      * - **controllers_wanted** : number of conotrollers needed
      * @lrd:end
      */
-    public function store(BeaconPostRequest $request)
-    {
+    public function store(BeaconPostRequest $request) {
         // Modify JSON request to fit in the database
-        try {
-            $requestModified = BeaconHelper::fillBeaconRequest($request->all());
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $beaconRequest = $request->all();
+        $beaconRequest['coordinates'] = Point::makeGeodetic($beaconRequest['latitude'], $beaconRequest['longitude']);
+        unset($beaconRequest['latitude']); // remove latitude field
+        unset($beaconRequest['longitude']); // remove longitude field
 
         // Insert new beacons into storage
-        $beacon = Beacon::create($requestModified);
+        $beacon = Beacon::create($beaconRequest);
+
+        // Add host as the first attendee
+        Attendee::create([
+            'beacon_id' => $beacon['id'],
+            'user_id' => $beacon['host_id'],
+            'controllers_brought' => 0
+        ]);
 
         // Transform JSON returned from database into the same JSON format request received
         // Remove coordinates field and replace it with latitude and longitude
@@ -71,23 +73,21 @@ class BeaconController extends Controller
     /**
      * Display the specified Beacon.
      */
-    public function show(string $beacon_id)
-    {
+    public function show(string $beacon_id) {
         $beaconInfo = array();
         $beacon = Beacon::find($beacon_id);
-        array_push($beaconInfo,$beacon);
-        $attendeeTable = DB::table('attendees')->where('beacon_id',$beacon_id)->get(['user_id','controllers_brought']);
-        $joinTables = DB::table('attendees')->select('attendees.user_id','users.username','users.avatar','attendees.controllers_brought')
-        ->join('users', 'users.id', '=', 'attendees.user_id')->where('beacon_id',$beacon_id)->get();
-        array_push($beaconInfo,response()->json(['attendees' => $joinTables], 200)->getData());
+        array_push($beaconInfo, $beacon);
+        $attendeeTable = DB::table('attendees')->where('beacon_id', $beacon_id)->get(['user_id', 'controllers_brought']);
+        $joinTables = DB::table('attendees')->select('attendees.user_id', 'users.username', 'users.avatar', 'attendees.controllers_brought')
+            ->join('users', 'users.id', '=', 'attendees.user_id')->where('beacon_id', $beacon_id)->get();
+        array_push($beaconInfo, response()->json(['attendees' => $joinTables], 200)->getData());
         return response()->json(['data' => $beaconInfo], 200);
     }
 
     /**
      * Update the specified Beacon in storage.
      */
-    public function update(BeaconUpdateRequest $request, string $beacon_id)
-    {
+    public function update(BeaconUpdateRequest $request, string $beacon_id) {
         $beacon = Beacon::find($beacon_id);
         if(!$beacon) {
             return response()->json(['error' => 'Beacon not found'], 404);
@@ -106,24 +106,23 @@ class BeaconController extends Controller
             'controllers_wanted' => 'integer'
         ]);
         $beacon->fill($validatedData);
-        if ($beacon->save()) {
-            return response()->json(['message' => "Beacon updated successfully", 'data' => $beacon],200);
+        if($beacon->save()) {
+            return response()->json(['message' => "Beacon updated successfully", 'data' => $beacon], 200);
         } else {
-            return response()->json(['error' => 'Failed to update beacon'],500);
+            return response()->json(['error' => 'Failed to update beacon'], 500);
         }
     }
 
     /**
      * Remove the specified Beacon from storage.
      */
-    public function destroy(string $beacon_id)
-    {
+    public function destroy(string $beacon_id) {
         $beacon = Beacon::find($beacon_id);
 
-        if (!$beacon) {
+        if(!$beacon) {
             return response()->json(['error' => 'Beacon not found'], 400);
         }
-        if ($beacon->delete()) {
+        if($beacon->delete()) {
             return response()->json(['message' => 'Beacon deleted successfully'], 200);
         } else {
             return response()->json(['error' => 'Failed to delete beacon'], 500);

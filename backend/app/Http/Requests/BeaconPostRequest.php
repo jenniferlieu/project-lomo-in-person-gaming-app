@@ -4,13 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BeaconPostRequest extends FormRequest
-{
+class BeaconPostRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
+    public function authorize(): bool {
         return true;
     }
 
@@ -19,11 +17,11 @@ class BeaconPostRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
             'host_id' => 'string',
             'game_title' => 'required|string',
+            'game_image' => 'required|string',
             'console' => 'required|string',
             'description' => 'string',
             'start_date_time' => 'required|date',
