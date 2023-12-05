@@ -12,6 +12,25 @@ class ProfileControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function testIndexProfiles()
+    {
+        // Create multiple users and corresponding profiles
+        $users = User::factory()->count(3)->create();
+        $users->each(function ($user) {
+            Profile::factory()->create(['user_id' => $user->id]);
+        });
+
+        // Send a GET request to get all profiles
+        $response = $this->get('/api/profiles');
+
+        // Assert that the response status is 200 OK
+        $response->assertStatus(200);
+
+        // Assert that the response contains all the created profiles
+        $profiles = Profile::all();
+        $response->assertJson(['data' => $profiles->toArray()]);
+    }
+
     public function testShowProfile()
     {
         // Create a user and the corresponding user profile
@@ -20,11 +39,27 @@ class ProfileControllerTest extends TestCase
         $profile = Profile::factory()->create(['user_id' => $user->id]);
 
         // Send a GET request to display the user profile
-        $response = $this->get("/api/profiles/{$profile->id}");
+        $response = $this->get("/api/profiles/{$user->id}");
 
         // Assert that the response is successful and contains the user profile data
         $response->assertStatus(200);
         $response->assertJson(['data' => $profile->toArray()]);
+    }
+
+    public function testDestroyProfile()
+    {
+        // Create a user and a corresponding profile
+        $user = User::factory()->create();
+        $profile = Profile::factory()->create(['user_id' => $user->id]);
+
+        // Send a DELETE request to delete the profile
+        $response = $this->delete("/api/profiles/{$user->id}");
+
+        // Assert that the response status code is 200 OK
+        $response->assertStatus(200);
+
+        // Assert that the profile has been deleted from the database
+        $this->assertDatabaseMissing('profiles', ['id' => $profile->id]);
     }
 
     public function testUpdateProfile()
@@ -42,7 +77,7 @@ class ProfileControllerTest extends TestCase
         ];
 
         // Send a PUT request to update the user profile
-        $response = $this->put("/api/profiles/{$profile->id}", $updatedData);
+        $response = $this->put("/api/profiles/{$user->id}", $updatedData);
 
         // Assert that the response is successful and contains the updated user profile data
         $response->assertStatus(200);
@@ -56,5 +91,34 @@ class ProfileControllerTest extends TestCase
 
         // Verify that the user profile in the database has been updated
         $this->assertDatabaseHas('profiles', $dbData);
+    }
+
+    public function testStoreProfile()
+    {
+        // Create a user to associate with the new profile
+        $user = User::factory()->create();
+
+        // Prepare the data for the new profile
+        $profileData = [
+            'user_id' => $user->id,
+            'about_me' => 'New About Me',
+            'preferred_games' => ['Game1', 'Game2'],
+            'preference_tags' => ['Tag1', 'Tag2']
+        ];
+
+        // Send a POST request to store the new profile
+        $response = $this->postJson('/api/profiles', $profileData);
+
+        // Assert the response status is 201 Created
+        $response->assertStatus(201);
+
+        // Assert the response contains the profile data
+        $response->assertJson(['message' => 'Profile created successfully', 'data' => $profileData]);
+
+        // Verify that the profile is now in the database
+        $this->assertDatabaseHas('profiles', [
+            'user_id' => $profileData['user_id'],
+            'about_me' => 'New About Me'
+        ]);
     }
 }
