@@ -80,12 +80,7 @@ Instructions on how to setup a local instance of the app.
 
 ### Setup local machine
 
-For frontend development, **make sure you're in the `frontend/` folder**.
-
-For backend development, **make sure you're in the `backend/` folder**.
-
-For documentation, **make sure you're in the `documentation/` folder**.
-
+For Windows users only, start up and use WSL2 as your development machine.
 
 #### 1. Git clone the repo
 ```bash
@@ -104,13 +99,13 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
 3. Copy the .env.example file to .env
     ```bash
     cp .env.example .env
-    # get secret keys
+    # add secret keys to .env
     ```
 
 #### 3. Setup backend
 1. Go to the `backend/` folder
     ```bash
-    cd ../backend
+    cd backend
     ```
 2. Start the Docker Desktop application (Docker Desktop must be running the background to run any docker commands)
 3. Install composer dependencies (composer is a package manager for php)
@@ -122,7 +117,7 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
 4. Copy the .env.example file to .env
     ```bash
     cp .env.example .env
-    # get secret keys
+    # add secret keys to .env
     ```
 5. Build the image and start the docker container (in detached mode)
    ```bash
@@ -134,7 +129,7 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
     ```
 7. Go to [http://localhost](http://localhost) in your browser to make sure that you can see the laravel welcome screen, and you're set!
    1. **PROBLEM:** If you see a 500 server error and no detailed explanation of the error, then you forgot to copy the env file
-   2. **PROBLEM:** If you get a permissions error for the storage folder and the storage/logs/laravel.log file. Run the commands below one line at a time, in order:
+   2. **PROBLEM:** If you get permission errors for the storage folder and the storage/logs/laravel.log file. Run the commands below one line at a time, in order:
         ```bash
         # enter the docker container command line as the root user
         ./vendor/bin/sail root-shell
@@ -167,7 +162,7 @@ Add this line to your `~/.bashrc` or `~/.zshrc` in your home directory:
 #### 4. Setup docusaurus
 1. Go to `documentation/` folder
     ```bash
-    cd ../documentation
+    cd documentation
     ```
 2. Install node dependencies:
    ```bash
