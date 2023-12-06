@@ -66,12 +66,15 @@ function BeaconCreation({ beaconList }) {
   }
 
   function clearForm() {
-    setGame("");
+    setGameName("");
+    setSelectedGame(null);
     setDesc("");
     setConsole("");
     setPlayers("");
     setControllers("");
     setPlaceName("");
+    setLatitude("");
+    setLongitude("");
     setFrom("");
     setTo("");
   }
