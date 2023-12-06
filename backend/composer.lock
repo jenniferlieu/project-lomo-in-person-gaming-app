@@ -3876,19 +3876,8 @@
                     "email": "romain@cambien.net"
                 },
                 {
-                    "name": "Cees-Jan Kiewiet",
-                    "email": "reactphp@ceesjankiewiet.nl",
-                    "homepage": "https://wyrihaximus.net/"
-                },
-                {
-                    "name": "Jan Sorgalla",
-                    "email": "jsorgalla@gmail.com",
-                    "homepage": "https://sorgalla.com/"
-                },
-                {
-                    "name": "Chris Boden",
-                    "email": "cboden@gmail.com",
-                    "homepage": "https://cboden.dev/"
+                    "name": "Riverline",
+                    "homepage": "http://www.riverline.fr"
                 }
             ],
             "description": "One class library to parse multipart content with encoding and charset support.",
