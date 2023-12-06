@@ -74,7 +74,6 @@ function BeaconCreation({ beaconList }) {
   //         </Combobox>
   //     );
   // };
-  // const laravelEcho = useEchoStore((state) => state.laravelEcho);
 
   // {  DataFields
   //   console
@@ -122,9 +121,9 @@ function BeaconCreation({ beaconList }) {
       start_date_time: timeFrom,
       end_date_time: timeTo,
       place_name: placeName,
-      street_address: "1900 N 13th St, Philadelphia, PA 19122",
-      latitude: "39.981985",
-      longitude: "-75.155562",
+      street_address: "2001 N 13th St, Philadelphia, PA 19122",
+      latitude: "39.983274870935716",
+      longitude: "-75.1534139308427",
       players_wanted: players,
       controllers_wanted: controllers,
     };
@@ -169,13 +168,14 @@ function BeaconCreation({ beaconList }) {
 
     // make api call
     fetch(url, options)
-      .then((response) => response.json().then((data) => console.log(data)))
-      // .then((response) => {
-      //   if (responseclone.ok) {
-      //     displayText("Beacon Confirmed!");
-      //     return responseclone;
-      //   }
-      // })
+      .then((response) =>
+        response.json().then((data) => {
+          console.log("Beacon added to database", data);
+          if (response.ok) {
+            displayText("Beacon Confirmed!");
+          }
+        })
+      )
       .catch((error) => console.error("Error:", error));
   }
 
@@ -443,6 +443,10 @@ function BeaconCreation({ beaconList }) {
         >
           Confirm
         </button>
+        <div
+          className="font-bold relative py-1 px-1 rounded float-right"
+          id="displayArea"
+        ></div>
       </div>
     </div>
   );
