@@ -8,7 +8,7 @@ import { debounce } from "lodash";
 import Echo from "laravel-echo";
 // import { useHistory } from 'react-router-dom'
 import useEchoStore from "../../useEchoStore.js";
-
+import LocationSearch from "./LocationSearch.js";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   getGeocode,
@@ -138,28 +138,28 @@ function BeaconCreation({ beaconList }) {
     setFrom("");
     setTo("");
   }
-  // Uncomment this section when you're done!
-  useEffect(() => {
-      const laravelEcho = new Echo({
-          broadcaster: 'pusher',
-          key: process.env.REACT_APP_PUSHER_APP_KEY,
-          cluster: process.env.REACT_APP_PUSHER_CLUSTER,
-          forceTLS: true
-      });
-      console.log(laravelEcho);
+  //   // Uncomment this section when you're done!
+  //   useEffect(() => {
+  //       const laravelEcho = new Echo({
+  //           broadcaster: 'pusher',
+  //           key: process.env.REACT_APP_PUSHER_APP_KEY,
+  //           cluster: process.env.REACT_APP_PUSHER_CLUSTER,
+  //           forceTLS: true
+  //       });
+  //       console.log(laravelEcho);
 
-      // Connect to a public websocket channel
-      laravelEcho.channel("new-beacon").listen("BeaconCreated", (e) => {
-          // runs every time data ia pushed through the websocket
-          console.log(e.beacon);
-      });
+  //       // Connect to a public websocket channel
+  //       laravelEcho.channel("new-beacon").listen("BeaconCreated", (e) => {
+  //           // runs every time data ia pushed through the websocket
+  //           console.log(e.beacon);
+  //       });
 
-      // Cleanup function to disconnect the Echo instance when the component unmounts
-      return () => {
-          laravelEcho.disconnect();
-      };
+  //       // Cleanup function to disconnect the Echo instance when the component unmounts
+  //       return () => {
+  //           laravelEcho.disconnect();
+  //       };
 
-  }, []); // Empty dependency array ensures this runs on mount and unmount only
+  //   }, []); // Empty dependency array ensures this runs on mount and unmount only
 
   function onClose() {
     let data = {
@@ -345,14 +345,7 @@ function BeaconCreation({ beaconList }) {
 
       <div className="flex-col w-full p-1 md:p-2">
         Location:
-        <input
-          value={placeName}
-          onChange={(e) => {
-            setPlaceName(e.target.value);
-          }}
-          placeholder="Where are we playing?"
-          className="p-1 border-teal-100 border-2 rounded w-full"
-        />
+        <LocationSearch />
       </div>
 
       <div className="font-bold text-2xl border-b-4 border-b-sky-950 py-2 w-full mb-2">

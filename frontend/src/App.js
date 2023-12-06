@@ -22,62 +22,62 @@ import Pusher from "pusher-js"; // used behind the scenes by the new Echo functi
 function App() {
   const { isLoggedIn } = useAuth();
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-  const laravelEcho = useEchoStore((state) => state.laravelEcho);
-  const setLaravelEcho = useEchoStore((state) => state.setLaravelEcho);
+  // const laravelEcho = useEchoStore((state) => state.laravelEcho);
+  // const setLaravelEcho = useEchoStore((state) => state.setLaravelEcho);
 
-  // Connect to WebSocket
-  if (!laravelEcho) {
-    // create a new websocket connection
-    const laravelWebsocket = new Echo({
-      broadcaster: "pusher",
-      key: process.env.REACT_APP_PUSHER_APP_KEY,
-      cluster: process.env.REACT_APP_PUSHER_CLUSTER,
-      forceTLS: true,
-    });
+  // // Connect to WebSocket
+  // if (!laravelEcho) {
+  //   // create a new websocket connection
+  //   const laravelWebsocket = new Echo({
+  //     broadcaster: "pusher",
+  //     key: process.env.REACT_APP_PUSHER_APP_KEY,
+  //     cluster: process.env.REACT_APP_PUSHER_CLUSTER,
+  //     forceTLS: true,
+  //   });
 
-    // store the connection in state manager
-    setLaravelEcho(laravelWebsocket);
-  }
+  //   // store the connection in state manager
+  //   setLaravelEcho(laravelWebsocket);
+  // }
 
-  // Display messages for websocket states
-  // More information about the available states and state lifecycle:
-  // https://pusher.com/docs/channels/using_channels/connection/#connection-states
-  if (laravelEcho) {
-    // Initial state. No event is emitted in this state.
-    laravelEcho.connector.pusher.connection.bind("initalized", () => {
-      console.log("Laravel echo websocket initalized.");
-    });
+  // // Display messages for websocket states
+  // // More information about the available states and state lifecycle:
+  // // https://pusher.com/docs/channels/using_channels/connection/#connection-states
+  // if (laravelEcho) {
+  //   // Initial state. No event is emitted in this state.
+  //   laravelEcho.connector.pusher.connection.bind("initalized", () => {
+  //     console.log("Laravel echo websocket initalized.");
+  //   });
 
-    // All dependencies have been loaded and Channels is trying to connect.
-    laravelEcho.connector.pusher.connection.bind("connecting", () => {
-      console.log("Laravel echo websocket is connecting.");
-    });
+  //   // All dependencies have been loaded and Channels is trying to connect.
+  //   laravelEcho.connector.pusher.connection.bind("connecting", () => {
+  //     console.log("Laravel echo websocket is connecting.");
+  //   });
 
-    // The connection to Channels is open and authenticated with your app.
-    laravelEcho.connector.pusher.connection.bind("connected", () => {
-      console.log("Laravel echo websocket connected.");
-    });
+  //   // The connection to Channels is open and authenticated with your app.
+  //   laravelEcho.connector.pusher.connection.bind("connected", () => {
+  //     console.log("Laravel echo websocket connected.");
+  //   });
 
-    // The Channels connection was previously connected and has now intentionally been closed.
-    laravelEcho.connector.pusher.connection.bind("disconnected", () => {
-      console.log("Laravel echo websocket disconnected.");
-      setLaravelEcho(null);
-    });
+  //   // The Channels connection was previously connected and has now intentionally been closed.
+  //   laravelEcho.connector.pusher.connection.bind("disconnected", () => {
+  //     console.log("Laravel echo websocket disconnected.");
+  //     setLaravelEcho(null);
+  //   });
 
-    // Channels is not supported by the browser.
-    laravelEcho.connector.pusher.connection.bind("failed", () => {
-      console.log(
-        "Laravel echo websocket failed. Websockets are not supported by this browser."
-      );
-    });
+  //   // Channels is not supported by the browser.
+  //   laravelEcho.connector.pusher.connection.bind("failed", () => {
+  //     console.log(
+  //       "Laravel echo websocket failed. Websockets are not supported by this browser."
+  //     );
+  //   });
 
-    // The connection is temporarily unavailable.
-    laravelEcho.connector.pusher.connection.bind("unavailable", () => {
-      console.log(
-        "Laravel echo websocket is temporarily unavailable. Please check your internet connection."
-      );
-    });
-  }
+  //   // The connection is temporarily unavailable.
+  //   laravelEcho.connector.pusher.connection.bind("unavailable", () => {
+  //     console.log(
+  //       "Laravel echo websocket is temporarily unavailable. Please check your internet connection."
+  //     );
+  //   });
+  // }
 
   const beaconList = [
     {
@@ -148,7 +148,7 @@ function App() {
   return (
     <div className="App bg-gradient-to-b from-sky-500 to-teal-600 bg-scroll h-min-full h-screen">
       <Router>
-        <LoadScript googleMapsApiKey={apiKey}>
+        <LoadScript googleMapsApiKey={apiKey} libraries={["places"]}>
           <NavBar />
           <Routes>
             <Route
