@@ -4,29 +4,31 @@ import CommentSection from "../../Comments.jsx";
 import BeaconApplication from "../../BeaconApplication/BeaconApplication.js";
 import JoinedUsers from "./JoinedUsers.js";
 import GetUserById from "../../BeaconInfo/GetUserById.js";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GetBeaconById from "../../BeaconInfo/GetBeaconById.js";
 
-const BeaconInfoWindow = ({ 
-  host_id, 
-  start_date_time, 
-  end_date_time, 
-  game_title, 
-  description, 
+
+const BeaconInfoWindow = ({
+  host_id,
+  start_date_time,
+  end_date_time,
+  game_title,
+  description,
   console,
-  game_image, 
-  host_image, 
-  onClose, 
-  players_wanted, 
-  controllers_wanted, 
-  place_name, 
-  street_address, 
-  id 
+  game_image,
+  host_image,
+  onClose,
+  players_wanted,
+  controllers_wanted,
+  place_name,
+  street_address,
+  id
 }) => {
   const [showControllerInfo, setShowControllerInfo] = useState(false);
   const formattedText = description.replace(/\n/g, "<br>");
   const [showComments, setShowComments] = useState(false);
-
+  const navigate = useNavigate();
+  
   const handleCommentsClick = () => {
     setShowComments(!showComments);
   };
@@ -45,7 +47,11 @@ const BeaconInfoWindow = ({
     const strTime = hours + ':' + (minutes < 10 ? '0' + minutes : minutes) + ' ' + ampm;
     return strTime;
   }
-  
+
+  const handleJoinClick = () => {
+    navigate(`/joinbeacon/?beacon_id=${id}&game_title=${encodeURIComponent(game_title)}&host_username=${encodeURIComponent(hostInfo.username)}`);
+  };
+
   const startTime = formatTime(start_date_time);
   const endTime = formatTime(end_date_time);
 
@@ -78,11 +84,12 @@ const BeaconInfoWindow = ({
                 <p className="mb-2 text-xl" dangerouslySetInnerHTML={{ __html: formattedText }}></p>
               </div>
               <div className="pl-2">
-                <Link to="/joinbeacon">
-                  <button className="mr-8 mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Join!
-                  </button>
-                </Link>
+                <button
+                  className="mr-8 mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={handleJoinClick}
+                >
+                  Join!
+                </button>
               </div>
             </div>
             <p className="text-xl border-b border-solid border-gray-400 w-[95%] font-semibold">Console</p>

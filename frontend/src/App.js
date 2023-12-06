@@ -174,7 +174,7 @@ function App() {
               }
             />
             <Route
-              path="/joinbeacon"
+              path="/joinbeacon/"
               element={
                 isLoggedIn ? (
                   <BeaconApplication beaconList={beaconList} />
