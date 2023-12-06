@@ -44,3 +44,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profiles', [ProfileController::class, 'index']);
 });
 
+
