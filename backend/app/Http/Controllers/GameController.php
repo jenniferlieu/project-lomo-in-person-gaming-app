@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use MarcReichel\IGDBLaravel\Models\Game;
+use MarcReichel\IGDBLaravel\Builder as IGDB;
 
 /**
  * Gets game information by game ID or name using IGDB's API.
@@ -19,14 +20,10 @@ use MarcReichel\IGDBLaravel\Models\Game;
 class GameController extends Controller {
     /**
      * @lrd:start
-     * Gets game data (name, cover, url) using IGDB's API. Returned as an array of objects.
+     * Gets game data by fuzzy name using IGDB's API. Returned as an array of objects.
+     * @lrd:end
      */
-    public function getGamesByName(string $game_title) {
-        // $game_title = ucwords($game_title);
-        // $games = Game::where('name', $game_title)
-        //     ->select(['name', 'cover'])
-        //     ->with(['cover'])
-        //     ->get();
+    public function getGamesByFuzzyName(string $game_title) {
         $gamesJson = [];
 
         $games = Game::fuzzySearch(
@@ -55,5 +52,17 @@ class GameController extends Controller {
         }
 
         return response()->json(['data' => $gamesJson]);
+    }
+
+    /**
+     * @lrd:start
+     * Gets game data by name using IGDB's API. Returned as an array of objects.
+     * @lrd:end
+     */
+    public function getGamesByName(string $game_title) {
+        $fields = 'name,cover.url';
+        $igdb = new IGDB('games?fields='.$fields.'&search='.$game_title); // 'games' is the endpoint
+        $games = $igdb->get();
+        return response()->json(['data' => $games]);
     }
 }

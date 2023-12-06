@@ -28,7 +28,8 @@ return [
         '#^_tt#',
         '#^broadcasting#',
         '#^vapor#',
-        '#^/#'
+        '#^/#',
+        '#^igdb-webhook#'
     ],
 
     'hide_meta_data' => false,
