@@ -4,7 +4,9 @@ import { useAuth } from "../../AuthContext.js";
 
 const GetGameByName = async (gameName, authUser) => {
   console.log(`Game Name: ${gameName}`);
-  let url = `http://localhost/api/games/${encodeURIComponent(gameName)}`;
+  let url = `https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/games/${encodeURIComponent(
+    gameName
+  )}`;
   let options = {
     method: "GET",
     headers: {

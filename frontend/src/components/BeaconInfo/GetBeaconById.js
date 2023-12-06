@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../AuthContext.js";
 
 const GetBeaconById = (id) => {
@@ -8,14 +8,14 @@ const GetBeaconById = (id) => {
   useEffect(() => {
     const fetchData = async () => {
       // define url and headers
-      let url = `http://localhost/api/beacons/${id}`;
+      let url = `https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons/${id}`;
       let options = {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
           Authorization: "Bearer " + authUser,
-        }
+        },
       };
       try {
         // make api call
