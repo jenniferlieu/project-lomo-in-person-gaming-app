@@ -7,7 +7,7 @@ const Login = () => {
   const [emailInput, setEmail] = useState("");
   const [passInput, setPass] = useState("");
   const navigate = useNavigate();
-  const { setAuthUser, setIsLoggedIn } = useAuth();
+  const { setAuthUser, setIsLoggedIn, setUserId } = useAuth();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -43,6 +43,8 @@ const Login = () => {
           const data = await response.json();
           setIsLoggedIn(true);
           console.log("Log in successful");
+          setUserId(data.user.id);
+          console.log(data.user.id);
           setAuthUser(data.token);
           navigate("/");
         } else {
