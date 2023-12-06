@@ -4,9 +4,9 @@ use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeaconController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AttendeeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\AttendeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +43,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/profiles', [ProfileController::class, 'store']);
     Route::get('/profiles', [ProfileController::class, 'index']);
 });
+
 

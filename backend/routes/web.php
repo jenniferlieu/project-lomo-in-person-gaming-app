@@ -28,3 +28,4 @@ Route::middleware(['throttle:register'])->group(function () {
     Route::post('register', [AuthController::class, 'register']);
 });
 
+
