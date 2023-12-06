@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AttendeePostRequest extends FormRequest
+class AttendeeUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -19,12 +19,10 @@ class AttendeePostRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules() {
+    public function rules(): array
+    {
         return [
-            'beacon_id' => 'required',
-            'user_id' => 'required',
-            'controllers_brought'
+            //
         ];
     }
-
 }

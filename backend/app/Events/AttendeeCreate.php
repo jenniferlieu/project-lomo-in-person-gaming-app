@@ -18,9 +18,9 @@ class AttendeeCreate implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct($attendee)
     {
-        //
+        $this->attendee =$attendee;
     }
 
     /**
