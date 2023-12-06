@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { debounce } from "lodash";
 import Echo from "laravel-echo";
 // import { useHistory } from 'react-router-dom'
-import useEchoStore from "../../useEchoStore.js";
 import LocationSearch from "./LocationSearch.js";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import usePlacesAutocomplete, {
@@ -101,26 +100,25 @@ function BeaconCreation({ beaconList }) {
   //         </Combobox>
   //     );
   // };
-  //   const laravelEcho = useEchoStore((state) => state.laravelEcho);
 
-  //   {  DataFields
-  //     console
-  //     controllers_wanted
-  //     created_at
-  //     description
-  //     end_date_time
-  //     game_image
-  //     game_title
-  //     host_id
-  //     id
-  //     latitude
-  //     longitude
-  //     place_name
-  //     players_wanted
-  //     start_date_time
-  //     street_address
-  //     updated_at
-  //   }
+  // {  DataFields
+  //   console
+  //   controllers_wanted
+  //   created_at
+  //   description
+  //   end_date_time
+  //   game_image
+  //   game_title
+  //   host_id
+  //   id
+  //   latitude
+  //   longitude
+  //   place_name
+  //   players_wanted
+  //   start_date_time
+  //   street_address
+  //   updated_at
+  // }
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
@@ -138,43 +136,22 @@ function BeaconCreation({ beaconList }) {
     setFrom("");
     setTo("");
   }
-  //   // Uncomment this section when you're done!
-  //   useEffect(() => {
-  //       const laravelEcho = new Echo({
-  //           broadcaster: 'pusher',
-  //           key: process.env.REACT_APP_PUSHER_APP_KEY,
-  //           cluster: process.env.REACT_APP_PUSHER_CLUSTER,
-  //           forceTLS: true
-  //       });
-  //       console.log(laravelEcho);
-
-  //       // Connect to a public websocket channel
-  //       laravelEcho.channel("new-beacon").listen("BeaconCreated", (e) => {
-  //           // runs every time data ia pushed through the websocket
-  //           console.log(e.beacon);
-  //       });
-
-  //       // Cleanup function to disconnect the Echo instance when the component unmounts
-  //       return () => {
-  //           laravelEcho.disconnect();
-  //       };
-
-  //   }, []); // Empty dependency array ensures this runs on mount and unmount only
 
   function onClose() {
     let data = {
-      console: gameConsole,
-      controllers_wanted: controllers,
-      description: description,
-      end_date_time: timeTo,
-      game_title: game,
       host_id: userId,
-      place_name: placeName,
-      players_wanted: players,
+      game_title: game,
+      game_image: "https://placehold.co/600x400",
+      console: gameConsole,
+      description: description,
       start_date_time: timeFrom,
-      street_address: address,
-      latitude: "39.981985",
-      longitude: "-75.155562",
+      end_date_time: timeTo,
+      place_name: placeName,
+      street_address: "2001 N 13th St, Philadelphia, PA 19122",
+      latitude: "39.983274870935716",
+      longitude: "-75.1534139308427",
+      players_wanted: players,
+      controllers_wanted: controllers,
     };
     console.log(data);
 
@@ -203,11 +180,8 @@ function BeaconCreation({ beaconList }) {
     // history.push("/");
 
     // define url and headers
-    let url = "http://localhost/api/beacons";
-    let logindata = {
-      email: "pikachu@test.com",
-      password: "secret1234",
-    };
+    let url =
+      "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons";
     let options = {
       method: "POST",
       headers: {
@@ -220,24 +194,20 @@ function BeaconCreation({ beaconList }) {
 
     // make api call
     fetch(url, options)
-      .then((response) => {
-        const responseclone = response.clone();
-        if (responseclone.ok) {
-          displayText("Beacon Confirmed!");
-          return responseclone;
-        }
-      })
-
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("response", response);
-      })
-
-      .catch((error) => console.log("error", error));
+      .then((response) =>
+        response.json().then((data) => {
+          console.log("Beacon added to database", data);
+          if (response.ok) {
+            displayText("Beacon Confirmed!");
+          }
+        })
+      )
+      .catch((error) => console.error("Error:", error));
   }
 
   const [selected, setSelected] = useState(null);
   //   const games = GetGameByName("mario wonder", authUser);
+
   return (
     <div className="border-box bg-white rounded-lg w-11/12 md:w-2/3 flex-col items-center justify-center my-2 md:my-10 m-auto shadow-lg p-4 h-auto text-sky-950">
       <div className="font-bold text-2xl border-b-4 border-b-sky-950 pb-2 w-full mb-2">
@@ -393,6 +363,10 @@ function BeaconCreation({ beaconList }) {
         >
           Confirm
         </button>
+        <div
+          className="font-bold relative py-1 px-1 rounded float-right"
+          id="displayArea"
+        ></div>
       </div>
     </div>
   );

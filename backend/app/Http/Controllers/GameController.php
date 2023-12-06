@@ -2,80 +2,87 @@
 
 namespace App\Http\Controllers;
 
-
-use Exception;
 use Illuminate\Http\Request;
-use romanzipp\Twitch\Facades\Twitch;
+use MarcReichel\IGDBLaravel\Models\Game;
+use MarcReichel\IGDBLaravel\Builder as IGDB;
+use MarcReichel\IGDBLaravel\Enums\Image\Size;
 
 /**
- * Gets game information by game ID or name using Twitch's API.
+ * Gets game information by game ID or name using IGDB's API.
  * The response has a JSON payload with a data field containing an array of games elements.
  *
- * For Twitch API documentation:
- * @see https://dev.twitch.tv/docs/api/reference#get-games
+ * For IGDB API documentation:
+ * @see https://api-docs.igdb.com/
  *
- * For Laravel-Twitch package documentation:
- * @see https://github.com/romanzipp/Laravel-Twitch
- * NOTE: NEVER EVER PUBLISH THE LARAVEL-TWITCH CONFIG!
+ * For IGDB-Laravel package documentation:
+ * @see https://github.com/marcreichel/igdb-laravel
  *
  */
-class GameController extends Controller
-{
+class GameController extends Controller {
     /**
      * @lrd:start
-     * Gets game data using Twitch's API. Returned as an array of objects.
-     * - At least one of these parameters required.
-     * - To retrieve multiple games, separate same parameters with commas.
-     * -
-     *
-     * - **id** = twitch's game id e.g: ?id=509538,33214
-     * - **name** = title of the game e.g: ?name=animal crossing: new horizons,fortnite
-     * - **igdb_id** = igdb's game id e.g: ?igdb_id=109462,1905
-     *
-     * For Twitch API documentation: https://dev.twitch.tv/docs/api/reference#get-games
-     * @lrd:start
-     *
-     * @LRDparam id string|nullable
-     * @LRDparam name string|nullable
-     * @LRDparam igdb_id string|nullable
+     * Gets game data by fuzzy name using IGDB's API. Returned as an array of objects.
+     * @lrd:end
      */
-    // public function getGameImageURL(?string $id = null, ?string $name = null, ?string $igdb_id = null)
-    public function getGames(Request $request)
-    {
-        $ids = explode(',', $request->query('name'));
-        $names = explode(',', $request->query('name'));
-        $igdb_ids = explode(',', $request->query('name'));
+    public function getGamesByFuzzyName(string $game_title) {
+        $gamesArray = [];
 
-        // Make API call to Twitch to Get game image url
-        try {
-            $result = Twitch::getGames([
-                'id' => $ids,
-                'name' => $names,
-                'igdb_id' => $igdb_ids,
-            ]);
-        } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
-        }
+        $games = Game::fuzzySearch(
+            // fields to search in
+            ['name'],
+            // the query to search for
+            $game_title,
+            // enable/disable case sensitivity (disabled by default)
+            false,
+        )->select(['name', 'cover'])
+            ->with(['cover'])
+            ->get();
 
-        // Check if the query was successful
-        if (!$result->success()) {
-            return response()->json(['message' => $result->getErrorMessage()], 400);
-        }
+        // return only the cover url instead of the entire cover object
+        for($i = 0; $i < count($games); $i++) {
+            $game = $games[$i];
+            $gameData = $game->attributes;
 
-        // Shift result to get the first (and only) game data in array
-        $gameData = (array) $result->data();
-        if (!$gameData) {
-            return response()->json(['error' => 'Empty data. No such game exists.']);
-        }
-
-        // Add full-sized image url
-        $gameData = json_decode(json_encode($gameData), true); // convert stdClass object to array
-        for ($i = 0; $i < count($gameData); $i++) {
-            if (array_key_exists('box_art_url', $gameData[$i])) {
-                $gameData[$i]['box_art_url_full'] = str_replace('-{width}x{height}', '', $gameData[$i]['box_art_url']);
+            if($game->cover) {
+                $cover_url = $game->cover->getUrl(Size::COVER_BIG);
+                $cover_id = $game->cover->id;
+                unset($gameData['cover']);
+                $gameData['cover']['id'] = $cover_id;
+                $gameData['cover']['url'] = $cover_url;
             }
+            array_push($gamesArray, $gameData);
         }
 
-        return response()->json(['data' => $gameData]);
+        return response()->json(['data' => $gamesArray]);
+    }
+
+    /**
+     * @lrd:start
+     * Gets game data by name using IGDB's API. Returned as an array of objects.
+     * @lrd:end
+     */
+    public function getGamesByName(string $game_title) {
+        $gamesArray = [];
+        $fields = 'name,cover.image_id,cover.url';
+
+        $igdb = new IGDB('games?fields='.$fields.'&search='.$game_title); // 'games' is the endpoint
+        $games = $igdb->get();
+
+        for($i = 0; $i < count($games); $i++) {
+            // get the game data
+            $game = new Game($games[$i]);
+            $gameData = $game->attributes;
+
+            // get the biggest cover image version
+            if($game->cover) {
+                $cover = $game->cover->getUrl(Size::COVER_BIG);
+                $gameData = $game->attributes;
+                unset($gameData['cover']['image_id']);
+                $gameData['cover']['url'] = $cover;
+            }
+            array_push($gamesArray, $gameData);
+        }
+
+        return response()->json(['data' => $gamesArray]);
     }
 }

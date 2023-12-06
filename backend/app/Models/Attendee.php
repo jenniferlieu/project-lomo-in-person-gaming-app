@@ -30,7 +30,8 @@ class Attendee extends Model
     ### in filliable add table fields but not id 
     protected $fillable = [
         'beacon_id',
-        'user_id'
+        'user_id',
+        'controllers_brought'
     ];
 
     // protected static function booted(){
