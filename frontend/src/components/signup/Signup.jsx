@@ -105,6 +105,7 @@ const Signup = () => {
             id="username"
             name="username"
             className="w-full p-1 my-2"
+            maxLength={12} //limits username to only 12 characters
           />
 
           <label htmlFor="email">Email:</label>

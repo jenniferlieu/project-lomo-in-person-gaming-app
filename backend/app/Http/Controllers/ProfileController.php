@@ -18,7 +18,7 @@ class ProfileController extends Controller
     public function show($userId)
     {
         // Find the profile by user ID
-        $profile = Profile::find($userId);
+        $profile = Profile::where('user_id', $userId)->first();
         // Check if the profile exists
         if (!$profile) {
             return response()->json(['error' => 'Profile not found'], 404);
@@ -30,7 +30,7 @@ class ProfileController extends Controller
     public function update(Request $request, $userId)
     {
         // Find the profile by user ID
-        $profile = Profile::find($userId);
+        $profile = Profile::where('user_id', $userId)->first();
         // Check if the profile exists
         if (!$profile) {
             return response()->json(['error' => 'Profile not found'], 404);
@@ -50,7 +50,7 @@ class ProfileController extends Controller
     public function destroy($userId)
     {
         // Find the profile by user ID
-        $profile = Profile::find($userId);
+        $profile = Profile::where('user_id', $userId)->first();
             // return an error response if not found
             if (!$profile) {
                 return response()->json(['error' => 'Profile not found'], 404);
@@ -64,7 +64,7 @@ class ProfileController extends Controller
     {
         // Validate the request data
         $validatedData = $request->validate([
-            'user_id' => 'required|integer',
+            'user_id' => 'required|uuid',
             'about_me' => 'string|nullable',
             'preferred_games' => 'array|nullable',
             'preference_tags' => 'array|nullable',
@@ -74,4 +74,5 @@ class ProfileController extends Controller
         // Return a success message and the profile data
         return response()->json(['message' => 'Profile created successfully', 'data' => $profile], 201);
     }
+
 }

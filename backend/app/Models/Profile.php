@@ -26,6 +26,11 @@ class Profile extends Model
         });
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     protected $table = 'profiles';
 
     protected $fillable = [
@@ -33,6 +38,7 @@ class Profile extends Model
         'about_me',
         'preferred_games',
         'preference_tags',
+        'profile_picture',
     ];
 
     public function setPreferredGamesAttribute($value)
