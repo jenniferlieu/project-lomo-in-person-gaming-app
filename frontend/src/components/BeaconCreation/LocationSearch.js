@@ -20,11 +20,9 @@ function LocationSearch({ returnValue }) {
       const place = searchResult.getPlace();
       const name = place.name;
       const coords = place.geometry.location;
-      const latitude = coords.lat();
-      const longitude = coords.lng();
       const status = place.business_status;
       const formattedAddress = place.formatted_address;
-      returnValue({ name, latitude, longitude, status, formattedAddress });
+      returnValue({ name, coords, status, formattedAddress });
     } else {
       alert("Please enter text");
     }

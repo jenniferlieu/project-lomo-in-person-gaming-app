@@ -64,8 +64,8 @@ function BeaconCreation({ beaconList }) {
     console.log("getLocation() - locationObj", locationObj);
     setPlaceName(locationObj.name);
     setAddress(locationObj.formattedAddress);
-    setLatitude(locationObj.latitude);
-    setLongitude(locationObj.longitude);
+    setLatitude(locationObj.coords.lat());
+    setLongitude(locationObj.coords.lng());
   };
 
   const config = useLoadScript({
