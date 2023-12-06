@@ -54,12 +54,6 @@ function BeaconCreation({ beaconList }) {
     }
   }, 300); // 300ms delay
 
-//   useEffect(() => {
-//     if (gameName) {
-//       fetchGame();
-//     }
-//   }, [gameName, authUser, fetchGame]);
-
   const config = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ["places"],
@@ -102,26 +96,26 @@ function BeaconCreation({ beaconList }) {
   //         </Combobox>
   //     );
   // };
-  // const laravelEcho = useEchoStore((state) => state.laravelEcho);
+//   const laravelEcho = useEchoStore((state) => state.laravelEcho);
 
-  // {  DataFields
-  //   console
-  //   controllers_wanted
-  //   created_at
-  //   description
-  //   end_date_time
-  //   game_image
-  //   game_title
-  //   host_id
-  //   id
-  //   latitude
-  //   longitude
-  //   place_name
-  //   players_wanted
-  //   start_date_time
-  //   street_address
-  //   updated_at
-  // }
+//   {  DataFields
+//     console
+//     controllers_wanted
+//     created_at
+//     description
+//     end_date_time
+//     game_image
+//     game_title
+//     host_id
+//     id
+//     latitude
+//     longitude
+//     place_name
+//     players_wanted
+//     start_date_time
+//     street_address
+//     updated_at
+//   }
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
@@ -140,27 +134,27 @@ function BeaconCreation({ beaconList }) {
     setTo("");
   }
 
-  // useEffect(() => {
-  //     const laravelEcho = new Echo({
-  //         broadcaster: 'pusher',
-  //         key: process.env.REACT_APP_PUSHER_APP_KEY,
-  //         cluster: process.env.REACT_APP_PUSHER_CLUSTER,
-  //         forceTLS: true
-  //     });
-  //     console.log(laravelEcho);
+  useEffect(() => {
+      const laravelEcho = new Echo({
+          broadcaster: 'pusher',
+          key: process.env.REACT_APP_PUSHER_APP_KEY,
+          cluster: process.env.REACT_APP_PUSHER_CLUSTER,
+          forceTLS: true
+      });
+      console.log(laravelEcho);
 
-  //     // Connect to a public websocket channel
-  //     laravelEcho.channel("new-beacon").listen("BeaconCreated", (e) => {
-  //         // runs every time data ia pushed through the websocket
-  //         console.log(e.beacon);
-  //     });
+      // Connect to a public websocket channel
+      laravelEcho.channel("new-beacon").listen("BeaconCreated", (e) => {
+          // runs every time data ia pushed through the websocket
+          console.log(e.beacon);
+      });
 
-  //     // Cleanup function to disconnect the Echo instance when the component unmounts
-  //     return () => {
-  //         laravelEcho.disconnect();
-  //     };
+      // Cleanup function to disconnect the Echo instance when the component unmounts
+      return () => {
+          laravelEcho.disconnect();
+      };
 
-  // }, []); // Empty dependency array ensures this runs on mount and unmount only
+  }, []); // Empty dependency array ensures this runs on mount and unmount only
 
   function onClose() {
     let data = {
