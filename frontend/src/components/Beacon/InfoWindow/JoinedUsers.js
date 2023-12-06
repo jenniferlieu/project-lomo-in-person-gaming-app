@@ -1,16 +1,18 @@
 import React from "react";
 
-const JoinedUsers = ({ playerInfo }) => {
+const JoinedUsers = ({ attendees, playersWanted }) => {
+  // console.log("attendees");
+  // console.log(attendees);
   const picClass = "h-12 w-12 rounded-full";
 
   const renderLayout = () => {
-    const placeholders = Array(playerInfo.wanted - playerInfo.joined.length).fill({
-        pic: "icons/question.jpg",
+    const placeholders = Array(playersWanted - attendees.length).fill({
+        avatar: "icons/question.jpg",
         username: "",
-        controllers: 0,
+        controllers_brought: 0,
       });
-      const users = [...playerInfo.joined, ...placeholders];
-    switch (playerInfo.wanted) {
+      const users = attendees && attendees.length > 0 ? [...attendees, ...placeholders] : [...placeholders];
+    switch (playersWanted) {
       case 2:
         return (
           <div className="flex flex-row justify-between items-start ml-16 mr-20">
@@ -20,16 +22,16 @@ const JoinedUsers = ({ playerInfo }) => {
                   key={index}
                   className="flex flex-col items-center text-lg mb-2"
                 >
-                  <img src={user.pic} alt="User Pic" className={picClass} />
+                  <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                   <p className="text-xl">{user.username}</p>
-                  {user.controllers > 0 && (
+                  {user.controllers_brought != null && user.controllers_brought > 0 && (
                     <div className="flex items-center">
                       <img
                         src="icons/controller.png"
                         alt="Controllers Icon"
                         className="h-7 w-7 mx-2"
                       />
-                      <p className="text-xl">{user.controllers}</p>
+                      <p className="text-xl">{user.controllers_brought}</p>
                     </div>
                   )}
                 </div>
@@ -46,16 +48,16 @@ const JoinedUsers = ({ playerInfo }) => {
                   key={index}
                   className="flex flex-col items-center text-lg mb-2"
                 >
-                  <img src={user.pic} alt="User Pic" className={picClass} />
+                  <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                   <p className="text-xl">{user.username}</p>
-                  {user.controllers > 0 && (
+                  {user.controllers_brought != null && user.controllers_brought > 0 && (
                     <div className="flex items-center">
                       <img
                         src="icons/controller.png"
                         alt="Controllers Icon"
                         className="h-7 w-7 mx-2"
                       />
-                      <p className="text-xl">{user.controllers}</p>
+                      <p className="text-xl">{user.controllers_brought}</p>
                     </div>
                   )}
                 </div>
@@ -72,16 +74,16 @@ const JoinedUsers = ({ playerInfo }) => {
                   key={index}
                   className="flex flex-col items-center text-lg mb-2"
                 >
-                  <img src={user.pic} alt="User Pic" className={picClass} />
+                  <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                   <p className="text-xl">{user.username}</p>
-                  {user.controllers > 0 && (
+                  {user.controllers_brought != null && user.controllers_brought > 0 && (
                     <div className="flex items-center">
                       <img
                         src="icons/controller.png"
                         alt="Controllers Icon"
                         className="h-7 w-7 mx-2"
                       />
-                      <p className="text-xl">{user.controllers}</p>
+                      <p className="text-xl">{user.controllers_brought}</p>
                     </div>
                   )}
                 </div>
@@ -100,16 +102,16 @@ const JoinedUsers = ({ playerInfo }) => {
                     key={index}
                     className="flex flex-col items-center text-lg mb-2"
                   >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
+                    <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                     <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
+                    {user.controllers_brought != null && user.controllers_brought > 0 && (
                       <div className="flex items-center">
                         <img
                           src="icons/controller.png"
                           alt="Controllers Icon"
                           className="h-7 w-7 mx-2"
                         />
-                        <p className="text-xl">{user.controllers}</p>
+                        <p className="text-xl">{user.controllers_brought}</p>
                       </div>
                     )}
                   </div>
@@ -123,16 +125,16 @@ const JoinedUsers = ({ playerInfo }) => {
                     key={index}
                     className="flex flex-col items-center text-lg mb-2"
                   >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
+                    <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                     <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
+                    {user.controllers_brought != null && user.controllers_brought > 0 && (
                       <div className="flex items-center">
                         <img
                           src="icons/controller.png"
                           alt="Controllers Icon"
                           className="h-7 w-7 mx-2"
                         />
-                        <p className="text-xl">{user.controllers}</p>
+                        <p className="text-xl">{user.controllers_brought}</p>
                       </div>
                     )}
                   </div>
@@ -151,16 +153,16 @@ const JoinedUsers = ({ playerInfo }) => {
                     key={index}
                     className="flex flex-col items-center text-lg mb-2"
                   >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
+                    <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                     <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
+                    {user.controllers_brought != null && user.controllers_brought > 0 && (
                       <div className="flex items-center">
                         <img
                           src="icons/controller.png"
                           alt="Controllers Icon"
                           className="h-7 w-7 mx-2"
                         />
-                        <p className="text-xl">{user.controllers}</p>
+                        <p className="text-xl">{user.controllers_brought}</p>
                       </div>
                     )}
                   </div>
@@ -174,16 +176,16 @@ const JoinedUsers = ({ playerInfo }) => {
                     key={index}
                     className="flex flex-col items-center text-lg mb-2"
                   >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
+                    <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                     <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
+                    {user.controllers_brought != null && user.controllers_brought > 0 && (
                       <div className="flex items-center">
                         <img
                           src="icons/controller.png"
                           alt="Controllers Icon"
                           className="h-7 w-7 mx-2"
                         />
-                        <p className="text-xl">{user.controllers}</p>
+                        <p className="text-xl">{user.controllers_brought}</p>
                       </div>
                     )}
                   </div>
@@ -202,16 +204,16 @@ const JoinedUsers = ({ playerInfo }) => {
                     key={index}
                     className="flex flex-col items-center text-lg mb-2"
                   >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
+                    <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                     <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
+                    {user.controllers_brought != null && user.controllers_brought > 0 && (
                       <div className="flex items-center">
                         <img
                           src="icons/controller.png"
                           alt="Controllers Icon"
                           className="h-7 w-7 mx-2"
                         />
-                        <p className="text-xl">{user.controllers}</p>
+                        <p className="text-xl">{user.controllers_brought}</p>
                       </div>
                     )}
                   </div>
@@ -225,16 +227,16 @@ const JoinedUsers = ({ playerInfo }) => {
                     key={index}
                     className="flex flex-col items-center text-lg mb-2"
                   >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
+                    <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                     <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
+                    {user.controllers_brought != null && user.controllers_brought > 0 && (
                       <div className="flex items-center">
                         <img
                           src="icons/controller.png"
                           alt="Controllers Icon"
                           className="h-7 w-7 mx-2"
                         />
-                        <p className="text-xl">{user.controllers}</p>
+                        <p className="text-xl">{user.controllers_brought}</p>
                       </div>
                     )}
                   </div>
@@ -248,16 +250,16 @@ const JoinedUsers = ({ playerInfo }) => {
                     key={index}
                     className="flex flex-col items-center text-lg mb-2"
                   >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
+                    <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                     <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
+                    {user.controllers_brought != null && user.controllers_brought > 0 && (
                       <div className="flex items-center">
                         <img
                           src="icons/controller.png"
                           alt="Controllers Icon"
                           className="h-7 w-7 mx-2"
                         />
-                        <p className="text-xl">{user.controllers}</p>
+                        <p className="text-xl">{user.controllers_brought}</p>
                       </div>
                     )}
                   </div>
@@ -276,16 +278,16 @@ const JoinedUsers = ({ playerInfo }) => {
                     key={index}
                     className="flex flex-col items-center text-lg mb-2"
                   >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
+                    <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                     <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
+                    {user.controllers_brought != null && user.controllers_brought > 0 && (
                       <div className="flex items-center">
                         <img
                           src="icons/controller.png"
                           alt="Controllers Icon"
                           className="h-7 w-7 mx-2"
                         />
-                        <p className="text-xl">{user.controllers}</p>
+                        <p className="text-xl">{user.controllers_brought}</p>
                       </div>
                     )}
                   </div>
@@ -299,16 +301,16 @@ const JoinedUsers = ({ playerInfo }) => {
                     key={index}
                     className="flex flex-col items-center text-lg mb-2"
                   >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
+                    <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                     <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
+                    {user.controllers_brought != null && user.controllers_brought > 0 && (
                       <div className="flex items-center">
                         <img
                           src="icons/controller.png"
                           alt="Controllers Icon"
                           className="h-7 w-7 mx-2"
                         />
-                        <p className="text-xl">{user.controllers}</p>
+                        <p className="text-xl">{user.controllers_brought}</p>
                       </div>
                     )}
                   </div>
@@ -322,16 +324,16 @@ const JoinedUsers = ({ playerInfo }) => {
                     key={index}
                     className="flex flex-col items-center text-lg mb-2"
                   >
-                    <img src={user.pic} alt="User Pic" className={picClass} />
+                    <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                     <p className="text-xl">{user.username}</p>
-                    {user.controllers > 0 && (
+                    {user.controllers_brought != null && user.controllers_brought > 0 && (
                       <div className="flex items-center">
                         <img
                           src="icons/controller.png"
                           alt="Controllers Icon"
                           className="h-7 w-7 mx-2"
                         />
-                        <p className="text-xl">{user.controllers}</p>
+                        <p className="text-xl">{user.controllers_brought}</p>
                       </div>
                     )}
                   </div>
@@ -348,16 +350,16 @@ const JoinedUsers = ({ playerInfo }) => {
                   key={index}
                   className="flex flex-col items-center text-lg mb-2"
                 >
-                  <img src={user.pic} alt="User Pic" className={picClass} />
+                  <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                   <p className="text-xl">{user.username}</p>
-                  {user.controllers > 0 && (
+                  {user.controllers_brought != null && user.controllers_brought > 0 && (
                     <div className="flex items-center">
                       <img
                         src="icons/controller.png"
                         alt="Controllers Icon"
                         className="h-7 w-7 mx-2"
                       />
-                      <p className="text-xl">{user.controllers}</p>
+                      <p className="text-xl">{user.controllers_brought}</p>
                     </div>
                   )}
                 </div>
@@ -369,16 +371,16 @@ const JoinedUsers = ({ playerInfo }) => {
                   key={index}
                   className="flex flex-col items-center text-lg mb-2"
                 >
-                  <img src={user.pic} alt="User Pic" className={picClass} />
+                  <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                   <p className="text-xl">{user.username}</p>
-                  {user.controllers > 0 && (
+                  {user.controllers_brought != null && user.controllers_brought > 0 && (
                     <div className="flex items-center">
                       <img
                         src="icons/controller.png"
                         alt="Controllers Icon"
                         className="h-7 w-7 mx-2"
                       />
-                      <p className="text-xl">{user.controllers}</p>
+                      <p className="text-xl">{user.controllers_brought}</p>
                     </div>
                   )}
                 </div>
@@ -390,16 +392,16 @@ const JoinedUsers = ({ playerInfo }) => {
                   key={index}
                   className="flex flex-col items-center text-lg mb-2"
                 >
-                  <img src={user.pic} alt="User Pic" className={picClass} />
+                  <img src={user.avatar || "icons/defaultPFP.jpg"} alt="User Pic" className={picClass} />
                   <p className="text-xl">{user.username}</p>
-                  {user.controllers > 0 && (
+                  {user.controllers_brought != null && user.controllers_brought > 0 && (
                     <div className="flex items-center">
                       <img
                         src="icons/controller.png"
                         alt="Controllers Icon"
                         className="h-7 w-7 mx-2"
                       />
-                      <p className="text-xl">{user.controllers}</p>
+                      <p className="text-xl">{user.controllers_brought}</p>
                     </div>
                   )}
                 </div>
@@ -419,14 +421,14 @@ const JoinedUsers = ({ playerInfo }) => {
                     className="h-9 w-9 mr-4 rounded-full"
                   />
                   <p className="text-xl">{user.username}</p>
-                  {user.controllers > 0 && (
+                  {user.controllers_brought != null && user.controllers_brought > 0 && (
                     <div className="ml-4 flex items-center">
                       <img
                         src="icons/controller.png"
                         alt="Controllers Icon"
                         className="h-7 w-7 mx-2"
                       />
-                      <p className="text-xl">{user.controllers}</p>
+                      <p className="text-xl">{user.controllers_brought}</p>
                     </div>
                   )}
                 </div>
@@ -441,7 +443,7 @@ const JoinedUsers = ({ playerInfo }) => {
 };
 
 JoinedUsers.defaultProps = {
-  playerInfo: {
+  attendees: {
     available: 2,
     wanted: 4,
     joined: [

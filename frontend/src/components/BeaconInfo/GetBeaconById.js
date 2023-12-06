@@ -1,17 +1,14 @@
-// Thanks for the skeleton Carla :) 
-//I'm glad it helped! -Carla
 import React, { useEffect, useState } from 'react';
 import { useAuth } from "../../AuthContext.js";
 
-const GetUserById = ( userId ) => {
+const GetBeaconById = (id) => {
   const { authUser } = useAuth();
-  const [userInfo, setUserInfo] = useState([]);
+  const [beaconList, setBeaconList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(`User Id: ${userId}`);
       // define url and headers
-      let url = `http://localhost/api/users/${userId}`;
+      let url = `http://localhost/api/beacons/${id}`;
       let options = {
         method: "GET",
         headers: {
@@ -31,9 +28,9 @@ const GetUserById = ( userId ) => {
 
         // Parse the response as JSON and return it
         const data = await response.json();
-        console.log("user response status: ", response.status);
-        console.log("user data retrieved: ", data.data);
-        setUserInfo(data.data);
+        console.log("single beacon response status: ", response.status);
+        console.log("single beacon data retrieved: ", data.data);
+        setBeaconList(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
         // You might want to throw the error or handle it in some way
@@ -44,7 +41,7 @@ const GetUserById = ( userId ) => {
     fetchData();
   }, [authUser]); // Add authUser as a dependency if needed
 
-  return userInfo;
+  return beaconList;
 };
 
-export default GetUserById;
+export default GetBeaconById;
