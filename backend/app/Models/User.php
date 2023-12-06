@@ -28,6 +28,11 @@ class User extends Authenticatable
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+
+        // Remove all associated tokens when deleting a user
+        static::deleting(function ($user) {
+            $user->tokens()->delete();
+        });
     }
 
     /**
@@ -39,7 +44,8 @@ class User extends Authenticatable
         'user_id',
         'email',
         'username',
-        'password'
+        'password',
+        'avatar'
     ];
 
     /**

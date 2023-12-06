@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BeaconPostRequest extends FormRequest {
+class BeaconUpdateRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -20,17 +20,17 @@ class BeaconPostRequest extends FormRequest {
     public function rules(): array {
         return [
             'host_id' => 'string',
-            'game_title' => 'required|string',
-            'game_image' => 'required|string',
-            'console' => 'required|string',
+            'title' => 'string',
+            'game_title' => 'string',
+            'game_image' => 'string',
+            'game_system' => 'string',
             'description' => 'string',
-            'start_date_time' => 'required|date',
-            'end_date_time' => 'required|date',
-            'place_name' => 'required|string',
-            'street_address' => 'required|string',
-            'latitude' => 'required|numeric|between:-90,90|decimal:5,20',
-            'longitude' => 'required|numeric|between:-180,180|decimal:5,20',
-            'players_wanted' => 'integer',
+            'start_date_time' => 'date',
+            'end_date_time' => 'date',
+            'address' => 'string',
+            'latitude' => 'numeric',
+            'longitude' => 'numeric',
+            'num_players' => 'integer',
             'controllers_wanted' => 'integer'
         ];
     }
