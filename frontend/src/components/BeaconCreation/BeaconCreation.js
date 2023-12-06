@@ -29,6 +29,8 @@ function BeaconCreation({ beaconList }) {
   const [description, setDesc] = useState(""); //description
   const [placeName, setPlaceName] = useState(""); //place_name
   const [address, setAddress] = useState(""); //address_street
+  const [latitude, setLatitude] = useState(""); // latitude
+  const [longitude, setLongitude] = useState(""); // longitude
   const [players, setPlayers] = useState(""); //player_wanted
   const [timeFrom, setFrom] = useState(""); //start_date_time
   const [timeTo, setTo] = useState(""); //end_date_time
@@ -57,6 +59,14 @@ function BeaconCreation({ beaconList }) {
       setAutocompleteResults([]); // clear the results if gameName is empty
     }
   }, 300); // 300ms delay
+
+  const getLocation = (locationObj) => {
+    console.log("getLocation() - locationObj", locationObj);
+    setPlaceName(locationObj.name);
+    setAddress(locationObj.formattedAddress);
+    setLatitude(locationObj.latitude);
+    setLongitude(locationObj.longitude);
+  };
 
   const config = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -140,16 +150,16 @@ function BeaconCreation({ beaconList }) {
   function onClose() {
     let data = {
       host_id: userId,
-      game_title: game,
-      game_image: "https://placehold.co/600x400",
+      game_title: selectedGame.name,
+      game_image: selectedGame.image,
       console: gameConsole,
       description: description,
       start_date_time: timeFrom,
       end_date_time: timeTo,
       place_name: placeName,
-      street_address: "2001 N 13th St, Philadelphia, PA 19122",
-      latitude: "39.983274870935716",
-      longitude: "-75.1534139308427",
+      street_address: address,
+      latitude: latitude,
+      longitude: longitude,
       players_wanted: players,
       controllers_wanted: controllers,
     };
@@ -196,7 +206,7 @@ function BeaconCreation({ beaconList }) {
     fetch(url, options)
       .then((response) =>
         response.json().then((data) => {
-          console.log("Beacon added to database", data);
+          console.log("Attempt post beacon api, result", data);
           if (response.ok) {
             displayText("Beacon Confirmed!");
           }
@@ -315,7 +325,7 @@ function BeaconCreation({ beaconList }) {
 
       <div className="flex-col w-full p-1 md:p-2">
         Location:
-        <LocationSearch />
+        <LocationSearch returnValue={getLocation} />
       </div>
 
       <div className="font-bold text-2xl border-b-4 border-b-sky-950 py-2 w-full mb-2">

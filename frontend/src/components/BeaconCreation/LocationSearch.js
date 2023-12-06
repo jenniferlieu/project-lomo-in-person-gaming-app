@@ -3,7 +3,7 @@ import { Autocomplete, useLoadScript } from "@react-google-maps/api";
 
 const placesLibrary = ["places"];
 
-function LocationSearch() {
+function LocationSearch({ returnValue }) {
   const [searchResult, setSearchResult] = useState("Result: none");
 
   const { isLoaded } = useLoadScript({
@@ -20,9 +20,11 @@ function LocationSearch() {
       const place = searchResult.getPlace();
       const name = place.name;
       const coords = place.geometry.location;
+      const latitude = coords.lat();
+      const longitude = coords.lng();
       const status = place.business_status;
       const formattedAddress = place.formatted_address;
-      return { name, coords, status, formattedAddress };
+      returnValue({ name, latitude, longitude, status, formattedAddress });
     } else {
       alert("Please enter text");
     }
