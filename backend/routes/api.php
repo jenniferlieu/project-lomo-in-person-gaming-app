@@ -23,11 +23,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('beacons', BeaconController::class);
     Route::apiResource('users', UserController::class)->except('store');
     Route::apiResource('attendees', AttendeeController::class);
-    Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class,'beaconAttendees']);
+    Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class, 'beaconAttendees']);
     Route::get('beacon-display-user-info', function () {
         event(new \App\Events\BeaconDisplayUserInfo());
     });
-    Route::get('games', [GameController::class, 'getGames']);
+    Route::get('games/fuzzy/{game_title}', [GameController::class, 'getGamesByFuzzyName']);
+    Route::get('games/{game_title}', [GameController::class, 'getGamesByName']);
 
     Route::get('beacons/{beacon}/comments', [CommentController::class, 'index']);
     Route::post('beacons/{beacon}/comments', [CommentController::class, 'store']);

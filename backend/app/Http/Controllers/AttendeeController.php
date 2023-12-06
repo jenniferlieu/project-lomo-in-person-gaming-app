@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendee;
+use App\Events\AttendeeCreate;
 use Illuminate\Http\Request;
 use App\Http\Requests\AttendeePostRequest;
+use App\Http\Requests\AttendeeUpdateRequest;
 use App\Models\Beacon;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +32,7 @@ class AttendeeController extends Controller
         }
         $attendee->controllers_brought = $request->controllers_brought;
         $attendee->save();
+        event(new AttendeeCreate($attendee));
         return response()->json([
             'attendee' =>$attendee
         ], 201);
@@ -40,7 +43,7 @@ class AttendeeController extends Controller
         return response()->json(['attendees' => $attendees],200);
     }
 
-    public function update() {
+    public function update(AttendeeUpdateRequest $request) {
         
     }
 
