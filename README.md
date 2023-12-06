@@ -71,6 +71,7 @@ Instructions on how to setup a local instance of the app.
 - node 18.18+ (should come installed with npm 8+)
 - npm 8+
 - yarn 1.22+
+- serve 14.2+ (or something similar)
 - git 2+
 - (For Windows machines only) WSL2 + Ubuntu 22.04.3 LTS (Jammy Jellyfish)
    1. [Install WSL2 with Ubuntu 22.04.2 LTS](https://www.youtube.com/watch?v=28Ei63qtquQ)
@@ -79,12 +80,7 @@ Instructions on how to setup a local instance of the app.
 
 ### Setup local machine
 
-For frontend development, **make sure you're in the `frontend/` folder**.
-
-For backend development, **make sure you're in the `backend/` folder**.
-
-For documentation, **make sure you're in the `documentation/` folder**.
-
+For Windows users only, start up and use WSL2 as your development machine.
 
 #### 1. Git clone the repo
 ```bash
@@ -100,6 +96,11 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
    ```bash
    npm install
    ```
+3. Copy the .env.example file to .env
+    ```bash
+    cp .env.example .env
+    # add secret keys to .env
+    ```
 
 #### 3. Setup backend
 1. Go to the `backend/` folder
@@ -113,19 +114,22 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
    ```
    - **PROBLEM:** If you run into problems installing dependencies, then first check to make sure that you're in the `backend` folder and on the correct branch
    - **PROBLEM:** If you continue to have problems with docker, then install php82, php82-openssl, and composer onto your machine, and use your machine's composer to install the dependencies `composer install --ignore-platform-reqs`. **IMPORTANT!** Afterwards, only use the container's composer and php commands so that they'll make changes to the container and **not** to your machine! `sail composer` and `sail php`
-4. Copy the `backend/.env.example` file and name it `backend/.env` 
+4. Copy the .env.example file to .env
     ```bash
     cp .env.example .env
-
-    # get database, pusher, and twitch env variables in discord
+    # add secret keys to .env
     ```
 5. Build the image and start the docker container (in detached mode)
    ```bash
    ./vendor/bin/sail up -d
    ```
-6. Go to [http://localhost](http://localhost) in your browser to make sure that you can see the laravel welcome screen, and you're set!
+6. Generate Laravel app key
+    ```bash
+    ./vendor/bin/sail artisan key:generate
+    ```
+7. Go to [http://localhost](http://localhost) in your browser to make sure that you can see the laravel welcome screen, and you're set!
    1. **PROBLEM:** If you see a 500 server error and no detailed explanation of the error, then you forgot to copy the env file
-   2. **PROBLEM:** If you get a permissions error for the storage folder and the storage/logs/laravel.log file. Run the commands below one line at a time, in order:
+   2. **PROBLEM:** If you get permission errors for the storage folder and the storage/logs/laravel.log file. Run the commands below one line at a time, in order:
         ```bash
         # enter the docker container command line as the root user
         ./vendor/bin/sail root-shell
@@ -150,14 +154,9 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
 To stop the container: from your terminal, run `./vendor/bin/sail down`
 
 ##### (Optional) Setup sail alias
-In order to use the `sail` command, it has to be completely typed out: `./vendor/bin/sail <command>`
-
-**If you want to use the docker commands, don't setup the alias.** Refer to the **Exceute commands in conatiner** guide for executing laravel commands in docker. For simplicity, all guides will use `sail` commands.
-
-If you want to use the sail command, then you can continue to use `./vendor/bin/sail` or setup an alias to shortend it to `sail`.
-- To setup the alias add this to your `~/.bashrc` or `~/.zshrc` in your home directory:
+Add this line to your `~/.bashrc` or `~/.zshrc` in your home directory:
    ```bash
-   alias sail="vendor/bin/sail"
+   alias sail="./vendor/bin/sail"
    ```
 
 #### 4. Setup docusaurus
@@ -175,29 +174,34 @@ If you want to use the sail command, then you can continue to use `./vendor/bin/
 ### Run the app
 1. **Start the backend server**
    ```bash
+   cd backend
    ./vendor/bin/sail up -d
    ```
-2. **Start frontend development server**
+2. **Start frontend server**
+    Use build files, otherwise development server can sometimes cause Beacon display issues.
    ```bash
-   npm start
+   cd ../frontend
+   npm run build
+   serve -s build
    ```
-3. Go to [https://localhost:3000](https://localhost:3000) to see the frontend server
+3. Go to [https://localhost:3000](https://localhost:3000) to see the app
 
 ### Stop running the app
-1. **Stop docker**
+1. **Stop backend**
    ```bash
    ./vendor/bin/sail down
    ```
-2. **Stop the react server**: enter `Ctrl+C` into the terminal running the react server.
+2. **Stop the frontend server**: enter `Ctrl+C` or `Cmd-C` into the terminal tab running the frontend server.
 
 ### Run docusaurus
 Go into the `documentation/` folder and run:
 
 ```bash
-PROJECT_NAME=project-lomo-in-person-gaming-app ORG_NAME=Capstone-Projects-2023-Fall yarn start
-
-# or use the alias
+cd documentation
 yarn start-lomo
+
+# or use the long form
+PROJECT_NAME=project-lomo-in-person-gaming-app ORG_NAME=Capstone-Projects-2023-Fall yarn start
 ```
 
 ## Collaborators
