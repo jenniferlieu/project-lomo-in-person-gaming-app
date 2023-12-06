@@ -14,7 +14,6 @@ import HomePage from "./HomePage.js";
 import BeaconApplication from "./components/BeaconApplication/BeaconApplication.js";
 import BeaconCreation from "./components/BeaconCreation/BeaconCreation.js";
 import NavBar from "./components/NavBar/NavBar.jsx";
-import CommentSection from "./components/Comments.jsx";
 import ListView from './components/BeaconInfo/ListBeaconInfo.js';
 import useEchoStore from "./useEchoStore.js";
 import Echo from "laravel-echo"; // eslint-disable-next-line
@@ -147,7 +146,7 @@ function App() {
   ];
 
   return (
-    <div className="App bg-gradient-to-b from-sky-500 to-teal-600 h-screen">
+    <div className="App bg-gradient-to-b from-sky-500 to-teal-600 bg-scroll h-min-full h-screen">
       <Router>
         <LoadScript googleMapsApiKey={apiKey}>
           <NavBar />
@@ -175,7 +174,7 @@ function App() {
               }
             />
             <Route
-              path="/joinbeacon"
+              path="/joinbeacon/"
               element={
                 isLoggedIn ? (
                   <BeaconApplication beaconList={beaconList} />

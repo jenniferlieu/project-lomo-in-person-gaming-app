@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Builder as IGDB;
+use MarcReichel\IGDBLaravel\Enums\Image\Size;
 
 /**
  * Gets game information by game ID or name using IGDB's API.
@@ -24,7 +25,7 @@ class GameController extends Controller {
      * @lrd:end
      */
     public function getGamesByFuzzyName(string $game_title) {
-        $gamesJson = [];
+        $gamesArray = [];
 
         $games = Game::fuzzySearch(
             // fields to search in
@@ -38,20 +39,21 @@ class GameController extends Controller {
             ->get();
 
         // return only the cover url instead of the entire cover object
-        $gamesSize = count($games);
-        for($i = 0; $i < $gamesSize; $i++) {
-            $game = (array)$games[$i]->attributes;
-            if(isset($game['cover'])) {
-                $artwork = $game['cover']['url'];
-                unset($game['cover']);
-                $game['url'] = $artwork;
-                array_push($gamesJson, $game);
-            } else {
-                array_push($gamesJson, $game);
+        for($i = 0; $i < count($games); $i++) {
+            $game = $games[$i];
+            $gameData = $game->attributes;
+
+            if($game->cover) {
+                $cover_url = $game->cover->getUrl(Size::COVER_BIG);
+                $cover_id = $game->cover->id;
+                unset($gameData['cover']);
+                $gameData['cover']['id'] = $cover_id;
+                $gameData['cover']['url'] = $cover_url;
             }
+            array_push($gamesArray, $gameData);
         }
 
-        return response()->json(['data' => $gamesJson]);
+        return response()->json(['data' => $gamesArray]);
     }
 
     /**
@@ -60,9 +62,27 @@ class GameController extends Controller {
      * @lrd:end
      */
     public function getGamesByName(string $game_title) {
-        $fields = 'name,cover.url';
+        $gamesArray = [];
+        $fields = 'name,cover.image_id,cover.url';
+
         $igdb = new IGDB('games?fields='.$fields.'&search='.$game_title); // 'games' is the endpoint
         $games = $igdb->get();
-        return response()->json(['data' => $games]);
+
+        for($i = 0; $i < count($games); $i++) {
+            // get the game data
+            $game = new Game($games[$i]);
+            $gameData = $game->attributes;
+
+            // get the biggest cover image version
+            if($game->cover) {
+                $cover = $game->cover->getUrl(Size::COVER_BIG);
+                $gameData = $game->attributes;
+                unset($gameData['cover']['image_id']);
+                $gameData['cover']['url'] = $cover;
+            }
+            array_push($gamesArray, $gameData);
+        }
+
+        return response()->json(['data' => $gamesArray]);
     }
 }

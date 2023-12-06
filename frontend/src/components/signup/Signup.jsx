@@ -9,7 +9,7 @@ const Signup = () => {
   const [pass1Input, setPass1] = useState("");
   const [pass2Input, setPass2] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const { setAuthUser, setIsLoggedIn } = useAuth();
+  const { setAuthUser, setIsLoggedIn, setUserId } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -40,6 +40,7 @@ const Signup = () => {
           const data = await response.json();
           setIsLoggedIn(true);
           console.log("Log in successful");
+          setUserId(data.user.id);
           setAuthUser(data.token);
           navigate("/");
         } else {
