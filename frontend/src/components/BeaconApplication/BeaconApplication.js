@@ -11,7 +11,7 @@ function BeaconApplication() {
   const hostUsername = queryParams.get('host_username');
 
   const [controlNum, setController] = useState("");
-  const { authUser, userId, userEmail, userPassword } = useAuth();
+  const { authUser, userId } = useAuth();
   const userInfo = GetUserById(userId);
 
   console.log('beacon id received: ', beaconId);
@@ -20,47 +20,41 @@ function BeaconApplication() {
     setController("");
   }
 
-  function Apply() {
-    let data = {
-      controllers_wanted: controlNum,
-      attendees: {
-        userInfo
-      }
-    };
+  const Apply = async () => {
     // define url and headers
-    let url = `http://localhost/api/beacons/${beaconId}`;
-    let logindata = {
-      email: userEmail,
-      password: userPassword,
-    };
+    let url = "http://localhost/api/attendees";
     let options = {
-      method: "PATCH",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
         Authorization: "Bearer " + authUser,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        beacon_id: beaconId,
+        controllers_brought: controlNum,
+        user_id: userId
+      }),
     };
+    try {
+      // make api call
+      const response = await fetch(url, options);
 
-    // make api call
-    fetch(url, options)
-      .then((response) => {
-        const responseclone = response.clone();
-        if (responseclone.ok) {
-          // displayText("Beacon Update Confirmed!");
-          return responseclone;
-        }
-      })
+      // Check if the response is ok
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("response", response);
-      })
+      // Parse the response as JSON and return it
+      const data = await response.json();
+      console.log(data);
 
-      .catch((error) => console.log("error", error));
-
-  }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // You might want to throw the error or handle it in some way
+      throw error;
+    }
+  };
 
   return (
     <form
