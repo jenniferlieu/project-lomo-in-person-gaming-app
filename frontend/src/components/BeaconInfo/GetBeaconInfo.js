@@ -8,7 +8,7 @@ const GetBeaconInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       // define url and headers
-      let url = "http://localhost/api/beacons";
+      let url = "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons";
       let options = {
         method: "GET",
         headers: {
