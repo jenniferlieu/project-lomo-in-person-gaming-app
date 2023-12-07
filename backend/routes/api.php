@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendeeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +44,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/profiles', [ProfileController::class, 'store']);
     Route::get('/profiles', [ProfileController::class, 'index']);
 });
+
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
 
 
