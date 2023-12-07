@@ -49,8 +49,10 @@ return [
     // This is a set of regex to group your routes by prefix.
     'group_by' => [
         'uri_patterns' => [
-            '^api/v[\d]+/', // `/api/v1/users/store` group as `/api/v1/users`.
-            '^api/',        // `/api/users/store` group as `/api/users`.
+            '^api/v[\d]+/',
+            // `/api/v1/users/store` group as `/api/v1/users`.
+            '^api/',
+            // `/api/users/store` group as `/api/users`.
         ]
     ],
 

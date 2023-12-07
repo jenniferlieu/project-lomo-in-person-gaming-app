@@ -1,9 +1,9 @@
-// Thanks for the skeleton Carla :) 
+// Thanks for the skeleton Carla :)
 //I'm glad it helped! -Carla
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../AuthContext.js";
 
-const GetUserById = ( userId ) => {
+const GetUserById = (userId) => {
   const { authUser } = useAuth();
   const [userInfo, setUserInfo] = useState([]);
 
@@ -18,7 +18,7 @@ const GetUserById = ( userId ) => {
           "Content-Type": "application/json",
           Accept: "application/json",
           Authorization: "Bearer " + authUser,
-        }
+        },
       };
       try {
         // make api call

@@ -3,18 +3,17 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import GetUserById from "../BeaconInfo/GetUserById.js";
 import { useAuth } from "../../AuthContext.js";
 
-
 function BeaconApplication() {
   const queryParams = new URLSearchParams(useLocation().search);
-  const beaconId = queryParams.get('beacon_id');
-  const gameTitle = queryParams.get('game_title');
-  const hostUsername = queryParams.get('host_username');
+  const beaconId = queryParams.get("beacon_id");
+  const gameTitle = queryParams.get("game_title");
+  const hostUsername = queryParams.get("host_username");
 
   const [controlNum, setController] = useState("");
   const { authUser, userId } = useAuth();
   const userInfo = GetUserById(userId);
 
-  console.log('beacon id received: ', beaconId);
+  console.log("beacon id received: ", beaconId);
 
   function clearForm() {
     setController("");
@@ -22,7 +21,8 @@ function BeaconApplication() {
 
   const Apply = async () => {
     // define url and headers
-    let url = "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/attendees";
+    let url =
+      "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/attendees";
     let options = {
       method: "POST",
       headers: {
@@ -33,7 +33,7 @@ function BeaconApplication() {
       body: JSON.stringify({
         beacon_id: beaconId,
         controllers_brought: controlNum,
-        user_id: userId
+        user_id: userId,
       }),
     };
     try {
@@ -48,7 +48,6 @@ function BeaconApplication() {
       // Parse the response as JSON and return it
       const data = await response.json();
       console.log(data);
-
     } catch (error) {
       console.error("Error fetching data:", error);
       // You might want to throw the error or handle it in some way
@@ -62,13 +61,16 @@ function BeaconApplication() {
       className="bg-white rounded-lg w-full md:w-1/2 flex-col items-center justify-center m-auto shadow-lg p-3 h-auto text-sky-950 z-30"
     >
       <h1 className="text-2xl text-center">{gameTitle}</h1>
-      <h2 className='text-xl text-left'>{hostUsername}</h2>
-      <h3 className='text-l text-left'>{userInfo.username}</h3>
+      <h2 className="text-xl text-left">{hostUsername}</h2>
+      <h3 className="text-l text-left">{userInfo.username}</h3>
 
       <div className="">
-        <label><br />Controllers <br /></label>
+        <label>
+          <br />
+          Controllers <br />
+        </label>
         <input
-          className='m-1 p-1 border-2 border-teal-100'
+          className="m-1 p-1 border-2 border-teal-100"
           data-dropdown-toggle="dropdown"
           label="Controllers"
           id={"controlNum"}

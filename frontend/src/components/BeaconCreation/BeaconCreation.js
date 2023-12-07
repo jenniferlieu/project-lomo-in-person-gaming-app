@@ -240,9 +240,7 @@ function BeaconCreation({ beaconList }) {
 
       <div className="flex-col w-full p-1 md:p-2">
         Location:
-        <LocationSearch
-          returnValue={getLocation}
-        />
+        <LocationSearch returnValue={getLocation} />
       </div>
 
       <div className="font-bold text-2xl border-b-4 border-b-sky-950 py-2 w-full mb-2">

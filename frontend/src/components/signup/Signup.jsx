@@ -20,18 +20,21 @@ const Signup = () => {
 
       //Call API for signup
       try {
-        const response = await fetch("http://localhost/register", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: usernameInput,
-            email: emailInput,
-            password: pass1Input,
-          }),
-        });
+        const response = await fetch(
+          "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/register",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: usernameInput,
+              email: emailInput,
+              password: pass1Input,
+            }),
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
