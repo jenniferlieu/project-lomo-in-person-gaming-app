@@ -24,15 +24,16 @@ class AuthControllerTest extends TestCase
         $response = $this->json('POST', '/api/register', $userData);
 
         $response->assertStatus(201)
-            ->assertJsonStructure([
-                "data" => [
-                    "email",
-                    "username",
-                    "updated_at",
-                    "created_at",
-                    "id"
-                ]
-            ]);
+        ->assertJsonStructure([
+            "token",
+            "user" => [
+            "email",
+            "username",
+            "updated_at",
+            "created_at",
+            "id"
+        ]
+    ]);
     }
 
     public function testLogin()
