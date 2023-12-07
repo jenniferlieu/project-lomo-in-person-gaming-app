@@ -7,8 +7,6 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f2ed186c-f3f0-4d94-aa1d-c1a935d61d7f/deploy-status)](https://app.netlify.com/sites/lomogaming/deploys)
 
 [![Documentation Website Link](https://img.shields.io/badge/-Documentation%20Website-brightgreen)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f2ed186c-f3f0-4d94-aa1d-c1a935d61d7f/deploy-status)](https://app.netlify.com/sites/lomogaming/deploys)
-
 </div>
 
 - [LOMO In Person Gaming App](#lomo-in-person-gaming-app)
