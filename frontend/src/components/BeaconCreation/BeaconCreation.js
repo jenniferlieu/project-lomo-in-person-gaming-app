@@ -20,7 +20,8 @@ function BeaconCreation({ beaconList }) {
   const [players, setPlayers] = useState(""); //player_wanted
   const [timeFrom, setFrom] = useState(""); //start_date_time
   const [timeTo, setTo] = useState(""); //end_date_time
-  const [controllers, setControllers] = useState(""); //controllers_wanted
+  const [totalControllers, setTotalControllers] = useState(""); //controllers_wanted
+  const [hostControllers, setHostControllers] = useState(""); // how many controllers the host has
   const [statusCode, setStatusCode] = useState(null);
   const { authUser, userId } = useAuth();
   const [autocompleteResults, setAutocompleteResults] = useState([]);
@@ -71,7 +72,7 @@ function BeaconCreation({ beaconList }) {
     setDesc("");
     setConsole("");
     setPlayers("");
-    setControllers("");
+    setTotalControllers("");
     setPlaceName("");
     setLatitude("");
     setLongitude("");
@@ -93,7 +94,8 @@ function BeaconCreation({ beaconList }) {
       latitude: latitude,
       longitude: longitude,
       players_wanted: players,
-      controllers_wanted: controllers,
+      controllers_wanted: totalControllers,
+      controllers_brought: hostControllers
     };
     console.log(data);
 
@@ -214,12 +216,20 @@ function BeaconCreation({ beaconList }) {
         <div className="flex-col w-full p-1 md:p-2">
           Controllers:
           <input
-            value={controllers}
+            value={totalControllers}
             onChange={(e) => {
-              setControllers(e.target.value);
+              setTotalControllers(e.target.value);
             }}
             placeholder="How many controllers are needed?"
             className="p-1 border-teal-100 border-2 rounded w-full"
+          />
+          <input
+            value={hostControllers}
+            onChange={(e) => {
+              setHostControllers(e.target.value);
+            }}
+            placeholder="How many controllers do you have?"
+            className="p-1 mt-2 border-teal-100 border-2 rounded w-full"
           />
         </div>
       </div>
