@@ -163,6 +163,7 @@ function BeaconCreation({ beaconList }) {
       longitude: longitude,
       players_wanted: players,
       controllers_wanted: totalControllers,
+      controllers_brought: hostControllers
     };
     console.log(data);
 
