@@ -57,7 +57,7 @@ class BeaconController extends Controller
         $beacon = Beacon::create($beaconRequest);
 
         // Add host as the first attendee
-        Attendee::create([
+        $attendee = Attendee::create([
             'beacon_id' => $beacon->id,
             'user_id' => $beacon->host_id,
             'controllers_brought' => $beaconRequest['controllers_brought'],
@@ -71,7 +71,7 @@ class BeaconController extends Controller
         event(new BeaconCreated($beaconJson));
 
         // Returns data on the new beacon created and a success status code
-        return response()->json(['data' => $beaconJson], 201); // 201 Request fulfilled and new resource created
+        return response()->json(['data' => ['beacon' => $beaconJson, 'attendee' => $attendee]], 201); // 201 Request fulfilled and new resource created
     }
 
     /**
