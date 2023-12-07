@@ -22,7 +22,7 @@ function BeaconApplication() {
 
   const Apply = async () => {
     // define url and headers
-    let url = "http://localhost/api/attendees";
+    let url = "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/attendees";
     let options = {
       method: "POST",
       headers: {
