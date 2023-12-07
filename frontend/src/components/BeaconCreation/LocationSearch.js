@@ -35,7 +35,7 @@ function LocationSearch({ returnValue }) {
           <input
             type="text"
             placeholder="Where are we playing?"
-            className="w-full h-8 px-3 py-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+            className="p-1 border-teal-100 border-2 rounded w-full"
           />
         </Autocomplete>
       </div>
