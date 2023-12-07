@@ -12,14 +12,16 @@ use App\Models\Beacon;
 use Clickbar\Magellan\Data\Geometries\Point;
 use Illuminate\Support\Facades\DB;
 
-class BeaconController extends Controller {
+class BeaconController extends Controller
+{
     /**
      * Display a listing of the Beacon.
      * @lrd:start
      * Get an array of all beacons
      * @lrd:end
      */
-    public function index() {
+    public function index()
+    {
         // Gets all beacons from the database
         return response()->json(['data' => BeaconJsonResponse::collection(Beacon::all())], 200);
     }
@@ -30,6 +32,7 @@ class BeaconController extends Controller {
      * Creates a new Beacon
      * - **host_id** : user_id of the user creating the beacon; user_id must exist
      * - **game_title** : title of the game being played at the event
+     * - **game_image**: cover image url of the game
      * - **console** : such as PC, Nintendo Switch, Xbox, etc.
      * - **description** : information about the event
      * - **start_date_time** : when the event will start; example format = 12/12/23 1:00pm
@@ -42,7 +45,8 @@ class BeaconController extends Controller {
      * - **controllers_wanted** : number of conotrollers needed
      * @lrd:end
      */
-    public function store(BeaconPostRequest $request) {
+    public function store(BeaconPostRequest $request)
+    {
         // Modify JSON request to fit in the database
         $beaconRequest = $request->all();
         $beaconRequest['coordinates'] = Point::makeGeodetic($beaconRequest['latitude'], $beaconRequest['longitude']);
@@ -54,9 +58,9 @@ class BeaconController extends Controller {
 
         // Add host as the first attendee
         Attendee::create([
-            'beacon_id' => $beacon['id'],
-            'user_id' => $beacon['host_id'],
-            'controllers_brought' => 0
+            'beacon_id' => $beacon->id,
+            'user_id' => $beacon->host_id,
+            'controllers_brought' => $beaconRequest['controllers_brought'],
         ]);
 
         // Transform JSON returned from database into the same JSON format request received
@@ -73,7 +77,8 @@ class BeaconController extends Controller {
     /**
      * Display the specified Beacon.
      */
-    public function show(string $beacon_id) {
+    public function show(string $beacon_id)
+    {
         $beaconInfo = array();
         $beacon = Beacon::find($beacon_id);
         array_push($beaconInfo, $beacon);
@@ -87,9 +92,10 @@ class BeaconController extends Controller {
     /**
      * Update the specified Beacon in storage.
      */
-    public function update(BeaconUpdateRequest $request, string $beacon_id) {
+    public function update(BeaconUpdateRequest $request, string $beacon_id)
+    {
         $beacon = Beacon::find($beacon_id);
-        if(!$beacon) {
+        if (!$beacon) {
             return response()->json(['error' => 'Beacon not found'], 404);
         }
         $validatedData = $request->validate([
@@ -106,7 +112,7 @@ class BeaconController extends Controller {
             'controllers_wanted' => 'integer'
         ]);
         $beacon->fill($validatedData);
-        if($beacon->save()) {
+        if ($beacon->save()) {
             return response()->json(['message' => "Beacon updated successfully", 'data' => $beacon], 200);
         } else {
             return response()->json(['error' => 'Failed to update beacon'], 500);
@@ -116,16 +122,27 @@ class BeaconController extends Controller {
     /**
      * Remove the specified Beacon from storage.
      */
-    public function destroy(string $beacon_id) {
+    public function destroy(string $beacon_id)
+    {
         $beacon = Beacon::find($beacon_id);
 
-        if(!$beacon) {
+        if (!$beacon) {
             return response()->json(['error' => 'Beacon not found'], 400);
         }
-        if($beacon->delete()) {
+        if ($beacon->delete()) {
             return response()->json(['message' => 'Beacon deleted successfully'], 200);
         } else {
             return response()->json(['error' => 'Failed to delete beacon'], 500);
         }
+    }
+
+    /**
+     * Combine the latitude and longitude fields into a single coordinates field
+     * for the database.
+     */
+    protected function createCoordinatesField(array $beaconArray): array
+    {
+
+        return $beaconArray;
     }
 }
