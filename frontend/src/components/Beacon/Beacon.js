@@ -25,7 +25,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
     <>
     <Marker 
         position={{ lat: beacon.latitude, lng: beacon.longitude }} 
-        className="rounded-full"
+        className="rounded-full bg-black"
         onClick={toggleDisplayBeacon}
         icon={{
           url: beacon.game_image,
