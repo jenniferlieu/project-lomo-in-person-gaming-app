@@ -28,7 +28,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('beacon-display-user-info', function () {
         event(new \App\Events\BeaconDisplayUserInfo());
     });
-    Route::get('games/fuzzy/{game_title}', [GameController::class, 'getGamesByFuzzyName']);
     Route::get('games/{game_title}', [GameController::class, 'getGamesByName']);
 
     Route::get('beacons/{beacon}/comments', [CommentController::class, 'index']);
@@ -45,7 +44,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profiles', [ProfileController::class, 'index']);
 });
 
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 
