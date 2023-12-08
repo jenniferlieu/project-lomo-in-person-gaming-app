@@ -6,7 +6,7 @@ name: Deploy Docs
 on:
   push:
     branches: ["main"]
-    paths: ["documentation/**"]
+    paths: ["documentation/**", "README.md"]
 jobs:
   deploy:
     runs-on: ubuntu-latest

@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\DB;
 class BeaconController extends Controller
 {
     /**
-     * Display a listing of the Beacon.
      * @lrd:start
      * Get an array of all beacons
      * @lrd:end
@@ -27,22 +26,8 @@ class BeaconController extends Controller
     }
 
     /**
-     * Store a newly created Beacon in storage.
      * @lrd:start
-     * Creates a new Beacon
-     * - **host_id** : user_id of the user creating the beacon; user_id must exist
-     * - **game_title** : title of the game being played at the event
-     * - **game_image**: cover image url of the game
-     * - **console** : such as PC, Nintendo Switch, Xbox, etc.
-     * - **description** : information about the event
-     * - **start_date_time** : when the event will start; example format = 12/12/23 1:00pm
-     * - **end_date_time** : when the event will end; example format = 12/12/23 1:00pm
-     * - **place_name** : name of the place / meeting location
-     * - **street_address** : street address of the meeting location
-     * - **latitude** : GPS latitude of the address
-     * - **longitude** : GPS longitude of the address
-     * - **players_wanted** : number of players needed
-     * - **controllers_wanted** : number of conotrollers needed
+     * Creates a new Beacon and automatically adds the host to the attendees table
      * @lrd:end
      */
     public function store(BeaconPostRequest $request)
