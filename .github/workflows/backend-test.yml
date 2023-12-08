@@ -6,51 +6,51 @@ on:
     paths: ["backend/**"]
 
 jobs:
-  # Backend-Feature-Tests:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: ./backend
+  Backend-Feature-Tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
 
-  #   services:
-  #     postgres:
-  #       image: postgis/postgis:16-3.4
-  #       env:
-  #         POSTGRES_USER: postgres
-  #         POSTGRES_PASSWORD: password
-  #         POSTGRES_DB: postgres
-  #       ports:
-  #         - 5432:5432
-  #       # Set health checks to wait until postgres has started
-  #       options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-  #   steps:
-  #     - name: Setup PHP
-  #       uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-  #       with:
-  #         php-version: "8.2"
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: "8.2"
 
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #     - name: Setup Project Environment
-  #       run: |
-  #         cp .env.example .env
-  #         composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-  #         composer update
-  #         php artisan key:generate
-  #         chmod -R 777 storage bootstrap/cache
+      - name: Setup Project Environment
+        run: |
+          cp .env.example .env
+          composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+          composer update
+          php artisan key:generate
+          chmod -R 777 storage bootstrap/cache
 
-  #     - name: Create testing schema in database
-  #       run: psql -h localhost -U postgres -c 'CREATE SCHEMA testing;'
-  #       env:
-  #         PGPASSWORD: password
+      - name: Create testing schema in database
+        run: psql -h localhost -U postgres -c 'CREATE SCHEMA testing;'
+        env:
+          PGPASSWORD: password
 
-  #     - name: Create database tables
-  #       run: php artisan migrate
+      - name: Create database tables
+        run: php artisan migrate
 
-  #     - name: Execute tests
-  #       run: php artisan test --testsuite=Feature
+      - name: Execute tests
+        run: php artisan test --testsuite=Feature
 
   Backend-Server-Health-Test:
     runs-on: ubuntu-latest
