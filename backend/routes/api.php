@@ -42,6 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/profiles/{user_id}', [ProfileController::class, 'destroy']);
     Route::post('/profiles', [ProfileController::class, 'store']);
     Route::get('/profiles', [ProfileController::class, 'index']);
+    Route::post('/Googles', [GoogleApiController::class, 'googleApiRequest']);
 });
 
 Route::post('/register', [AuthController::class, 'register']);
