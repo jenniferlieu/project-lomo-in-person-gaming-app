@@ -11,14 +11,10 @@ class GoogleApiController extends Controller
         //get the google api key from .env file
         $realApiKey = env('GOOGLE_API_KEY');
 
-        // Define the actual Google API endpoint
-        $apiEndpoint = 'google-api-test.com';
+        // use dummy api key in frontend
+        $dummyApiKey = 'THE_DUMMY_API_KEY';
 
-        $queryParams = [
-            'key' => $realApiKey,
-        ];
-
-        // Make the HTTP request to the Google API
-        $response = Http::get($apiEndpoint, $queryParams);
+        // send the key to frontend
+        return response()->json(['GOOGLE_MAPS_API_KEY' => $realApiKey]);
     }
 }
