@@ -8,13 +8,10 @@ class GoogleApiController extends Controller
 {
     public function googleApiRequest(Request $request)
     {   
-        //get the google api key from .env file
-        $realApiKey = env('GOOGLE_API_KEY');
-
-        // use dummy api key in frontend
-        $dummyApiKey = 'THE_DUMMY_API_KEY';
-
+        //get the google api key from config
+        $realApiKey = config('google.api_key');
+        
         // send the key to frontend
-        return response()->json(['GOOGLE_MAPS_API_KEY' => $realApiKey]);
+        return response()->json(['api_key' => $realApiKey]);
     }
 }
