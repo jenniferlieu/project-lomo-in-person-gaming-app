@@ -25,10 +25,11 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
     <>
     <Marker 
         position={{ lat: beacon.latitude, lng: beacon.longitude }} 
+        className="rounded-full"
         onClick={toggleDisplayBeacon}
         icon={{
           url: beacon.game_image,
-          scaledSize: new window.google.maps.Size(50, 50) // size of the icon
+          scaledSize: new window.google.maps.Size(65, 65) // size of the icon
         }}
       />
       {activeBeacon === id && (
