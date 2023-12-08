@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../AuthContext.js";
 
 const GetBeaconById = (id) => {
@@ -15,7 +15,7 @@ const GetBeaconById = (id) => {
           "Content-Type": "application/json",
           Accept: "application/json",
           Authorization: "Bearer " + authUser,
-        }
+        },
       };
       try {
         // make api call

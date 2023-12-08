@@ -27,17 +27,20 @@ const Login = () => {
       navigate("/");
     } else {
       try {
-        const response = await fetch("http://localhost/login", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: emailInput,
-            password: passInput,
-          }),
-        });
+        const response = await fetch(
+          "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/login",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: emailInput,
+              password: passInput,
+            }),
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
