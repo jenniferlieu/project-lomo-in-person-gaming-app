@@ -1,27 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs/AdapterDayjs.js";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker/DateTimePicker.js";
 import { useAuth } from "../../AuthContext.js";
 import { Link } from "react-router-dom";
 import { debounce } from "lodash";
-import Echo from "laravel-echo";
-// import { useHistory } from 'react-router-dom'
 import LocationSearch from "./LocationSearch.js";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
+import { useLoadScript } from "@react-google-maps/api";
 import GetGameByName from "./GetGameByName.js";
-// import {
-//     Combobox,
-//     ComboboxInput,
-//     ComboboxPopover,
-//     ComboboxList,
-//     ComboboxOption,
-// } from "@reach/combobox";
-// import "@reach/combobox/styles.css"
 
 function BeaconCreation({ beaconList }) {
   const [game, setGame] = useState(""); //game_title
@@ -34,7 +20,8 @@ function BeaconCreation({ beaconList }) {
   const [players, setPlayers] = useState(""); //player_wanted
   const [timeFrom, setFrom] = useState(""); //start_date_time
   const [timeTo, setTo] = useState(""); //end_date_time
-  const [controllers, setControllers] = useState(""); //controllers_wanted
+  const [totalControllers, setTotalControllers] = useState(""); //controllers_wanted
+  const [hostControllers, setHostControllers] = useState(""); // how many controllers the host has
   const [statusCode, setStatusCode] = useState(null);
   const { authUser, userId } = useAuth();
   const [autocompleteResults, setAutocompleteResults] = useState([]);
@@ -73,63 +60,6 @@ function BeaconCreation({ beaconList }) {
     libraries: ["places"],
   });
 
-  // const PlacesAutocomplete = ({ setSelected }) => {
-  //     const {
-  //         ready,
-  //         value,
-  //         setValue,
-  //         suggestions: { status, data },
-  //         clearSuggestions,
-  //     } = usePlacesAutocomplete();
-
-  //     const handleSelect = async (value) => {
-  //         setValue(location, false);
-  //         clearSuggestions();
-
-  //         const results = await getGeocode({ location });
-  //         const { lat, lng } = await getLatLng(results[0]);
-  //         setSelected({ lat, lng });
-  //     }
-  //     return (
-  //         <Combobox onSelect={handleSelect}>
-  //             <ComboboxInput
-  //                 value={location}
-  //                 onChange={(event) => setLocation(event.target.value)}
-  //                 disabled={!ready}
-  //                 className="combobox-input"
-  //                 placeholder="Search address"
-  //             />
-  //             <ComboboxPopover>
-  //                 <ComboboxList>
-  //                     {status === "OK" &&
-  //                         data.map(({ place_id, description }) => (
-  //                             <ComboboxOption key={place_id} value={description} />
-  //                         ))}
-  //                 </ComboboxList>
-  //             </ComboboxPopover>
-  //         </Combobox>
-  //     );
-  // };
-
-  // {  DataFields
-  //   console
-  //   controllers_wanted
-  //   created_at
-  //   description
-  //   end_date_time
-  //   game_image
-  //   game_title
-  //   host_id
-  //   id
-  //   latitude
-  //   longitude
-  //   place_name
-  //   players_wanted
-  //   start_date_time
-  //   street_address
-  //   updated_at
-  // }
-
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
     document.getElementById("displayArea").className =
@@ -137,12 +67,15 @@ function BeaconCreation({ beaconList }) {
   }
 
   function clearForm() {
-    setGame("");
+    setGameName("");
+    setSelectedGame(null);
     setDesc("");
     setConsole("");
     setPlayers("");
-    setControllers("");
+    setTotalControllers("");
     setPlaceName("");
+    setLatitude("");
+    setLongitude("");
     setFrom("");
     setTo("");
   }
@@ -161,33 +94,10 @@ function BeaconCreation({ beaconList }) {
       latitude: latitude,
       longitude: longitude,
       players_wanted: players,
-      controllers_wanted: controllers,
+      controllers_wanted: totalControllers,
+      controllers_brought: hostControllers
     };
     console.log(data);
-
-    // const beaconListData = {
-    //     circleLat: data.latitude,
-    //     circleLng: data.longitude,
-    //     beaconInfo: {
-    //         username: data.host_id,
-    //         gameTitle: data.game_title,
-    //         console: data.game_system,
-    //         miscInfo: data.misc,
-    //         startTime: data.start_date_time,
-    //         endTime: data.end_date_time,
-    //         playerInfo: {
-    //             wanted: data.num_players,
-    //         },
-    //         address: {
-    //             address: data.address,
-    //         },
-    //     },
-    // };
-
-    // beaconList.push(beaconListData);
-    // console.log(beaconList);
-
-    // history.push("/");
 
     // define url and headers
     let url =
@@ -214,9 +124,6 @@ function BeaconCreation({ beaconList }) {
       )
       .catch((error) => console.error("Error:", error));
   }
-
-  const [selected, setSelected] = useState(null);
-  //   const games = GetGameByName("mario wonder", authUser);
 
   return (
     <div className="border-box bg-white rounded-lg w-11/12 md:w-2/3 flex-col items-center justify-center my-2 md:my-10 m-auto shadow-lg p-4 h-auto text-sky-950">
@@ -309,12 +216,20 @@ function BeaconCreation({ beaconList }) {
         <div className="flex-col w-full p-1 md:p-2">
           Controllers:
           <input
-            value={controllers}
+            value={totalControllers}
             onChange={(e) => {
-              setControllers(e.target.value);
+              setTotalControllers(e.target.value);
             }}
             placeholder="How many controllers are needed?"
             className="p-1 border-teal-100 border-2 rounded w-full"
+          />
+          <input
+            value={hostControllers}
+            onChange={(e) => {
+              setHostControllers(e.target.value);
+            }}
+            placeholder="How many controllers do you have?"
+            className="p-1 mt-2 border-teal-100 border-2 rounded w-full"
           />
         </div>
       </div>
@@ -325,7 +240,9 @@ function BeaconCreation({ beaconList }) {
 
       <div className="flex-col w-full p-1 md:p-2">
         Location:
-        <LocationSearch returnValue={getLocation} />
+        <LocationSearch
+          returnValue={getLocation}
+        />
       </div>
 
       <div className="font-bold text-2xl border-b-4 border-b-sky-950 py-2 w-full mb-2">

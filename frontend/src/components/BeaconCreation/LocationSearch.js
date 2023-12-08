@@ -20,9 +20,8 @@ function LocationSearch({ returnValue }) {
       const place = searchResult.getPlace();
       const name = place.name;
       const coords = place.geometry.location;
-      const status = place.business_status;
       const formattedAddress = place.formatted_address;
-      returnValue({ name, coords, status, formattedAddress });
+      returnValue({ name, coords, formattedAddress });
     } else {
       alert("Please enter text");
     }
@@ -35,7 +34,7 @@ function LocationSearch({ returnValue }) {
           <input
             type="text"
             placeholder="Where are we playing?"
-            className="w-full h-8 px-3 py-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+            className="p-1 border-teal-100 border-2 rounded w-full"
           />
         </Autocomplete>
       </div>

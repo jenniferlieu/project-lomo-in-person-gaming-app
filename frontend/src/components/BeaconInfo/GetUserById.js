@@ -11,7 +11,7 @@ const GetUserById = ( userId ) => {
     const fetchData = async () => {
       console.log(`User Id: ${userId}`);
       // define url and headers
-      let url = `http://localhost/api/users/${userId}`;
+      let url = `https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/users/${userId}`;
       let options = {
         method: "GET",
         headers: {
