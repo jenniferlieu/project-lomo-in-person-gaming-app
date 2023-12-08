@@ -1,5 +1,5 @@
 import React from 'react';
-import { Circle } from '@react-google-maps/api';
+import { Circle, Marker } from '@react-google-maps/api';
 import BeaconInfoWindow from './InfoWindow/BeaconInfoWindow.js';
 
 const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
@@ -23,7 +23,14 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
 
   return (
     <>
-      <Circle {...circle} onClick={toggleDisplayBeacon} />
+    <Marker 
+        position={{ lat: beacon.latitude, lng: beacon.longitude }} 
+        onClick={toggleDisplayBeacon}
+        icon={{
+          url: beacon.game_image,
+          scaledSize: new window.google.maps.Size(50, 50) // size of the icon
+        }}
+      />
       {activeBeacon === id && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="w-screen max-w-[30rem]">
