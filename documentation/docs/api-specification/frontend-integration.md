@@ -140,6 +140,7 @@ A complete list of all beacon json fields.
     "longitude": float, // For the map
     "players_wanted": int, // Amount of players wanted
     "controllers_wanted": int, // Amount of controllers wanted
+    "controllers_brought": int, // number of controllers the host is bringing
     "created_at": string, // read-only. date and time that data was first created
     "updated_at": string, // read-only. date and time that data was last updated
   }
@@ -153,9 +154,11 @@ A complete list of all beacon json fields.
     {
       "id": int, // twitch's game id
       "name": string, // game title
-      "box_art_url": string, // url of the game image with custom width and height
-      "igdb_id": int, // igdb's game id
-      "box_art_url_full": string, // url of the game image at full size
+      "cover": { // game cover information
+        "id": int, // cover's id
+        "image_id": string, // image file name
+        "url": string, // largest size, image url
+      } 
     }
   ]
 }
