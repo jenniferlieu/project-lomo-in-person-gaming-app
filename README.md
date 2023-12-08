@@ -1,11 +1,16 @@
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-7f7980b617ed060a017424585567c406b6ee15c891e84e1186181d67ecf80aa0.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=11814775)
+[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-7f7980b617ed060a017424585567c406b6ee15c891e84e1186181d67ecf80aa0.svg)](https://urban-rotary-phone-rp7jq9p5wp43rrj.github.dev/)
 <div align="center">
 
 # LOMO In Person Gaming App
+[![Documentation Website Link](https://img.shields.io/badge/-Documentation%20Website-purple)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/)
+[![Frontend Netlify Website Link](https://img.shields.io/badge/-Frontend%20Netlify%20Website-blue)](https://lomogaming.netlify.app/)
+[![Backend Website Link](https://img.shields.io/badge/-Backend%20Website-4cba20)](https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/)
+
 [![Report Issue on Jira](https://img.shields.io/badge/Report%20Issues-Jira-0052CC?style=flat&logo=jira-software)](https://temple-cis-projects-in-cs.atlassian.net/jira/software/c/projects/LM/issues)
-[![Deploy Docs](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml/badge.svg)](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml)
-[![Documentation Website Link](https://img.shields.io/badge/-Documentation%20Website-brightgreen)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/)
+[![Deploy Docs](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/deploy.yml/badge.svg)](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/deploy.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f2ed186c-f3f0-4d94-aa1d-c1a935d61d7f/deploy-status)](https://app.netlify.com/sites/lomogaming/deploys)
+[![Deploy Backend](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/deploy-backend.yml/badge.svg)](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/deploy-backend.yml)
+[![Test Backend](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/backend-test.yml/badge.svg)](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/backend-test.yml)
 
 </div>
 
@@ -129,7 +134,7 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
     ```
 7. Go to [http://localhost](http://localhost) in your browser to make sure that you can see the laravel welcome screen, and you're set!
    1. **PROBLEM:** If you see a 500 server error and no detailed explanation of the error, then you forgot to copy the env file
-   2. **PROBLEM:** If you get permission errors for the storage folder and the storage/logs/laravel.log file. Run the commands below one line at a time, in order:
+   2. **PROBLEM:** If you get permission errors for the `storage/` folder. Run the commands below one line at a time, in order:
         ```bash
         # enter the docker container command line as the root user
         ./vendor/bin/sail root-shell
@@ -140,9 +145,6 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
         # recursively change owner and group to root
         chown -R root:root storage/
 
-        # change the permissions for storage/logs/laravel.log to allow read,write for other
-        chmod o+rw storage/logs/laravel.log
-
         # setup the storage link between storage/ and public/storage folders
         php artisan storage:link
 
@@ -150,6 +152,18 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
         php artisan cache:clear
         php artisan config:clear
         ```  
+    3. **PROBLEM:** If you get a permissions error *specifically* for the `storage/logs/laravel.log` file. Run the commands below one at a time, in order:
+        ```bash
+        # enter the docker container command line as the root user
+        ./vendor/bin/sail root-shell
+
+        # change the permissions for storage/logs/laravel.log to allow read,write for other
+        chmod o+rw storage/logs/laravel.log
+
+        # clear the cache and config
+        php artisan cache:clear
+        php artisan config:clear
+        ```
 
 To stop the container: from your terminal, run `./vendor/bin/sail down`
 
