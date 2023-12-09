@@ -58,6 +58,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = ['profilePictureUrl'];
+
+    public function getProfilePictureUrlAttribute()
+    {
+        return $this->avatar; // Adjust this based on your actual database field
+    }
+
     /**
      * The attributes that should be cast.
      *
