@@ -3,13 +3,11 @@ sidebar_position: 2
 ---
 # Backend Unit Tests
 
-Laravel has a built-in test suite wrapper that uses the [PHPUnit testing framework](https://phpunit.de/) to create and run all tests.
+Laravel uses the built-in [PHPUnit testing framework](https://phpunit.de/) to create and run all tests.
 
-The unit tests are grouped together under Feature tests. Each feature test corresponds to a [use case](/docs/requirements/use-case-descriptions).
+Backend tests are automated by Github Actions and run every time a new pull request is made into the main branch.
 
-:::note
-The Laravel Sail docker container must be running for the commands to work. For more testing commands, check out the [Larvel 10 testing documentation](https://laravel.com/docs/10.x/testing). Remember to use the [sail](https://laravel.com/docs/10.x/sail#executing-sail-commands) or [docker](/resources/docker-quick-start#access-the-docker-containers-command-line) command to execute any Laravel commands.
-:::
+[![Test Backend](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/test-backend.yml/badge.svg)](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/test-backend.yml)
 
 ## Test Coverage
 
