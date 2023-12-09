@@ -28,7 +28,6 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
         onClick={toggleDisplayBeacon}
         icon={{
           url: beacon.game_image,
-          path: window.google.maps.SymbolPath.CIRCLE,
           scaledSize: new window.google.maps.Size(65, 65) // size of the icon
         }}
       />
