@@ -76,10 +76,9 @@ class AttendeeController extends Controller
             'user_id' => 'required|string',
             'controllers_brought' => 'required|integer'
         ]);
-        $attendee = DB::table('attendees')->where(['beacon_id' => $request->beacon_id, 'user_id' => $request->user_id])->get();
-        $attendee->beacon_id = $request->beacon_id;
-        $attendee->user_id = $request->user_id;
-        $attendee->controllers_brought = $request->controllers_brought;
+        $beacon_id = $request->beacon_id;
+        $user_id = $request->user_id;
+        $attendee = Attendee::where(['beacon_id' => $beacon_id, 'user_id' => $user_id])->update(['beacon_id' => $request->beacon_id, 'user_id' => $request->user_id, 'controllers_brought' => $request->controllers_brought]);
         if ($attendee){
             return response()->json(['message' => "Attendee updated successfully", 'data' => $attendee]);
         } else {
