@@ -12,7 +12,6 @@ function CustomMarker({ position, gameImage }) {
   return (
     <OverlayView
       position={position}
-      mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
     >
       <div
         style={{
