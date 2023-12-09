@@ -34,7 +34,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
           label: {
             text: ' ', // empty text
             color: 'transparent', // transparent color
-            fontSize: '70px', // size of the border
+            fontSize: '90px', // size of the border
             fontWeight: '900', // thickness of the border
             strokeWeight: 1, // border width
             strokeColor: 'black', // border color
