@@ -103,7 +103,7 @@ const Login = () => {
             Stop missing out!
           </Link>
         </p>
-        <img src="icons/Loom_Logo_01_Artboard_1.svg" alt="Logo" />
+        <img src="icons/Loom_Logo_01_Artboard_1.svg" alt="Logo" className="mx-auto d-block" />
       </div>
     </div>
   );
