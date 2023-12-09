@@ -1,7 +1,6 @@
 import React from "react";
 import { Circle, Marker } from "@react-google-maps/api";
 import BeaconInfoWindow from "./InfoWindow/BeaconInfoWindow.js";
-import CustomMarker from "./CustomMarker.js";
 
 const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
   const circle = {
@@ -24,9 +23,19 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
 
   return (
     <>
-      <CustomMarker
-        gameImage={beacon.game_image}
+      <Marker
+        position={{ lat: beacon.latitude, lng: beacon.longitude }}
         onClick={toggleDisplayBeacon}
+        icon={{
+          url: beacon.game_image,
+          scaledSize: new window.google.maps.Size(65, 65), // size of the icon
+          labelOrigin: new window.google.maps.Point(32, 64), // position of the label
+        }}
+        label={
+          "<div style='border-radius: 50%; width: 65px; height: 65px; background-image: url(" +
+          beacon.game_image +
+          "); background-size: cover;'></div>"
+        }
       />
       {activeBeacon === id && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
