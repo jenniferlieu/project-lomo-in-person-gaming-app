@@ -28,7 +28,17 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
         onClick={toggleDisplayBeacon}
         icon={{
           url: beacon.game_image,
-          scaledSize: new window.google.maps.Size(65, 65) // size of the icon
+          scaledSize: new window.google.maps.Size(65, 65), // size of the icon
+          anchor: new window.google.maps.Point(32.5, 32.5), // anchor point of the icon
+          labelOrigin: new window.google.maps.Point(32.5, 32.5), // origin of the label relative to the icon
+          label: {
+            text: ' ', // empty text
+            color: 'transparent', // transparent color
+            fontSize: '70px', // size of the border
+            fontWeight: '900', // thickness of the border
+            strokeWeight: 1, // border width
+            strokeColor: 'black', // border color
+          }
         }}
       />
       {activeBeacon === id && (
