@@ -39,9 +39,9 @@ The purpose of this class is to handle data pertaining to the `/api/beacons` rou
 - **`index()` method: Gets a list of all beacons from the database**
   - Pre-condition: GET /api/beacons/
   - Returns: JSON response with HTTP status code
-- **`store(Request $request)` method: Creates a beacon in the database**
+- **`store(BeaconPostRequest $request)` method: Creates a beacon in the database**
   - Pre-condition: POST /api/beacons/{beacon}
-  - Parameters: Request request
+  - Parameters: BeaconPostRequest request
   - Returns: JSON response with HTTP status code
 - **`show(Beacon $beacon)` method: Gets user beacon from the database using their beacon_id**
   - Pre-condition: GET /api/beacons/{beacon}
@@ -57,21 +57,16 @@ The purpose of this class is to handle data pertaining to the `/api/beacons` rou
   - Pre-condition: DELETE /api/beacons/{beacon}
   - Parameters: Beacon $beacon
   - Returns: JSON response with HTTP status code
-- **`showNearby(Request $request)` method: Gets a list of beacons near the user using the user's location**
-  - Pre-condition: GET /api/beacons/nearby/{location}
-  - Parameters: Request $request
-  - Returns: JSON response with HTTP status code
-- **`showRecommended(Request $request)` method: Gets a list of recommended beacons using _____???**
-  - Pre-condition: GET /api/beacons/recommended/{beacon}
-  - Parameters: Request $request
-  - Returns: JSON response with HTTP status code
+- **`createsCoordinatesField(array $beaconArray)` method: Combine the latitude and longitude fields into a single coordinates field for the database.**
+  - Parameters: array $beaconArray
+  - Returns: array
 
-### ReportController Class
-The purpose of this class is to handle data pertaining to the `/api/reports` route.
+### GameController Class
+The purpose of this class is to handle data pertaining to the `/api/games` route.
 
-- **`store(Request $request)` method: Creates a report in the database**
-  - Pre-condition: POST /api/reports/{report}
-  - Parameters: Request request
+- **`getGamesByName(string $game_title)` method: Gets game data by name using IGDB's API. Returned as an array of objects.**
+  - Pre-condition: GET /api/games/{game_title}
+  - Parameters: string $game_title
   - Returns: JSON response with HTTP status code
 
 ## Model Classes
@@ -99,10 +94,106 @@ The Beacon model class defines the object instance of a beacons document/row in 
   - The attributes that are mass assignable.
 - **`guarded`: array**
   - The attributes that are protected against mass assignment
+- **`casts`: array**
+  - The attributes that should be cast.
 
-### Report
+## Events
 
-The Report model class defines the object instance of a reports document/row in Laravel. It contains a list of all the reports collection fields.
+### BeaconCreated Class
+The purpose of this class is to send Beacon data through the websocket.
 
-- **`fillable`: array**
-  - The attributes that are mass assignable.
+- **`public BeaconJsonResponse $beacon` variable: Beacon data in json format.**
+- **`__construct(BeaconJsonResponse $beacon)` method: Creates a new BeaconCreated instance.**
+  - Pre-condition: called with either the `event()` method or the `broadcast()` method
+  - Parameters: BeaconJsonResponse $beacon
+  - Returns: BeaconCreated instance
+- **`broadcastOn()` method: Get the channels the event should broadcast on.**
+  - Returns: array
+
+## Form Request
+
+### BeaconPostRequest Class
+The purpose of this class is to validate incoming data received through the POST `api/beacons` route.
+
+- **`authorize()` method: Determine if the user is authorized to make this request.**
+  - Pre-condition: POST /api/beacons/{beacon}
+  - Returns: bool
+- **`rules()` method: Get the validation rules that apply to the request.**
+  - Returns: array
+
+## Resources
+
+### BeaconJsonResponse Class
+The purpose of this class is to convert the data returned from the beacons table database into a json type. And to remove the coordinates field and split it into a latitude and longitude field.
+
+- **`toArray(Request $request)` method: Transform the resource into an array.**
+  - Pre-condition: new BeaconJsonResponse() is called
+  - Returns: array
+
+## Factories
+
+### UserFactory
+The purpose of this class is to create an entry in the users table with fake data. Primarily used for testing.
+
+- **`definition()` method: Define the model's default state.**
+  - Pre-condition: `User::factory()` method is called
+  - Returns: User instance
+
+### BeaconFactory
+The purpose of this class is to create an entry in the beacons table with fake data. Primarily used for testing.
+
+- **`definition()` method: Define the model's default state.**
+  - Pre-condition: `Beacon::factory()` method is called
+  - Returns: Beacon instance
+
+## Migrations
+
+### create_users_table
+The purpose of this class is to create a users table in the database from Laravel.
+
+- **`run()` method: Run the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, a table in the database
+- **`down()` method: Reverse the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, table deleted from database
+
+### create_beacons_table
+The purpose of this class is to create a beacons table in the database from Laravel.
+
+- **`run()` method: Run the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, a table in the database
+- **`down()` method: Reverse the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, table deleted from database
+
+### create_profiles_table
+The purpose of this class is to create a profiles table in the database from Laravel.
+
+- **`run()` method: Run the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, a table in the database
+- **`down()` method: Reverse the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, table deleted from database
+
+### create_attendees_table
+The purpose of this class is to create a attendees table in the database from Laravel.
+
+- **`run()` method: Run the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, a table in the database
+- **`down()` method: Reverse the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, table deleted from database
+
+### create_comments_table
+The purpose of this class is to create a comments table in the database from Laravel.
+
+- **`run()` method: Run the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, a table in the database
+- **`down()` method: Reverse the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, table deleted from database

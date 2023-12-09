@@ -79,3 +79,10 @@ Console/Kernel ............................... 16 / 66.7%
 #### Test: Database connection to the production database
 ```test_database_connection_to_public_schema()```
 - Assert: Connection established
+
+### GameControllerTest
+#### Test: IGDB API to get games by name, GET request to api/games is successful
+```test_get_games_by_name()```
+- Assert: 
+  - HTTP status code 200 for successful response
+  - Expecte JSON returned

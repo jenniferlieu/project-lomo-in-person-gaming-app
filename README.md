@@ -138,9 +138,11 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
         ```bash
         # enter the docker container command line as the root user
         ./vendor/bin/sail root-shell
-
+        ```
+        
+        ```bash
         # recursively change permissions on storage to allow read,write,execute for owner and group
-        chmod -R 775 storage/
+        chmod -R 777 storage/
 
         # recursively change owner and group to root
         chown -R root:root storage/
@@ -151,18 +153,9 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
         # clear the cache and config
         php artisan cache:clear
         php artisan config:clear
-        ```  
-    3. **PROBLEM:** If you get a permissions error *specifically* for the `storage/logs/laravel.log` file. Run the commands below one at a time, in order:
-        ```bash
-        # enter the docker container command line as the root user
-        ./vendor/bin/sail root-shell
-
-        # change the permissions for storage/logs/laravel.log to allow read,write for other
-        chmod o+rw storage/logs/laravel.log
-
-        # clear the cache and config
-        php artisan cache:clear
-        php artisan config:clear
+        
+        # exit the docker container command line
+        exit
         ```
 
 To stop the container: from your terminal, run `./vendor/bin/sail down`
@@ -215,7 +208,7 @@ cd documentation
 yarn start-lomo
 
 # or use the long form
-PROJECT_NAME=project-lomo-in-person-gaming-app ORG_NAME=Capstone-Projects-2023-Fall yarn start
+# PROJECT_NAME=project-lomo-in-person-gaming-app ORG_NAME=Capstone-Projects-2023-Fall yarn start
 ```
 
 ## Collaborators
