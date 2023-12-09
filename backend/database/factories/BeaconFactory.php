@@ -29,8 +29,9 @@ class BeaconFactory extends Factory
             'place_name' => fake()->sentence,
             'street_address' => fake()->address,
             'coordinates' => Point::makeGeodetic(fake()->latitude, fake()->longitude()),
-            'players_wanted' => fake()->numberBetween(0, 10),
+            'players_wanted' => fake()->numberBetween(1, 10),
             'controllers_wanted' => fake()->numberBetween(0, 10),
+            'controllers_brought' => fake()->numberBetween(0, 20),
         ];
     }
 }
