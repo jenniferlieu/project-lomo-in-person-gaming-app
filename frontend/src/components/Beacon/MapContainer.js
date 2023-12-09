@@ -50,6 +50,7 @@ const MapContainer = ({ beaconList }) => {
             activeBeacon={activeBeacon}
             onBeaconClick={handleBeaconClick}
             beacon={beacon}
+            map={mapRef.current}
           />
         ))}
       </GoogleMap>

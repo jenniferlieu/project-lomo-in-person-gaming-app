@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { OverlayView } from "@react-google-maps/api";
 
-function CustomMarker({ position, gameImage }) {
+function CustomMarker({ position, gameImage, map }) {
   const [img, setImg] = React.useState(null);
 
   useEffect(() => {
@@ -12,6 +12,8 @@ function CustomMarker({ position, gameImage }) {
   return (
     <OverlayView
       position={position}
+      mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+      map={map}
     >
       <div
         style={{
