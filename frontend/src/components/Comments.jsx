@@ -92,9 +92,9 @@ const Comments = ({ beaconId, creatorId }) => {
             {comments.map((comment) => (
                 <div className='border-2 border-teal-100 my-3 p-1 w-full mx-auto shadow-md' key={comment.id}>
                     <div className='comment-item'>
-                        <img src={comment.user.profilePictureUrl || 'default-profile-pic-url'} alt="Profile" className='comment-user-profile-pic' />
+                        <img src={comment.user.avatar || 'default-profile-pic-url'} alt={comment.user.username} className='comment-user-profile-pic' />
                         <div className='comment-content'>
-                            <p className='comment-user-name'>{comment.user.name}</p>
+                            <p className='comment-user-name'>{comment.user.username}</p>
                             <p className='comment-text'>{comment.content}</p>
                             {(comment.user.id === authUser || creatorId === authUser) && (
                                 <button className='delete-comment-button' onClick={() => handleDeleteComment(comment.id)}>Delete</button>
