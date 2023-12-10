@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
+use App\Events\AttendeeCreate;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Beacon;
@@ -31,6 +33,8 @@ class AttendeeControllerTest extends TestCase
         unset($this->beacon['coordinates']); // delete the coordindates field
         $this->beacon['latitude'] = "1.000000"; // add latitude field
         $this->beacon['longitude'] = "1.000000"; // add longitude field
+
+        Event::fake([AttendeeCreate::class]);
      }
 
     public function test_get_all_attendees(): void

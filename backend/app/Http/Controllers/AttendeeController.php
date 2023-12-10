@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendee;
 use App\Events\AttendeeCreate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use App\Http\Requests\AttendeePostRequest;
 use App\Http\Requests\AttendeeUpdateRequest;
 use App\Models\Beacon;
