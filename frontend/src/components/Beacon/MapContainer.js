@@ -80,7 +80,7 @@ const MapContainer = ({ beaconList }) => {
         googleMapsApiKey={apiKey}
       >
         {adjustedBeacons.map((beacon, index) => (
-          console.log(beacon.adjustedPosition),
+          console.log(beacon.latitude, beacon.longitude, beacon.adjustedPosition),
           <Beacon
             key={index}
             id={beacon.id}
