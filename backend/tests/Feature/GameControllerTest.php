@@ -25,6 +25,12 @@ class GameControllerTest extends TestCase
         $this->user = User::factory()->create(); // create a mock user
         $this->actingAs($this->user, 'sanctum'); // create a mock token from sanctum
 
+        // make api calls from frontend url's
+        $this->withHeaders([
+            'HTTP_ORIGIN' => 'https://lomogaming.netlify.app',
+            'Accept' => 'application/json'
+        ]);
+
         // Copied the fake igdb API call from igdb-laravel library's tests/ModelTest.php
         // @see https://github.com/marcreichel/igdb-laravel/blob/main/tests/ModelTest.php
         Http::fake([
