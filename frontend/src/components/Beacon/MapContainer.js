@@ -34,10 +34,10 @@ const MapContainer = ({ beaconList }) => {
   const areOverlapping = (coord1, coord2) => {
     const distance = google.maps.geometry.spherical.computeDistanceBetween(
       new google.maps.LatLng(coord1.lat, coord1.lng),
-      new google.maps.LatLng(coord2.lat, coord2.lng)
+      new google.maps.LatLng(coord2.latitude, coord2.longitude)
     );
     console.log(distance);
-    return distance < 1; // distance in meters where you consider markers to be overlapping
+    return distance < 10; // distance in meters where you consider markers to be overlapping
   };
 
   const adjustPosition = (coord, index) => {
