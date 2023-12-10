@@ -57,6 +57,9 @@ const MapContainer = ({ beaconList }) => {
     });
     return { ...beacon, adjustedPosition };
   });
+  const handleMapClick = () => {
+    setActiveBeacon(null);
+  }
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   console.log(beaconList);
@@ -71,6 +74,7 @@ const MapContainer = ({ beaconList }) => {
         onLoad={(map) => {
           mapRef.current = map;
         }}
+        onClick={handleMapClick}
         googleMapsApiKey={apiKey}
       >
         {adjustedBeacons.map((beacon, index) => (
