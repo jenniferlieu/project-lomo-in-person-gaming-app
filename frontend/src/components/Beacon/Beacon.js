@@ -1,7 +1,6 @@
 import React from "react";
 import { Circle, Marker } from "@react-google-maps/api";
 import BeaconInfoWindow from "./InfoWindow/BeaconInfoWindow.js";
-import CustomMarker from "./CustomMarker.js";
 
 const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
   const circle = {
@@ -24,7 +23,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
 
   return (
     <>
-    {/* <Marker
+    <Marker
         position={{ lat: beacon.latitude, lng: beacon.longitude }}
         onClick={toggleDisplayBeacon}
         icon={{
@@ -33,7 +32,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
           anchor: new window.google.maps.Point(75, 75), // anchor point of the icon
         }}
       />
-      <Marker
+      {/* <Marker
         position={{ lat: beacon.latitude, lng: beacon.longitude }}
         onClick={toggleDisplayBeacon}
         icon={{
@@ -42,7 +41,6 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
           anchor: new window.google.maps.Point(32.5, 32.5), // anchor point of the icon
         }}
       /> */}
-      <CustomMarker beacon={beacon} toggleDisplayBeacon={toggleDisplayBeacon} />
       {activeBeacon === id && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="w-screen max-w-[30rem]">
