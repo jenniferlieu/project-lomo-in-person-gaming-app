@@ -220,7 +220,7 @@ function BeaconCreation({ beaconList }) {
             onChange={(e) => {
               setTotalControllers(e.target.value);
             }}
-            placeholder="How many controllers are needed?"
+            placeholder="How many are needed?"
             className="p-1 border-teal-100 border-2 rounded w-full"
           />
           <input
@@ -228,7 +228,7 @@ function BeaconCreation({ beaconList }) {
             onChange={(e) => {
               setHostControllers(e.target.value);
             }}
-            placeholder="How many controllers do you have?"
+            placeholder="How many do you have?"
             className="p-1 mt-2 border-teal-100 border-2 rounded w-full"
           />
         </div>
