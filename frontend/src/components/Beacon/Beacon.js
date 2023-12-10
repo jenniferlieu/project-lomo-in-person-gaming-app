@@ -27,8 +27,8 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
         position={{ lat: beacon.latitude, lng: beacon.longitude }}
         onClick={toggleDisplayBeacon}
         icon={{
-          url: "icons/border.png",
-          scaledSize: new window.google.maps.Size(150), // size of the icon
+          url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMC41LjAuICh0aGlzY3JhcGhpY3NzY2FsZW50KSIgImh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItMTItMTlUMTI6MjI6MDEuMjQ5MDgAAAJNJREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC",          scaledSize: new window.google.maps.Size(150), // size of the icon
+          scaledSize: new window.google.maps.Size(150),
           anchor: new window.google.maps.Point(75, 75), // anchor point of the icon
         }}
       />
