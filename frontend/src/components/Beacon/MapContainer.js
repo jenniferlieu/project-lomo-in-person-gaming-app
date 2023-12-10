@@ -44,7 +44,7 @@ const MapContainer = ({ beaconList }) => {
     const angle = (index * 360) / beaconList.length;
     const newCoord = google.maps.geometry.spherical.computeOffset(
       new google.maps.LatLng(coord.lat, coord.lng),
-      10, // distance in meters to offset
+      15, // distance in meters to offset
       angle // angle in degrees to offset
     );
     return { lat: newCoord.lat(), lng: newCoord.lng() };
