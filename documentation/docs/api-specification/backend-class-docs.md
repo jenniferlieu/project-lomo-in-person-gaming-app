@@ -33,7 +33,7 @@ The purpose of this class is to handle HTTP requests pertaining to the `/api/use
   - Parameters: User $user
   - Returns: JSON response with HTTP status code
 
-  ### ProfileController Class
+### ProfileController Class
 
 The `ProfileController` class is responsible for handling HTTP requests related to user profiles.
 
@@ -65,7 +65,7 @@ The purpose of this class is to handle data pertaining to the `/api/beacons` rou
   - Returns: JSON response with HTTP status code
 - **`store(BeaconPostRequest $request)` method: Creates a beacon in the database**
   - Pre-condition: POST /api/beacons/{beacon}
-  - Parameters: BeaconPostRequest request
+  - Parameters: BeaconPostRequest $request
   - Returns: JSON response with HTTP status code
 - **`show(Beacon $beacon)` method: Gets user beacon from the database using their beacon_id**
   - Pre-condition: GET /api/beacons/{beacon}
@@ -84,6 +84,30 @@ The purpose of this class is to handle data pertaining to the `/api/beacons` rou
 - **`createsCoordinatesField(array $beaconArray)` method: Combine the latitude and longitude fields into a single coordinates field for the database.**
   - Parameters: array $beaconArray
   - Returns: array
+
+### AttendeeController Calss
+The purpose of this class is to handle HTTP requests pertaining to the `/api/attendees` route.
+
+- **`index()` method: Gets a list of all attendees from the database**
+  - Pre-conditions: GET /api/attendees/
+  - Returns: JSON response with HTTP status code
+- **`store(AttendeePostRequest $request)` method: Creates an attendee in the database**
+  - Pre-condition: POST /api/attendees/{attendee}
+  - Parameters: AttendeePostRequest $request 
+  - Returns: JSON response with HTTP status code
+- **`show(string $beacon_id)` method: Show all the attendees at a specifc beacon using the beacon's id**
+  - Pre-conditions: GET /api/attendees/{attendee}
+  - Parameters: string $beacon_id
+  - Returns: JSON response with HTTP status code
+- **`updateAttendee(Request $request, string $user_id, string $beacon_id)` method: Updates the number of controller the Attendee is bringing**
+  - Pre-condition: Patch /api/attendees/{user_id}/beacon/{beacon_id}
+  - Parameters: Request $request, string $user_id, string $beacon_id
+  - Returns: JSON response with HTTP status code
+- **`deleteAttendee(string $user_id, string $beacon_id)` method: Deletes an attendee from the database using the user's id and the beacon's id**
+  - Pre-condition: Delete /api/attendees/{user_id}/beacon/{beacon_id}
+  - Parameters: string $user_id, string $beacon_id
+  - Returns: JSON response with HTPP status code 
+
 
 ### GameController Class
 The purpose of this class is to handle data pertaining to the `/api/games` route.
