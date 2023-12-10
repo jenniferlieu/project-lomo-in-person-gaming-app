@@ -6,7 +6,7 @@ import './Comments.css';
 const Comments = ({ beaconId, creatorId }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
-    const { authUser } = useAuth();
+    const { authUser, userId } = useAuth();
     const { laravelEcho } = useEchoStore();
 
     const fetchComments = useCallback(async () => {
@@ -101,7 +101,7 @@ const Comments = ({ beaconId, creatorId }) => {
                             <p className='comment-user-name'>{comment.user.username}</p>
                         </div>
                         <p className='comment-text'>{comment.content}</p>
-                        {(comment.user.id === authUser || creatorId === authUser) && (
+                        {(comment.user.id === userId || creatorId === userId) && (
                             <button className='delete-comment-button' onClick={() => handleDeleteComment(comment.id)}>Delete</button>
                         )}
                     </div>
