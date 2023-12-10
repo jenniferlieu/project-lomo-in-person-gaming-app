@@ -30,6 +30,34 @@ const MapContainer = ({ beaconList }) => {
     }
   }
 
+  const areOverlapping = (coord1, coord2) => {
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(
+      new google.maps.LatLng(coord1.lat, coord1.lng),
+      new google.maps.LatLng(coord2.lat, coord2.lng)
+    );
+    return distance < 10; // distance in meters where you consider markers to be overlapping
+  };
+
+  const adjustPosition = (coord, index) => {
+    const angle = (index * 360) / beaconList.length;
+    const newCoord = google.maps.geometry.spherical.computeOffset(
+      new google.maps.LatLng(coord.lat, coord.lng),
+      20, // distance in meters to offset
+      angle // angle in degrees to offset
+    );
+    return { lat: newCoord.lat(), lng: newCoord.lng() };
+  };
+
+  const adjustedBeacons = beaconList.map((beacon, index) => {
+    let adjustedPosition = { lat: beacon.latitude, lng: beacon.longitude };
+    beaconList.forEach((otherBeacon, otherIndex) => {
+      if (index !== otherIndex && areOverlapping(adjustedPosition, otherBeacon)) {
+        adjustedPosition = adjustPosition(adjustedPosition, index);
+      }
+    });
+    return { ...beacon, adjustedPosition };
+  });
+
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   console.log(beaconList);
   const devUser = GetUserById("ce644f8a-be78-4f9c-b40c-bcb7a4d88bd4");
@@ -45,7 +73,7 @@ const MapContainer = ({ beaconList }) => {
         }}
         googleMapsApiKey={apiKey}
       >
-        {beaconList.map((beacon, index) => (
+        {adjustedBeacons.map((beacon, index) => (
           <Beacon
             key={index}
             id={beacon.id}

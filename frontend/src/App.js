@@ -113,7 +113,7 @@ function App() {
         </div>
       )}
       <Router>
-        <LoadScript googleMapsApiKey={apiKey} libraries={["places"]}>
+        <LoadScript googleMapsApiKey={apiKey} libraries={["places", "geometry"]}>
           <NavBar />
           <Routes>
             <Route
