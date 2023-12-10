@@ -27,7 +27,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
         position={{ lat: beacon.latitude, lng: beacon.longitude }}
         onClick={toggleDisplayBeacon}
         icon={{
-          url: "https://i1.wp.com/cornellsun.com/wp-content/uploads/2020/06/1591119073-screen_shot_2020-06-02_at_10.30.13_am.png?fit=700%2C652&ssl=1",
+          url: "public\icons\border.png",
           scaledSize: new window.google.maps.Size(150), // size of the icon
           anchor: new window.google.maps.Point(75, 75), // anchor point of the icon
         }}
