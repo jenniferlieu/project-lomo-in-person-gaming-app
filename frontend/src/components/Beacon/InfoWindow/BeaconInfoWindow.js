@@ -59,10 +59,13 @@ const BeaconInfoWindow = ({
   const thisBeaconInfo = GetBeaconById(id);
 
   return (
-    <div className="bg-white rounded-lg w-xl max-w-2xl mx-auto shadow-lg my-5 p-2 px-2 relative">
+    <div
+      className="bg-white rounded-lg w-xl max-w-2xl mx-auto shadow-lg my-5 p-2 px-2 relative"
+      style={{ maxHeight: '690px', overflowY: 'auto' }}
+    >
       <div className="relative">
         <button
-          className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+          className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-500 hover:text-red-700"
           onClick={onClose}
         >
           X
