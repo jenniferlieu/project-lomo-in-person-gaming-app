@@ -1,5 +1,10 @@
+.comment-section {
+    max-height: 270px;
+    overflow-y: auto;
+}
+
 .comment-container {
-    border: 2px solid #48D1CC; /* Example border color */
+    border: 2px solid #48D1CC;
     margin: 1rem 0;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
