@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileStoreRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 
@@ -24,7 +26,9 @@ class ProfileController extends Controller
     }
 
     /**
+     * @lrd:start
      * Find and display the profile by user ID.
+     * @lrd:end
      *
      * @param  int  $userId
      * @return \Illuminate\Http\JsonResponse
@@ -42,13 +46,15 @@ class ProfileController extends Controller
     }
 
     /**
+     * @lrd:start
      * Update the profile with the specified user ID.
+     * @lrd:end
      *
      * @param  Request  $request
      * @param  int  $userId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $userId)
+    public function update(ProfileUpdateRequest $request, $userId)
     {
         // Find the profile by user ID
         $profile = Profile::where('user_id', $userId)->first();
@@ -69,7 +75,9 @@ class ProfileController extends Controller
     }
 
     /**
+     * @lrd:start
      * Delete the profile with the specified user ID.
+     * @lrd:end
      *
      * @param  int  $userId
      * @return \Illuminate\Http\JsonResponse
@@ -88,12 +96,14 @@ class ProfileController extends Controller
     }
 
     /**
+     * @lrd:start
      * Create a new profile with the specified user ID.
+     * @lrd:end
      *
      * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(ProfileStoreRequest $request)
     {
         // Validate the request data
         $validatedData = $request->validate([
