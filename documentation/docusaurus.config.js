@@ -8,7 +8,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
  * The URL or reference to your projects logo!
  * @type {string}
  */
-const logo = "img/undraw_docusaurus_mountain.svg";
+const logo = "img/lomo-logo-by-carla-delima.svg";
 
 const main_template_jira_scripts = () => {
   if (process.env.ORG_NAME === "ApplebaumIan") {
@@ -31,14 +31,14 @@ const title = "LOMO In Person Gaming App";
 const config = {
   title: title,
   tagline:
-    "Replace FOMO with LOMO, meet up with other gamers, and play games together in person!",
+    "Replace FOMO with LOMO, find other gamers and play together in person!",
   /*Unless you move this website to a seperate repo don't change url and baseurl.*/
   url: "https://" + process.env.ORG_NAME + ".github.io/",
   baseUrl: "/" + process.env.PROJECT_NAME + "/",
   trailingSlash: false,
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "img/lomo-logo-by-carla-delima.svg",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -112,10 +112,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        /*TODO: Change to your project's title*/
         title: title,
         logo: {
-          alt: "My Site Logo",
+          alt: "LOMO logo by Carla Delima",
           src: logo,
         },
         items: [
@@ -132,6 +131,11 @@ const config = {
             activeBaseRegex: `/resources/`,
           },
           {
+            href: "https://lomogaming.netlify.app/",
+            label: "LOMO Web App",
+            position: "right",
+          },
+          {
             href:
               "https://github.com/" +
               process.env.ORG_NAME +
@@ -144,8 +148,10 @@ const config = {
       },
       footer: {
         logo: {
-          alt: "My Site Logo",
+          alt: "LOMO logo by Carla Delima",
           src: logo,
+          width: 128,
+          height: 128,
         },
         links: [
           {
@@ -188,6 +194,10 @@ const config = {
                   process.env.ORG_NAME +
                   "/" +
                   process.env.PROJECT_NAME,
+              },
+              {
+                label: "LOMO Web App",
+                href: "https://lomogaming.netlify.app/",
               },
             ],
           },
