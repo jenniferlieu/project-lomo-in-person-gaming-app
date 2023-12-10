@@ -6,8 +6,6 @@
     width="200" 
     alt="LOMO logo by Carla Delima"
 />
-<br/>
-<small>Logo created by <a href="https://github.com/del-cj">Carla Delima</a> ✨</small>
 
 # LOMO In Person Gaming App
 [![LOMO Web App](https://img.shields.io/badge/-LOMO%20Web%20App-blue)](https://lomogaming.netlify.app/)
@@ -19,6 +17,7 @@
 [![Deploy Backend](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/deploy-backend.yml/badge.svg)](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/deploy-backend.yml)
 [![Test Backend](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/test-backend.yml/badge.svg)](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/test-backend.yml)
 
+<small>Logo created by <a href="https://github.com/del-cj">Carla Delima</a> ✨</small>
 </div>
 
 - [LOMO In Person Gaming App](#lomo-in-person-gaming-app)
