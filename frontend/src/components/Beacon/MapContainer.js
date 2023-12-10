@@ -1,3 +1,4 @@
+/* global google */
 import React, { useRef, useState } from 'react';
 import { GoogleMap } from '@react-google-maps/api';
 import { Link } from 'react-router-dom';
@@ -58,9 +59,9 @@ const MapContainer = ({ beaconList }) => {
     return { ...beacon, adjustedPosition };
   });
 
-  // const handleMapClick = () => {
-  //   setActiveBeacon(null);
-  // }
+  const handleMapClick = () => {
+    setActiveBeacon(null);
+  }
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   console.log(beaconList);
@@ -75,10 +76,10 @@ const MapContainer = ({ beaconList }) => {
         onLoad={(map) => {
           mapRef.current = map;
         }}
-        // onClick={handleMapClick}
+        onClick={handleMapClick}
         googleMapsApiKey={apiKey}
       >
-        {beaconList.map((beacon, index) => (
+        {adjustedBeacons.map((beacon, index) => (
           <Beacon
             key={index}
             id={beacon.id}
