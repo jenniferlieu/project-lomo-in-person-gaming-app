@@ -27,8 +27,8 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
         position={{ lat: beacon.latitude, lng: beacon.longitude }}
         onClick={toggleDisplayBeacon}
         icon={{
-          url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMC41LjAuICh0aGlzY3JhcGhpY3NzY2FsZW50KSIgImh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItMTItMTlUMTI6MjI6MDEuMjQ5MDgAAAJNJREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC",          scaledSize: new window.google.maps.Size(150), // size of the icon
-          scaledSize: new window.google.maps.Size(150),
+          url: "https://i1.wp.com/cornellsun.com/wp-content/uploads/2020/06/1591119073-screen_shot_2020-06-02_at_10.30.13_am.png?fit=700%2C652&ssl=1",
+          scaledSize: new window.google.maps.Size(150), // size of the icon
           anchor: new window.google.maps.Point(75, 75), // anchor point of the icon
         }}
       />
