@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../AuthContext';
 import useEchoStore from '../useEchoStore';
+import './Comments.css';
 
 const Comments = ({ beaconId, creatorId }) => {
     const [comments, setComments] = useState([]);
@@ -90,17 +91,15 @@ const Comments = ({ beaconId, creatorId }) => {
             </div>
 
             {comments.map((comment) => (
-                <div className='border-2 border-teal-100 my-3 p-1 w-full mx-auto shadow-md' key={comment.id}>
-                    <div className='comment-item'>
+                <div className='comment-container' key={comment.id}>
+                    <div className='comment-header'>
                         <img src={comment.user.avatar || 'default-profile-pic-url'} alt={comment.user.username} className='comment-user-profile-pic' />
-                        <div className='comment-content'>
-                            <p className='comment-user-name'>{comment.user.username}</p>
-                            <p className='comment-text'>{comment.content}</p>
-                            {(comment.user.id === authUser || creatorId === authUser) && (
-                                <button className='delete-comment-button' onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-                            )}
-                        </div>
+                        <p className='comment-user-name'>{comment.user.username}</p>
                     </div>
+                    <p className='comment-text'>{comment.content}</p>
+                    {(comment.user.id === authUser || creatorId === authUser) && (
+                        <button className='delete-comment-button' onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                    )}
                 </div>
             ))}
         </div>
