@@ -30,6 +30,10 @@ const MapContainer = ({ beaconList }) => {
     }
   }
 
+  const handleMapClick = () => {
+    setActiveBeacon(null);
+  }
+
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   console.log(beaconList);
   const devUser = GetUserById("ce644f8a-be78-4f9c-b40c-bcb7a4d88bd4");
@@ -43,6 +47,7 @@ const MapContainer = ({ beaconList }) => {
         onLoad={(map) => {
           mapRef.current = map;
         }}
+        onClick={handleMapClick}
         googleMapsApiKey={apiKey}
       >
         {beaconList.map((beacon, index) => (

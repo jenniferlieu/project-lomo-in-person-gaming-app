@@ -1,0 +1,46 @@
+.comment-section {
+    max-height: 270px;
+    overflow-y: auto;
+}
+
+.comment-container {
+    border: 2px solid #48D1CC;
+    margin: 1rem 0;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.comment-user-profile-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.comment-user-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.comment-text {
+    margin-top: 0;
+}
+
+.delete-comment-button {
+    background-color: #48D1CC; /* Example color */
+    color: white;
+    border: none;
+    padding: 2.5px 5px;
+    border-radius: 20px; /* Oval shape */
+    position: relative;
+    left: 357px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
