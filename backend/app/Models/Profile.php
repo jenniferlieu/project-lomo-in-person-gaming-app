@@ -38,7 +38,6 @@ class Profile extends Model
         'about_me',
         'preferred_games',
         'preference_tags',
-        'profile_picture',
     ];
 
     public function setPreferredGamesAttribute($value)

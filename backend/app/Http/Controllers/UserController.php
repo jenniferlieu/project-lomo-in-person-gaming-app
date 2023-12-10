@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -20,7 +21,12 @@ class UserController extends Controller
     }
 
     /**
+     * @lrd:start
      * Display the specified resource.
+     * @lrd:end
+     * @param string $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(string $id)
     {
@@ -41,9 +47,16 @@ class UserController extends Controller
 
 
     /**
+     * @lrd:start
      * Update the specified resource in storage.
+     * @lrd:end
+     *
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, string $id)
+    public function update(UserUpdateRequest $request, string $id)
     {
         // Validate the request data
         $validatedData = $request->validate([
@@ -68,7 +81,13 @@ class UserController extends Controller
     }
 
     /**
+     * @lrd:start
      * Remove the specified resource from storage.
+     * @lrd:end
+     *
+     * @param string $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(string $id)
     {

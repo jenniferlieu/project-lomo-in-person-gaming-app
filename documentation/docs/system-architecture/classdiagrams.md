@@ -242,7 +242,7 @@ The FriendsList displays a list of friends based on which filter is passed into 
 
 The backend uses Laravel Sail, a dockerized Laravel.
 
-The purpose of the backend is to create authenticated RESTful API routes and move data between the frontend and database. Alongside HTTP requests, it will also use WebSockets to send real-time updates to the frontend when a new beacon create or a new comment posted on a beacon.
+The purpose of the backend is to create authenticated RESTful API routes and move data between the frontend and database. Alongside HTTP requests, it will also use WebSockets to send real-time updates to the frontend using the pub-sub pattern where there's a singular publisher (the backend) that pushes data to all the subscribers (the frontend) who receive the data.
 
 ```mermaid
 ---
@@ -255,6 +255,7 @@ classDiagram
         - Route::post('login', [AuthController::class, 'login'])
     }
 
+    AuthController *-- User
     class AuthController {
         + register(Request)
         + login(Request)
@@ -262,10 +263,11 @@ classDiagram
 
     api *-- UserController
     api *-- BeaconController
-    api *-- ReportController
-
+    api *-- GameController
     class api {
-        - Route::apiResources(['users' => UserController::class,'beacons' => BeaconController::class,])
+        - Route::apiResource('beacons', BeaconController::class)
+        - Route::apiResource('users', UserController::class)
+        - Route::get('games', [GameController::class, 'getGamesByName'])
     }
 
     UserController *-- User
@@ -277,34 +279,47 @@ classDiagram
         + destory(string)
     }
     class User {
-        - array fillable
+        # array fillable
     }
 
     BeaconController *-- Beacon
     BeaconController *-- BeaconCreated
+    BeaconController *-- BeaconPostRequest
+    BeaconController *-- BeaconJsonResponse
     class BeaconController{
         + index()
-        + store(Request)
+        + store(BeaconPostRequest $request)
         + show(string)
         + update(Request)
         + destory(string)
+        # createCoordinatesField(array): array
     }
     class Beacon {
-        - array fillable
-    }
-    BeaconCreated <|-- ShouldBroadcast
-    class BeaconCreated {
-        + Beacon beacon
-        + __construct(Beacon): void
-        + broadcastOn(): array
+        # array postgisColumns
+        + bool incrementing
+        # string keyType
+        # array fillable
+        # array guarded
+        # array casts
+        + boot(): void
     }
 
-    ReportController *-- Report
-    class ReportController{
-        + store(Request)
+    BeaconCreated *-- BeaconJsonResponse
+    class BeaconCreated {
+        + BeaconJsonResponse beacon
+        + __construct(BeaconJsonResponse beacon): void
+        + broadcastOn(): array
     }
-    class Report {
-        - array fillable
+    class BeaconPostRequest {
+        + authorize(): bool
+        + rules(): array
+    }
+    class BeaconJsonResponse {
+        + toArray(Request $request): array
+    }
+
+    class GameController{
+        + getGamesByName(string $game_title)
     }
 ```
 #### Figure 2. Laravel backend class diagram
@@ -323,19 +338,46 @@ The typical 5 CRUD api functions are:
 4. update(): updates an item using its id
 5. destroy(): deletes an item
 
+#### AuthController
+Handles requests from the login and register API routes. Returns an access token when routes are sucessfully called.
+
+#### UserController
+Handles requests from the users API route.
+
+#### BeaconController
+Handles requests from the beacons API route.
+
+#### GameController
+Makes an external API call to the IGDB API to get a list of games.
+
 ### Models
 Models represent a table in the database and contains a list of all the table fields.
 
 They are responsible for interacting with the database tables using Laravel's Eloquent ORM, such as retrieving data, updating records, creating new records, deleting records, and querying records.
 
-### Broadcast Events
-Broadcast events are used as part of the pub-sub WebSocket model to create a one-way WebSocket channel notifying changes that occur on the server. They define the WebSocket channel and the data that needs to be sent to the frontend through the WebSocket. They are activated when the `broadcast()` function is called, pushing data to all connected clients through the WebSocket, in real-time.
+#### User
+Interacts with the users table in the database.
 
-Broadcast events that need to be pushed through WebSockets in real-time implements the `ShouldBroadcast` interface.
+#### Beacon
+Interacts with the beacons table in the database.
+
+### Events
+Events are used as part of the pub-sub WebSocket model to create a one-way WebSocket channel notifying changes that occur on the server. They define the WebSocket channel and the data that needs to be sent to the frontend through the WebSocket. They are activated when the `broadcast()` or `event()` function is called, pushing data to all connected clients through the WebSocket, in real-time.
 
 #### BeaconCreated
-This event is triggered when a new beacon has been successfully created and saved into the database. It returns the newly created beacon's data.  It implements the `ShouldBroadcast` interface for real-time broadcasting.
+This event is triggered when a new beacon has been successfully created and saved into the database. It returns the newly created beacon's data.
 
+### Form Requests
+The FormRequest class takes the incoming json data passed through the API call and validates each field to make sure that they meet the field requirements before processing the request in the Controller classes. For example, the `game_title` field is required and needs to be a string when passed to the beacons API routes. If the incoming json data fails to meet these requirements, an error message will be sent back to the client.
+
+#### BeaconPostRequest
+Validates the fields sent to the post beacons API route.
+
+### Resources
+Resource classes converts the type PHP array data from the backend to a type json.
+
+#### BeaconJsonResponse
+Converts the coordinates field into two separate fields, latitdue and longitude, and returns the Beacon model class into a json format.
 
 ## Frontend-Backend Integration
 

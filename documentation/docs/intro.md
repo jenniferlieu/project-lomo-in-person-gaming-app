@@ -3,7 +3,11 @@ sidebar_position: 1
 ---
 # Introduction
 
-LOMO is a full-stack, mobile-first web app using **ReactJS and Tailwind CSS** for the frontend, **Laravel Sail** (dockerized version of Laravel) as the API backend, **PostgreSQL** as the database, and **Docusaurus** as the documentation site hosted on **GitHub Pages**.
+LOMO is an in-person gaming app where users can find other gamers to play with in person.
+
+It's similar to Niantic Campfire, which is a companion app developed for Niantic games meant to facilitate in-person meetups for games like Pokemon Go. The name LOMO is inspired by the term FOMO, which stands for “fear of missing out”. For those that want an in-person connection when gaming, LOMO helps gamers find each other and play together in person.
+
+LOMO is a full-stack, mobile-first web app using **ReactJS and Tailwind CSS** for the frontend, **Laravel Sail** (dockerized version of Laravel) as the API backend, **PostgreSQL** as the database, and **Docusaurus** as the documentation site.
 
 [Setup instructions and run instructions](/#setup-instructions) are on the [main page of this Docusaurus](/).
 

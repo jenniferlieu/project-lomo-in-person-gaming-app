@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendee;
 use App\Events\AttendeeCreate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use App\Http\Requests\AttendeePostRequest;
 use App\Http\Requests\AttendeeUpdateRequest;
 use App\Models\Beacon;
@@ -43,48 +44,45 @@ class AttendeeController extends Controller
         return response()->json(['attendees' => $attendees],200);
     }
 
+    public function deleteAttendee(string $user_id, string $beacon_id)
+{
+    // Attempt to find specified attendee
+    $deleteAttendee = Attendee::where(['beacon_id' => $beacon_id, 'user_id' => $user_id])->first();
 
-    public function beaconAttendees(Request $request) {
-        $beacon_id = $request->route('beacon_id');
-        $attendees = DB::table('attendees')->where('beacon_id', $beacon_id)->get();
-        $users = array();
-        $usernames = array();
-        foreach ($attendees as $user) {
-            array_push($users,$user->user_id);
-        }
-        foreach ($users as $gamer) {
-            $username = DB::table('users')->where('id', $gamer)->get();
-            array_push($usernames,$username[0]->username);
-        }
-        return response()->json(['attendees' => $attendees],200);
+    // Check if attendee exists
+    if ($deleteAttendee) {
+        // Delete attendee if exists
+        $deleteAttendee->delete();
+        return response()->json(['message' => 'Attendee deleted successfully', 'data' => $deleteAttendee], 200);
+    } else {
+        // Return error if attendee doesn't exist
+        return response()->json(['error' => 'Failed to delete attendee', 'data' => $deleteAttendee], 500);
+    }
+}
+
+public function updateAttendee(Request $request, string $user_id, string $beacon_id)
+{
+    $validatedData = $request->validate([
+        'beacon_id' => 'nullable|string|exists:beacons,id',
+        'user_id' => 'nullable|string|exists:users,id',
+        'controllers_brought' => 'nullable|integer',
+        'isHost' => 'nullable|bool'
+    ]);
+
+    // Attempt to find specified attendee
+    $attendee = Attendee::where(['beacon_id' => $beacon_id, 'user_id' => $user_id])->first();
+    if (!$attendee) {
+        return response()->json(['error' => "Attendee doesn't exist"]);
     }
 
-    public function deleteAttendee(Request $request) {
-        $beacon_id = $request->beacon_id;
-        $user_id = $request->user_id;
-        $deleteAttendee = DB::table('attendees')->where(['beacon_id' => $beacon_id, 'user_id' => $user_id])->delete();
-        if($deleteAttendee) {
-            return response() ->json(['message' => 'Attendee deleted successfully',$deleteAttendee], 200);
-        } else {
-            return response()->json(['error' => 'Failed to delete attendee',$deleteAttendee],500);
-        }
+    // Update attendee if exists with new data
+    $updated = $attendee->update($validatedData);
+    // Check if update worked
+    if ($updated) {
+        return response()->json(['message' => "Attendee updated successfully", 'data' => $attendee],200);
+    } else {
+        // Return error if attendee doesn't exist
+        return response()->json(['error' => 'Failed to update beacon', 'data' => $attendee], 500);
     }
-
-    public function updateAttendee(Request $request) {
-        $validatedData = $request->validate([
-            'beacon_id' => 'required|string',
-            'user_id' => 'required|string',
-            'controllers_brought' => 'required|integer'
-        ]);
-        $attendee = DB::table('attendees')->where(['beacon_id' => $request->beacon_id, 'user_id' => $request->user_id])->get();
-        $attendee->beacon_id = $request->beacon_id;
-        $attendee->user_id = $request->user_id;
-        $attendee->controllers_brought = $request->controllers_brought;
-        if ($attendee){
-            return response()->json(['message' => "Attendee updated successfully", 'data' => $attendee]);
-        } else {
-            return reponse()->json(['error' => 'Failed to update beacon'],500);
-        }
-
-    }
+}
 }

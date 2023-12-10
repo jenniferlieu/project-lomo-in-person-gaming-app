@@ -8,6 +8,7 @@ use App\Http\Controllers\AttendeeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GoogleApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('beacons', BeaconController::class);
     Route::apiResource('users', UserController::class)->except('store');
     Route::apiResource('attendees', AttendeeController::class)->except(['destroy','update']);
-    Route::get('updateAttendee', [AttendeeController::class,'updateAttendee']);
-    Route::get('deleteAttendee', [AttendeeController::class,'deleteAttendee']);
-    Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class, 'beaconAttendees']);
+    Route::patch('attendees/{user_id}/beacon/{beacon_id}', [AttendeeController::class, 'updateAttendee']);
+    Route::delete('attendees/{user_id}/beacon/{beacon_id}', [AttendeeController::class, 'deleteAttendee']);
     Route::get('beacon-display-user-info', function () {
         event(new \App\Events\BeaconDisplayUserInfo());
     });
@@ -44,6 +44,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/profiles/{user_id}', [ProfileController::class, 'destroy']);
     Route::post('/profiles', [ProfileController::class, 'store']);
     Route::get('/profiles', [ProfileController::class, 'index']);
+    Route::post('/Googles', [GoogleApiController::class, 'googleApiRequest']);
 });
 
 Route::post('/register', [AuthController::class, 'register']);

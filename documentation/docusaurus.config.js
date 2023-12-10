@@ -1,42 +1,44 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require("prism-react-renderer/themes/github");
+const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /**
  * The URL or reference to your projects logo!
  * @type {string}
  */
-const logo = 'img/undraw_docusaurus_mountain.svg';
+const logo = "img/lomo-logo-by-carla-delima.svg";
 
 const main_template_jira_scripts = () => {
-  if (process.env.ORG_NAME === 'ApplebaumIan'){
-    return [    'https://temple-cis-projects-in-cs.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/azc3hx/b/8/c95134bc67d3a521bb3f4331beb9b804/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=50af7ec2',
-      'https://temple-cis-projects-in-cs.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/azc3hx/b/8/c95134bc67d3a521bb3f4331beb9b804/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=160e88a6',]
+  if (process.env.ORG_NAME === "ApplebaumIan") {
+    return [
+      "https://temple-cis-projects-in-cs.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/azc3hx/b/8/c95134bc67d3a521bb3f4331beb9b804/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=50af7ec2",
+      "https://temple-cis-projects-in-cs.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/azc3hx/b/8/c95134bc67d3a521bb3f4331beb9b804/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=160e88a6",
+    ];
   } else {
-    return []
+    return [];
   }
-}
+};
 
 // You can change the title here. The default is the name of the repository.
 // const title = ''+process.env.PROJECT_NAME.replaceAll('-',' ').split(' ').map((word) => {
 //   return word[0].toUpperCase() + word.substring(1);
 // }).join(' ');
-const title = 'LOMO In Person Gaming App';
+const title = "LOMO In Person Gaming App";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  /*TODO: Change to your project's title and tagline*/
   title: title,
-  tagline: '',
+  tagline:
+    "Replace FOMO with LOMO, find other gamers and play together in person!",
   /*Unless you move this website to a seperate repo don't change url and baseurl.*/
-  url: 'https://'+process.env.ORG_NAME+'.github.io/',
-  baseUrl: '/'+process.env.PROJECT_NAME+'/',
+  url: "https://" + process.env.ORG_NAME + ".github.io/",
+  baseUrl: "/" + process.env.PROJECT_NAME + "/",
   trailingSlash: false,
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  favicon: "img/lomo-logo-by-carla-delima.svg",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -47,29 +49,32 @@ const config = {
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en"],
   },
   markdown: {
     mermaid: true,
   },
-  themes: ['@docusaurus/theme-live-codeblock','@docusaurus/theme-mermaid'],
+  themes: ["@docusaurus/theme-live-codeblock", "@docusaurus/theme-mermaid"],
   presets: [
     [
-      'classic',
+      "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
           showLastUpdateAuthor: true,
-          sidebarPath: require.resolve('./sidebars.js'),
-          routeBasePath: 'docs',
-          path: 'docs',
+          sidebarPath: require.resolve("./sidebars.js"),
+          routeBasePath: "docs",
+          path: "docs",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/'+process.env.ORG_NAME+'/'+process.env.PROJECT_NAME+'/edit/main/documentation/',
+            "https://github.com/" +
+            process.env.ORG_NAME +
+            "/" +
+            process.env.PROJECT_NAME +
+            "/edit/main/documentation/",
           // remarkPlugins: [require('mdx-mermaid')],
-
         },
         // tutorials: {
         //   sidebarPath: require.resolve('./tutorialSidebars.js'),
@@ -80,25 +85,25 @@ const config = {
         // },
 
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
       }),
     ],
     [
-      'redocusaurus',
+      "redocusaurus",
       {
         // Plugin Options for loading OpenAPI files
         specs: [
           {
-            id: 'using-single-yaml',
-            spec: 'static/openapi.yml.yaml',
-            route: '/api/',
+            id: "using-single-yaml",
+            spec: "static/openapi.yml.yaml",
+            route: "/api/",
           },
         ],
         // Theme Options for modifying how redoc renders them
         theme: {
           // Change with your site colors
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
       },
     ],
@@ -107,52 +112,59 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        /*TODO: Change to your project's title*/
         title: title,
         logo: {
-          alt: 'My Site Logo',
+          alt: "LOMO logo by Carla Delima",
           src: logo,
         },
         items: [
           {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Documentation',
-          },{
-            to: '/resources/intro',
-            label: 'Resources',
-            position: 'left',
+            type: "doc",
+            docId: "intro",
+            position: "left",
+            label: "Documentation",
+          },
+          {
+            to: "/resources/intro",
+            label: "Resources",
+            position: "left",
             activeBaseRegex: `/resources/`,
           },
           {
-            href: 'https://github.com/'+process.env.ORG_NAME+'/'+process.env.PROJECT_NAME,
-            label: 'GitHub',
-            position: 'right',
+            href: "https://lomogaming.netlify.app/",
+            label: "LOMO Web App",
+            position: "right",
+          },
+          {
+            href:
+              "https://github.com/" +
+              process.env.ORG_NAME +
+              "/" +
+              process.env.PROJECT_NAME,
+            label: "GitHub",
+            position: "right",
           },
         ],
       },
       footer: {
         logo: {
-          alt: 'My Site Logo',
+          alt: "LOMO logo by Carla Delima",
           src: logo,
+          width: 128,
+          height: 128,
         },
         links: [
           {
-            title: 'Docs',
+            title: "Docs",
             items: [
               {
-                label: 'Documentation',
-                to: '/docs/intro',
+                label: "Documentation",
+                to: "/docs/intro",
               },
               {
-                label: 'Resources',
-                to: '/resources/intro',
+                label: "Resources",
+                to: "/resources/intro",
               },
-              {
-                label: 'Backed API docs',
-                to: '/api',
-              }
             ],
           },
           // {
@@ -173,11 +185,19 @@ const config = {
           //   ],
           // },
           {
-            title: 'More',
+            title: "More",
             items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/'+process.env.ORG_NAME+'/'+process.env.PROJECT_NAME,
+                label: "GitHub",
+                href:
+                  "https://github.com/" +
+                  process.env.ORG_NAME +
+                  "/" +
+                  process.env.PROJECT_NAME,
+              },
+              {
+                label: "LOMO Web App",
+                href: "https://lomogaming.netlify.app/",
               },
             ],
           },
@@ -190,28 +210,27 @@ const config = {
       },
       imageZoom: {
         // CSS selector to apply the plugin to, defaults to '.markdown img'
-        selector: '.markdown img',
+        selector: ".markdown img",
         // Optional medium-zoom options
         // see: https://www.npmjs.com/package/medium-zoom#options
         options: {
           margin: 24,
-          zIndex:100,
-          background: 'white',
+          zIndex: 100,
+          background: "white",
           // scrollOffset: 10,
           // container: '#zoom-container',
           // template: '#zoom-template',
         },
       },
-
     }),
   plugins: [
     [
-      '@docusaurus/plugin-content-docs',
+      "@docusaurus/plugin-content-docs",
       {
-        id: 'resources',
-        path: 'resources',
-        routeBasePath: 'resources',
-        sidebarPath: require.resolve('./sidebars.js'),
+        id: "resources",
+        path: "resources",
+        routeBasePath: "resources",
+        sidebarPath: require.resolve("./sidebars.js"),
         // ... other options
       },
     ],
@@ -221,14 +240,13 @@ const config = {
         systemvars: true, // True loads all system variables
       },
     ],
-    'plugin-image-zoom',
-
-
+    "plugin-image-zoom",
   ],
-  scripts:['https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',
-      'https://temple-cis-projects-in-cs.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/tod1zk/b/5/c95134bc67d3a521bb3f4331beb9b804/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=a0c89727',
-      ...main_template_jira_scripts()
+  scripts: [
+    "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
+    "https://temple-cis-projects-in-cs.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/tod1zk/b/5/c95134bc67d3a521bb3f4331beb9b804/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=a0c89727",
+    ...main_template_jira_scripts(),
   ],
 };
-console.log(config.scripts)
+console.log(config.scripts);
 module.exports = config;
