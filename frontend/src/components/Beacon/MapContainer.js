@@ -37,14 +37,14 @@ const MapContainer = ({ beaconList }) => {
       new google.maps.LatLng(coord2.latitude, coord2.longitude)
     );
     console.log(distance);
-    return distance < 10; // distance in meters where you consider markers to be overlapping
+    return distance < 5; // distance in meters where you consider markers to be overlapping
   };
 
   const adjustPosition = (coord, index) => {
     const angle = (index * 360) / beaconList.length;
     const newCoord = google.maps.geometry.spherical.computeOffset(
       new google.maps.LatLng(coord.lat, coord.lng),
-      20, // distance in meters to offset
+      10, // distance in meters to offset
       angle // angle in degrees to offset
     );
     return { lat: newCoord.lat(), lng: newCoord.lng() };
