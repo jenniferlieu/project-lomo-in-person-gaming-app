@@ -23,13 +23,13 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
 
   return (
     <>
-      <Marker
+    <Marker
         position={{ lat: beacon.latitude, lng: beacon.longitude }}
         onClick={toggleDisplayBeacon}
         icon={{
-          url: beacon.game_image,
-          scaledSize: new window.google.maps.Size(65, 65), // size of the icon
-          anchor: new window.google.maps.Point(32.5, 32.5), // anchor point of the icon
+          url: "icons/border.png",
+          scaledSize: new window.google.maps.Size(150), // size of the icon
+          anchor: new window.google.maps.Point(75, 75), // anchor point of the icon
         }}
       />
       <Marker
@@ -37,8 +37,8 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
         onClick={toggleDisplayBeacon}
         icon={{
           url: beacon.game_image,
-          scaledSize: new window.google.maps.Size(150), // size of the icon
-          anchor: new window.google.maps.Point(75, 75), // anchor point of the icon
+          scaledSize: new window.google.maps.Size(65, 65), // size of the icon
+          anchor: new window.google.maps.Point(32.5, 32.5), // anchor point of the icon
         }}
       />
       {activeBeacon === id && (
