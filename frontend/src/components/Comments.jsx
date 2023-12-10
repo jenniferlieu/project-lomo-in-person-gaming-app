@@ -90,18 +90,21 @@ const Comments = ({ beaconId, creatorId }) => {
                 </button>
             </div>
 
-            {comments.map((comment) => (
-                <div className='comment-container' key={comment.id}>
-                    <div className='comment-header'>
-                        <img src={comment.user.avatar || 'default-profile-pic-url'} alt={comment.user.username} className='comment-user-profile-pic' />
-                        <p className='comment-user-name'>{comment.user.username}</p>
+
+            <div className='comment-section'>
+                {comments.map((comment) => (
+                    <div className='comment-container' key={comment.id}>
+                        <div className='comment-header'>
+                            <img src={comment.user.avatar || 'default-profile-pic-url'} alt={comment.user.username} className='comment-user-profile-pic' />
+                            <p className='comment-user-name'>{comment.user.username}</p>
+                        </div>
+                        <p className='comment-text'>{comment.content}</p>
+                        {(comment.user.id === authUser || creatorId === authUser) && (
+                            <button className='delete-comment-button' onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                        )}
                     </div>
-                    <p className='comment-text'>{comment.content}</p>
-                    {(comment.user.id === authUser || creatorId === authUser) && (
-                        <button className='delete-comment-button' onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-                    )}
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };
