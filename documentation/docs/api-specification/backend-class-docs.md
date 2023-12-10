@@ -33,7 +33,7 @@ The purpose of this class is to handle HTTP requests pertaining to the `/api/use
   - Parameters: User $user
   - Returns: JSON response with HTTP status code
 
-  ### ProfileController Class
+### ProfileController Class
 
 The `ProfileController` class is responsible for handling HTTP requests related to user profiles.
 
@@ -65,7 +65,7 @@ The purpose of this class is to handle data pertaining to the `/api/beacons` rou
   - Returns: JSON response with HTTP status code
 - **`store(BeaconPostRequest $request)` method: Creates a beacon in the database**
   - Pre-condition: POST /api/beacons/{beacon}
-  - Parameters: BeaconPostRequest request
+  - Parameters: BeaconPostRequest $request
   - Returns: JSON response with HTTP status code
 - **`show(Beacon $beacon)` method: Gets user beacon from the database using their beacon_id**
   - Pre-condition: GET /api/beacons/{beacon}
@@ -84,6 +84,30 @@ The purpose of this class is to handle data pertaining to the `/api/beacons` rou
 - **`createsCoordinatesField(array $beaconArray)` method: Combine the latitude and longitude fields into a single coordinates field for the database.**
   - Parameters: array $beaconArray
   - Returns: array
+
+### AttendeeController Calss
+The purpose of this class is to handle HTTP requests pertaining to the `/api/attendees` route.
+
+- **`index()` method: Gets a list of all attendees from the database**
+  - Pre-conditions: GET /api/attendees/
+  - Returns: JSON response with HTTP status code
+- **`store(AttendeePostRequest $request)` method: Creates an attendee in the database**
+  - Pre-condition: POST /api/attendees/{attendee}
+  - Parameters: AttendeePostRequest $request 
+  - Returns: JSON response with HTTP status code
+- **`show(string $beacon_id)` method: Show all the attendees at a specifc beacon using the beacon's id**
+  - Pre-conditions: GET /api/attendees/{attendee}
+  - Parameters: string $beacon_id
+  - Returns: JSON response with HTTP status code
+- **`updateAttendee(Request $request, string $user_id, string $beacon_id)` method: Updates the number of controller the Attendee is bringing**
+  - Pre-condition: Patch /api/attendees/{user_id}/beacon/{beacon_id}
+  - Parameters: Request $request, string $user_id, string $beacon_id
+  - Returns: JSON response with HTTP status code
+- **`deleteAttendee(string $user_id, string $beacon_id)` method: Deletes an attendee from the database using the user's id and the beacon's id**
+  - Pre-condition: Delete /api/attendees/{user_id}/beacon/{beacon_id}
+  - Parameters: string $user_id, string $beacon_id
+  - Returns: JSON response with HTPP status code 
+
 
 ### GameController Class
 The purpose of this class is to handle data pertaining to the `/api/games` route.
@@ -109,6 +133,23 @@ The User model class defines the object instance of a users document/row in Lara
   - The attributes that should be hidden for serialization.
 - **`casts`: array**
   - The attributes that should be cast.
+
+### Profile
+
+The Profile model class defines the object instance of a user's profile in Laravel. It contains a list of all the profile-related fields.
+
+**Data fields:**
+
+- **`fillable`: array**
+  - The attributes that are mass assignable.
+- **`user_id`: string**
+  - The identifier linking the profile to a user.
+- **`about_me`: string**
+  - A brief description or information about the user.
+- **`preferred_games`: array**
+  - A brief description or information about the user.
+- **`preference_tags`: array**
+  - A brief description or information about the user.
 
 ### Beacon
 
@@ -145,6 +186,33 @@ The purpose of this class is to validate incoming data received through the POST
 - **`rules()` method: Get the validation rules that apply to the request.**
   - Returns: array
 
+### UserUpdateRequest Class
+The UserUpdateRequest class is designed to validate incoming data received through the POST `api/users/{user}` route, specifically for updating user information.
+
+- **`authorize()` method: Determine if the user is authorized to make this request.**
+  - Pre-condition: POST /api/users/{user}
+  - Returns: bool
+- **`rules()` method: Get the validation rules that apply to the request.**
+  - Returns: array
+
+### ProfileUpdateRequest Class
+The ProfileUpdateRequest class is designed to validate incoming data received through the POST `api/profiles/{user}` route, specifically for updating profile information.
+
+- **`authorize()` method: Determine if the user is authorized to make this request.**
+  - Pre-condition: POST /api/profiles/{user}
+  - Returns: bool
+- **`rules()` method: Get the validation rules that apply to the request.**
+  - Returns: array
+
+  ### ProfileStoreRequest Class
+The ProfileStoreRequest class is designed to validate incoming data received through the POST `api/profiles` route, specifically for creating new profiles.
+
+- **`authorize()` method: Determine if the user is authorized to make this request.**
+  - Pre-condition: POST /api/profiles
+  - Returns: bool
+- **`rules()` method: Get the validation rules that apply to the request.**
+  - Returns: array
+
 ## Resources
 
 ### BeaconJsonResponse Class
@@ -169,6 +237,13 @@ The purpose of this class is to create an entry in the beacons table with fake d
 - **`definition()` method: Define the model's default state.**
   - Pre-condition: `Beacon::factory()` method is called
   - Returns: Beacon instance
+
+### ProfileFactory 
+The purpose of this class is to creating an entry in the beacons table with fake data. It is primarily designed for testing scenarios.
+
+- **`definition()` method: Define the model's default state.**
+  - Pre-condition: `Profile::factory()` method is called
+  - Returns: Profile instance
 
 ## Migrations
 
@@ -214,6 +289,16 @@ The purpose of this class is to create a attendees table in the database from La
 
 ### create_comments_table
 The purpose of this class is to create a comments table in the database from Laravel.
+
+- **`run()` method: Run the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, a table in the database
+- **`down()` method: Reverse the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, table deleted from database
+
+### add_avatar_to_users_table
+The purpose of this class is to add the avatar in User table
 
 - **`run()` method: Run the migrations.**
   - Pre-condition: php artisan migrate commands are called
