@@ -28,8 +28,8 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon, border_image }) => {
         onClick={toggleDisplayBeacon}
         icon={{
           url: border_image,
-          scaledSize: new window.google.maps.Size(150), // size of the icon
-          anchor: new window.google.maps.Point(75, 75), // anchor point of the icon
+          scaledSize: new window.google.maps.Size(70, 70), // size of the icon
+          anchor: new window.google.maps.Point(35, 35), // anchor point of the icon
         }}
       />
       {/* <Marker
