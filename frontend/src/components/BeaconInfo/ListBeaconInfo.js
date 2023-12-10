@@ -19,7 +19,7 @@ function ListView() {
   }
 
   return (
-    <div className='w-screen'>
+    <div className='w-full'>
       <h1 className='text-center text-shrink font-bold text-6xl text-sky-950'>Active Beacons</h1>
       {beaconList.map((beacon) =>
         <div key={beacon.id} className='box-border w-11/12 m-auto my-3 p-2 rounded-md bg-white text-sky-950 flex' onClick={() => openWindow(beacon)}>
