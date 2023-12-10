@@ -20,8 +20,9 @@ class UserController extends Controller
     }
 
     /**
+     * @lrd:start
      * Display the specified resource.
-     *
+     * @lrd:end
      * @param string $id
      *
      * @return \Illuminate\Http\JsonResponse
@@ -45,7 +46,9 @@ class UserController extends Controller
 
 
     /**
+     * @lrd:start
      * Update the specified resource in storage.
+     * @lrd:end
      *
      * @param Request $request
      * @param string  $id
@@ -77,7 +80,9 @@ class UserController extends Controller
     }
 
     /**
+     * @lrd:start
      * Remove the specified resource from storage.
+     * @lrd:end
      *
      * @param string $id
      *

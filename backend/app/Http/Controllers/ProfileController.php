@@ -24,7 +24,9 @@ class ProfileController extends Controller
     }
 
     /**
+     * @lrd:start
      * Find and display the profile by user ID.
+     * @lrd:end
      *
      * @param  int  $userId
      * @return \Illuminate\Http\JsonResponse
@@ -42,7 +44,9 @@ class ProfileController extends Controller
     }
 
     /**
+     * @lrd:start
      * Update the profile with the specified user ID.
+     * @lrd:end
      *
      * @param  Request  $request
      * @param  int  $userId
@@ -69,7 +73,9 @@ class ProfileController extends Controller
     }
 
     /**
+     * @lrd:start
      * Delete the profile with the specified user ID.
+     * @lrd:end
      *
      * @param  int  $userId
      * @return \Illuminate\Http\JsonResponse
@@ -88,7 +94,9 @@ class ProfileController extends Controller
     }
 
     /**
+     * @lrd:start
      * Create a new profile with the specified user ID.
+     * @lrd:end
      *
      * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
