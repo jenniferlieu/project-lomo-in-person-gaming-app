@@ -87,6 +87,7 @@ const MapContainer = ({ beaconList }) => {
             onBeaconClick={handleBeaconClick}
             beacon={beacon}
             border_image={devUser.avatar}
+            adjustedPosition={beacon.adjustedPosition}
           />
         ))}
       </GoogleMap>

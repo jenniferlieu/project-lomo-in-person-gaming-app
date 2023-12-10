@@ -2,11 +2,11 @@ import React from "react";
 import { Circle, Marker } from "@react-google-maps/api";
 import BeaconInfoWindow from "./InfoWindow/BeaconInfoWindow.js";
 
-const Beacon = ({ id, activeBeacon, onBeaconClick, beacon, border_image }) => {
+const Beacon = ({ id, activeBeacon, onBeaconClick, beacon, border_image, adjustedPosition }) => {
   const circle = {
     center: {
-      lat: beacon.latitude,
-      lng: beacon.longitude,
+      lat: adjustedPosition.lat,
+      lng: adjustedPosition.lng,
     },
     radius: 250, // Radius in meters
     options: {
@@ -24,7 +24,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon, border_image }) => {
   return (
     <>
     <Marker
-        position={{ lat: beacon.latitude, lng: beacon.longitude }}
+        position={{ lat: adjustedPosition.lat, lng: adjustedPosition.lng }}
         onClick={toggleDisplayBeacon}
         icon={{
           url: border_image,
@@ -33,7 +33,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon, border_image }) => {
         }}
       />
       <Marker
-        position={{ lat: beacon.latitude, lng: beacon.longitude }}
+        position={{ lat: adjustedPosition.lat, lng: adjustedPosition.lng }}
         onClick={toggleDisplayBeacon}
         icon={{
           url: beacon.game_image,
