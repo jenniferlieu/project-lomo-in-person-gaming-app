@@ -32,3 +32,15 @@
 .comment-text {
     margin-top: 0;
 }
+
+.delete-comment-button {
+    background-color: #48D1CC; /* Example color */
+    color: white;
+    border: none;
+    padding: 2.5px 5px;
+    border-radius: 20px; /* Oval shape */
+    position: relative;
+    left: 357px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
