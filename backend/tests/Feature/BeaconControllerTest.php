@@ -38,6 +38,7 @@ class BeaconControllerTest extends TestCase
         unset($this->beacon['coordinates']); // delete the coordindates field
         $this->beacon['latitude'] = "1.000000"; // add latitude field
         $this->beacon['longitude'] = "1.000000"; // add longitude field
+        $this->beacon['controllers_brought'] = $this->faker->numberBetween(0, 10);
 
         // create mock events
         Event::fake([BeaconCreated::class]);

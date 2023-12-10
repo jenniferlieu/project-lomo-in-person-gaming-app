@@ -8,6 +8,7 @@ use App\Http\Controllers\AttendeeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GoogleApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('attendees', AttendeeController::class)->except(['destroy','update']);
     Route::patch('attendees/{user_id}/beacon/{beacon_id}', [AttendeeController::class, 'updateAttendee']);
     Route::delete('attendees/{user_id}/beacon/{beacon_id}', [AttendeeController::class, 'deleteAttendee']);
-    Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class, 'beaconAttendees']);
     Route::get('beacon-display-user-info', function () {
         event(new \App\Events\BeaconDisplayUserInfo());
     });

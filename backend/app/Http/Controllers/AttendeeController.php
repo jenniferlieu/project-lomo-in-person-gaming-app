@@ -43,22 +43,6 @@ class AttendeeController extends Controller
         return response()->json(['attendees' => $attendees],200);
     }
 
-
-    public function beaconAttendees(Request $request) {
-        $beacon_id = $request->route('beacon_id');
-        $attendees = DB::table('attendees')->where('beacon_id', $beacon_id)->get();
-        $users = array();
-        $usernames = array();
-        foreach ($attendees as $user) {
-            array_push($users,$user->user_id);
-        }
-        foreach ($users as $gamer) {
-            $username = DB::table('users')->where('id', $gamer)->get();
-            array_push($usernames,$username[0]->username);
-        }
-        return response()->json(['attendees' => $attendees],200);
-    }
-
     public function deleteAttendee(string $user_id, string $beacon_id)
 {
     // Attempt to find specified attendee
@@ -80,17 +64,21 @@ public function updateAttendee(Request $request, string $user_id, string $beacon
     $validatedData = $request->validate([
         'beacon_id' => 'nullable|string|exists:beacons,id',
         'user_id' => 'nullable|string|exists:users,id',
-        'controllers_brought' => 'nullable|integer'
+        'controllers_brought' => 'nullable|integer',
+        'isHost' => 'nullable|bool'
     ]);
 
     // Attempt to find specified attendee
     $attendee = Attendee::where(['beacon_id' => $beacon_id, 'user_id' => $user_id])->first();
+    if (!$attendee) {
+        return response()->json(['error' => "Attendee doesn't exist"]);
+    }
 
-    // Check if attendee exists
-    if ($attendee) {
-        // Update attendee if exists with new data
-        $attendee->update($validatedData);
-        return response()->json(['message' => "Attendee updated successfully", 'data' => $attendee]);
+    // Update attendee if exists with new data
+    $updated = $attendee->update($validatedData);
+    // Check if update worked
+    if ($updated) {
+        return response()->json(['message' => "Attendee updated successfully", 'data' => $attendee],200);
     } else {
         // Return error if attendee doesn't exist
         return response()->json(['error' => 'Failed to update beacon', 'data' => $attendee], 500);
