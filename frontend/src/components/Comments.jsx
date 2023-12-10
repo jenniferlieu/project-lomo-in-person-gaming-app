@@ -74,6 +74,7 @@ const Comments = ({ beaconId, creatorId }) => {
                     Authorization: "Bearer " + authUser,
                 },
             });
+            fetchComments();
             if (!response.ok) {
                 console.error('Failed to delete comment');
             }
