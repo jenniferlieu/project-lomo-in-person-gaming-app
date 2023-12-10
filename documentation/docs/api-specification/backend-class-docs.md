@@ -134,6 +134,23 @@ The User model class defines the object instance of a users document/row in Lara
 - **`casts`: array**
   - The attributes that should be cast.
 
+### Profile
+
+The Profile model class defines the object instance of a user's profile in Laravel. It contains a list of all the profile-related fields.
+
+**Data fields:**
+
+- **`fillable`: array**
+  - The attributes that are mass assignable.
+- **`user_id`: string**
+  - The identifier linking the profile to a user.
+- **`about_me`: string**
+  - A brief description or information about the user.
+- **`preferred_games`: array**
+  - A brief description or information about the user.
+- **`preference_tags`: array**
+  - A brief description or information about the user.
+
 ### Beacon
 
 The Beacon model class defines the object instance of a beacons document/row in Laravel. It contains a list of all the beacons collection fields.
@@ -169,6 +186,33 @@ The purpose of this class is to validate incoming data received through the POST
 - **`rules()` method: Get the validation rules that apply to the request.**
   - Returns: array
 
+### UserUpdateRequest Class
+The UserUpdateRequest class is designed to validate incoming data received through the POST `api/users/{user}` route, specifically for updating user information.
+
+- **`authorize()` method: Determine if the user is authorized to make this request.**
+  - Pre-condition: POST /api/users/{user}
+  - Returns: bool
+- **`rules()` method: Get the validation rules that apply to the request.**
+  - Returns: array
+
+### ProfileUpdateRequest Class
+The ProfileUpdateRequest class is designed to validate incoming data received through the POST `api/profiles/{user}` route, specifically for updating profile information.
+
+- **`authorize()` method: Determine if the user is authorized to make this request.**
+  - Pre-condition: POST /api/profiles/{user}
+  - Returns: bool
+- **`rules()` method: Get the validation rules that apply to the request.**
+  - Returns: array
+
+  ### ProfileStoreRequest Class
+The ProfileStoreRequest class is designed to validate incoming data received through the POST `api/profiles` route, specifically for creating new profiles.
+
+- **`authorize()` method: Determine if the user is authorized to make this request.**
+  - Pre-condition: POST /api/profiles
+  - Returns: bool
+- **`rules()` method: Get the validation rules that apply to the request.**
+  - Returns: array
+
 ## Resources
 
 ### BeaconJsonResponse Class
@@ -193,6 +237,13 @@ The purpose of this class is to create an entry in the beacons table with fake d
 - **`definition()` method: Define the model's default state.**
   - Pre-condition: `Beacon::factory()` method is called
   - Returns: Beacon instance
+
+### ProfileFactory 
+The purpose of this class is to creating an entry in the beacons table with fake data. It is primarily designed for testing scenarios.
+
+- **`definition()` method: Define the model's default state.**
+  - Pre-condition: `Profile::factory()` method is called
+  - Returns: Profile instance
 
 ## Migrations
 
@@ -238,6 +289,16 @@ The purpose of this class is to create a attendees table in the database from La
 
 ### create_comments_table
 The purpose of this class is to create a comments table in the database from Laravel.
+
+- **`run()` method: Run the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, a table in the database
+- **`down()` method: Reverse the migrations.**
+  - Pre-condition: php artisan migrate commands are called
+  - Returns: null, table deleted from database
+
+### add_avatar_to_users_table
+The purpose of this class is to add the avatar in User table
 
 - **`run()` method: Run the migrations.**
   - Pre-condition: php artisan migrate commands are called
