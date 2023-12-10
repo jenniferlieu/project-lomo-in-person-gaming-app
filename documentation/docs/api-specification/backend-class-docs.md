@@ -33,30 +33,29 @@ The purpose of this class is to handle HTTP requests pertaining to the `/api/use
   - Parameters: User $user
   - Returns: JSON response with HTTP status code
 
-  # ProfileController Class
+  ### ProfileController Class
 
 The `ProfileController` class is responsible for handling HTTP requests related to user profiles.
 
-## `index()` Method: Retrieve all profiles from the database.
+- **`index()` method: Retrieve all profiles from the database.**
   - Pre-condition: GET /api/profiles/
   - Returns: JSON response with HTTP status code
-## `show($userId)` Method: Find and display the profile by user ID.
+- **`show($userId)` Method: Find and display the profile by user ID.**
   - Pre-condition: GET /api/profiles/{userId}
   - Parameters: int $userId
   - Returns: JSON response with HTTP status code
-## `update(ProfileUpdateRequest $request, $userId)` Method: Update the profile with the specified user ID.
+- **`update(ProfileUpdateRequest $request, $userId)` Method: Update the profile with the specified user ID.**
   - Pre-condition: PUT /api/profiles/{userId}
   - Parameters: Request $request, int $userId
   - Returns: JSON response with HTTP status code
-## `destroy($userId)` Method: Delete the profile with the specified user ID.
+- **`destroy($userId)` Method: Delete the profile with the specified user ID.**
   - Pre-condition: DELETE /api/profiles/{userId}
   - Parameters: int $userId
   - Returns: JSON response with HTTP status code
-## `store(ProfileStoreRequest $request)` Method: Create a new profile with the specified user ID.
+- **`store(ProfileStoreRequest $request)` Method: Create a new profile with the specified user ID.**
   - Pre-condition: POST /api/profiles/
   - Parameters: Request $request
   - Returns: JSON response with HTTP status code
-
 
 ### BeaconController Class
 The purpose of this class is to handle data pertaining to the `/api/beacons` route.
