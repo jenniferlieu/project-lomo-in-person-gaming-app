@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../AuthContext';
 import useEchoStore from '../useEchoStore';
 import './Comments.css';
@@ -9,22 +9,23 @@ const Comments = ({ beaconId, creatorId }) => {
     const { authUser } = useAuth();
     const { laravelEcho } = useEchoStore();
 
+    const fetchComments = useCallback(async () => {
+        try {
+            const response = await fetch(`https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons/${beaconId}/comments`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: "Bearer " + authUser,
+                },
+            });
+            const data = await response.json();
+            setComments(data);
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+        }
+    }, [authUser, beaconId]);
+
     useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const response = await fetch(`https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons/${beaconId}/comments`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                        Authorization: "Bearer " + authUser,
-                    },
-                });
-                const data = await response.json();
-                setComments(data);
-            } catch (error) {
-                console.error('Error fetching comments:', error);
-            }
-        };
 
         fetchComments();
 
@@ -39,7 +40,7 @@ const Comments = ({ beaconId, creatorId }) => {
         return () => {
             laravelEcho.leave(`beacon.${beaconId}`);
         };
-    }, [beaconId, laravelEcho, authUser]);
+    }, [beaconId, laravelEcho, authUser, fetchComments]);
 
     const handlePostComment = async () => {
         try {
@@ -54,6 +55,7 @@ const Comments = ({ beaconId, creatorId }) => {
             });
             if (response.ok) {
                 setNewComment('');
+                fetchComments();
             } else {
                 console.error('Failed to post comment');
             }
