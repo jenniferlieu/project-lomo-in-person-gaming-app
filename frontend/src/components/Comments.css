@@ -1,0 +1,29 @@
+.comment-container {
+    border: 2px solid #48D1CC; /* Example border color */
+    margin: 1rem 0;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.comment-user-profile-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.comment-user-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.comment-text {
+    margin-top: 0;
+}
