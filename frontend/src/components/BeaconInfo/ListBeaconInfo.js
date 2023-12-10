@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GetBeaconInfo from './GetBeaconInfo.js';
 import BeaconInfoWindow from '../Beacon/InfoWindow/BeaconInfoWindow.js';
-
-function formatTime(dateString) {
-  const date = new Date(dateString);
-  let hours = date.getHours() + 5;
-  const minutes = date.getMinutes();
-  const ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  const strTime = hours + ':' + (minutes < 10 ? '0' + minutes : minutes) + ' ' + ampm;
-  return strTime;
-}
-
+import formatTime from '../Beacon/InfoWindow/formatTime.js';
 
 function ListView() {
   const beaconList = GetBeaconInfo();
@@ -30,7 +19,7 @@ function ListView() {
   }
 
   return (
-    <div className='w-screen'>
+    <div className='w-full'>
       <h1 className='text-center text-shrink font-bold text-6xl text-sky-950'>Active Beacons</h1>
       {beaconList.map((beacon) =>
         <div key={beacon.id} className='box-border w-11/12 m-auto my-3 p-2 rounded-md bg-white text-sky-950 flex' onClick={() => openWindow(beacon)}>

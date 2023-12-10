@@ -1,7 +1,9 @@
+/* global google */
 import React, { useRef, useState } from 'react';
 import { GoogleMap } from '@react-google-maps/api';
 import { Link } from 'react-router-dom';
 import Beacon from './Beacon.js';
+import GetUserById from '../BeaconInfo/GetUserById.js';
 
 const MapContainer = ({ beaconList }) => {
   const mapStyles = {
@@ -29,12 +31,42 @@ const MapContainer = ({ beaconList }) => {
     }
   }
 
+  const areOverlapping = (coord1, coord2) => {
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(
+      new google.maps.LatLng(coord1.lat, coord1.lng),
+      new google.maps.LatLng(coord2.latitude, coord2.longitude)
+    );
+    console.log(distance);
+    return distance < 5; // distance in meters where you consider markers to be overlapping
+  };
+
+  const adjustPosition = (coord, index) => {
+    const angle = (index * 360) / beaconList.length;
+    const newCoord = google.maps.geometry.spherical.computeOffset(
+      new google.maps.LatLng(coord.lat, coord.lng),
+      10, // distance in meters to offset
+      angle // angle in degrees to offset
+    );
+    return { lat: newCoord.lat(), lng: newCoord.lng() };
+  };
+
+  const adjustedBeacons = beaconList.map((beacon, index) => {
+    let adjustedPosition = { lat: beacon.latitude, lng: beacon.longitude };
+    beaconList.forEach((otherBeacon, otherIndex) => {
+      if (index !== otherIndex && areOverlapping(adjustedPosition, otherBeacon)) {
+        adjustedPosition = adjustPosition(adjustedPosition, index);
+      }
+    });
+    return { ...beacon, adjustedPosition };
+  });
+
   const handleMapClick = () => {
     setActiveBeacon(null);
   }
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   console.log(beaconList);
+  const devUser = GetUserById("ce644f8a-be78-4f9c-b40c-bcb7a4d88bd4");
   
   return (
     <div className='absolute top-70 left-0 w-full'>
@@ -48,13 +80,16 @@ const MapContainer = ({ beaconList }) => {
         onClick={handleMapClick}
         googleMapsApiKey={apiKey}
       >
-        {beaconList.map((beacon, index) => (
+        {adjustedBeacons.map((beacon, index) => (
+          console.log(beacon.latitude, beacon.longitude, beacon.adjustedPosition),
           <Beacon
             key={index}
             id={beacon.id}
             activeBeacon={activeBeacon}
             onBeaconClick={handleBeaconClick}
             beacon={beacon}
+            border_image={devUser.avatar}
+            adjustedPosition={beacon.adjustedPosition}
           />
         ))}
       </GoogleMap>

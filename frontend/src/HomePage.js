@@ -2,15 +2,14 @@ import React from "react";
 import MapContainer from "./components/Beacon/MapContainer.js";
 import GetBeaconInfo from "./components/BeaconInfo/GetBeaconInfo.js";
 
-const HomePage = ({beaconList}) => {
-  const beaconList2 = GetBeaconInfo();
+const HomePage = () => {
+  const beaconList = GetBeaconInfo();
   console.log("Home Page Beacon list");
-  console.log(beaconList2)
+  console.log(beaconList)
 
   return (
     <>
-      <MapContainer beaconList={beaconList2} />
-      {/* <BeaconInfoWindow /> */}
+      <MapContainer beaconList={beaconList} />
     </>
   );
 };
