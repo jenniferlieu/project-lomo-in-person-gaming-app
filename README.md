@@ -1,9 +1,15 @@
 [![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-7f7980b617ed060a017424585567c406b6ee15c891e84e1186181d67ecf80aa0.svg)](https://urban-rotary-phone-rp7jq9p5wp43rrj.github.dev/)
 <div align="center">
 
+<img 
+    src="https://raw.githubusercontent.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/2c01aeaecf380ee2e1c633397b02566d3d5a2787/documentation/static/img/lomo-logo-by-carla-delima.svg" 
+    width="200" 
+    alt="LOMO logo by Carla Delima"
+/>
+
 # LOMO In Person Gaming App
 [![LOMO Web App](https://img.shields.io/badge/-LOMO%20Web%20App-blue)](https://lomogaming.netlify.app/)
-[![Documentation Website Link](https://img.shields.io/badge/-Documentation%20Website-brightgreen)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/)
+[![Documentation Website Link](https://img.shields.io/badge/-Documentation%20Website-4cba20)](https://capstone-projects-2023-fall.github.io/project-lomo-in-person-gaming-app/)
 
 [![Report Issue on Jira](https://img.shields.io/badge/Report%20Issues-Jira-0052CC?style=flat&logo=jira-software)](https://temple-cis-projects-in-cs.atlassian.net/jira/software/c/projects/LM/issues)
 [![Deploy Docs](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml/badge.svg)](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml)
@@ -11,6 +17,7 @@
 [![Deploy Backend](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/deploy-backend.yml/badge.svg)](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/deploy-backend.yml)
 [![Test Backend](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/test-backend.yml/badge.svg)](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/test-backend.yml)
 
+<small>Logo created by <a href="https://github.com/del-cj">Carla Delima</a> ✨</small>
 </div>
 
 - [LOMO In Person Gaming App](#lomo-in-person-gaming-app)

@@ -21,6 +21,10 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param string $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(string $id)
     {
@@ -42,6 +46,11 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, string $id)
     {
@@ -69,6 +78,10 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param string $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(string $id)
     {
