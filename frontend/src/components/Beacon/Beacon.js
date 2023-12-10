@@ -2,7 +2,7 @@ import React from "react";
 import { Circle, Marker } from "@react-google-maps/api";
 import BeaconInfoWindow from "./InfoWindow/BeaconInfoWindow.js";
 
-const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
+const Beacon = ({ id, activeBeacon, onBeaconClick, beacon, border_image }) => {
   const circle = {
     center: {
       lat: beacon.latitude,
@@ -27,7 +27,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon }) => {
         position={{ lat: beacon.latitude, lng: beacon.longitude }}
         onClick={toggleDisplayBeacon}
         icon={{
-          url: "public\icons\border.png",
+          url: border_image,
           scaledSize: new window.google.maps.Size(150), // size of the icon
           anchor: new window.google.maps.Point(75, 75), // anchor point of the icon
         }}

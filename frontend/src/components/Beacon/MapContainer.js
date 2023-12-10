@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { GoogleMap } from '@react-google-maps/api';
 import { Link } from 'react-router-dom';
 import Beacon from './Beacon.js';
+import GetUserById from '../BeaconInfo/GetUserById.js';
 
 const MapContainer = ({ beaconList }) => {
   const mapStyles = {
@@ -31,6 +32,7 @@ const MapContainer = ({ beaconList }) => {
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   console.log(beaconList);
+  const devUser = GetUserById("ce644f8a-be78-4f9c-b40c-bcb7a4d88bd4");
   
   return (
     <div className='absolute top-70 left-0 w-full'>
@@ -50,6 +52,7 @@ const MapContainer = ({ beaconList }) => {
             activeBeacon={activeBeacon}
             onBeaconClick={handleBeaconClick}
             beacon={beacon}
+            border_image={devUser.avatar}
           />
         ))}
       </GoogleMap>
