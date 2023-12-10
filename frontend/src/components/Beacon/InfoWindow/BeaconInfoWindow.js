@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ControllerInfo from "./ControllerInfo.js";
-import CommentSection from "../../Comments.jsx";
+import Comments from "../../Comments.jsx";
 import BeaconApplication from "../../BeaconApplication/BeaconApplication.js";
 import JoinedUsers from "./JoinedUsers.js";
 import GetUserById from "../../BeaconInfo/GetUserById.js";
@@ -157,7 +157,7 @@ const BeaconInfoWindow = ({
           <span className="text-xl">Comments</span> <span className="text-base">{showComments ? '▲' : '▼'}</span>
         </button>
       </div>
-      {showComments && <CommentSection beaconId={id} />}
+      {showComments && <Comments beaconId={id} creatorId={host_id}/>}
     </div>
   );
 };
