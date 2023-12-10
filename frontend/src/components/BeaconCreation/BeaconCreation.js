@@ -9,7 +9,7 @@ import LocationSearch from "./LocationSearch.js";
 import { useLoadScript } from "@react-google-maps/api";
 import GetGameByName from "./GetGameByName.js";
 
-function BeaconCreation({ beaconList }) {
+function BeaconCreation() {
   const [game, setGame] = useState(""); //game_title
   const [gameConsole, setConsole] = useState(""); //console
   const [description, setDesc] = useState(""); //description

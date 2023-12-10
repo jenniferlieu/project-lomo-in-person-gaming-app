@@ -79,72 +79,6 @@ function App() {
   //   });
   // }
 
-  const beaconList = [
-    {
-      circleLat: 40,
-      circleLng: -75,
-    },
-    {
-      beaconInfo: {
-        gameTitle: "Super Mario Bros. Wonder",
-        miscInfo: "Let's beat the first World!\nIdk I haven't played yet",
-        username: "amofro",
-        console: "Switch",
-        address: {
-          name: "Howard Gittis Student Center",
-          address: "1755 N 13th St, Philadelphia, PA 19122",
-        },
-        gamePic: "images/catScream.jpg",
-        userPic: "images/catMonster.jpg",
-        startTime: "4:30 PM",
-        endTime: "7:00 PM",
-        playerInfo: {
-          available: 1,
-          wanted: 4,
-          joined: [
-            {
-              pic: "images/catMonster.jpg",
-              username: "amofro",
-              controllers: 2
-            },
-            {
-              pic: "images/catWut.jpg",
-              username: "User 2",
-              controllers: 0
-            },
-            {
-              pic: "images/catScream.jpg",
-              username: "User 3",
-              controllers: 1
-            }
-          ]
-        },
-        controllerInfo: {
-          available: 2,
-          wanted: 4,
-          description: [
-            "Joycons",
-            "Pro Controller",
-            "Gamecube Controller",
-            "Idk madcatz or something... I'm wanna sleep",
-          ],
-        },
-      },
-    },
-    {
-      circleLat: 40.05,
-      circleLng: -75.1,
-      beaconInfo: {
-        miscInfo: "AYYYYYY fahgettaboudit",
-        username: "abkrivo",
-        gamePic: "images/catWut.jpg",
-        userPic: "images/catScream.jpg",
-        console: "Xbox Classic",
-        gameTitle: "Halo Classic",
-      },
-    },
-  ];
-
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -198,7 +132,7 @@ function App() {
               path="/createbeacon"
               element={
                 isLoggedIn ? (
-                  <BeaconCreation beaconList={beaconList} />
+                  <BeaconCreation />
                 ) : (
                   <Navigate to="/login" />
                 )
@@ -208,7 +142,7 @@ function App() {
               path="/joinbeacon/"
               element={
                 isLoggedIn ? (
-                  <BeaconApplication beaconList={beaconList} />
+                  <BeaconApplication />
                 ) : (
                   <Navigate to="/login" />
                 )
@@ -218,7 +152,7 @@ function App() {
               path="/"
               element={
                 isLoggedIn ? (
-                  <HomePage beaconList={beaconList} googleMapsApiKey={apiKey} />
+                  <HomePage />
                 ) : (
                   <Navigate to="/login" />
                 )
