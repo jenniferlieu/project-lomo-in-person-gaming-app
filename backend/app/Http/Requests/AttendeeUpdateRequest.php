@@ -22,7 +22,9 @@ class AttendeeUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'beacon_id' => 'required|string',
+            'user_id' => 'required|string',
+            'controllers_brought' => 'required|integer'
         ];
     }
 }

@@ -23,7 +23,9 @@ use App\Http\Controllers\AuthController;
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('beacons', BeaconController::class);
     Route::apiResource('users', UserController::class)->except('store');
-    Route::apiResource('attendees', AttendeeController::class);
+    Route::apiResource('attendees', AttendeeController::class)->except(['destroy','update']);
+    Route::patch('updateAttendee', [AttendeeController::class,'updateAttendee']);
+    Route::delete('destroyAttendee', [AttendeeController::class,'deleteAttendee']);
     Route::get('attendees/beaconAttendees/{beacon_id}', [App\Http\Controllers\AttendeeController::class, 'beaconAttendees']);
     Route::get('beacon-display-user-info', function () {
         event(new \App\Events\BeaconDisplayUserInfo());
