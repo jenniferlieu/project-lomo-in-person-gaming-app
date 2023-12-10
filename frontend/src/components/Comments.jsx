@@ -18,8 +18,12 @@ const Comments = ({ beaconId, creatorId }) => {
                     Authorization: "Bearer " + authUser,
                 },
             });
-            const data = await response.json();
-            setComments(data);
+            const data = await response.json();            
+            if (Array.isArray(data)) {
+                setComments(data);
+            } else {
+                console.error('Fetched data is not an array:', data);
+            }
         } catch (error) {
             console.error('Error fetching comments:', error);
         }
