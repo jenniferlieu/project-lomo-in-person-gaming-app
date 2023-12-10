@@ -7,6 +7,14 @@ use App\Models\Profile;
 
 class ProfileController extends Controller
 {
+    /**
+     * Retrieve all profiles from the database.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @lrd:start
+     * Get an array of all profiles.
+     * @lrd:end
+     */
     public function index()
     {
         // Retrieve all profiles from the database
@@ -15,6 +23,12 @@ class ProfileController extends Controller
         return response()->json(['data' => $profiles], 200);
     }
 
+    /**
+     * Find and display the profile by user ID.
+     *
+     * @param  int  $userId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show($userId)
     {
         // Find the profile by user ID
@@ -27,6 +41,13 @@ class ProfileController extends Controller
         return response()->json(['data' => $profile], 200);
     }
 
+    /**
+     * Update the profile with the specified user ID.
+     *
+     * @param  Request  $request
+     * @param  int  $userId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request, $userId)
     {
         // Find the profile by user ID
@@ -47,6 +68,12 @@ class ProfileController extends Controller
         return response()->json(['message' => 'Profile updated successfully', 'data' => $profile], 200);
     }
 
+    /**
+     * Delete the profile with the specified user ID.
+     *
+     * @param  int  $userId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy($userId)
     {
         // Find the profile by user ID
@@ -60,6 +87,12 @@ class ProfileController extends Controller
         return response()->json(['message' => 'Profile deleted successfully'], 200);
     }
 
+    /**
+     * Create a new profile with the specified user ID.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         // Validate the request data
