@@ -36,7 +36,7 @@ const MapContainer = ({ beaconList }) => {
       new google.maps.LatLng(coord1.lat, coord1.lng),
       new google.maps.LatLng(coord2.latitude, coord2.longitude)
     );
-    console.log(distance);
+    // console.log(distance);
     return distance < 5; // distance in meters where you consider markers to be overlapping
   };
 
@@ -66,7 +66,7 @@ const MapContainer = ({ beaconList }) => {
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   console.log(beaconList);
-  const devUser = GetUserById("ce644f8a-be78-4f9c-b40c-bcb7a4d88bd4");
+  const devUser = GetUserById("bcb76554-0b35-4921-8807-048bcbeb23f8");
   
   return (
     <div className='absolute top-70 left-0 w-full'>
@@ -81,7 +81,7 @@ const MapContainer = ({ beaconList }) => {
         googleMapsApiKey={apiKey}
       >
         {adjustedBeacons.map((beacon, index) => (
-          console.log(beacon.latitude, beacon.longitude, beacon.adjustedPosition),
+          // console.log(beacon.latitude, beacon.longitude, beacon.adjustedPosition),
           <Beacon
             key={index}
             id={beacon.id}
