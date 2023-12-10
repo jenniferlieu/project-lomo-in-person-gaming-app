@@ -32,7 +32,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon, border_image }) => {
           anchor: new window.google.maps.Point(35, 35), // anchor point of the icon
         }}
       />
-      {/* <Marker
+      <Marker
         position={{ lat: beacon.latitude, lng: beacon.longitude }}
         onClick={toggleDisplayBeacon}
         icon={{
@@ -40,7 +40,7 @@ const Beacon = ({ id, activeBeacon, onBeaconClick, beacon, border_image }) => {
           scaledSize: new window.google.maps.Size(65, 65), // size of the icon
           anchor: new window.google.maps.Point(32.5, 32.5), // anchor point of the icon
         }}
-      /> */}
+      />
       {activeBeacon === id && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="w-screen max-w-[30rem]">
