@@ -68,6 +68,52 @@ Console/Kernel ............................... 16 / 66.7%
 ```test_get_all_users()```
 - Assert: HTTP status code 200 for successful response
 
+#### Test: Show existing user
+```test_show_existing_user()```
+- Assertions:
+  - HTTP status code 200 for successful response
+  - Returned JSON structure includes user data (id, email, username, avatar)
+
+#### Test: Delete existing user
+```test_delete_existing_user()```
+- Assertions:
+  - HTTP status code 200 for successful response
+  - Returned JSON includes the message "User deleted successfully"
+  - User no longer exists in the database
+
+### ProfileControllerTest
+
+#### Test: GET request to api/profiles is successful
+```testIndexProfiles()```
+- Assert: HTTP status code 200 for successful response
+
+#### Test: Show existing profile
+```testShowProfile()```
+- Assertions:
+  - HTTP status code 200 for successful response
+  - Returned JSON structure includes profile data
+
+#### Test: Delete existing profile
+```testDestroyProfile()```
+- Assertions:
+  - HTTP status code 200 for successful response
+  - Returned JSON includes the message "Profile deleted successfully"
+  - profiles no longer exists in the database
+
+#### Test: Update existing profile
+```testUpdateProfile()```
+- Assertions:
+  - HTTP status code 200 for successful response
+  - Returned JSON includes the message "Profile Update successfully"
+  - profiles data update in the database
+
+#### Test: Store new profile
+```testStoreProfile()```
+- Assertions:
+  - HTTP status code 200 for successful response
+  - Returned JSON includes the message "Profile store successfully"
+  - profiles data store in the database
+
 ### DatabaseConnectionTest
 
 #### Test: Database connection to the testing database
