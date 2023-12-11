@@ -85,7 +85,7 @@ The purpose of this class is to handle data pertaining to the `/api/beacons` rou
   - Parameters: array $beaconArray
   - Returns: array
 
-### AttendeeController Calss
+### AttendeeController Class
 The purpose of this class is to handle HTTP requests pertaining to the `/api/attendees` route.
 
 - **`index()` method: Gets a list of all attendees from the database**
