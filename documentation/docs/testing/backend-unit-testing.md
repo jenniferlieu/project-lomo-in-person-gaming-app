@@ -7,41 +7,6 @@ Laravel uses the built-in [PHPUnit testing framework](https://phpunit.de/) to cr
 
 Backend tests are automated by Github Actions and run every time a new pull request is made into the main branch.
 
-[![Test Backend](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/test-backend.yml/badge.svg)](https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-gaming-app/actions/workflows/test-backend.yml)
-
-## Test Coverage
-
-Results printed from the `sail artisan test --coverage` command. 
-
-```
-Console/Kernel ............................... 16 / 66.7%  
-  Exceptions/Handler ............................... 100.0%  
-  Http/Controllers/BeaconController .... 16, 43..59 / 55.6%  
-  Http/Controllers/Controller ...................... 100.0%  
-  Http/Controllers/PostController .................... 0.0%  
-  Http/Controllers/UserController .................... 0.0%  
-  Http/Kernel ...................................... 100.0%  
-  Http/Middleware/Authenticate ....................... 0.0%  
-  Http/Middleware/EncryptCookies ................... 100.0%  
-  Http/Middleware/PreventRequestsDuringMaintenance . 100.0%  
-  Http/Middleware/RedirectIfAuthenticated ............ 0.0%  
-  Http/Middleware/TrimStrings ...................... 100.0%  
-  Http/Middleware/TrustHosts ......................... 0.0%  
-  Http/Middleware/TrustProxies ..................... 100.0%  
-  Http/Middleware/ValidateSignature ................ 100.0%  
-  Http/Middleware/VerifyCsrfToken .................. 100.0%  
-  Models/Beacon .................................... 100.0%  
-  Models/Post ...................................... 100.0%  
-  Models/User ...................................... 100.0%  
-  Providers/AppServiceProvider ..................... 100.0%  
-  Providers/AuthServiceProvider .................... 100.0%  
-  Providers/BroadcastServiceProvider ................. 0.0%  
-  Providers/EventServiceProvider ................... 100.0%  
-  Providers/RouteServiceProvider ................... 100.0%  
-  ─────────────────────────────────────────────────────────  
-                                              Total: 41.4 %  
-```
-
 ## Tests
 
 ### BeaconControllerTest

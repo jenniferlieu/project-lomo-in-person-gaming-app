@@ -12,22 +12,6 @@ class AuthControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-/**
-     * A basic feature test example.
-     */
-    public function setUp(): void
-    {
-        parent::setUp(); // required
-
-        // setup code begins here
-        
-        // make api calls from frontend url's
-       $this->withHeaders([
-           'HTTP_ORIGIN' => 'https://lomogaming.netlify.app',
-           'Accept' => 'application/json'
-       ]);
-    }
-
     public function testRegister()
     {
         $userData = [
@@ -37,24 +21,24 @@ class AuthControllerTest extends TestCase
             "username" => "testuser"
         ];
 
-        $response = $this->json('POST', '/api/register', $userData);
+        $response = $this->json('POST', 'register', $userData);
 
         $response->assertStatus(201)
-        ->assertJsonStructure([
-            "token",
-            "user" => [
-            "email",
-            "username",
-            "updated_at",
-            "created_at",
-            "id"
-        ]
-    ]);
+            ->assertJsonStructure([
+                "token",
+                "user" => [
+                    "email",
+                    "username",
+                    "updated_at",
+                    "created_at",
+                    "id"
+                ]
+            ]);
     }
 
     public function testLogin()
     {
-        $user = User::create([
+        User::create([
             'email' => 'test@example.com',
             'password' => Hash::make('password'),
             'username' => 'testuser'
@@ -62,7 +46,7 @@ class AuthControllerTest extends TestCase
 
         $loginData = ['email' => 'test@example.com', 'password' => 'password'];
 
-        $response = $this->json('POST', '/api/login', $loginData);
+        $response = $this->json('POST', 'login', $loginData);
 
         $response->assertStatus(200)
             ->assertJsonStructure([
