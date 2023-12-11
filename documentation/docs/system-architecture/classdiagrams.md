@@ -344,8 +344,14 @@ Handles requests from the login and register API routes. Returns an access token
 #### UserController
 Handles requests from the users API route.
 
+#### ProfileController
+Handles requests from the profiles API route.
+
 #### BeaconController
 Handles requests from the beacons API route.
+
+#### GoogleApiController
+Handles requests from the Googles API route.
 
 #### GameController
 Makes an external API call to the IGDB API to get a list of games.
@@ -361,6 +367,9 @@ Interacts with the users table in the database.
 #### Beacon
 Interacts with the beacons table in the database.
 
+#### Profile
+Interacts with the profiles table in the database.
+
 ### Events
 Events are used as part of the pub-sub WebSocket model to create a one-way WebSocket channel notifying changes that occur on the server. They define the WebSocket channel and the data that needs to be sent to the frontend through the WebSocket. They are activated when the `broadcast()` or `event()` function is called, pushing data to all connected clients through the WebSocket, in real-time.
 
@@ -372,6 +381,15 @@ The FormRequest class takes the incoming json data passed through the API call a
 
 #### BeaconPostRequest
 Validates the fields sent to the post beacons API route.
+
+#### UserUpdateRequest
+Validates the fields sent to the put users API route.
+
+#### profileUpdateRequest
+Validates the fields sent to the put profiles API route.
+
+#### profileStoreRequest
+Validates the fields sent to the post profiles API route.
 
 ### Resources
 Resource classes converts the type PHP array data from the backend to a type json.

@@ -246,7 +246,7 @@ The ProfileUpdateRequest class is designed to validate incoming data received th
 - **`rules()` method: Get the validation rules that apply to the request.**
   - Returns: array
 
-  ### ProfileStoreRequest Class
+### ProfileStoreRequest Class
 The ProfileStoreRequest class is designed to validate incoming data received through the POST `api/profiles` route, specifically for creating new profiles.
 
 - **`authorize()` method: Determine if the user is authorized to make this request.**
