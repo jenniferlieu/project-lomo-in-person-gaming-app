@@ -84,3 +84,24 @@ Console/Kernel ............................... 16 / 66.7%
 - Assert: 
   - HTTP status code 200 for successful response
   - Expecte JSON returned
+
+### AttendeeControllerTest
+#### Test: GET request to api/attendees is successful
+```test_get_all_attendees()```
+- Assert: HTTP status code 200 for successful response
+
+#### Test: DELETE request to api/attendees/{user_id}/beacon/{beacon_id} is successful
+```test_delete_attendee()```
+- Assert: HTTP status code 200 for successful response
+
+#### Test: POST request to api/attendees is successful
+```test_store_attendee()```
+- Assert: HTTP status code 201 for successful response
+
+#### Test: PATCH request to api/attendees/{user_id}/beacon/{beacon_id} is successful
+```test_update_attendee()```
+- Assert: HTTP status code 200 for successful response
+
+#### Test: GET request to api/attendee/{attendee} is successful
+```test_show_attendee()```
+- Assert: HTTP status code 200 for successful response 
