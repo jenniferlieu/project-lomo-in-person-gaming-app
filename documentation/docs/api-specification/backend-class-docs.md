@@ -123,7 +123,7 @@ Model classes are like object classes in Java. They define the object instance f
 
 ### User
 
-The User model class defines the object instance of a users document/row in Laravel. It contains a list of all the users collection fields.
+The User model class defines the object instance of a user's document/row in Laravel. It contains a list of all the users collection fields.
 
 **Data fields:**
 
@@ -158,9 +158,16 @@ The Beacon model class defines the object instance of a beacons document/row in 
 - **`fillable`: array**
   - The attributes that are mass assignable.
 - **`guarded`: array**
-  - The attributes that are protected against mass assignment
+  - The attributes that are protected against mass assignment.
 - **`casts`: array**
   - The attributes that should be cast.
+
+### Attendee
+The Attendee model class defines the object instance of an attendee's document/row in Laravel. It contains a list of all the attendee-related fields.
+- **`fillable`: array**
+  - The attributes that are mass assignable.
+- **`guarded`: array**
+  - The attributes that are protected against mass assignment.
 
 ## Events
 
@@ -169,9 +176,18 @@ The purpose of this class is to send Beacon data through the websocket.
 
 - **`public BeaconJsonResponse $beacon` variable: Beacon data in json format.**
 - **`__construct(BeaconJsonResponse $beacon)` method: Creates a new BeaconCreated instance.**
-  - Pre-condition: called with either the `event()` method or the `broadcast()` method
+  - Pre-condition: Called with either the `event()` method or the `broadcast()` method
   - Parameters: BeaconJsonResponse $beacon
   - Returns: BeaconCreated instance
+- **`broadcastOn()` method: Get the channels the event should broadcast on.**
+  - Returns: array
+
+### AttendeCreate Class
+The purpose of this class is to send Attendee data through the websocket.
+- **`__contruct($attendee)` method: Creates a new AttendeeCreate instance.**
+  - Pre-condition: Called with either the `event()` method or the `broadcast()` method
+  - Parameters: $attendee
+  - Returns: AttendeeCreate instance
 - **`broadcastOn()` method: Get the channels the event should broadcast on.**
   - Returns: array
 
@@ -182,6 +198,32 @@ The purpose of this class is to validate incoming data received through the POST
 
 - **`authorize()` method: Determine if the user is authorized to make this request.**
   - Pre-condition: POST /api/beacons/{beacon}
+  - Returns: bool
+- **`rules()` method: Get the validation rules that apply to the request.**
+  - Returns: array
+
+### BeaconUpdateRequest Class
+The purpose of this class is to validate incoming data received through the PATCH `api/beacons` route.
+
+- **`authorize()` method: Determine if the user is authorized to make this request.**
+  - Pre-condition: PATCH /api/beacons/{beacon}
+  - Returns: bool
+- **`rules()` method: Get the validation rules that apply to the request.**
+  - Returns: array
+
+### AttendeePostRequest Class
+The purpose of this class is to validate incoming data received through the POST `api/attendees/` route.
+
+- **`authorize()` method: Determine if the user is authorized to make this request.**
+  - Pre-condition: POST /api/attendees/{attendee}
+  - Returns: bool
+- **`rules()` method: Get the validation rules that apply to the request.**
+  - Returns: array
+
+### AttendeeUpdateRequest Class
+The purpose of this class is to validate incoming data received throught the PATCH `api/attendees/{user_id}/beacon/{beacon_id}`.
+- **`authorize()` method: Determine if the user is authorized to make this request.**
+  - Pre-condition: PATCH api/attendees/{user_id}/beacon/{beacon_id}
   - Returns: bool
 - **`rules()` method: Get the validation rules that apply to the request.**
   - Returns: array

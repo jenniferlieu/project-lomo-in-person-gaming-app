@@ -37,10 +37,4 @@ class Attendee extends Model
     protected $guarded = [
         'isHost'
     ];
-
-    // protected static function booted(){
-    //     static::created(function ($attendee) {
-    //         BeaconDisplayUserInfo::dispatch($attendee);
-    //     });
-    // }
 }
