@@ -12,6 +12,22 @@ class AuthControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+/**
+     * A basic feature test example.
+     */
+    public function setUp(): void
+    {
+        parent::setUp(); // required
+
+        // setup code begins here
+        
+        // make api calls from frontend url's
+       $this->withHeaders([
+           'HTTP_ORIGIN' => 'https://lomogaming.netlify.app',
+           'Accept' => 'application/json'
+       ]);
+    }
+
     public function testRegister()
     {
         $userData = [

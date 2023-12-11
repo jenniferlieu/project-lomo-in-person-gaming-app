@@ -63,6 +63,11 @@ The data returned from a WebSocket channel is always an object with its own fiel
 
 Event is triggered every time the POST `api/beacons` route is successfully called.
 
+### `new-attendee` Channel
+- **Channel:** new-attendee
+- **Event** AttendeCreate
+- **Field name:** attendee
+
 ## JSON Overview
 
 A complete list of all fields for the JSON data that will be typically returned with most, if not all, API calls. Do not include fields that are marked read-only in your request. Read-only fields are meant to be received only.
@@ -127,25 +132,37 @@ A complete list of all beacon json fields.
 
 ```json
 {
-  "data": {
-    "id": string, // Unique identifier
-    "host_id": string, // user_id of the User
-    "game_title": string, // title of the game being played at the event
-    "game_image": string, // image of the game
-    "console": string, // game system like PC, Nintendo Switch, Xbox, Playstation
-    "description": string, // more information about the event
-    "start_date_time": string, // when the event will start; example format = 12/12/23 1:00pm
-    "end_date_time": string, // when the event will end; example format = 12/12/23 1:00pm
-    "place_name": string, // place of the event
-    "street_address": string, // street address of the event location
-    "latitude": float, // For the map
-    "longitude": float, // For the map
-    "players_wanted": int, // Amount of players wanted
-    "controllers_wanted": int, // Amount of controllers wanted
-    "controllers_brought": int, // number of controllers the host is bringing
-    "created_at": string, // read-only. date and time that data was first created
-    "updated_at": string, // read-only. date and time that data was last updated
-  }
+  "data": [
+    {
+      "id": string, // Unique identifier
+      "host_id": string, // user_id of the User
+      "game_title": string, // title of the game being played at the event
+      "game_image": string, // image of the game
+      "console": string, // game system like PC, Nintendo Switch, Xbox, Playstation
+      "description": string, // more information about the event
+      "start_date_time": string, // when the event will start; example format = 12/12/23 1:00pm
+      "end_date_time": string, // when the event will end; example format = 12/12/23 1:00pm
+      "place_name": string, // place of the event
+      "street_address": string, // street address of the event location
+      "latitude": float, // For the map
+      "longitude": float, // For the map
+      "players_wanted": int, // Amount of players wanted
+      "controllers_wanted": int, // Amount of controllers wanted
+      "controllers_brought": int, // number of controllers the host is bringing
+      "created_at": string, // read-only. date and time that data was first created
+      "updated_at": string, // read-only. date and time that data was last updated
+    },
+    {
+      "attendees": [
+        {
+          "user_id": string, //user_id of attendee 
+          "username": string, //username of the attendee
+          "avatar": string,  //avatar of the attendee to display
+          "controllers_brought": int // number of controllers the attendee is bringing
+        }
+      ]
+    }
+  ]
 }
 ```
 
@@ -161,6 +178,21 @@ A complete list of all beacon json fields.
         "image_id": string, // image file name
         "url": string, // largest size, image url
       } 
+    }
+  ]
+}
+```
+
+### Attendee JSON
+```json
+{
+  "attendees": [
+    {
+      "id": string, //attendee id
+      "beacon_id": string, //id of the beacon the user joined
+      "user_id": string, //id of the user
+      "controllers_brought": int, //number of controllers the user brought
+      "isHost": bool //if the user is the host of the beacon
     }
   ]
 }
