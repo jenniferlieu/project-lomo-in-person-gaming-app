@@ -8,15 +8,17 @@ use Tests\TestCase;
 use App\Models\Profile;
 use App\Models\User;
 
-class ProfileControllerTest extends TestCase {
+class ProfileControllerTest extends TestCase
+{
     use RefreshDatabase;
 
     public User $user;
 
     /**
      * Set up the test environment
-    **/
-    public function setUp(): void {
+     **/
+    public function setUp(): void
+    {
         parent::setUp(); // required
 
         // setup code begins here
@@ -24,15 +26,10 @@ class ProfileControllerTest extends TestCase {
         // mock authentication for sanctum
         $this->user = User::factory()->create(); // create a mock user
         $this->actingAs($this->user, 'sanctum'); // create a mock token from sanctum
-
-        // make api calls from frontend url's
-        $this->withHeaders([
-            'HTTP_ORIGIN' => 'https://lomogaming.netlify.app',
-            'Accept' => 'application/json'
-        ]);
     }
 
-    public function testIndexProfiles() {
+    public function testIndexProfiles()
+    {
         // Create multiple users and corresponding profiles
         $users = User::factory()->count(3)->create();
         $users->each(function ($user) {
@@ -50,7 +47,8 @@ class ProfileControllerTest extends TestCase {
         $response->assertJson(['data' => $profiles->toArray()]);
     }
 
-    public function testShowProfile() {
+    public function testShowProfile()
+    {
         // Create a user and the corresponding user profile
         // Do not simulate user login, instead use an unauthenticated user
         $user = User::factory()->create();
@@ -64,7 +62,8 @@ class ProfileControllerTest extends TestCase {
         $response->assertJson(['data' => $profile->toArray()]);
     }
 
-    public function testDestroyProfile() {
+    public function testDestroyProfile()
+    {
         // Create a user and a corresponding profile
         $user = User::factory()->create();
         $profile = Profile::factory()->create(['user_id' => $user->id]);
@@ -79,7 +78,8 @@ class ProfileControllerTest extends TestCase {
         $this->assertDatabaseMissing('profiles', ['id' => $profile->id]);
     }
 
-    public function testUpdateProfile() {
+    public function testUpdateProfile()
+    {
         // Create an unauthenticated user and the corresponding user profile
         // Do not simulate user login, instead use an unauthenticated user
         $user = User::factory()->create();
@@ -101,15 +101,16 @@ class ProfileControllerTest extends TestCase {
 
         $dbData = [
             'about_me' => $updatedData['about_me'],
-            'preferred_games' => '{'.implode(',', $updatedData['preferred_games']).'}',
-            'preference_tags' => '{'.implode(',', $updatedData['preference_tags']).'}',
+            'preferred_games' => '{' . implode(',', $updatedData['preferred_games']) . '}',
+            'preference_tags' => '{' . implode(',', $updatedData['preference_tags']) . '}',
         ];
 
         // Verify that the user profile in the database has been updated
         $this->assertDatabaseHas('profiles', $dbData);
     }
 
-    public function testStoreProfile() {
+    public function testStoreProfile()
+    {
         // Create a user to associate with the new profile
         $user = User::factory()->create();
 

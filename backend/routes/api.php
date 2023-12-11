@@ -24,7 +24,7 @@ use App\Http\Controllers\GoogleApiController;
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('beacons', BeaconController::class);
     Route::apiResource('users', UserController::class)->except('store');
-    Route::apiResource('attendees', AttendeeController::class)->except(['destroy','update']);
+    Route::apiResource('attendees', AttendeeController::class)->except(['destroy', 'update']);
     Route::patch('attendees/{user_id}/beacon/{beacon_id}', [AttendeeController::class, 'updateAttendee']);
     Route::delete('attendees/{user_id}/beacon/{beacon_id}', [AttendeeController::class, 'deleteAttendee']);
     Route::get('beacon-display-user-info', function () {
@@ -46,8 +46,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profiles', [ProfileController::class, 'index']);
     Route::post('/Googles', [GoogleApiController::class, 'googleApiRequest']);
 });
-
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-
-

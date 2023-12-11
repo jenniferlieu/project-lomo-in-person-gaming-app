@@ -31,12 +31,6 @@ class BeaconControllerTest extends TestCase
         $this->user = User::factory()->create(); // create a mock user
         $this->actingAs($this->user, 'sanctum'); // create a mock token from sanctum
 
-        // make api calls from frontend url's
-        $this->withHeaders([
-            'HTTP_ORIGIN' => 'https://lomogaming.netlify.app',
-            'Accept' => 'application/json'
-        ]);
-
         // create a mock beacon JSON replacing coordinates with latitude and longitude
         $this->beacon = Beacon::factory()->make([
             'host_id' => $this->user->id
