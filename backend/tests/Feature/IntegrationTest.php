@@ -11,6 +11,7 @@ use App\Models\Beacon;
 use App\Events\BeaconCreated;
 use Illuminate\Support\Facades\Event;
 use App\Events\AttendeeCreate;
+use App\Events\CommentCreated;
 
 class IntegrationTest extends TestCase
 {
@@ -176,12 +177,16 @@ class IntegrationTest extends TestCase
             'content' => 'test body comment',
         ];
 
+        // create mock events
+        Event::fake([CommentCreated::class]);
+
         // make api call
         $url = 'api/beacons/' . $beacon->id . '/comments';
         $response = $this->postJson($url, $comment);
 
         // make assertions
         $response->assertStatus(201);
+        Event::assertDispatched(CommentCreated::class);
     }
 
 }
