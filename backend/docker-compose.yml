@@ -21,7 +21,21 @@ services:
             - ".:/var/www/html"
         networks:
             - sail
+    database:
+        image: postgis/postgis:latest
+        ports:
+            - "${DB_PORT:-5432}:5432"
+        environment:
+            POSTGRES_USER: "${DB_USERNAME}"
+            POSTGRES_PASSWORD: "${DB_PASSWORD}"
+            PGDATA: "/var/lib/postgresql/data/pgdata"
+        volumes:
+            - "dbdata:/var/lib/postgresql/data"
+        networks:
+            - sail
 
 networks:
     sail:
         driver: bridge
+volumes:
+    dbdata:
