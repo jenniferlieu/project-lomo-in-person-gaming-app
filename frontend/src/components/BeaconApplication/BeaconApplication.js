@@ -22,7 +22,7 @@ function BeaconApplication() {
   const Apply = async () => {
     // define url and headers
     let url =
-      "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/attendees";
+      `${process.env.BACKEND}/api/attendees`;
     let options = {
       method: "POST",
       headers: {
