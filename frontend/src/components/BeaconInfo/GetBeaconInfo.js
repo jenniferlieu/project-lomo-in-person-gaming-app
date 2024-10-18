@@ -9,7 +9,7 @@ const GetBeaconInfo = () => {
     const fetchData = async () => {
       // define url and headers
       let url =
-        "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons";
+        `${process.env.BACKEND}/api/beacons`;
       let options = {
         method: "GET",
         headers: {

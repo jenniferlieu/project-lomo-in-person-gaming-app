@@ -21,7 +21,7 @@ const Signup = () => {
       //Call API for signup
       try {
         const response = await fetch(
-          "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/register",
+          `${process.env.BACKEND}/register`,
           {
             method: "POST",
             headers: {

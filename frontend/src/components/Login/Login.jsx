@@ -28,7 +28,7 @@ const Login = () => {
     } else {
       try {
         const response = await fetch(
-          "https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/login",
+          `${process.env.BACKEND}/login`,
           {
             method: "POST",
             headers: {

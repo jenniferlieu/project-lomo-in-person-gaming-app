@@ -11,14 +11,14 @@ const Comments = ({ beaconId, creatorId }) => {
 
     const fetchComments = useCallback(async () => {
         try {
-            const response = await fetch(`https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons/${beaconId}/comments`, {
+            const response = await fetch(`${process.env.BACKEND}/api/beacons/${beaconId}/comments`, {
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
                     Authorization: "Bearer " + authUser,
                 },
             });
-            const data = await response.json();            
+            const data = await response.json();
             if (Array.isArray(data)) {
                 setComments(data);
             } else {
@@ -48,7 +48,7 @@ const Comments = ({ beaconId, creatorId }) => {
 
     const handlePostComment = async () => {
         try {
-            const response = await fetch(`https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons/${beaconId}/comments`, {
+            const response = await fetch(`${process.env.BACKEND}/api/beacons/${beaconId}/comments`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const Comments = ({ beaconId, creatorId }) => {
 
     const handleDeleteComment = async (commentId) => {
         try {
-            const response = await fetch(`https://hku6k67uqeuabts4pgtje2czy40gldpa.lambda-url.us-east-1.on.aws/api/beacons/${beaconId}/comments/${commentId}`, {
+            const response = await fetch(`${process.env.BACKEND}/api/beacons/${beaconId}/comments/${commentId}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
