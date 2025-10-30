@@ -21,8 +21,7 @@ function BeaconApplication() {
 
   const Apply = async () => {
     // define url and headers
-    let url =
-      `${process.env.BACKEND}/api/attendees`;
+    let url = `${process.env.REACT_APP_BACKEND}/api/attendees`;
     let options = {
       method: "POST",
       headers: {
@@ -56,10 +55,7 @@ function BeaconApplication() {
   };
 
   return (
-    <form
-      id="joinForm"
-      className="bg-white rounded-lg w-full md:w-1/2 flex-col items-center justify-center m-auto shadow-lg p-3 h-auto text-sky-950 z-30"
-    >
+    <form id="joinForm" className="bg-white rounded-lg w-full md:w-1/2 flex-col items-center justify-center m-auto shadow-lg p-3 h-auto text-sky-950 z-30">
       <h1 className="text-2xl text-center">{gameTitle}</h1>
       <h2 className="text-xl text-left">{hostUsername}</h2>
       <h3 className="text-l text-left">{userInfo.username}</h3>
@@ -84,21 +80,13 @@ function BeaconApplication() {
         />
         <div className="flex flex-row space-x-2 mt-3 justify-center">
           <Link to="/">
-            <button className="font-bold relative bg-sky-400 py-1 px-1 rounded">
-              Close
-            </button>
+            <button className="font-bold relative bg-sky-400 py-1 px-1 rounded">Close</button>
           </Link>
-          <button
-            className="font-bold relative bg-red-500 py-1 px-1 rounded"
-            onClick={clearForm}
-          >
+          <button className="font-bold relative bg-red-500 py-1 px-1 rounded" onClick={clearForm}>
             Clear
           </button>
           <Link to="/">
-            <button
-              className="font-bold  bg-teal-500 py-1 px-1 rounded"
-              onClick={Apply}
-            >
+            <button className="font-bold  bg-teal-500 py-1 px-1 rounded" onClick={Apply}>
               Submit
             </button>
           </Link>
