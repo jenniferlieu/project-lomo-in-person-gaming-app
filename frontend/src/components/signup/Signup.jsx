@@ -17,24 +17,22 @@ const Signup = () => {
       e.preventDefault();
       console.log("Passwords match");
       console.log(usernameInput, emailInput, pass1Input, passwordsMatch);
+      console.log(`${process.env.REACT_APP_BACKEND}/register`);
 
       //Call API for signup
       try {
-        const response = await fetch(
-          `${process.env.BACKEND}/register`,
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username: usernameInput,
-              email: emailInput,
-              password: pass1Input,
-            }),
-          }
-        );
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/register`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: usernameInput,
+            email: emailInput,
+            password: pass1Input,
+          }),
+        });
 
         if (response.ok) {
           const data = await response.json();
@@ -77,14 +75,7 @@ const Signup = () => {
     };
 
     return (
-      <button
-        data-testid="submit-button"
-        type="submit"
-        onClick={animate}
-        className={`rounded-full bg-sky-900 text-teal-50 px-8 py-2 my-5 mx-auto ${
-          shake ? "shake" : ""
-        }`}
-      >
+      <button data-testid="submit-button" type="submit" onClick={animate} className={`rounded-full bg-sky-900 text-teal-50 px-8 py-2 my-5 mx-auto ${shake ? "shake" : ""}`}>
         {p}
       </button>
     );
@@ -112,14 +103,7 @@ const Signup = () => {
           />
 
           <label htmlFor="email">Email:</label>
-          <input
-            value={emailInput}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            id="email"
-            name="email"
-            className="w-full p-1 my-2"
-          />
+          <input value={emailInput} onChange={(e) => setEmail(e.target.value)} type="email" id="email" name="email" className="w-full p-1 my-2" />
 
           <label htmlFor="pass1">Password:</label>
           <input

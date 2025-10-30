@@ -62,8 +62,7 @@ function BeaconCreation() {
 
   function displayText(text) {
     document.getElementById("displayArea").innerHTML = text;
-    document.getElementById("displayArea").className =
-      "font-bold relative bg-green-400 py-1 px-1 rounded float-right";
+    document.getElementById("displayArea").className = "font-bold relative bg-green-400 py-1 px-1 rounded float-right";
   }
 
   function clearForm() {
@@ -95,13 +94,12 @@ function BeaconCreation() {
       longitude: longitude,
       players_wanted: players,
       controllers_wanted: totalControllers,
-      controllers_brought: hostControllers
+      controllers_brought: hostControllers,
     };
     console.log(data);
 
     // define url and headers
-    let url =
-      "{process.env.BACKEND}/api/beacons";
+    let url = `{process.env.REACT_APP_BACKEND}/api/beacons`;
     let options = {
       method: "POST",
       headers: {
@@ -127,21 +125,12 @@ function BeaconCreation() {
 
   return (
     <div className="border-box bg-white rounded-lg w-11/12 md:w-2/3 flex-col items-center justify-center my-2 md:my-10 m-auto shadow-lg p-4 h-auto text-sky-950">
-      <div className="font-bold text-2xl border-b-4 border-b-sky-950 pb-2 w-full mb-2">
-        What
-      </div>
+      <div className="font-bold text-2xl border-b-4 border-b-sky-950 pb-2 w-full mb-2">What</div>
 
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div className="flex-col w-full p-1 md:p-2">
           Game Name:
-          <input
-            value={gameName}
-            onChange={handleInputChange}
-            onFocus={() => setInputFocused(true)}
-            onBlur={() => setInputFocused(false)}
-            placeholder="What are we playing?"
-            className="p-1 border-teal-100 border-2 rounded w-full"
-          />
+          <input value={gameName} onChange={handleInputChange} onFocus={() => setInputFocused(true)} onBlur={() => setInputFocused(false)} placeholder="What are we playing?" className="p-1 border-teal-100 border-2 rounded w-full" />
           {isInputFocused &&
             autocompleteResults.map((game) => (
               <div
@@ -161,17 +150,10 @@ function BeaconCreation() {
                   transition: "0.3s",
                   animation: game.id === clickedGameId ? "flash 0.5s" : "none",
                 }}
-                onMouseOver={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#ddd")
-                }
+                onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#ddd")}
                 onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "")}
-                className="flex items-center my-2"
-              >
-                <img
-                  src={game.cover ? game.cover.url : "images/catScream.jpg"}
-                  alt={game.name}
-                  className="h-[4.5rem] w-[4.5rem]"
-                />
+                className="flex items-center my-2">
+                <img src={game.cover ? game.cover.url : "images/catScream.jpg"} alt={game.name} className="h-[4.5rem] w-[4.5rem]" />
                 <p>{game.name}</p>
               </div>
             ))}
@@ -234,64 +216,39 @@ function BeaconCreation() {
         </div>
       </div>
 
-      <div className="font-bold text-2xl border-b-4 border-b-sky-950 py-2 w-full mb-2">
-        Where
-      </div>
+      <div className="font-bold text-2xl border-b-4 border-b-sky-950 py-2 w-full mb-2">Where</div>
 
       <div className="flex-col w-full p-1 md:p-2">
         Location:
         <LocationSearch returnValue={getLocation} />
       </div>
 
-      <div className="font-bold text-2xl border-b-4 border-b-sky-950 py-2 w-full mb-2">
-        When
-      </div>
+      <div className="font-bold text-2xl border-b-4 border-b-sky-950 py-2 w-full mb-2">When</div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 place-content-center">
         <div className="p-4">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateTimePicker
-              label="From: "
-              value={timeFrom}
-              onChange={(newValue) => setFrom(newValue)}
-              className="w-full"
-            />
+            <DateTimePicker label="From: " value={timeFrom} onChange={(newValue) => setFrom(newValue)} className="w-full" />
           </LocalizationProvider>
         </div>
         <div className="p-4">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateTimePicker
-              label="To: "
-              value={timeTo}
-              onChange={(newValue) => setTo(newValue)}
-              className="w-full"
-            />
+            <DateTimePicker label="To: " value={timeTo} onChange={(newValue) => setTo(newValue)} className="w-full" />
           </LocalizationProvider>
         </div>
       </div>
       <div className="flex flex-row space-x-2 mt-3 justify-center">
         <Link to="/">
-          <button className="font-bold relative bg-sky-400 py-1 px-1 rounded">
-            Close
-          </button>
+          <button className="font-bold relative bg-sky-400 py-1 px-1 rounded">Close</button>
         </Link>
 
-        <button
-          className="font-bold relative bg-red-500 py-1 px-1 rounded"
-          onClick={clearForm}
-        >
+        <button className="font-bold relative bg-red-500 py-1 px-1 rounded" onClick={clearForm}>
           Clear
         </button>
-        <button
-          className="font-bold  bg-teal-500 py-1 px-1 rounded"
-          onClick={onClose}
-        >
+        <button className="font-bold  bg-teal-500 py-1 px-1 rounded" onClick={onClose}>
           Confirm
         </button>
-        <div
-          className="font-bold relative py-1 px-1 rounded float-right"
-          id="displayArea"
-        ></div>
+        <div className="font-bold relative py-1 px-1 rounded float-right" id="displayArea"></div>
       </div>
     </div>
   );

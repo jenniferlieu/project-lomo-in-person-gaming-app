@@ -27,20 +27,17 @@ const Login = () => {
       navigate("/");
     } else {
       try {
-        const response = await fetch(
-          `${process.env.BACKEND}/login`,
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: emailInput,
-              password: passInput,
-            }),
-          }
-        );
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/login`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: emailInput,
+            password: passInput,
+          }),
+        });
 
         if (response.ok) {
           const data = await response.json();
@@ -72,28 +69,11 @@ const Login = () => {
         </h1>
         <form onSubmit={handleSubmit} className="text-lg text-left">
           <label htmlFor="email">Email:</label>
-          <input
-            value={emailInput}
-            onChange={handleEmailChange}
-            type="email"
-            id="email"
-            name="email"
-            className="w-full p-1 my-2"
-          />
+          <input value={emailInput} onChange={handleEmailChange} type="email" id="email" name="email" className="w-full p-1 my-2" />
           <label htmlFor="password">Password:</label>
-          <input
-            value={passInput}
-            onChange={handlePassChange}
-            type="password"
-            id="password"
-            name="password"
-            className="w-full p-1 my-2"
-          />
+          <input value={passInput} onChange={handlePassChange} type="password" id="password" name="password" className="w-full p-1 my-2" />
           <br />
-          <button
-            className="rounded-full bg-sky-900 text-teal-50 px-8 py-2 my-5 mx-auto"
-            type="submit"
-          >
+          <button className="rounded-full bg-sky-900 text-teal-50 px-8 py-2 my-5 mx-auto" type="submit">
             Log In
           </button>
         </form>

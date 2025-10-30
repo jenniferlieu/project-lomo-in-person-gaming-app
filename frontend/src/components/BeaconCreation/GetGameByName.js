@@ -4,9 +4,7 @@ import { useAuth } from "../../AuthContext.js";
 
 const GetGameByName = async (gameName, authUser) => {
   console.log(`Game Name: ${gameName}`);
-  let url = `${process.env.BACKEND}/api/games/${encodeURIComponent(
-    gameName
-  )}`;
+  let url = `${process.env.REACT_APP_BACKEND}/api/games/${encodeURIComponent(gameName)}`;
   let options = {
     method: "GET",
     headers: {

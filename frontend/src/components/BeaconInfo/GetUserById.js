@@ -11,7 +11,7 @@ const GetUserById = (userId) => {
     const fetchData = async () => {
       console.log(`User Id: ${userId}`);
       // define url and headers
-      let url = `${process.env.BACKEND}s/api/users/${userId}`;
+      let url = `${process.env.REACT_APP_BACKEND}s/api/users/${userId}`;
       let options = {
         method: "GET",
         headers: {

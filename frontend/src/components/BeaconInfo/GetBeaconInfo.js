@@ -8,8 +8,7 @@ const GetBeaconInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       // define url and headers
-      let url =
-        `${process.env.BACKEND}/api/beacons`;
+      let url = `${process.env.REACT_APP_BACKEND}/api/beacons`;
       let options = {
         method: "GET",
         headers: {
