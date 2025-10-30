@@ -1,3 +1,8 @@
+> [!WARNING]
+> This is **NOT** maintained. Cleaned up setup instructions and build to make the repo easier to build and run locally for demonstration purposes.
+
+---
+
 [![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-7f7980b617ed060a017424585567c406b6ee15c891e84e1186181d67ecf80aa0.svg)](https://urban-rotary-phone-rp7jq9p5wp43rrj.github.dev/)
 <div align="center">
 
@@ -35,6 +40,10 @@
       - [3. Setup backend](#3-setup-backend)
         - [(Optional) Setup sail alias](#optional-setup-sail-alias)
       - [4. Setup docusaurus](#4-setup-docusaurus)
+    - [Get secret keys](#get-secret-keys)
+      - [Get secret key for google maps api (frontend only)](#get-secret-key-for-google-maps-api-frontend-only)
+      - [Get secret keys for pusher (frontend and backend)](#get-secret-keys-for-pusher-frontend-and-backend)
+      - [Get secret keys for twitch/igdb (backend only)](#get-secret-keys-for-twitchigdb-backend-only)
   - [Run](#run)
     - [Run the app](#run-the-app)
     - [Stop running the app](#stop-running-the-app)
@@ -110,8 +119,8 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
 3. Copy the .env.example file to .env
     ```bash
     cp .env.example .env
-    # add secret keys to .env
     ```
+4. Insert secret keys into `.env`. [Use this guide to generate your own api keys.](#get-secret-keys) Or copy and paste it from the discord server pinned messages.
 
 #### 3. Setup backend
 1. Go to the `backend/` folder
@@ -128,8 +137,8 @@ git clone https://github.com/Capstone-Projects-2023-Fall/project-lomo-in-person-
 4. Copy the .env.example file to .env
     ```bash
     cp .env.example .env
-    # add secret keys to .env
     ```
+4. Insert secret keys into `.env`. [Use this guide to generate your own api keys.](#get-secret-keys) Or copy and paste it from the discord server pinned messages.
 5. Build the image and start the docker container (in detached mode)
    ```bash
    ./vendor/bin/sail up -d
@@ -182,9 +191,28 @@ Add this line to your `~/.bashrc` or `~/.zshrc` in your home directory:
    yarn install
    ```
 
+### Get secret keys
+If you're new this project and don't have access to our secret keys, you'll need to get your own api keys in order to run this app on your own machine.
+
+#### Get secret key for google maps api (frontend only)
+To get a google maps api key, follow these instructions on the website to generate a **Goole Maps Javascript API Key**: https://developers.google.com/maps/documentation/javascript/get-api-key?setupProd=prerequisites
+
+#### Get secret keys for pusher (frontend and backend)
+To get the secret keys for pusher, go to https://pusher.com.
+
+1. Create an account or sign in if you already have an account
+2. Under "Channels" create an new app called "LOMO". Choose "React" and "Laravel" for frontend and backend. Choose a cluster closest to you.
+3. Click "App keys"
+4. Copy and paste each one to their corresponding env variables in the frontend and backend
+
+#### Get secret keys for twitch/igdb (backend only)
+To get the secret key for twitch, follow the getting started directions on their website: https://api-docs.igdb.com/#getting-started
+
+
 ## Run
 
 ### Run the app
+1. **Start Docker Desktop app**
 1. **Start the backend server**
    ```bash
    cd backend
@@ -199,7 +227,7 @@ Add this line to your `~/.bashrc` or `~/.zshrc` in your home directory:
    ```
    ```bash
    npm run build
-   serve -s build
+   npx serve -s build
    ```
 3. Go to [https://localhost:3000](https://localhost:3000) to see the app
 
