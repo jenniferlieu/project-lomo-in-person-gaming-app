@@ -1,5 +1,5 @@
 > [!WARNING]
-> This is **NOT** maintained. Cleaned up setup instructions and build to make the repo easier to build and run locally for demonstration purposes.
+> Live demo **DOES NOT WORK**. I forked this repo to clean up the setup instructions and build to make the repo easier to build and run locally for demonstration purposes.
 
 ---
 
